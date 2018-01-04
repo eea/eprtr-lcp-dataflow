@@ -24,7 +24,11 @@ declare variable $xmlconv:FINDINGS_PATH as xs:string := ("https://converters.eio
 declare variable $xmlconv:VALID_OTHER_SECTOR as xs:string* := ("iron_steel","esi","district_heating","chp","other");
 (:declare variable $eworx:SchemaModel := eworx:getSchemaModel($source_url);:)
 
-declare function xmlconv:RowBuilder ( $RuleCode as xs:string, $RuleName as xs:string, $ResDetails as element()*  ) as element( ) *{
+declare function xmlconv:RowBuilder (
+        $RuleCode as xs:string,
+        $RuleName as xs:string,
+        $ResDetails as element()*
+) as element( ) *{
 
   let $RuleCode := substring-after($RuleCode, ' ')
 
@@ -81,7 +85,12 @@ declare function xmlconv:RowBuilder ( $RuleCode as xs:string, $RuleName as xs:st
 
     };
 
-declare function xmlconv:RowAggregator ( $RuleCode as xs:string, $RuleName as xs:string, $ResMessage as xs:string, $ResRows as element()*  ) as element( ) *{
+declare function xmlconv:RowAggregator (
+        $RuleCode as xs:string,
+        $RuleName as xs:string,
+        $ResMessage as xs:string,
+        $ResRows as element()*
+) as element( ) *{
 
   let $RuleCode := substring-after($RuleCode, ' ')
 
@@ -160,131 +169,124 @@ declare function xmlconv:isInVocabulary(
                 ()
 };
 
-declare function xmlconv:RunQAs( $source_url ) as element()* {
+declare function xmlconv:RunQAs(
+        $source_url
+) as element()* {
 
     let $docRoot := doc($source_url)
 
-    (:
-        C1.1 – combustionPlantCategory consistency
-    :)
+    (:  C1.1 – combustionPlantCategory consistency  :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/combustionPlantCategory/combustionPlantCategory
         return xmlconv:isInVocabulary($seq, "CombustionPlantCategoryValue")
     let $LCP_1_1 := xmlconv:RowBuilder("EPRTR-LCP 1.1","combustionPlantCategory consistency", $res )
 
-    (:
-        C1.2 – CountryCode consistency
-    :)
+    (:  C1.2 – CountryCode consistency  :)
     let $res :=
         let $seq := $docRoot//*[local-name() = ("countryCode", "countryId")]
         return xmlconv:isInVocabulary($seq, "CountryCodeValue")
     let $LCP_1_2 := xmlconv:RowBuilder("EPRTR-LCP 1.2","CountryCode consistency", $res )
 
-    (:
-        C1.3 – EPRTRPollutant consistency
-    :)
+    (:  C1.3 – EPRTRPollutant consistency   :)
     let $res :=
         let $seq := $docRoot//ProductionFacilityReport/*[local-name() = ("offsitePoluantTransfer", "pollutantRelease")]//pollutant
         return xmlconv:isInVocabulary($seq, "EPRTRPollutantCodeValue")
     let $LCP_1_3 := xmlconv:RowBuilder("EPRTR-LCP 1.3","EPRTRPollutantCodeValue consistency", $res )
 
-    (:
-        C1.4 – fuelInput consistency
-    :)
+    (:  C1.4 – fuelInput consistency    :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport//fuelInput/fuelInput
         return xmlconv:isInVocabulary($seq, "FuelInputValue")
     let $LCP_1_4 := xmlconv:RowBuilder("EPRTR-LCP 1.4","FuelInputValue consistency", $res )
 
-    (:
-        C1.5 – LCPPollutant consistency
-    :)
+    (:  C1.5 – LCPPollutant consistency :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir/pollutant
         return xmlconv:isInVocabulary($seq, "LCPPollutantCodeValue")
     let $LCP_1_5 := xmlconv:RowBuilder("EPRTR-LCP 1.5","LCPPollutantCodeValue consistency", $res )
 
-    (:
-        C1.6 – mediumCode consistency
-    :)
+    (:  C1.6 – mediumCode consistency   :)
     let $res :=
         let $seq := $docRoot//pollutantRelease/mediumCode
         return xmlconv:isInVocabulary($seq, "MediumCodeValue")
     let $LCP_1_6 := xmlconv:RowBuilder("EPRTR-LCP 1.6","MediumCodeValue consistency", $res )
 
-    (:
-        C1.7 - methodClassification consistency
-    :)
+    (:  C1.7 - methodClassification consistency :)
     let $res :=
         let $seq := $docRoot//methodClassification
         return xmlconv:isInVocabulary($seq, "MethodClassificationValue")
     let $LCP_1_7 := xmlconv:RowBuilder("EPRTR-LCP 1.7","MethodClassificationValue consistency", $res )
 
-    (:
-        C1.8 - methodCode consistency
-    :)
+    (:  C1.8 - methodCode consistency   :)
     let $res :=
         let $seq := $docRoot//methodCode
         return xmlconv:isInVocabulary($seq, "MethodCodeValue")
     let $LCP_1_8 := xmlconv:RowBuilder("EPRTR-LCP 1.8","MethodCodeValue consistency", $res )
 
-    (:
-        C1.9 – Month Consistency
-    :)
+    (:  C1.9 – Month Consistency    :)
     let $res :=
         let $seq := $docRoot//desulphurisationInformation[fn:string-length(desulphurisationRate) != 0]/month
         return xmlconv:isInVocabulary($seq, "MonthValue")
     let $LCP_1_9 := xmlconv:RowBuilder("EPRTR-LCP 1.9","MonthValue consistency", $res )
 
-    (:
-        C1.10 – OtherGaseousFuel consistency
-    :)
+    (:  C1.10 – OtherGaseousFuel consistency    :)
     let $res :=
         let $otherGases := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases"
         let $seq := $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherGases]/otherGaseousFuel
         return xmlconv:isInVocabulary($seq, "OtherGaseousFuelValue")
     let $LCP_1_10 := xmlconv:RowBuilder("EPRTR-LCP 1.10","OtherGaseousFuelValue consistency", $res )
 
-    (:
-        C1.11 – OtherSolidFuel consistency
-    :)
+    (:  C1.11 – OtherSolidFuel consistency  :)
     let $res :=
         let $otherSolidFuel := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
         let $seq := $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherSolidFuel]/otherSolidFuel
         return xmlconv:isInVocabulary($seq, "OtherSolidFuelValue")
     let $LCP_1_11 := xmlconv:RowBuilder("EPRTR-LCP 1.11","OtherSolidFuelValue consistency", $res )
 
-    (:
-        C1.12 - ReasonValue consistency
-    :)
+    (:  C1.12 - ReasonValue consistency :)
     let $res :=
         let $seq := $docRoot//confidentialityReason
         return xmlconv:isInVocabulary($seq, "ReasonValue")
     let $LCP_1_12 := xmlconv:RowBuilder("EPRTR-LCP 1.12","ReasonValue consistency", $res )
 
-    (:
-        C1.13 – UnitCode consistency
-    :)
+    (:  C1.13 – UnitCode consistency    :)
     let $res :=
         let $seq := $docRoot//productionVolumeUnits
         return xmlconv:isInVocabulary($seq, "UnitCodeValue")
     let $LCP_1_13 := xmlconv:RowBuilder("EPRTR-LCP 1.13","UnitCodeValue consistency", $res )
 
-    (:
-        C1.14 – wasteClassification consistency
-    :)
+    (:  C1.14 – wasteClassification consistency :)
     let $res :=
         let $seq := $docRoot//wasteClassification
         return xmlconv:isInVocabulary($seq, "WasteClassificationValue")
     let $LCP_1_14 := xmlconv:RowBuilder("EPRTR-LCP 1.14","WasteClassificationValue consistency", $res )
 
-    (:
-        C1.15 – wasteTreatment consistency
-    :)
+    (:  C1.15 – wasteTreatment consistency  :)
     let $res :=
         let $seq := $docRoot//wasteTreatment
         return xmlconv:isInVocabulary($seq, "WasteTreatmentValue")
     let $LCP_1_15 := xmlconv:RowBuilder("EPRTR-LCP 1.15","WasteTreatmentValue consistency", $res )
+
+    let $res := ()
+    (:  C2.1 – inspireId consistency    :)
+    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency", $res)
+
+    (:  C2.2 – Comprehensive LCP reporting    :)
+    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting", $res)
+
+    (:  C2.3 – ProductionFacility inspireId uniqueness    :)
+    let $LCP_2_3 := xmlconv:RowBuilder("EPRTR-LCP 2.3","ProductionFacility inspireId uniqueness", $res)
+
+    (:  C2.4 – ProductionInstallationPart inspireId uniqueness    :)
+    let $LCP_2_4 := xmlconv:RowBuilder("EPRTR-LCP 2.4","ProductionInstallationPart inspireId uniqueness", $res)
+
+    (:  C3.1 – Pollutant reporting completeness     :)
+    let $res :=
+        
+        let $seq := $docRoot//ProductionInstallationPartReport
+        for $elem in $seq
+
+    let $LCP_3_1 := xmlconv:RowBuilder("EPRTR-LCP 3.1","Pollutant reporting completeness", $res)
 
     (: RETURN ALL ROWS IN A TABLE :)
     return
@@ -303,12 +305,18 @@ declare function xmlconv:RunQAs( $source_url ) as element()* {
             $LCP_1_12,
             $LCP_1_13,
             $LCP_1_14,
-            $LCP_1_15
+            $LCP_1_15,
+            $LCP_2_1,
+            $LCP_2_2,
+            $LCP_2_3,
+            $LCP_2_4
         )
 
 };
 
-declare function eworx:testDocumentBasicTypes( $source_url as xs:string ){
+declare function eworx:testDocumentBasicTypes(
+        $source_url as xs:string
+){
 
     let $res := for $attr in doc($source_url)//Plant/descendant::*
     where  eworx:testBasicElementType($attr, $source_url) = "false"
@@ -328,7 +336,9 @@ declare function eworx:testDocumentBasicTypes( $source_url as xs:string ){
 
 } ;
 
-declare function xmlconv:DoValidate($source_url as xs:string) as element(table){
+declare function xmlconv:DoValidate(
+        $source_url as xs:string
+) as element(table){
 
     let $res :=
     if ( exists(eworx:testDocumentBasicTypes($source_url))) then
