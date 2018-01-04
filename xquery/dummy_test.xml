@@ -3,7 +3,7 @@
     <countryId>ASD</countryId>
     <reportingYear>1999</reportingYear>
     <ProductionInstallationPartReport>
-        <confidentialityReason>str1234</confidentialityReason>
+        <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(a)</confidentialityReason>
         <productionInstallationPartReportId>
             <localId>str1234</localId>
             <namespace>str1234</namespace>
@@ -18,29 +18,41 @@
             <furtherDetails>str1234</furtherDetails>
         </combustionPlantCategory>
         <desulphurisationInformation>
-            <desulphurisationRate>3.1415926535</desulphurisationRate>
-            <month>str1234</month>
+            <desulphurisationRate>3.123</desulphurisationRate>
+            <month>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MonthValue/DEC1</month>
             <sulphurContent>3.1415926535</sulphurContent>
             <technicalJustification>str1234</technicalJustification>
         </desulphurisationInformation>
         <emissionsToAir>
-            <confidentialityReason>str1234</confidentialityReason>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO23</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <energyInput>
-            <confidentialityReason>str1234</confidentialityReason>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
-                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite1</fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
-                <otherGaseousFuel>str1234</otherGaseousFuel>
+                <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
+                <otherSolidFuel>str1234</otherSolidFuel>
+            </fuelInput>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>asd</otherGaseousFuel>
+                <otherSolidFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Coke1</otherSolidFuel>
+            </fuelInput>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases1</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
                 <otherSolidFuel>str1234</otherSolidFuel>
             </fuelInput>
         </energyInput>
     </ProductionInstallationPartReport>
     <ProductionFacilityReport>
-        <confidentialityReason>str1234</confidentialityReason>
+        <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)1</confidentialityReason>
         <productionFacilityReportId>
             <localId>str1234</localId>
             <namespace>str1234</namespace>
@@ -51,14 +63,14 @@
         <representativeStackHeightM>3.1415926535</representativeStackHeightM>
         <productionVolume>
             <productionVolume>3.1415926535</productionVolume>
-            <productionVolumeUnits>str1234</productionVolumeUnits>
+            <productionVolumeUnits>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/UnitCodeValue/GW1</productionVolumeUnits>
             <productName>str1234</productName>
         </productionVolume>
         <offsiteWasteTransfer>
-            <confidentialityReason>str1234</confidentialityReason>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)3</confidentialityReason>
             <totalWasteQuantityTNE>3.1415926535</totalWasteQuantityTNE>
-            <wasteClassification>str1234</wasteClassification>
-            <wasteTreatment>str1234</wasteTreatment>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/HW2</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/R1</wasteTreatment>
             <method>
                 <furtherDetails>str1234</furtherDetails>
                 <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/q</methodClassification>
@@ -83,7 +95,7 @@
             </transboundaryTransfer>
         </offsiteWasteTransfer>
         <offsitePoluantTransfer>
-            <confidentialityReason>str1234</confidentialityReason>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CH44</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
@@ -94,7 +106,7 @@
         </offsitePoluantTransfer>
         <pollutantRelease>
             <accidentalPollutantQuantityKg>3.1415926535</accidentalPollutantQuantityKg>
-            <confidentialityReason>str1234</confidentialityReason>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER1</mediumCode>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>

@@ -228,6 +228,64 @@ declare function xmlconv:RunQAs( $source_url ) as element()* {
         return xmlconv:isInVocabulary($seq, "MethodCodeValue")
     let $LCP_1_8 := xmlconv:RowBuilder("EPRTR-LCP 1.8","MethodCodeValue consistency", $res )
 
+    (:
+        C1.9 – Month Consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//desulphurisationInformation[fn:string-length(desulphurisationRate) != 0]/month
+        return xmlconv:isInVocabulary($seq, "MonthValue")
+    let $LCP_1_9 := xmlconv:RowBuilder("EPRTR-LCP 1.9","MonthValue consistency", $res )
+
+    (:
+        C1.10 – OtherGaseousFuel consistency
+    :)
+    let $res :=
+        let $otherGases := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases"
+        let $seq := $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherGases]/otherGaseousFuel
+        return xmlconv:isInVocabulary($seq, "OtherGaseousFuelValue")
+    let $LCP_1_10 := xmlconv:RowBuilder("EPRTR-LCP 1.10","OtherGaseousFuelValue consistency", $res )
+
+    (:
+        C1.11 – OtherSolidFuel consistency
+    :)
+    let $res :=
+        let $otherSolidFuel := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
+        let $seq := $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherSolidFuel]/otherSolidFuel
+        return xmlconv:isInVocabulary($seq, "OtherSolidFuelValue")
+    let $LCP_1_11 := xmlconv:RowBuilder("EPRTR-LCP 1.11","OtherSolidFuelValue consistency", $res )
+
+    (:
+        C1.12 - ReasonValue consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//confidentialityReason
+        return xmlconv:isInVocabulary($seq, "ReasonValue")
+    let $LCP_1_12 := xmlconv:RowBuilder("EPRTR-LCP 1.12","ReasonValue consistency", $res )
+
+    (:
+        C1.13 – UnitCode consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//productionVolumeUnits
+        return xmlconv:isInVocabulary($seq, "UnitCodeValue")
+    let $LCP_1_13 := xmlconv:RowBuilder("EPRTR-LCP 1.13","UnitCodeValue consistency", $res )
+
+    (:
+        C1.14 – wasteClassification consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//wasteClassification
+        return xmlconv:isInVocabulary($seq, "WasteClassificationValue")
+    let $LCP_1_14 := xmlconv:RowBuilder("EPRTR-LCP 1.14","WasteClassificationValue consistency", $res )
+
+    (:
+        C1.15 – wasteTreatment consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//wasteTreatment
+        return xmlconv:isInVocabulary($seq, "WasteTreatmentValue")
+    let $LCP_1_15 := xmlconv:RowBuilder("EPRTR-LCP 1.15","WasteTreatmentValue consistency", $res )
+
     (: RETURN ALL ROWS IN A TABLE :)
     return
         (
@@ -238,7 +296,14 @@ declare function xmlconv:RunQAs( $source_url ) as element()* {
             $LCP_1_5,
             $LCP_1_6,
             $LCP_1_7,
-            $LCP_1_8
+            $LCP_1_8,
+            $LCP_1_9,
+            $LCP_1_10,
+            $LCP_1_11,
+            $LCP_1_12,
+            $LCP_1_13,
+            $LCP_1_14,
+            $LCP_1_15
         )
 
 };
