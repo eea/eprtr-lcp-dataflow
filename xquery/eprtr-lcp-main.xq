@@ -142,11 +142,9 @@ declare function xmlconv:RowAggregator ( $RuleCode as xs:string, $RuleName as xs
 
 declare function xmlconv:isInVocabulary(
         $seq as element()*,
-        $concept as xs:string,
-        $feature as xs:string,
-        $vocName as xs:string
+        $concept as xs:string
 ) as element()*{
-    let $valid := scripts:getValidConcepts($concept, $vocName)
+    let $valid := scripts:getValidConcepts($concept)
         for $elem in $seq
         let $ok := $valid = data($elem)
         return
@@ -155,7 +153,7 @@ declare function xmlconv:isInVocabulary(
                 <tr>
                     <td class='error' title="Details"> {$concept} has not been recognised</td>
                     <td class="tderror" title="{node-name($elem)}"> {data($elem)} </td>
-                    <td title="localId"> {data($elem/ancestor-or-self::*[local-name() = $feature]//localId)} </td>
+                    <!-- <td title="localId"> {data($elem/ancestor-or-self::*[local-name() = $feature]//localId)} </td> -->
                     <td title="path">{functx:path-to-node($elem)}</td>
                 </tr>
             else
@@ -171,23 +169,76 @@ declare function xmlconv:RunQAs( $source_url ) as element()* {
     :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/combustionPlantCategory/combustionPlantCategory
-        return xmlconv:isInVocabulary($seq, "CombustionPlantCategoryValue", "ProductionInstallationPartReport", "EPRTRandLCP")
+        return xmlconv:isInVocabulary($seq, "CombustionPlantCategoryValue")
     let $LCP_1_1 := xmlconv:RowBuilder("EPRTR-LCP 1.1","combustionPlantCategory consistency", $res )
 
     (:
         C1.2 – CountryCode consistency
     :)
     let $res :=
-        let $seq := $docRoot//ProductionFacilityReport/offsiteWasteTransfer/transboundaryTransfer//countryCode
-        return xmlconv:isInVocabulary($seq, "CountryCodeValue", "ProductionFacilityReport", "euregistryonindustrialsites")
+        let $seq := $docRoot//*[local-name() = ("countryCode", "countryId")]
+        return xmlconv:isInVocabulary($seq, "CountryCodeValue")
     let $LCP_1_2 := xmlconv:RowBuilder("EPRTR-LCP 1.2","CountryCode consistency", $res )
 
-    (: RETURN ALL ROWS IN A TABLE :)
+    (:
+        C1.3 – EPRTRPollutant consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//ProductionFacilityReport/*[local-name() = ("offsitePoluantTransfer", "pollutantRelease")]//pollutant
+        return xmlconv:isInVocabulary($seq, "EPRTRPollutantCodeValue")
+    let $LCP_1_3 := xmlconv:RowBuilder("EPRTR-LCP 1.3","EPRTRPollutantCodeValue consistency", $res )
 
+    (:
+        C1.4 – fuelInput consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport//fuelInput/fuelInput
+        return xmlconv:isInVocabulary($seq, "FuelInputValue")
+    let $LCP_1_4 := xmlconv:RowBuilder("EPRTR-LCP 1.4","FuelInputValue consistency", $res )
+
+    (:
+        C1.5 – LCPPollutant consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir/pollutant
+        return xmlconv:isInVocabulary($seq, "LCPPollutantCodeValue")
+    let $LCP_1_5 := xmlconv:RowBuilder("EPRTR-LCP 1.5","LCPPollutantCodeValue consistency", $res )
+
+    (:
+        C1.6 – mediumCode consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//pollutantRelease/mediumCode
+        return xmlconv:isInVocabulary($seq, "MediumCodeValue")
+    let $LCP_1_6 := xmlconv:RowBuilder("EPRTR-LCP 1.6","MediumCodeValue consistency", $res )
+
+    (:
+        C1.7 - methodClassification consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//methodClassification
+        return xmlconv:isInVocabulary($seq, "MethodClassificationValue")
+    let $LCP_1_7 := xmlconv:RowBuilder("EPRTR-LCP 1.7","MethodClassificationValue consistency", $res )
+
+    (:
+        C1.8 - methodCode consistency
+    :)
+    let $res :=
+        let $seq := $docRoot//methodCode
+        return xmlconv:isInVocabulary($seq, "MethodCodeValue")
+    let $LCP_1_8 := xmlconv:RowBuilder("EPRTR-LCP 1.8","MethodCodeValue consistency", $res )
+
+    (: RETURN ALL ROWS IN A TABLE :)
     return
         (
             $LCP_1_1,
-            $LCP_1_2
+            $LCP_1_2,
+            $LCP_1_3,
+            $LCP_1_4,
+            $LCP_1_5,
+            $LCP_1_6,
+            $LCP_1_7,
+            $LCP_1_8
         )
 
 };

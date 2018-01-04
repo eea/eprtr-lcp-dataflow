@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ReportData>
-    <countryId>str1234</countryId>
+    <countryId>ASD</countryId>
     <reportingYear>1999</reportingYear>
     <ProductionInstallationPartReport>
         <confidentialityReason>str1234</confidentialityReason>
@@ -25,14 +25,14 @@
         </desulphurisationInformation>
         <emissionsToAir>
             <confidentialityReason>str1234</confidentialityReason>
-            <pollutant>str1234</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO23</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <energyInput>
             <confidentialityReason>str1234</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
-                <fuelInput>str1234</fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite1</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
                 <otherGaseousFuel>str1234</otherGaseousFuel>
                 <otherSolidFuel>str1234</otherSolidFuel>
@@ -61,22 +61,22 @@
             <wasteTreatment>str1234</wasteTreatment>
             <method>
                 <furtherDetails>str1234</furtherDetails>
-                <methodClassification>str1234</methodClassification>
-                <methodCode>str1234</methodCode>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/q</methodClassification>
+                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/M1</methodCode>
             </method>
             <transboundaryTransfer>
                 <nameOfReceiver>str1234</nameOfReceiver>
                 <addressOfReceiver>
                     <buildingNumber>str1234</buildingNumber>
                     <city>str1234</city>
-                    <countryCode>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/CountryCodeValue/R</countryCode>
+                    <countryCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CountryCodeValue/R</countryCode>
                     <postalCode>str1234</postalCode>
                     <streetName>str1234</streetName>
                 </addressOfReceiver>
                 <addressOfRecevingSite>
                     <buildingNumber>str1234</buildingNumber>
                     <city>str1234</city>
-                    <countryCode>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/CountryCodeValue/GB</countryCode>
+                    <countryCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CountryCodeValue/GB</countryCode>
                     <postalCode>str1234</postalCode>
                     <streetName>str1234</streetName>
                 </addressOfRecevingSite>
@@ -84,24 +84,24 @@
         </offsiteWasteTransfer>
         <offsitePoluantTransfer>
             <confidentialityReason>str1234</confidentialityReason>
-            <pollutant>str1234</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CH44</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
                 <furtherDetails>str1234</furtherDetails>
-                <methodClassification>str1234</methodClassification>
-                <methodCode>str1234</methodCode>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/IPCC1</methodClassification>
+                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/E1</methodCode>
             </method>
         </offsitePoluantTransfer>
         <pollutantRelease>
             <accidentalPollutantQuantityKg>3.1415926535</accidentalPollutantQuantityKg>
             <confidentialityReason>str1234</confidentialityReason>
-            <mediumCode>str1234</mediumCode>
-            <pollutant>str1234</pollutant>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER1</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
                 <furtherDetails>str1234</furtherDetails>
-                <methodClassification>str1234</methodClassification>
-                <methodCode>str1234</methodCode>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/UNECE-EMEP1</methodClassification>
+                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/D</methodCode>
             </method>
         </pollutantRelease>
     </ProductionFacilityReport>

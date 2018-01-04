@@ -23,10 +23,10 @@ declare namespace rest = "http://basex.org/rest";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-declare function scripts:getValidConcepts($value as xs:string, $vocName as xs:string) as xs:string* {
+declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
     let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
-    let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/"
-    let $url := $vocabulary || $vocName || "/" ||$value || "/rdf"
+    let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
+    let $url := $vocabulary || $value || "/rdf"
     return
         data(doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
 };
