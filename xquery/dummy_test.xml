@@ -37,19 +37,47 @@
             <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
-                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases1</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
                 <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
                 <otherSolidFuel>str1234</otherSolidFuel>
             </fuelInput>
+        </energyInput>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>asd</otherGaseousFuel>
+                <otherSolidFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Coke1</otherSolidFuel>
+            </fuelInput>
+        </energyInput>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>asd</otherGaseousFuel>
+                <otherSolidFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Coke1</otherSolidFuel>
+            </fuelInput>
+        </energyInput>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
                 <otherGaseousFuel>asd</otherGaseousFuel>
                 <otherSolidFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Coke1</otherSolidFuel>
             </fuelInput>
+        </energyInput>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
-                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases1</fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
                 <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
                 <otherSolidFuel>str1234</otherSolidFuel>
@@ -87,6 +115,16 @@
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
+        <emissionsToAir>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
+            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
+        </emissionsToAir>
+        <emissionsToAir>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
+            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
+        </emissionsToAir>
         <energyInput>
             <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
@@ -106,6 +144,26 @@
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
                 <furtherDetails></furtherDetails>
                 <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/Other</otherGaseousFuel>
+                <otherSolidFuel>str1234</otherSolidFuel>
+            </fuelInput>
+        </energyInput>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
+                <otherSolidFuel>str1234</otherSolidFuel>
+            </fuelInput>
+        </energyInput>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
                 <otherSolidFuel>str1234</otherSolidFuel>
             </fuelInput>
         </energyInput>

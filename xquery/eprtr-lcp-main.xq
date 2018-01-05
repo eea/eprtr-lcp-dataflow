@@ -532,6 +532,90 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (:  C.5.1 – Identification of fuelInput duplicates  :)
+    let $res :=
+        let $fuelInputs := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Coal",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/LiquidFuels",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat"
+        )
+        for $elem in $docRoot//ProductionInstallationPartReport
+        let $fuels := $elem/energyInput/fuelInput/fuelInput
+        for $fuel in $fuelInputs
+        return
+            if(count(index-of($fuels, $fuel)) > 1)
+            then
+                <tr>
+                    <td class='error' title="Details">Fuel is duplicated within the EnergyInput feature type</td>
+                    <td class="tderror" title="fuelInput"> {functx:substring-after-last($fuel, "/")} </td>
+                    <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
+                    <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                </tr>
+            else
+                ()
+    let $LCP_5_1 := xmlconv:RowBuilder("EPRTR-LCP 5.1","Identification of fuelInput duplicates", $res)
+
+    (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
+    let $res := ()
+    let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2","Identification of otherSolidFuel duplicates (NOT IMPLEMENTED)", $res)
+
+    (:  C.5.3 – Identification of otherGaseousFuel duplicates   :)
+    let $res := ()
+    let $LCP_5_3 := xmlconv:RowBuilder("EPRTR-LCP 5.3","Identification of otherGaseousFuel duplicates (NOT IMPLEMENTED)", $res)
+
+    (:  C5.4 - Identification of EmissionsToAir duplicates  :)
+    let $res :=
+        let $pollutantValues := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2"
+        )
+        let $seq := $docRoot//ProductionInstallationPartReport
+        for $elem in $seq
+            let $pollutants := $elem/emissionsToAir/pollutant
+            for $pollutant in $pollutantValues
+                return
+                if(count(index-of($pollutants, $pollutant)) > 1)
+                then
+                    <tr>
+                        <td class='error' title="Details">Pollutant is duplicated within the EmissionsToAir feature type</td>
+                        <td class="tderror" title="pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
+                        <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
+                        <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                    </tr>
+                else
+                    ()
+    let $LCP_5_4 := xmlconv:RowBuilder("EPRTR-LCP 5.4","Identification of EmissionsToAir duplicates", $res)
+
+    (:  C.5.5 – Identification of PollutantRelease duplicates  :)
+    let $res := ()
+    let $LCP_5_5 := xmlconv:RowBuilder("EPRTR-LCP 5.5","Identification of PollutantRelease duplicates (NOT IMPLEMENTED)", $res)
+
+    (:  C.5.6 – Identification of OffsitePollutantTransfer duplicates  :)
+    let $res := ()
+    let $LCP_5_6 := xmlconv:RowBuilder("EPRTR-LCP 5.6","Identification of OffsitePollutantTransfer duplicates (NOT IMPLEMENTED)", $res)
+
+    (:  C.5.7 – Identification of month duplicates  :)
+    let $res := ()
+    let $LCP_5_7 := xmlconv:RowBuilder("EPRTR-LCP 5.7","Identification of month duplicates (NOT IMPLEMENTED)", $res)
+
+    let $LCP_5 := xmlconv:RowAggregator(
+            "EPRTR-LCP 5",
+            "Duplicate identification checks",
+            (
+                $LCP_5_1,
+                $LCP_5_2,
+                $LCP_5_3,
+                $LCP_5_4,
+                $LCP_5_5,
+                $LCP_5_6,
+                $LCP_5_7
+            )
+    )
+
 
     (: RETURN ALL ROWS IN A TABLE :)
     return
@@ -539,7 +623,8 @@ declare function xmlconv:RunQAs(
             $LCP_1,
             $LCP_2,
             $LCP_3,
-            $LCP_4
+            $LCP_4,
+            $LCP_5
         )
 
 };
