@@ -493,12 +493,53 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (:  C4.1 – ReportingYear plausibility   :)
+    let $res := ()
+    let $LCP_4_1 := xmlconv:RowBuilder("EPRTR-LCP 4.1","ReportingYear plausibility (NOT IMPLEMENTED)", $res)
+
+    (:  C4.2 – accidentalPollutantQuantityKg plausibility   :)
+    let $res :=
+        let $seq := $docRoot//pollutantRelease
+        for $elem in $seq
+        let $ok := (
+            $elem/totalPollutantQuantityKg < $elem/accidentalPollutantQuantityKg
+            and
+            $elem/totalPollutantQuantityKg castable as xs:double
+            and
+            $elem/accidentalPollutantQuantityKg castable as xs:double
+        )
+        return
+            if(not($ok))
+            then
+                <tr>
+                    <td class='warning' title="Details"> accidentalPollutantQuantityKg attribute value is not valid</td>
+                    <td class="tdwarning" title="accidentalPollutantQuantityKg"> {data($elem/accidentalPollutantQuantityKg)} </td>
+                    <td title="totalPollutantQuantityKg"> {data($elem/totalPollutantQuantityKg)} </td>
+                    <td title="localId">{$elem/ancestor::*/productionFacilityReportId/localId}</td>
+                    <td title="namespace">{$elem/ancestor::*/productionFacilityReportId/namespace}</td>
+                </tr>
+            else
+                ()
+
+    let $LCP_4_2 := xmlconv:RowBuilder("EPRTR-LCP 4.2","accidentalPollutantQuantityKg plausibility", $res)
+
+    let $LCP_4 := xmlconv:RowAggregator(
+            "EPRTR-LCP 4",
+            "Reporting form plausibility checks",
+            (
+                $LCP_4_1,
+                $LCP_4_2
+            )
+    )
+
+
     (: RETURN ALL ROWS IN A TABLE :)
     return
         (
             $LCP_1,
             $LCP_2,
-            $LCP_3
+            $LCP_3,
+            $LCP_4
         )
 
 };
