@@ -90,4 +90,18 @@ declare function functx:path-to-node
     $nodes/string-join(ancestor-or-self::*/name(.), '/')
 } ;
 
+declare function functx:escape-for-regex
+  ( $arg as xs:string? )  as xs:string {
+
+   replace($arg,
+           '(\.|\[|\]|\\|\||\-|\^|\$|\?|\*|\+|\{|\}|\(|\))','\\$1')
+ } ;
+
+declare function functx:substring-after-last
+  ( $arg as xs:string? ,
+    $delim as xs:string )  as xs:string {
+
+   replace ($arg,concat('^.*',functx:escape-for-regex($delim)),'')
+ } ;
+
 (: HELPER FUNCTIONS END :)

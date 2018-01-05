@@ -5,8 +5,8 @@
     <ProductionInstallationPartReport>
         <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(a)</confidentialityReason>
         <productionInstallationPartReportId>
-            <localId>str1234</localId>
-            <namespace>str1234</namespace>
+            <localId>localid1</localId>
+            <namespace>namespace1</namespace>
         </productionInstallationPartReportId>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
         <proportionOfUsefulHeatProductionForDistrictHeating>3.1415926535
@@ -25,7 +25,12 @@
         </desulphurisationInformation>
         <emissionsToAir>
             <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO23</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
+            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
+        </emissionsToAir>
+        <emissionsToAir>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <energyInput>
@@ -51,11 +56,65 @@
             </fuelInput>
         </energyInput>
     </ProductionInstallationPartReport>
+    <ProductionInstallationPartReport>
+        <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(a)</confidentialityReason>
+        <productionInstallationPartReportId>
+            <localId>localid2</localId>
+            <namespace>namespace2</namespace>
+        </productionInstallationPartReportId>
+        <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
+        <proportionOfUsefulHeatProductionForDistrictHeating>3.1415926535
+        </proportionOfUsefulHeatProductionForDistrictHeating>
+        <remarks>str1234</remarks>
+        <withinRefinery>true</withinRefinery>
+        <combustionPlantCategory>
+            <combustionPlantCategory>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CombustionPlantCategoryValue/GasEngine1</combustionPlantCategory>
+            <furtherDetails>str1234</furtherDetails>
+        </combustionPlantCategory>
+        <desulphurisationInformation>
+            <desulphurisationRate>3.123</desulphurisationRate>
+            <month>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MonthValue/DEC1</month>
+            <sulphurContent>3.1415926535</sulphurContent>
+            <technicalJustification>str1234</technicalJustification>
+        </desulphurisationInformation>
+        <emissionsToAir>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx</pollutant>
+            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
+        </emissionsToAir>
+        <emissionsToAir>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP</pollutant>
+            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
+        </emissionsToAir>
+        <energyInput>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
+            <energyinputTJ>3.1415926535</energyinputTJ>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+                <furtherDetails>str1234</furtherDetails>
+                <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
+                <otherSolidFuel>str1234</otherSolidFuel>
+            </fuelInput>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
+                <furtherDetails></furtherDetails>
+                <otherGaseousFuel>asd</otherGaseousFuel>
+                <otherSolidFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Other</otherSolidFuel>
+            </fuelInput>
+            <fuelInput>
+                <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+                <furtherDetails></furtherDetails>
+                <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/Other</otherGaseousFuel>
+                <otherSolidFuel>str1234</otherSolidFuel>
+            </fuelInput>
+        </energyInput>
+    </ProductionInstallationPartReport>
     <ProductionFacilityReport>
         <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)1</confidentialityReason>
         <productionFacilityReportId>
-            <localId>str1234</localId>
-            <namespace>str1234</namespace>
+            <localId>localid3</localId>
+            <namespace>namespace3</namespace>
         </productionFacilityReportId>
         <numberOfEmployees>1234</numberOfEmployees>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
@@ -69,25 +128,25 @@
         <offsiteWasteTransfer>
             <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)3</confidentialityReason>
             <totalWasteQuantityTNE>3.1415926535</totalWasteQuantityTNE>
-            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/HW2</wasteClassification>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/HW</wasteClassification>
             <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/R1</wasteTreatment>
             <method>
                 <furtherDetails>str1234</furtherDetails>
                 <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/q</methodClassification>
-                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/M1</methodCode>
+                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/M</methodCode>
             </method>
             <transboundaryTransfer>
-                <nameOfReceiver>str1234</nameOfReceiver>
+                <nameOfReceiver></nameOfReceiver>
                 <addressOfReceiver>
-                    <buildingNumber>str1234</buildingNumber>
+                    <buildingNumber></buildingNumber>
                     <city>str1234</city>
                     <countryCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CountryCodeValue/R</countryCode>
-                    <postalCode>str1234</postalCode>
+                    <postalCode></postalCode>
                     <streetName>str1234</streetName>
                 </addressOfReceiver>
                 <addressOfRecevingSite>
                     <buildingNumber>str1234</buildingNumber>
-                    <city>str1234</city>
+                    <city></city>
                     <countryCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CountryCodeValue/GB</countryCode>
                     <postalCode>str1234</postalCode>
                     <streetName>str1234</streetName>
@@ -99,9 +158,9 @@
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CH44</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
-                <furtherDetails>str1234</furtherDetails>
-                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/IPCC1</methodClassification>
-                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/E1</methodCode>
+                <furtherDetails></furtherDetails>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/IPCC</methodClassification>
+                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/C</methodCode>
             </method>
         </offsitePoluantTransfer>
         <pollutantRelease>
@@ -111,8 +170,8 @@
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
-                <furtherDetails>str1234</furtherDetails>
-                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/UNECE-EMEP1</methodClassification>
+                <furtherDetails></furtherDetails>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/UNECE-EMEP</methodClassification>
                 <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/D</methodCode>
             </method>
         </pollutantRelease>

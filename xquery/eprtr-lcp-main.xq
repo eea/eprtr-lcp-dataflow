@@ -88,7 +88,6 @@ declare function xmlconv:RowBuilder (
 declare function xmlconv:RowAggregator (
         $RuleCode as xs:string,
         $RuleName as xs:string,
-        $ResMessage as xs:string,
         $ResRows as element()*
 ) as element( ) *{
 
@@ -162,7 +161,6 @@ declare function xmlconv:isInVocabulary(
                 <tr>
                     <td class='error' title="Details"> {$concept} has not been recognised</td>
                     <td class="tderror" title="{node-name($elem)}"> {data($elem)} </td>
-                    <!-- <td title="localId"> {data($elem/ancestor-or-self::*[local-name() = $feature]//localId)} </td> -->
                     <td title="path">{functx:path-to-node($elem)}</td>
                 </tr>
             else
@@ -267,49 +265,240 @@ declare function xmlconv:RunQAs(
         return xmlconv:isInVocabulary($seq, "WasteTreatmentValue")
     let $LCP_1_15 := xmlconv:RowBuilder("EPRTR-LCP 1.15","WasteTreatmentValue consistency", $res )
 
+    let $LCP_1 := xmlconv:RowAggregator(
+            "EPRTR-LCP 1",
+            "Code list checks",
+            (
+                $LCP_1_1,
+                $LCP_1_2,
+                $LCP_1_3,
+                $LCP_1_4,
+                $LCP_1_5,
+                $LCP_1_6,
+                $LCP_1_7,
+                $LCP_1_8,
+                $LCP_1_9,
+                $LCP_1_10,
+                $LCP_1_11,
+                $LCP_1_12,
+                $LCP_1_13,
+                $LCP_1_14,
+                $LCP_1_15
+            )
+    )
+
     let $res := ()
     (:  C2.1 – inspireId consistency    :)
-    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency", $res)
+    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency (NOT IMPLEMENTED)", $res)
 
     (:  C2.2 – Comprehensive LCP reporting    :)
-    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting", $res)
+    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (NOT IMPLEMENTED)", $res)
 
     (:  C2.3 – ProductionFacility inspireId uniqueness    :)
-    let $LCP_2_3 := xmlconv:RowBuilder("EPRTR-LCP 2.3","ProductionFacility inspireId uniqueness", $res)
+    let $LCP_2_3 := xmlconv:RowBuilder("EPRTR-LCP 2.3","ProductionFacility inspireId uniqueness (NOT IMPLEMENTED)", $res)
 
     (:  C2.4 – ProductionInstallationPart inspireId uniqueness    :)
-    let $LCP_2_4 := xmlconv:RowBuilder("EPRTR-LCP 2.4","ProductionInstallationPart inspireId uniqueness", $res)
+    let $LCP_2_4 := xmlconv:RowBuilder("EPRTR-LCP 2.4","ProductionInstallationPart inspireId uniqueness (NOT IMPLEMENTED)", $res)
+
+    let $LCP_2 := xmlconv:RowAggregator(
+            "EPRTR-LCP 2",
+            "inspireId checks",
+            (
+                $LCP_2_1,
+                $LCP_2_2,
+                $LCP_2_3,
+                $LCP_2_4
+            )
+    )
 
     (:  C3.1 – Pollutant reporting completeness     :)
     let $res :=
-        
+        let $pollutants := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP"
+        )
         let $seq := $docRoot//ProductionInstallationPartReport
         for $elem in $seq
-
+        for $pollutant in $pollutants
+        return
+            if (count(index-of($elem/emissionsToAir/pollutant, $pollutant)) = 0)
+            then
+                <tr>
+                    <td class='warning' title="Details"> Pollutant has not been reported</td>
+                    <td class="tdwarning" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
+                    <td title="localId">{$elem/descendant::*/localId}</td>
+                    <td title="namespace">{$elem/descendant::*/namespace}</td>
+                </tr>
+            else
+                ()
     let $LCP_3_1 := xmlconv:RowBuilder("EPRTR-LCP 3.1","Pollutant reporting completeness", $res)
+
+    (:  C3.2 - EnergyInput reporting completeness   :)
+    let $res :=
+        let $fuelInputs := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Coal",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/LiquidFuels",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat"
+        )
+        let $seq := $docRoot//ProductionInstallationPartReport
+        for $elem in $seq
+        for $fuel in $fuelInputs
+        return
+            if (count(index-of($elem/energyInput/fuelInput/fuelInput, $fuel)) = 0)
+            then
+                <tr>
+                    <td class='warning' title="Details"> FuelInput has not been reported</td>
+                    <td class="tdwarning" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
+                    <td title="localId">{$elem/descendant::*/localId}</td>
+                    <td title="namespace">{$elem/descendant::*/namespace}</td>
+                </tr>
+            else
+                ()
+    let $LCP_3_2 := xmlconv:RowBuilder("EPRTR-LCP 3.2","EnergyInput reporting completeness", $res)
+
+    (:  C3.3 – ‘other’ fuel reporting completeness  :)
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport
+        for $elem in $seq
+        for $fuel in $elem/energyInput/fuelInput
+        let $ok :=
+            if (functx:substring-after-last($fuel/otherGaseousFuel, "/") = "Other")
+            then
+                functx:if-empty($fuel/furtherDetails, "") != ""
+            else
+                if (functx:substring-after-last($fuel/otherSolidFuel, "/") = "Other")
+                then
+                functx:if-empty($fuel/furtherDetails, "") != ""
+                else
+                    true()
+        return
+            if(not($ok))
+            then
+                <tr>
+                    <td class='warning' title="Details"> Other fuel has not been expanded upon under the furtherDetails attribute</td>
+                    <td title="FuelInput"> {functx:substring-after-last($fuel/fuelInput, "/")} </td>
+                    <td title="Other fuel">
+                        {
+                            if (functx:substring-after-last($fuel/otherGaseousFuel, "/") = "Other")
+                            then
+                                functx:substring-after-last($fuel/otherGaseousFuel, "/")
+                            else
+                                functx:substring-after-last($fuel/otherSolidFuel, "/")
+                        }
+                    </td>
+                    <td class="tdwarning" title="furtherDetails">{$fuel/furtherDetails}</td>
+                    <td title="localId">{$elem/descendant::*/localId}</td>
+                    <td title="namespace">{$elem/descendant::*/namespace}</td>
+                </tr>
+            else
+                ()
+    let $LCP_3_3 := xmlconv:RowBuilder("EPRTR-LCP 3.3","Other fuel reporting completeness", $res)
+
+    (:  C3.4 – Comprehensive methodClassification reporting :)
+    let $res :=
+        let $seq := $docRoot//method
+        let $concept := "MethodClassificationValue"
+        let $valid := scripts:getValidConcepts($concept)
+        for $elem in $seq
+        let $ok := ($valid = data($elem/methodClassification))
+        return
+            if (
+                not($ok)
+                and
+                functx:substring-after-last($elem/methodCode, "/") = ("M", "C")
+            )
+            then
+                <tr>
+                    <td class='warning' title="Details"> {$concept} has not been recognised</td>
+                    <td class="tdwarning" title="{node-name($elem/methodClassification)}"> {data($elem/methodClassification)} </td>
+                    <td title="methodCode">{functx:substring-after-last($elem/methodCode, "/")}</td>
+                    <td title="path">{functx:path-to-node($elem/methodClassification)}</td>
+                </tr>
+            else
+                ()
+    let $LCP_3_4 := xmlconv:RowBuilder("EPRTR-LCP 3.4","Comprehensive methodClassification reporting", $res)
+
+    (:  C3.5 – Required furtherDetails for reporting methodClassification   :)
+    let $res :=
+        let $methodClassifications := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/CEN-ISO",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/UNECE-EMEP",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/OTH",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/IPCC"
+        )
+        let $seq := $docRoot//method
+        for $elem in $seq
+        return
+            if(
+                $elem/methodClassification = $methodClassifications
+                and
+                functx:if-empty($elem/furtherDetails, "") = ""
+            )
+            then
+                <tr>
+                    <td class='warning' title="Details"> Not met reporting requirements for the method classification</td>
+                    <td class="tdwarning" title="furtherDetails"> {data($elem/furtherDetails)} </td>
+                    <td title="methodClassifications">{$elem/methodClassification}</td>
+                    <td title="path">{functx:path-to-node($elem/methodClassification)}</td>
+                </tr>
+            else
+                ()
+    let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5","Required furtherDetails for reporting methodClassification", $res)
+
+    (:  C3.6 – transboundaryTransfer completeness   :)
+    let $res :=
+        let $attributesToVerify := (
+            "nameOfReceiver",
+            "buildingNumber",
+            "city",
+            "countryCode",
+            "postalCode",
+            "streetName"
+        )
+        let $seq := $docRoot//offsiteWasteTransfer
+        for $elem in $seq
+        for $attr in $attributesToVerify
+        for $el in $elem//*[local-name() = $attr]
+        return
+            if(functx:if-empty($el, "") = "")
+            then
+                <tr>
+                    <td class='warning' title="Details"> Attribute should contain a character string</td>
+                    <td title="attribute"> {$attr} </td>
+                    <td class="tdwarning" title="Value"> {data($el)} </td>
+                    <td title="localId">{$el/ancestor::*/productionFacilityReportId/localId}</td>
+                    <td title="namespace">{$el/ancestor::*/productionFacilityReportId/namespace}</td>
+                    <td title="path">{functx:path-to-node($el)}</td>
+                </tr>
+            else
+                ()
+    let $LCP_3_6 := xmlconv:RowBuilder("EPRTR-LCP 3.6","transboundaryTransfer completeness", $res)
+
+    let $LCP_3 := xmlconv:RowAggregator(
+            "EPRTR-LCP 3",
+            "Comprehensive reporting checks",
+            (
+                $LCP_3_1,
+                $LCP_3_2,
+                $LCP_3_3,
+                $LCP_3_4,
+                $LCP_3_5,
+                $LCP_3_6
+            )
+    )
 
     (: RETURN ALL ROWS IN A TABLE :)
     return
         (
-            $LCP_1_1,
-            $LCP_1_2,
-            $LCP_1_3,
-            $LCP_1_4,
-            $LCP_1_5,
-            $LCP_1_6,
-            $LCP_1_7,
-            $LCP_1_8,
-            $LCP_1_9,
-            $LCP_1_10,
-            $LCP_1_11,
-            $LCP_1_12,
-            $LCP_1_13,
-            $LCP_1_14,
-            $LCP_1_15,
-            $LCP_2_1,
-            $LCP_2_2,
-            $LCP_2_3,
-            $LCP_2_4
+            $LCP_1,
+            $LCP_2,
+            $LCP_3
         )
 
 };
