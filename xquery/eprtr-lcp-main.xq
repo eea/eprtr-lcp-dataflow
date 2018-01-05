@@ -591,7 +591,26 @@ declare function xmlconv:RunQAs(
     let $LCP_5_4 := xmlconv:RowBuilder("EPRTR-LCP 5.4","Identification of EmissionsToAir duplicates", $res)
 
     (:  C.5.5 – Identification of PollutantRelease duplicates  :)
-    let $res := ()
+    let $res :=
+        let $seq := $docRoot//ProductionFacilityReport
+        for $elem in $seq/pollutantRelease
+            let $values :=
+                for $el in $elem
+                return
+                    $el/mediumcode || $el/pollutant
+            let $value := $elem/mediumCode || $elem/pollutant
+            return
+                if(count(index-of($values, $value)) > 1)
+                then
+                    <tr>
+                        <td class='error' title="Details">Pollutant and medium pair is duplicated within the PollutantRelease feature type</td>
+                        <td class="tderror" title="mediumCode"> {functx:substring-after-last($elem/mediumCode, "/")} </td>
+                        <td class="tderror" title="pollutant"> {functx:substring-after-last($elem/pollutant, "/")} </td>
+                        <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
+                        <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                    </tr>
+                else
+                    ()
     let $LCP_5_5 := xmlconv:RowBuilder("EPRTR-LCP 5.5","Identification of PollutantRelease duplicates (NOT IMPLEMENTED)", $res)
 
     (:  C.5.6 – Identification of OffsitePollutantTransfer duplicates  :)

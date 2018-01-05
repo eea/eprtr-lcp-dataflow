@@ -233,5 +233,17 @@
                 <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/D</methodCode>
             </method>
         </pollutantRelease>
+        <pollutantRelease>
+            <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
+            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER1</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
+            <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
+            <method>
+                <furtherDetails></furtherDetails>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/UNECE-EMEP</methodClassification>
+                <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/D</methodCode>
+            </method>
+        </pollutantRelease>
     </ProductionFacilityReport>
 </ReportData>
