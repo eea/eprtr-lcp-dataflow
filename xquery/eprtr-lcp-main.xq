@@ -727,6 +727,87 @@ declare function xmlconv:RunQAs(
                 $LCP_7_2
             )
     )
+    let $res := ()
+    (: TODO implement this :)
+    (:   C8.1 – Article 31 derogation compliance   :)
+    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance", $res)
+    (: TODO implement this :)
+    (:  C8.2 – Article 31 derogation justification  :)
+    let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification", $res)
+    (: TODO implement this :)
+    (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
+    let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3","Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison", $res)
+
+    let $LCP_8 := xmlconv:RowAggregator(
+            "EPRTR-LCP 8",
+            "Derogation checks",
+            (
+                $LCP_8_1,
+                $LCP_8_2,
+                $LCP_8_3
+            )
+    )
+
+    (:  C9.1 – Confidentiality overuse  :)
+    let $res :=
+        let $featureTypes := (
+            "ProductionInstallationPartReport",
+            "emissionsToAir",
+            "energyInput",
+            "ProductionFacilityReport",
+            "offsiteWasteTransfer",
+            "offsitePoluantTransfer",
+            "pollutantRelease"
+        )
+        let $seq := $docRoot/descendant::*[local-name() = $featureTypes]
+       (: let $seq := (
+            $docRoot/descendant::*[local-name() = "ProductionInstallationPartReport"],
+            $docRoot/descendant::*[local-name() = "emissionsToAir"],
+            $docRoot/descendant::*[local-name() = "energyInput"],
+            $docRoot/descendant::*[local-name() = "ProductionFacilityReport"],
+            $docRoot/descendant::*[local-name() = "offsiteWasteTransfer"],
+            $docRoot/descendant::*[local-name() = "offsitePoluantTransfer"],
+            $docRoot/descendant::*[local-name() = "pollutantRelease"]
+        ):)
+        let $countCondifentialityReasons :=
+            for $elem in $seq/child::*[local-name() = "confidentialityReason"]
+            return $elem
+        let $ratio := count($countCondifentialityReasons) div count($seq)
+        let $errorType :=
+            if($ratio > 0.01)
+            then
+                "error"
+            else if($ratio > 0.005)
+                then
+                "warning"
+            else
+                "info"
+        let $errorMessage :=
+            if($ratio > 0.01)
+            then
+                "confidentialityReason attribute exceeded the 1% threshold"
+            else if($ratio > 0.005)
+                then
+                "confidentialityReason attribute exceeded the 0.5% threshold, but the value is less than 1%"
+            else "all good"
+        return
+            if($ratio > 0.005)
+            then
+                <tr>
+                    <td class='{$errorType}' title="Details">{$errorMessage}</td>
+                    <td class="td{$errorType}" title="threshold"> {round-half-to-even($ratio * 100, 1) || '%'} </td>
+                </tr>
+            else
+                ()
+    let $LCP_9_1 := xmlconv:RowBuilder("EPRTR-LCP 9.1","Confidentiality overuse", $res)
+
+    let $LCP_9 := xmlconv:RowAggregator(
+            "EPRTR-LCP 9",
+            "Confidentiality checks",
+            (
+                $LCP_9_1
+            )
+    )
 
 
     (: RETURN ALL ROWS IN A TABLE :)
@@ -738,7 +819,9 @@ declare function xmlconv:RunQAs(
             $LCP_4,
             $LCP_5,
             $LCP_6,
-            $LCP_7
+            $LCP_7,
+            $LCP_8,
+            $LCP_9
         )
 
 };

@@ -42,17 +42,14 @@
             <technicalJustification>str1234</technicalJustification>
         </desulphurisationInformation>
         <emissionsToAir>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <emissionsToAir>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases1</fuelInput>
@@ -62,7 +59,6 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</fuelInput>
@@ -72,7 +68,6 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</fuelInput>
@@ -82,7 +77,6 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
@@ -92,7 +86,6 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
@@ -103,7 +96,6 @@
         </energyInput>
     </ProductionInstallationPartReport>
     <ProductionInstallationPartReport>
-        <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(a)</confidentialityReason>
         <InspireId>
             <localId>localid2</localId>
             <namespace>namespace2</namespace>
@@ -124,27 +116,22 @@
             <technicalJustification>str1234</technicalJustification>
         </desulphurisationInformation>
         <emissionsToAir>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <emissionsToAir>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <emissionsToAir>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <emissionsToAir>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(b)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
@@ -166,7 +153,6 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas</fuelInput>
@@ -176,7 +162,6 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(c)</confidentialityReason>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas</fuelInput>
@@ -187,7 +172,6 @@
         </energyInput>
     </ProductionInstallationPartReport>
     <ProductionFacilityReport>
-        <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)1</confidentialityReason>
         <InspireId>
             <localId>localid2</localId>
             <namespace>namespace2</namespace>
@@ -202,7 +186,6 @@
             <productName>str1234</productName>
         </productionVolume>
         <offsiteWasteTransfer>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)3</confidentialityReason>
             <totalWasteQuantityTNE>3.1415926535</totalWasteQuantityTNE>
             <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/HW</wasteClassification>
             <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/R1</wasteTreatment>
@@ -230,7 +213,6 @@
             </transboundaryTransfer>
         </offsiteWasteTransfer>
         <offsitePoluantTransfer>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CH44</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
@@ -240,7 +222,6 @@
             </method>
         </offsitePoluantTransfer>
         <offsitePoluantTransfer>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CH44</pollutant>
             <totalPollutantQuantityKg>3.1415926535</totalPollutantQuantityKg>
             <method>
@@ -251,7 +232,6 @@
         </offsitePoluantTransfer>
         <pollutantRelease>
             <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER1</mediumCode>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
@@ -263,7 +243,6 @@
         </pollutantRelease>
         <pollutantRelease>
             <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER1</mediumCode>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
@@ -275,7 +254,6 @@
         </pollutantRelease>
         <pollutantRelease>
             <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/LAND</mediumCode>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
@@ -287,13 +265,12 @@
         </pollutantRelease>
         <pollutantRelease>
             <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
-            <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(f)</confidentialityReason>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/LAND1</mediumCode>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
             <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
             <method>
                 <furtherDetails></furtherDetails>
-                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/WEIGH</methodClassification>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/WEIGHT</methodClassification>
                 <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/D</methodCode>
             </method>
         </pollutantRelease>
