@@ -590,36 +590,72 @@ declare function xmlconv:RunQAs(
                     ()
     let $LCP_5_4 := xmlconv:RowBuilder("EPRTR-LCP 5.4","Identification of EmissionsToAir duplicates", $res)
 
+    (: TODO remove duplicates from output :)
     (:  C.5.5 – Identification of PollutantRelease duplicates  :)
     let $res :=
         let $seq := $docRoot//ProductionFacilityReport
-        for $elem in $seq/pollutantRelease
+        for $elem in $seq
             let $values :=
-                for $el in $elem
+                for $el in $elem/pollutantRelease
                 return
-                    $el/mediumcode || $el/pollutant
-            let $value := $elem/mediumCode || $elem/pollutant
+                    $el/mediumCode || $el/pollutant
+            for $el in $elem/pollutantRelease
+            let $value := $el/mediumCode || $el/pollutant
             return
-                if(count(index-of($values, $value)) > 1)
+                if(
+                    count(index-of($values, $value)) > 1
+                )
                 then
                     <tr>
                         <td class='error' title="Details">Pollutant and medium pair is duplicated within the PollutantRelease feature type</td>
-                        <td class="tderror" title="mediumCode"> {functx:substring-after-last($elem/mediumCode, "/")} </td>
-                        <td class="tderror" title="pollutant"> {functx:substring-after-last($elem/pollutant, "/")} </td>
-                        <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
-                        <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                        <td class="tderror" title="mediumCode"> {functx:substring-after-last($el/mediumCode, "/")} </td>
+                        <td class="tderror" title="pollutant"> {functx:substring-after-last($el/pollutant, "/")} </td>
+                        <td title="localId">{$el/ancestor-or-self::*/productionFacilityReportId/localId}</td>
+                        <td title="namespace">{$el/ancestor-or-self::*/productionFacilityReportId/namespace}</td>
                     </tr>
                 else
                     ()
-    let $LCP_5_5 := xmlconv:RowBuilder("EPRTR-LCP 5.5","Identification of PollutantRelease duplicates (NOT IMPLEMENTED)", $res)
+    let $LCP_5_5 := xmlconv:RowBuilder("EPRTR-LCP 5.5","Identification of PollutantRelease duplicates", $res)
 
     (:  C.5.6 – Identification of OffsitePollutantTransfer duplicates  :)
-    let $res := ()
-    let $LCP_5_6 := xmlconv:RowBuilder("EPRTR-LCP 5.6","Identification of OffsitePollutantTransfer duplicates (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $seq := $docRoot//ProductionFacilityReport
+        for $elem in $seq
+            let $allPollutants := $elem/offsitePoluantTransfer/pollutant
+            for $el in distinct-values($elem/offsitePoluantTransfer/pollutant)
+            let $ok := count(index-of($allPollutants, $el)) = 1
+            return
+                if(not($ok))
+                    then
+                        <tr>
+                            <td class='error' title="Details">Pollutant is duplicated within the OffsitePollutantTransfer feature type</td>
+                            <td class="tderror" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
+                            <td title="localId">{$elem/descendant-or-self::*/productionFacilityReportId/localId}</td>
+                            <td title="namespace">{$elem/descendant-or-self::*/productionFacilityReportId/namespace}</td>
+                        </tr>
+                    else
+                        ()
+    let $LCP_5_6 := xmlconv:RowBuilder("EPRTR-LCP 5.6","Identification of OffsitePollutantTransfer duplicates", $res)
 
     (:  C.5.7 – Identification of month duplicates  :)
-    let $res := ()
-    let $LCP_5_7 := xmlconv:RowBuilder("EPRTR-LCP 5.7","Identification of month duplicates (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport
+        for $elem in $seq
+            let $allMonths := $elem/desulphurisationInformation/month
+            for $el in distinct-values($elem/desulphurisationInformation/month)
+            let $ok := count(index-of($allMonths, $el)) = 1
+            return
+                if(not($ok))
+                    then
+                        <tr>
+                            <td class='error' title="Details">Month is duplicated within the DesulphurisationInformationType feature type</td>
+                            <td class="tderror" title="Month"> {functx:substring-after-last($el, "/")} </td>
+                            <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
+                            <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                        </tr>
+                    else
+                        ()
+    let $LCP_5_7 := xmlconv:RowBuilder("EPRTR-LCP 5.7","Identification of month duplicates", $res)
 
     let $LCP_5 := xmlconv:RowAggregator(
             "EPRTR-LCP 5",
