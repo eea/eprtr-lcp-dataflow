@@ -730,13 +730,13 @@ declare function xmlconv:RunQAs(
     let $res := ()
     (: TODO implement this :)
     (:   C8.1 – Article 31 derogation compliance   :)
-    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance", $res)
+    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance (NOT IMPLEMENTED)", $res)
     (: TODO implement this :)
     (:  C8.2 – Article 31 derogation justification  :)
-    let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification", $res)
+    let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (NOT IMPLEMENTED)", $res)
     (: TODO implement this :)
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
-    let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3","Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison", $res)
+    let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3","Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (NOT IMPLEMENTED)", $res)
 
     let $LCP_8 := xmlconv:RowAggregator(
             "EPRTR-LCP 8",
@@ -760,15 +760,6 @@ declare function xmlconv:RunQAs(
             "pollutantRelease"
         )
         let $seq := $docRoot/descendant::*[local-name() = $featureTypes]
-       (: let $seq := (
-            $docRoot/descendant::*[local-name() = "ProductionInstallationPartReport"],
-            $docRoot/descendant::*[local-name() = "emissionsToAir"],
-            $docRoot/descendant::*[local-name() = "energyInput"],
-            $docRoot/descendant::*[local-name() = "ProductionFacilityReport"],
-            $docRoot/descendant::*[local-name() = "offsiteWasteTransfer"],
-            $docRoot/descendant::*[local-name() = "offsitePoluantTransfer"],
-            $docRoot/descendant::*[local-name() = "pollutantRelease"]
-        ):)
         let $countCondifentialityReasons :=
             for $elem in $seq/child::*[local-name() = "confidentialityReason"]
             return $elem
@@ -809,6 +800,66 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (: TODO not implemented :)
+    (:  C10.1 – EmissionsToAir outlier identification   :)
+    let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
+    (: TODO not implemented :)
+    (:  C10.2 – Energy input and CO2 emissions feasibility  :)
+    let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2","Energy input and CO2 emissions feasibility", $res)
+    (: TODO not implemented :)
+    (:  C10.3 – ProductionFacility cross pollutant identification   :)
+    let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3","ProductionFacility cross pollutant identification", $res)
+
+    let $LCP_10 := xmlconv:RowAggregator(
+            "EPRTR-LCP 10",
+            "Expected pollutant identification",
+            (
+                $LCP_10_1,
+                $LCP_10_2,
+                $LCP_10_3
+            )
+    )
+
+    (:  C16.1 - Significant figure format compliance    :)
+    let $res :=
+        let $attributes := (
+            "totalWasteQuantityTNE",
+            "totalPollutantQuantityKg",
+            "totalPollutantQuantityTNE"
+        )
+        let $seq := $docRoot//*[local-name() = $attributes]
+        for $elem in $seq
+        let $ok := (
+            $elem castable as xs:double
+            and
+            string-length(substring-after($elem, '.') ) <= 3
+        )
+        return
+            if(not($ok))
+            then
+                <tr>
+                    <td class='warning' title="Details">Numerical format reporting requirements not met</td>
+                    <td class="tdwarning" title="attribute name"> {node-name($elem)} </td>
+                    <td class="tdwarning" title="value"> {data($elem)} </td>
+                    <td title="localId">{$elem/ancestor-or-self::*[local-name() = ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/localId}</td>
+                    <td title="namespace">{$elem/ancestor-or-self::*[local-name() = ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/namespace}</td>
+                </tr>
+            else
+                ()
+    let $LCP_16_1 := xmlconv:RowBuilder("EPRTR-LCP 16.1","Significant figure format compliance", $res)
+    (:  C16.2 - Percentage format compliance    :)
+    let $res := ()
+    let $LCP_16_2 := xmlconv:RowBuilder("EPRTR-LCP 16.2","Percentage format compliance", $res)
+
+    let $LCP_16 := xmlconv:RowAggregator(
+            "EPRTR-LCP 16",
+            "Expected pollutant identification",
+            (
+                $LCP_16_1,
+                $LCP_16_2
+            )
+    )
+
 
     (: RETURN ALL ROWS IN A TABLE :)
     return
@@ -821,7 +872,9 @@ declare function xmlconv:RunQAs(
             $LCP_6,
             $LCP_7,
             $LCP_8,
-            $LCP_9
+            $LCP_9,
+            $LCP_10,
+            $LCP_16
         )
 
 };
