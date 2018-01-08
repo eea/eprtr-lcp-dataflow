@@ -4,10 +4,10 @@
     <reportingYear>1999</reportingYear>
     <ProductionInstallationPartReport>
         <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(a)</confidentialityReason>
-        <productionInstallationPartReportId>
+        <InspireId>
             <localId>localid1</localId>
             <namespace>namespace1</namespace>
-        </productionInstallationPartReportId>
+        </InspireId>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
         <proportionOfUsefulHeatProductionForDistrictHeating>3.1415926535
         </proportionOfUsefulHeatProductionForDistrictHeating>
@@ -104,10 +104,10 @@
     </ProductionInstallationPartReport>
     <ProductionInstallationPartReport>
         <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(a)</confidentialityReason>
-        <productionInstallationPartReportId>
+        <InspireId>
             <localId>localid2</localId>
             <namespace>namespace2</namespace>
-        </productionInstallationPartReportId>
+        </InspireId>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
         <proportionOfUsefulHeatProductionForDistrictHeating>3.1415926535
         </proportionOfUsefulHeatProductionForDistrictHeating>
@@ -188,10 +188,10 @@
     </ProductionInstallationPartReport>
     <ProductionFacilityReport>
         <confidentialityReason>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/Article4(2)(d)1</confidentialityReason>
-        <productionFacilityReportId>
-            <localId>localid3</localId>
-            <namespace>namespace3</namespace>
-        </productionFacilityReportId>
+        <InspireId>
+            <localId>localid2</localId>
+            <namespace>namespace2</namespace>
+        </InspireId>
         <numberOfEmployees>1234</numberOfEmployees>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
         <remarks>str1234</remarks>
@@ -293,7 +293,7 @@
             <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
             <method>
                 <furtherDetails></furtherDetails>
-                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/UNECE-EMEP</methodClassification>
+                <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/WEIGH</methodClassification>
                 <methodCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/D</methodCode>
             </method>
         </pollutantRelease>

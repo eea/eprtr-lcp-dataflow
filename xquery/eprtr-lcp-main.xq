@@ -288,15 +288,19 @@ declare function xmlconv:RunQAs(
     )
 
     let $res := ()
+    (: TODO implement this :)
     (:  C2.1 – inspireId consistency    :)
     let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency (NOT IMPLEMENTED)", $res)
 
+    (: TODO implement this :)
     (:  C2.2 – Comprehensive LCP reporting    :)
     let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (NOT IMPLEMENTED)", $res)
 
+    (: TODO implement this :)
     (:  C2.3 – ProductionFacility inspireId uniqueness    :)
     let $LCP_2_3 := xmlconv:RowBuilder("EPRTR-LCP 2.3","ProductionFacility inspireId uniqueness (NOT IMPLEMENTED)", $res)
 
+    (: TODO implement this :)
     (:  C2.4 – ProductionInstallationPart inspireId uniqueness    :)
     let $LCP_2_4 := xmlconv:RowBuilder("EPRTR-LCP 2.4","ProductionInstallationPart inspireId uniqueness (NOT IMPLEMENTED)", $res)
 
@@ -472,8 +476,8 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details"> Attribute should contain a character string</td>
                     <td title="attribute"> {$attr} </td>
                     <td class="tdwarning" title="Value"> {data($el)} </td>
-                    <td title="localId">{$el/ancestor::*/productionFacilityReportId/localId}</td>
-                    <td title="namespace">{$el/ancestor::*/productionFacilityReportId/namespace}</td>
+                    <td title="localId">{$el/ancestor::*/ProductionFacilityReport/InspireId/localId}</td>
+                    <td title="namespace">{$el/ancestor::*/ProductionFacilityReport/InspireId/namespace}</td>
                     <td title="path">{functx:path-to-node($el)}</td>
                 </tr>
             else
@@ -493,6 +497,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (: TODO implement this :)
     (:  C4.1 – ReportingYear plausibility   :)
     let $res := ()
     let $LCP_4_1 := xmlconv:RowBuilder("EPRTR-LCP 4.1","ReportingYear plausibility (NOT IMPLEMENTED)", $res)
@@ -515,8 +520,8 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details"> accidentalPollutantQuantityKg attribute value is not valid</td>
                     <td class="tdwarning" title="accidentalPollutantQuantityKg"> {data($elem/accidentalPollutantQuantityKg)} </td>
                     <td title="totalPollutantQuantityKg"> {data($elem/totalPollutantQuantityKg)} </td>
-                    <td title="localId">{$elem/ancestor::*/productionFacilityReportId/localId}</td>
-                    <td title="namespace">{$elem/ancestor::*/productionFacilityReportId/namespace}</td>
+                    <td title="localId">{$elem/ancestor::*/ProductionFacilityReport/InspireId/localId}</td>
+                    <td title="namespace">{$elem/ancestor::*/ProductionFacilityReport/InspireId/namespace}</td>
                 </tr>
             else
                 ()
@@ -551,17 +556,19 @@ declare function xmlconv:RunQAs(
                 <tr>
                     <td class='error' title="Details">Fuel is duplicated within the EnergyInput feature type</td>
                     <td class="tderror" title="fuelInput"> {functx:substring-after-last($fuel, "/")} </td>
-                    <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
-                    <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                    <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                    <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
                 </tr>
             else
                 ()
     let $LCP_5_1 := xmlconv:RowBuilder("EPRTR-LCP 5.1","Identification of fuelInput duplicates", $res)
 
+    (: TODO implement this :)
     (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
     let $res := ()
     let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2","Identification of otherSolidFuel duplicates (NOT IMPLEMENTED)", $res)
 
+    (: TODO implement this :)
     (:  C.5.3 – Identification of otherGaseousFuel duplicates   :)
     let $res := ()
     let $LCP_5_3 := xmlconv:RowBuilder("EPRTR-LCP 5.3","Identification of otherGaseousFuel duplicates (NOT IMPLEMENTED)", $res)
@@ -583,8 +590,8 @@ declare function xmlconv:RunQAs(
                     <tr>
                         <td class='error' title="Details">Pollutant is duplicated within the EmissionsToAir feature type</td>
                         <td class="tderror" title="pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
-                        <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
-                        <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                        <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                        <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
                     </tr>
                 else
                     ()
@@ -610,8 +617,8 @@ declare function xmlconv:RunQAs(
                         <td class='error' title="Details">Pollutant and medium pair is duplicated within the PollutantRelease feature type</td>
                         <td class="tderror" title="mediumCode"> {functx:substring-after-last($el/mediumCode, "/")} </td>
                         <td class="tderror" title="pollutant"> {functx:substring-after-last($el/pollutant, "/")} </td>
-                        <td title="localId">{$el/ancestor-or-self::*/productionFacilityReportId/localId}</td>
-                        <td title="namespace">{$el/ancestor-or-self::*/productionFacilityReportId/namespace}</td>
+                        <td title="localId">{$el/ancestor-or-self::*/ProductionFacilityReport/InspireId/localId}</td>
+                        <td title="namespace">{$el/ancestor-or-self::*/ProductionFacilityReport/InspireId/namespace}</td>
                     </tr>
                 else
                     ()
@@ -628,10 +635,10 @@ declare function xmlconv:RunQAs(
                 if(not($ok))
                     then
                         <tr>
-                            <td class='error' title="Details">Pollutant is duplicated within the OffsitePollutantTransfer feature type</td>
-                            <td class="tderror" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
-                            <td title="localId">{$elem/descendant-or-self::*/productionFacilityReportId/localId}</td>
-                            <td title="namespace">{$elem/descendant-or-self::*/productionFacilityReportId/namespace}</td>
+                            <td class='warning' title="Details">Pollutant is duplicated within the OffsitePollutantTransfer feature type</td>
+                            <td class="tdwarning" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
+                            <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                            <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
                         </tr>
                     else
                         ()
@@ -648,10 +655,10 @@ declare function xmlconv:RunQAs(
                 if(not($ok))
                     then
                         <tr>
-                            <td class='error' title="Details">Month is duplicated within the DesulphurisationInformationType feature type</td>
-                            <td class="tderror" title="Month"> {functx:substring-after-last($el, "/")} </td>
-                            <td title="localId">{$elem/descendant-or-self::*/productionInstallationPartReportId/localId}</td>
-                            <td title="namespace">{$elem/descendant-or-self::*/productionInstallationPartReportId/namespace}</td>
+                            <td class='warning' title="Details">Month is duplicated within the DesulphurisationInformationType feature type</td>
+                            <td class="tdwarning" title="Month"> {functx:substring-after-last($el, "/")} </td>
+                            <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                            <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
                         </tr>
                     else
                         ()
@@ -671,6 +678,56 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    let $res := ()
+    (: TODO implement this :)
+    (:  C6.1 – Individual EmissionsToAir feasibility    :)
+    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
+
+    (: TODO implement this :)
+    (: C6.2 – Cumulative EmissionsToAir feasibility :)
+    let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
+
+    let $LCP_6 := xmlconv:RowAggregator(
+            "EPRTR-LCP 6",
+            "LCP and E-PRTR facility interrelation checks",
+            (
+                $LCP_6_1,
+                $LCP_6_2
+            )
+    )
+
+    let $res := ()
+    (: TODO implement this :)
+    (:  C7.1 – EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility     :)
+    let $LCP_7_1 := xmlconv:RowBuilder("EPRTR-LCP 7.1","EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility (NOT IMPLEMENTED)", $res)
+
+    (: C7.2 – MethodClassification validity  :)
+    let $res :=
+        let $seq := $docRoot//ProductionFacilityReport/*[local-name() = ("offsitePoluantTransfer", "pollutantRelease")]/method/methodClassification
+        for $elem in $seq
+            return
+                if($elem = "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/WEIGH")
+                then
+                    <tr>
+                        <td class='info' title="Details">Attribute is incorrectly populated with WEIGH</td>
+                        <td class="tdinfo" title="feature type"> {node-name($elem/../..)} </td>
+                        <td class="tdinfo" title="methodClassification"> {$elem} </td>
+                        <td title="localId">{$elem/ancestor-or-self::*/ProductionFacilityReport/InspireId/localId}</td>
+                        <td title="namespace">{$elem/ancestor-or-self::*/ProductionFacilityReport/InspireId/namespace}</td>
+                    </tr>
+                else
+                    ()
+    let $LCP_7_2 := xmlconv:RowBuilder("EPRTR-LCP 7.2","MethodClassification validity", $res)
+
+    let $LCP_7 := xmlconv:RowAggregator(
+            "EPRTR-LCP 7",
+            "Thematic validity checks",
+            (
+                $LCP_7_1,
+                $LCP_7_2
+            )
+    )
+
 
     (: RETURN ALL ROWS IN A TABLE :)
     return
@@ -679,7 +736,9 @@ declare function xmlconv:RunQAs(
             $LCP_2,
             $LCP_3,
             $LCP_4,
-            $LCP_5
+            $LCP_5,
+            $LCP_6,
+            $LCP_7
         )
 
 };
