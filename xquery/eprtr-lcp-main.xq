@@ -848,7 +848,32 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_16_1 := xmlconv:RowBuilder("EPRTR-LCP 16.1","Significant figure format compliance", $res)
     (:  C16.2 - Percentage format compliance    :)
-    let $res := ()
+    let $res :=
+        let $attributes := (
+            "proportionOfUsefulHeatProductionForDistrictHeating",
+            "desulphurisationRate",
+            "sulphurContent"
+        )
+        let $seq := $docRoot//ProductionInstallationPartReport//*[local-name() = $attributes]
+        for $elem in $seq
+        let $ok := (
+            $elem castable as xs:double
+            and
+            $elem <= 1
+        )
+        return
+            if(not($ok))
+            then
+                <tr>
+                    <td class='warning' title="Details">Attribute has been populated with a value representing a percentage greater than 100%</td>
+                    <td class="tdwarning" title="attribute name"> {node-name($elem)} </td>
+                    <td class="tdwarning" title="value"> {data($elem)} </td>
+                    <td title="localId">{$elem/ancestor-or-self::*[local-name() = ("ProductionInstallationPartReport")]/InspireId/localId}</td>
+                    <td title="namespace">{$elem/ancestor-or-self::*[local-name() = ("ProductionInstallationPartReport")]/InspireId/namespace}</td>
+                </tr>
+
+            else
+                ()
     let $LCP_16_2 := xmlconv:RowBuilder("EPRTR-LCP 16.2","Percentage format compliance", $res)
 
     let $LCP_16 := xmlconv:RowAggregator(
