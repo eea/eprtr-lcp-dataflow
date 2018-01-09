@@ -275,4 +275,19 @@
             </method>
         </pollutantRelease>
     </ProductionFacilityReport>
+    <ProductionFacilityReport>
+        <InspireId>
+            <localId>localid4</localId>
+            <namespace>namespace4</namespace>
+        </InspireId>
+        <numberOfEmployees>1234</numberOfEmployees>
+        <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
+        <remarks>str1234</remarks>
+        <representativeStackHeightM>3.1415926535</representativeStackHeightM>
+        <productionVolume>
+            <productionVolume>3.1415926535</productionVolume>
+            <productionVolumeUnits>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/UnitCodeValue/GW1</productionVolumeUnits>
+            <productName>str1234</productName>
+        </productionVolume>
+    </ProductionFacilityReport>
 </ReportData>

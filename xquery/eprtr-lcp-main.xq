@@ -306,7 +306,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_2 := xmlconv:RowAggregator(
             "EPRTR-LCP 2",
-            "inspireId checks",
+            "inspireId checks (NOT IMPLEMENTED)",
             (
                 $LCP_2_1,
                 $LCP_2_2,
@@ -689,7 +689,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_6 := xmlconv:RowAggregator(
             "EPRTR-LCP 6",
-            "LCP and E-PRTR facility interrelation checks",
+            "LCP and E-PRTR facility interrelation checks (NOT IMPLEMENTED)",
             (
                 $LCP_6_1,
                 $LCP_6_2
@@ -740,7 +740,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_8 := xmlconv:RowAggregator(
             "EPRTR-LCP 8",
-            "Derogation checks",
+            "Derogation checks (NOT IMPLEMENTED)",
             (
                 $LCP_8_1,
                 $LCP_8_2,
@@ -801,6 +801,7 @@ declare function xmlconv:RunQAs(
     )
 
     (: TODO not implemented :)
+    let $res := ()
     (:  C10.1 – EmissionsToAir outlier identification   :)
     let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
     (: TODO not implemented :)
@@ -812,7 +813,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
-            "Expected pollutant identification",
+            "Expected pollutant identification (NOT IMPLEMENTED)",
             (
                 $LCP_10_1,
                 $LCP_10_2,
@@ -820,6 +821,118 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (:  C11.1 - ProductionFacilityReports without transfers or releases :)
+    let $res :=
+        let $attributes := (
+            "offsiteWasteTransfer",
+            "offsitePoluantTransfer",
+            "pollutantRelease"
+        )
+        let $seq := $docRoot//ProductionFacilityReport
+        for $elem in $seq
+        let $elems := $elem/*[local-name() = $attributes]
+        return
+            if(empty($elems))
+            then
+                <tr>
+                    <td class='info' title="Details">No releases/transfers of pollutants nor transfers of waste have been reported</td>
+                    <td class="tdinfo" title="localId">{$elem/ancestor-or-self::*[local-name() = ("ProductionFacilityReport")]/InspireId/localId}</td>
+                    <td class="tdinfo" title="namespace">{$elem/ancestor-or-self::*[local-name() = ("ProductionFacilityReport")]/InspireId/namespace}</td>
+                </tr>
+            else
+                ()
+    let $LCP_11_1 := xmlconv:RowBuilder("EPRTR-LCP 11.1","ProductionFacilityReports without transfers or releases", $res)
+
+    let $res := ()
+    (: TODO not implemented :)
+    (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
+    let $LCP_11_2 := xmlconv:RowBuilder("EPRTR-LCP 11.2","ProductionFacility releases and transfers reported below the thresholds (NOT IMPLEMENTED)", $res)
+
+    let $LCP_11 := xmlconv:RowAggregator(
+            "EPRTR-LCP 11",
+            "ProductionFacility voluntary reporting checks",
+            (
+                $LCP_11_1,
+                $LCP_11_2
+            )
+    )
+
+    let $res := ()
+    (: C12.1 - Identification of ProductionFacility release/transfer outliers against data for previous year :)
+    let $LCP_12_1 := xmlconv:RowBuilder("EPRTR-LCP 12.1","Identification of ProductionFacility release/transfer outliers against data for previous year", $res)
+    (: C12.2 - Identification of ProductionFacility release/transfer outliers against national total and pollutant threshold :)
+    let $LCP_12_2 := xmlconv:RowBuilder("EPRTR-LCP 12.2","Identification of ProductionFacility release/transfer outliers against national total and pollutant threshold", $res)
+    (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
+    let $LCP_12_3 := xmlconv:RowBuilder("EPRTR-LCP 12.3","Identification of ProductionFacility release/transfer outliers against previous year data", $res)
+    (: C12.4 - Time series consistency for ProductionFacility emissions :)
+    let $LCP_12_4 := xmlconv:RowBuilder("EPRTR-LCP 12.4","Time series consistency for ProductionFacility emissions", $res)
+    (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
+    let $LCP_12_5 := xmlconv:RowBuilder("EPRTR-LCP 12.5","Time series consistency for ProductionInstallationPart emissions", $res)
+
+    let $LCP_12 := xmlconv:RowAggregator(
+            "EPRTR-LCP 12",
+            "Identification of release and transfer outliers (NOT IMPLEMENTED)",
+            (
+                $LCP_12_1,
+                $LCP_12_2,
+                $LCP_12_3,
+                $LCP_12_4,
+                $LCP_12_5
+            )
+    )
+
+    let $res := ()
+    (: C13.1 - C13.1 - Number of ProductionFacilities reporting releases and transfers consistency :)
+    let $LCP_13_1 := xmlconv:RowBuilder("EPRTR-LCP 13.1","Number of ProductionFacilities reporting releases and transfers consistency", $res)
+    (: C13.2 - Reported number of releases and transfers per medium consistency :)
+    let $LCP_13_2 := xmlconv:RowBuilder("EPRTR-LCP 13.2","Reported number of releases and transfers per medium consistency", $res)
+    (: C13.3 - Reported number of pollutants per medium consistency :)
+    let $LCP_13_3 := xmlconv:RowBuilder("EPRTR-LCP 13.3","Reported number of pollutants per medium consistency", $res)
+    (: C13.4 - Quantity of releases and transfers consistency :)
+    let $LCP_13_4 := xmlconv:RowBuilder("EPRTR-LCP 13.4","Quantity of releases and transfers consistency", $res)
+
+    let $LCP_13 := xmlconv:RowAggregator(
+            "EPRTR-LCP 13",
+            "Overview on inter-annual reporting consistency (NOT IMPLEMENTED)",
+            (
+                $LCP_13_1,
+                $LCP_13_2,
+                $LCP_13_3,
+                $LCP_13_4
+            )
+    )
+
+    let $res := ()
+    (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
+    let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1","Identification of top 10 ProductionFacility releases/transfers across Europe", $res)
+
+    (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
+    let $LCP_14_2 := xmlconv:RowBuilder("EPRTR-LCP 14.2","Identification of ProductionFacility release/transfer outliers against European level data", $res)
+
+    (: C14.3 – Verification of total national emissions across Europe :)
+    let $LCP_14_3 := xmlconv:RowBuilder("EPRTR-LCP 14.3","Verification of total national emissions across Europe", $res)
+
+    let $LCP_14 := xmlconv:RowAggregator(
+            "EPRTR-LCP 14",
+            "Verification of emissions against European level data (NOT IMPLEMENTED)",
+            (
+                $LCP_14_1,
+                $LCP_14_2,
+                $LCP_14_3
+            )
+    )
+
+    (:  C15.1 – Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD and UNFCCC/EU-MMR National Inventories    :)
+    let $res := ()
+    let $LCP_15_1 := xmlconv:RowBuilder("EPRTR-LCP 15.1","Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD and UNFCCC/EU-MMR National Inventories", $res)
+
+    let $LCP_15 := xmlconv:RowAggregator(
+        "EPRTR-LCP 15",
+        "Verification of national emissions against external datasets (NOT IMPLEMENTED)",
+        (
+            $LCP_15_1
+        )
+    )
     (:  C16.1 - Significant figure format compliance    :)
     let $res :=
         let $attributes := (
@@ -899,6 +1012,11 @@ declare function xmlconv:RunQAs(
             $LCP_8,
             $LCP_9,
             $LCP_10,
+            $LCP_11,
+            $LCP_12,
+            $LCP_13,
+            $LCP_14,
+            $LCP_15,
             $LCP_16
         )
 
