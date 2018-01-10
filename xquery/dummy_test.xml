@@ -171,10 +171,16 @@
             </fuelInput>
         </energyInput>
     </ProductionInstallationPartReport>
-    <ProductionFacilityReport>
+    <ProductionInstallationPartReport>
         <InspireId>
             <localId>localid2</localId>
             <namespace>namespace2</namespace>
+        </InspireId>
+    </ProductionInstallationPartReport>
+    <ProductionFacilityReport>
+        <InspireId>
+            <localId>localid3</localId>
+            <namespace>namespace3</namespace>
         </InspireId>
         <numberOfEmployees>1234</numberOfEmployees>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>
@@ -277,8 +283,8 @@
     </ProductionFacilityReport>
     <ProductionFacilityReport>
         <InspireId>
-            <localId>localid4</localId>
-            <namespace>namespace4</namespace>
+            <localId>localid3</localId>
+            <namespace>namespace3</namespace>
         </InspireId>
         <numberOfEmployees>1234</numberOfEmployees>
         <numberOfOperatingHours>3.1415926535</numberOfOperatingHours>

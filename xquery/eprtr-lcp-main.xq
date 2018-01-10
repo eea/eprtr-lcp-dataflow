@@ -148,6 +148,24 @@ declare function xmlconv:RowAggregator (
 
 };
 
+declare function xmlconv:InspireIdUniqueness(
+    $docRoot as node()*,
+    $featureType as xs:string
+) as element()*{
+    let $seq := $docRoot//*[local-name() = $featureType]
+    let $allInspireIds := data($seq/InspireId)
+    for $elem in distinct-values($seq/InspireId)
+    return
+        if(count(index-of($allInspireIds, data($elem))) > 1)
+        then
+            <tr>
+                <td class='error' title="Details">InspireId is not unique</td>
+                <td class="tderror" title="InspireId"> {data($elem)} </td>
+            </tr>
+        else
+            ()
+};
+
 declare function xmlconv:isInVocabulary(
         $seq as element()*,
         $concept as xs:string
@@ -296,13 +314,13 @@ declare function xmlconv:RunQAs(
     (:  C2.2 – Comprehensive LCP reporting    :)
     let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (NOT IMPLEMENTED)", $res)
 
-    (: TODO implement this :)
     (:  C2.3 – ProductionFacility inspireId uniqueness    :)
-    let $LCP_2_3 := xmlconv:RowBuilder("EPRTR-LCP 2.3","ProductionFacility inspireId uniqueness (NOT IMPLEMENTED)", $res)
+    let $res := xmlconv:InspireIdUniqueness($docRoot, "ProductionFacilityReport")
+    let $LCP_2_3 := xmlconv:RowBuilder("EPRTR-LCP 2.3","ProductionFacility inspireId uniqueness", $res)
 
-    (: TODO implement this :)
     (:  C2.4 – ProductionInstallationPart inspireId uniqueness    :)
-    let $LCP_2_4 := xmlconv:RowBuilder("EPRTR-LCP 2.4","ProductionInstallationPart inspireId uniqueness (NOT IMPLEMENTED)", $res)
+    let $res := xmlconv:InspireIdUniqueness($docRoot, "ProductionInstallationPartReport")
+    let $LCP_2_4 := xmlconv:RowBuilder("EPRTR-LCP 2.4","ProductionInstallationPart inspireId uniqueness", $res)
 
     let $LCP_2 := xmlconv:RowAggregator(
             "EPRTR-LCP 2",
