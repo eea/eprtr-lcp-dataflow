@@ -43,14 +43,14 @@
         </desulphurisationInformation>
         <emissionsToAir>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
-            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
+            <totalPollutantQuantityTNE>333.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <emissionsToAir>
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/TSP</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
         <energyInput>
-            <energyinputTJ>3.1415926535</energyinputTJ>
+            <energyinputTJ>32.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases1</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
@@ -59,7 +59,7 @@
             </fuelInput>
         </energyInput>
         <energyInput>
-            <energyinputTJ>3.1415926535</energyinputTJ>
+            <energyinputTJ>32.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</fuelInput>
                 <furtherDetails>str1234</furtherDetails>
@@ -127,10 +127,6 @@
             <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
             <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
         </emissionsToAir>
-        <emissionsToAir>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2</pollutant>
-            <totalPollutantQuantityTNE>3.1415926535</totalPollutantQuantityTNE>
-        </emissionsToAir>
         <energyInput>
             <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
@@ -139,12 +135,18 @@
                 <otherGaseousFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG1</otherGaseousFuel>
                 <otherSolidFuel>str1234</otherSolidFuel>
             </fuelInput>
+        </energyInput>
+        <energyInput>
+            <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
                 <furtherDetails></furtherDetails>
                 <otherGaseousFuel>asd</otherGaseousFuel>
                 <otherSolidFuel>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Other</otherSolidFuel>
             </fuelInput>
+        </energyInput>
+        <energyInput>
+            <energyinputTJ>3.1415926535</energyinputTJ>
             <fuelInput>
                 <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
                 <furtherDetails></furtherDetails>

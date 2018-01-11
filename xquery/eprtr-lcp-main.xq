@@ -18,7 +18,7 @@ declare variable $source_url as xs:string external;
 declare variable $xmlconv:BASIC_DATA_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_basicdata.xml");
 declare variable $xmlconv:OLD_PLANTS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_v2_plantsdb.xml");
 declare variable $xmlconv:CLRTAP_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_clrtap.xml");
-declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_avg_emissions.xml");
+declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string := ("average_emissions.xml");
 declare variable $xmlconv:FINDINGS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_Findings_Step1.xml");
 
 declare variable $xmlconv:VALID_OTHER_SECTOR as xs:string* := ("iron_steel","esi","district_heating","chp","other");
@@ -818,20 +818,49 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    (: TODO not implemented :)
-    let $res := ()
     (:  C10.1 – EmissionsToAir outlier identification   :)
+    let $res :=
+        let $seq:= $docRoot//ProductionInstallationPartReport
+        let $docEmissions := doc($xmlconv:AVG_EMISSIONS_PATH)
+        let $emissions := distinct-values($seq/emissionsToAir/functx:substring-after-last(pollutant, "/"))
+        for $elem in $seq
+            for $emission in $emissions
+                let $emissionTotal := functx:if-empty($elem/emissionsToAir[functx:substring-after-last(pollutant, "/") = $emission]/totalPollutantQuantityTNE, 0)
+                let $expected := sum(
+                    for $pollutant in $elem/energyInput
+                    let $emissionFactor := $docEmissions//emission[functx:substring-after-last($pollutant/fuelInput/fuelInput, "/") = fuelInput]/*[local-name() = $emission]
+                    return $pollutant/energyinputTJ * $emissionFactor
+                )
+                let $emissionConstant := if($emission = "NOx") then 1 div 10 else 1 div 500
+                where $expected > 0
+                return
+                    if(
+                        $emissionTotal div $expected > 20
+                        or
+                        $emissionTotal div $expected < $emissionConstant
+                    )
+                    then
+                        <tr>
+                            <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
+                            <td title="inspireId">{data($elem/InspireId)}</td>
+                            <td title="fuelInput">{$emission}</td>
+                            <td title="total reported">{$emissionTotal}</td>
+                            <td class="tdinfo" title="expected">{$expected}</td>
+                        </tr>
+                    else
+                        ()
     let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
     (: TODO not implemented :)
     (:  C10.2 – Energy input and CO2 emissions feasibility  :)
-    let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2","Energy input and CO2 emissions feasibility", $res)
+    let $res := ()
+    let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2","Energy input and CO2 emissions feasibility (NOT IMPLEMENTED)", $res)
     (: TODO not implemented :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
-    let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3","ProductionFacility cross pollutant identification", $res)
+    let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3","ProductionFacility cross pollutant identification (NOT IMPLEMENTED)", $res)
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
-            "Expected pollutant identification (NOT IMPLEMENTED)",
+            "Expected pollutant identification",
             (
                 $LCP_10_1,
                 $LCP_10_2,
