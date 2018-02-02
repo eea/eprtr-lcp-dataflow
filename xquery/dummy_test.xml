@@ -250,9 +250,9 @@
             </method>
         </pollutantRelease>
         <pollutantRelease>
-            <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
+            <accidentalPollutantQuantityKg>4.2</accidentalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER1</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2%20EXCL%20BIOMASS</pollutant>
             <totalPollutantQuantityKg>4.123</totalPollutantQuantityKg>
             <method>
                 <furtherDetails></furtherDetails>
@@ -272,10 +272,10 @@
             </method>
         </pollutantRelease>
         <pollutantRelease>
-            <accidentalPollutantQuantityKg>4</accidentalPollutantQuantityKg>
+            <accidentalPollutantQuantityKg>4.2</accidentalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/LAND1</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS11</pollutant>
-            <totalPollutantQuantityKg>4b</totalPollutantQuantityKg>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+            <totalPollutantQuantityKg>4</totalPollutantQuantityKg>
             <method>
                 <furtherDetails></furtherDetails>
                 <methodClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/WEIGH</methodClassification>
