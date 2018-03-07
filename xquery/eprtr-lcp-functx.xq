@@ -104,4 +104,11 @@ declare function functx:substring-after-last
    replace ($arg,concat('^.*',functx:escape-for-regex($delim)),'')
  } ;
 
+declare function functx:substring-before-last-match
+($arg as xs:string?,
+        $regex as xs:string) as xs:string? {
+
+    replace($arg, concat('^(.*)', $regex, '.*'), '$1')
+};
+
 (: HELPER FUNCTIONS END :)
