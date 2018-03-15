@@ -521,7 +521,6 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $envelope-url := functx:substring-before-last-match($source_url, '/') || '/xml'
         let $envelope-available := fn:doc-available($envelope-url)
-        let $asd := trace($envelope-url, "envelope-url: ")
         return
             if(fn:not($envelope-available))
             then
@@ -743,7 +742,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_5 := xmlconv:RowAggregator(
             "EPRTR-LCP 5",
-            "Duplicate identification checks",
+            "Duplicate identification checks (NOT IMPLEMENTED)",
             (
                 $LCP_5_1,
                 $LCP_5_2,
@@ -778,7 +777,7 @@ declare function xmlconv:RunQAs(
     (:  C7.1 – EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility     :)
     let $LCP_7_1 := xmlconv:RowBuilder("EPRTR-LCP 7.1","EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility (NOT IMPLEMENTED)", $res)
 
-    (: C7.2 – MethodClassification validity  :)
+    (: C7.2 – MethodClassification validity :)
     let $res :=
         let $seq := $docRoot//ProductionFacilityReport/*[fn:local-name() = ("offsitePoluantTransfer", "pollutantRelease")]/method/methodClassification
         for $elem in $seq
@@ -798,7 +797,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_7 := xmlconv:RowAggregator(
             "EPRTR-LCP 7",
-            "Thematic validity checks",
+            "Thematic validity checks (NOT IMPLEMENTED)",
             (
                 $LCP_7_1,
                 $LCP_7_2
@@ -919,7 +918,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
-            "Expected pollutant identification",
+            "Expected pollutant identification (NOT IMPLEMENTED)",
             (
                 $LCP_10_1,
                 $LCP_10_2,
@@ -956,7 +955,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_11 := xmlconv:RowAggregator(
             "EPRTR-LCP 11",
-            "ProductionFacility voluntary reporting checks",
+            "ProductionFacility voluntary reporting checks (NOT IMPLEMENTED)",
             (
                 $LCP_11_1,
                 $LCP_11_2

@@ -1,0 +1,53 @@
+<data>
+    <ProductionFacility>
+        <year/>
+        <country/>
+        <!-- 2.1, 2.2 -->
+        <InspireId/>
+        <!-- 12.1, 14.1 -->
+        <EPRTRAnnexIActivity/>
+        <!-- 12.3, 12.5, 13.1, 13.2, 13.3 ,13.4-->
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE/>
+            <wasteClassification/>
+        </offsiteWasteTransfer>
+        <offsitePoluantTransfer>
+            <totalPollutantQuantityKg/>
+            <pollutant/>
+        </offsitePoluantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg/>
+            <mediumCode/>
+            <pollutant/>
+        </pollutantRelease>
+        <!-- 12.5 -->
+        <StatusType/>
+        <!-- list with ProductionInstallationParts -->
+        <ProductionInstallationPart>
+            <!-- 2.1, 2.2 -->
+            <InspireId/>
+            <!-- 2.2 -->
+            <StatusType/>
+            <!-- 7.1 -->
+            <totalRatedThermalInput/>
+            <!-- 8.1, 8.2, 8.3 -->
+            <derogations/>
+            <!-- 12.4, 13.4 -->
+            <emissionsToAir>
+                <totalPollutantQuantityTNE/>
+                <pollutant/>
+            </emissionsToAir>
+        </ProductionInstallationPart>
+        <ProductionInstallationPart>
+            ...
+        </ProductionInstallationPart>
+        <ProductionInstallationPart>
+            ...
+        </ProductionInstallationPart>
+    </ProductionFacility>
+    <ProductionFacility>
+        ....
+    </ProductionFacility>
+</data>
+
+

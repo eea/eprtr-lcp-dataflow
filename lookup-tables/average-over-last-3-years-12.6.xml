@@ -1,0 +1,14 @@
+<data>
+    <emission>
+        <country/>
+        <NOx/>
+        <SO2/>
+        <TSP/>
+    </emission>
+    <emission>
+        ... country 2 with pollutants
+    </emission>
+    <emission>
+        ... country 3 with pollutants
+    </emission>
+</data>

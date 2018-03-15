@@ -1,0 +1,37 @@
+<data>
+    <emission>
+        <year/>
+        <EPRTRAnnexIActivity/>
+        <offsitePoluantTransfer>
+            <pollutant/>
+            <inspireid1/>
+            <inspireid2/>
+            <inspireid3/>
+            ….
+            <inspireid10/>
+        </offsitePoluantTransfer>
+        <offsiteWasteTransfer/>
+            <wasteClassification/>
+            <wasteTreatment/>
+            <inspireid1/>
+            <inspireid2/>
+            <inspireid3/>
+            ….
+            <inspireid10/>
+        <offsiteWasteTransfer/>
+        <pollutantRelease>
+            <mediumCode/>
+            <pollutant/>
+            <inspireid1/>
+            <inspireid2/>
+            <inspireid3/>
+            ….
+            <inspireid10/>
+        </pollutantRelease>
+    </emission>
+    <emission>
+        <year/>
+        <EPRTRAnnexIActivity/>
+        .... top 10 list for each pollutant
+    </emission>
+</data>
