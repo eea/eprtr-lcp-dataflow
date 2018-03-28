@@ -110,5 +110,11 @@ declare function functx:substring-before-last-match
 
     replace($arg, concat('^(.*)', $regex, '.*'), '$1')
 };
+declare function functx:is-a-number
+  ( $value as xs:anyAtomicType? )  as xs:boolean {
+
+   string(number($value)) != 'NaN'
+ } ;
+
 
 (: HELPER FUNCTIONS END :)
