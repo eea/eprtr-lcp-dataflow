@@ -1,0 +1,2207 @@
+<dataroot generated="2018-03-28T14:19:46">
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>594705.62164</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>2303.94471</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>644028.22088</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>13296.34072</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>100.49288</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>107.672</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>396.39472</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2209.45837</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>AT</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>875280.38644</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>2838.69215</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>961812.62049</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>22294.81752</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>168.89466</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>6.79744</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2206.77696</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>642.10788</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BE</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>404863.34173</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>2423.11435</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>412121.70007</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>9217.33</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>130.56431</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0.22144</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>128.835</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>BG</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>458152.98096</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1800.62264</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>378708.34711</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>12231.42249</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>66.93425</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3.8952</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>411.02462</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1836.32003</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CH</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>62166.02131</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>296.36385</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>65748.93744</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2874.47337</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>9.48165</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1.03831</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CY</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1162245.97124</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>4582.47318</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>968415.59683</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>27640.64496</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>170.95239</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>18.3008</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>15.6796</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>650.10774</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>CZ</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>6476977.40558</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>19334.22488</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>7337414.88485</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>88897.7509</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>1099.46494</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>95.0816</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2029.33936</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>25074.36399</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DE</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1752.9908</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>485835.74023</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>2435.3063</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>376197.99237</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>5071.412</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>144.03533</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>39.59048</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>721.57232</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>DK</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>127856.83192</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>368.79929</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>143348.84109</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1782.5704</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>24.19942</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>15.75784</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EE</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2333016.41611</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>13312.22197</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>2421985.1939</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>73319.25472</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>453.68341</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>707.69752</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1552.24454</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>ES</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>38770488.02108</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>157406.16458</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>31881934.95756</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>860869.38712</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>6767.95797</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>553.47607</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>28053.93318</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>45317.69295</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUA</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1752.9908</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>38892748.63313</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>158171.71981</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>31977646.19235</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>863478.54376</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>6781.24989</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>553.47607</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>28883.56703</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>45328.40211</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>EUC</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1752.9908</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>471751.73187</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1858.01959</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>368081.69652</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>12376.06211</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>149.42917</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>50.73092</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>262.85693</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FI</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3201262.51695</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>20769.88194</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>3049828.59744</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>154110.39261</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>1170.56164</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>85.0368</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3924.39865</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3687.07515</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>FR</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>674666.09825</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>3468.19218</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>690821.11604</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>47221.47616</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>124.8888</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>956.17984</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>35.42294</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>GR</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>151623.79141</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1171.63452</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>146294.79769</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3359.08304</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>49.1762</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0.27032</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>36.85227</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HR</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>424744.60548</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>2580.23868</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>421372.41437</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>18132.71887</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>119.50521</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>9.19312</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>783.15125</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>HU</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>447829.36388</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>4815.76965</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>383402.07741</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>8614.37776</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>197.93304</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>7.68816</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>163.97888</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>332.98574</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IE</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>73659.08212</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>638.89165</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>71556.5213</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1655.81944</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>10.02135</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>829.63384</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>10.70916</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IS</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3000964.42674</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>14683.99919</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>3192941.94663</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>98113.70057</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>522.98211</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>227.33336</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>13506.60536</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3056.81949</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>IT</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1495.09984</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>6.9164</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>1562.24007</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>83.36625</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>0.27892</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0.30472</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0.26173</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LI</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>123099.89218</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1165.51663</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>96216.89278</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3826.86703</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>91.81206</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2.05848</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>43.54228</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LT</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>79874.49868</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>219.31751</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>91552.76768</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>534.28856</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>7.97053</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>62.19696</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LU</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>118918.68416</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>723.01471</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>79500.20534</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1816.46024</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>65.28803</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>70.82649</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>LV</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>27089.58078</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>60.03585</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>27661.69091</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1976</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>1.36421</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1.32356</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>MT</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1921918.60847</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>6675.02236</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>1664848.77345</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>18685.79688</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>233.90239</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>833.76264</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>971.8044</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NL</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>292617.34238</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1815.75825</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>295949.6425</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>9863.19985</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>78.35027</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>1171.10704</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>387.91016</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>NO</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2634374.98709</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>15813.27708</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>2747440.07804</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>71590.78688</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>544.30868</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>105.66488</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>543.3271</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PL</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>600458.78118</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>3666.14641</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>458812.4739</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>21433.92064</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>94.84659</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>111.11088</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>183.32118</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>PT</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>742321.97695</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>10006.01712</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>625700.5659</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>13094.09289</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>226.69034</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>52.5328</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>365.89539</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>RO</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>226988.33802</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1806.95399</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>186392.88126</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>6184.85048</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>152.7136</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>286.70104</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>399.6067</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SE</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>108713.54285</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>706.1281</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>109153.53625</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2769.71711</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>23.29394</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>125.9224</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>103.21024</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SI</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>277414.03124</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>1452.21052</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>291922.65578</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>5879.07744</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>64.59398</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>68.0336</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>100.19709</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>SK</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3091770.48045</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>17759.96802</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>3206076.7018</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>38440.31088</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>921.11029</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>960.70026</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>13894.31504</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>TR</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>All greenhouse gases - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3678466.2124</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>CH4</Pollutant_name>
+    <SumOfemissions>17867.87392</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>CO2</Pollutant_name>
+    <SumOfemissions>3912751.53854</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>HFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>126755.12335</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>N2O</Pollutant_name>
+    <SumOfemissions>624.62063</SumOfemissions>
+    <Unit>Gg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>NF3 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3.50744</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>2463.14785</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>SF6 - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>3281.7917</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Country_code>UK</Country_code>
+    <Pollutant_name>Unspecified mix of HFCs and PFCs - (CO2 equivalent)</Pollutant_name>
+    <SumOfemissions>0</SumOfemissions>
+    <Unit>Gg CO2 equivalent</Unit>
+  </row>
+</dataroot>

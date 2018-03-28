@@ -1,0 +1,1074 @@
+<dataroot generated="2018-03-28T14:10:59">
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>ANTHRACENE</PollutantCode>
+    <SumOfTotalQuantity>3601.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>AS AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>23620.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>BENZENE</PollutantCode>
+    <SumOfTotalQuantity>2705080</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>BENZO(G,H,I)PERYLENE</PollutantCode>
+    <SumOfTotalQuantity>597.1678</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CD AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>9262.7</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CFCS</PollutantCode>
+    <SumOfTotalQuantity>49035.43</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CH4</PollutantCode>
+    <SumOfTotalQuantity>1702744000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CHLORIDES</PollutantCode>
+    <SumOfTotalQuantity>41</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CHLORINE AND INORGANIC COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>28859000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CO</PollutantCode>
+    <SumOfTotalQuantity>2856913000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CO2</PollutantCode>
+    <SumOfTotalQuantity>1600692000000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CO2 EXCL BIOMASS</PollutantCode>
+    <SumOfTotalQuantity>293899845250</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CR AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>57508</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>CU AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>109321</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>DEHP</PollutantCode>
+    <SumOfTotalQuantity>3267.9</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>DICHLOROETHANE-1,2 (DCE)</PollutantCode>
+    <SumOfTotalQuantity>840270</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>DICHLOROMETHANE (DCM)</PollutantCode>
+    <SumOfTotalQuantity>1731840</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>DICHLOROMETHANE (DCM)</PollutantCode>
+    <SumOfTotalQuantity>912</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>ETHYLENE OXIDE</PollutantCode>
+    <SumOfTotalQuantity>28200</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>FLUORANTHENE</PollutantCode>
+    <SumOfTotalQuantity>2807.13</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>FLUORIDES</PollutantCode>
+    <SumOfTotalQuantity>421765.1</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>FLUORINE AND INORGANIC COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>5140010</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>GRHGAS</PollutantCode>
+    <SumOfTotalQuantity>541000000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>HALONS</PollutantCode>
+    <SumOfTotalQuantity>5411.88</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>HCFCS</PollutantCode>
+    <SumOfTotalQuantity>207807.19</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>HCN</PollutantCode>
+    <SumOfTotalQuantity>240145</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>HEXACHLOROBENZENE (HCB)</PollutantCode>
+    <SumOfTotalQuantity>32</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>HFCS</PollutantCode>
+    <SumOfTotalQuantity>1044215</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>HG AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>24430</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>N2O</PollutantCode>
+    <SumOfTotalQuantity>45456000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>NAPHTHALENE</PollutantCode>
+    <SumOfTotalQuantity>95828</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>NH3</PollutantCode>
+    <SumOfTotalQuantity>204896400</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>NI AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>147039.3</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>NMVOC</PollutantCode>
+    <SumOfTotalQuantity>391294000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>NOX</PollutantCode>
+    <SumOfTotalQuantity>1899164000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>OTHGAS</PollutantCode>
+    <SumOfTotalQuantity>192000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>PB AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>245042</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>PCDD+PCDF (DIOXINS+FURANS)</PollutantCode>
+    <SumOfTotalQuantity>1.610117</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>PFCS</PollutantCode>
+    <SumOfTotalQuantity>145904</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>PHENOLS</PollutantCode>
+    <SumOfTotalQuantity>25331.4</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>PM10</PollutantCode>
+    <SumOfTotalQuantity>93384400</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>POLYCHLORINATED BIPHENYLS (PCBS)</PollutantCode>
+    <SumOfTotalQuantity>37.063</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>POLYCYCLIC AROMATIC HYDROCARBONS</PollutantCode>
+    <SumOfTotalQuantity>77704.2</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>SF6</PollutantCode>
+    <SumOfTotalQuantity>6845.9</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>SOX</PollutantCode>
+    <SumOfTotalQuantity>2005110000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TETRACHLOROETHANE-1,1,2,2</PollutantCode>
+    <SumOfTotalQuantity>316.2</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TETRACHLOROETHYLENE (PER)</PollutantCode>
+    <SumOfTotalQuantity>148580</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TETRACHLOROMETHANE (TCM)</PollutantCode>
+    <SumOfTotalQuantity>29958</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TOLUENE</PollutantCode>
+    <SumOfTotalQuantity>452003.0001</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TOTAL ORGANIC CARBON (TOC)</PollutantCode>
+    <SumOfTotalQuantity>89175.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROBENZENES (TCB)</PollutantCode>
+    <SumOfTotalQuantity>33.1</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROETHANE-1,1,1 (TCE)</PollutantCode>
+    <SumOfTotalQuantity>14775</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROETHYLENE (TRI)</PollutantCode>
+    <SumOfTotalQuantity>129110</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROMETHANE</PollutantCode>
+    <SumOfTotalQuantity>154323</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>VINYL CHLORIDE</PollutantCode>
+    <SumOfTotalQuantity>485250</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>XYLENES</PollutantCode>
+    <SumOfTotalQuantity>166070</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>AIR</ReleaseMediumCode>
+    <PollutantCode>ZN AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>626927</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>AS AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>112.3</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>CD AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>15.1</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>CHLORIDES</PollutantCode>
+    <SumOfTotalQuantity>654920000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>CR AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>421</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>CU AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>4546.4</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>HALOGENATED ORGANIC COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>2410</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>HG AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>5.37</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>NI AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>432</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>PB AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>791</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>POLYCHLORINATED BIPHENYLS (PCBS)</PollutantCode>
+    <SumOfTotalQuantity>1.033</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>TOTAL - NITROGEN</PollutantCode>
+    <SumOfTotalQuantity>157500</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>TOTAL - PHOSPHORUS</PollutantCode>
+    <SumOfTotalQuantity>48300</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>LAND</ReleaseMediumCode>
+    <PollutantCode>ZN AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>7721</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ALACHLOR</PollutantCode>
+    <SumOfTotalQuantity>73.44</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ANTHRACENE</PollutantCode>
+    <SumOfTotalQuantity>1937.55</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>AS AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>76588.3899999999</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ASBESTOS</PollutantCode>
+    <SumOfTotalQuantity>390.29</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ATRAZINE</PollutantCode>
+    <SumOfTotalQuantity>362.9</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>BENZENE</PollutantCode>
+    <SumOfTotalQuantity>2141628.3</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>BENZO(G,H,I)PERYLENE</PollutantCode>
+    <SumOfTotalQuantity>207.74</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>BROMINATED DIPHENYLETHER</PollutantCode>
+    <SumOfTotalQuantity>1.01</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CD AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>13009.62</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CHLORIDES</PollutantCode>
+    <SumOfTotalQuantity>14538110000</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CHLORO-ALKANES (C10-13)</PollutantCode>
+    <SumOfTotalQuantity>360.4</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CHLORPYRIFOS</PollutantCode>
+    <SumOfTotalQuantity>5650</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CR AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>224765.6</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CU AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>1726317</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>CYANIDES</PollutantCode>
+    <SumOfTotalQuantity>117170.64</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>DEHP</PollutantCode>
+    <SumOfTotalQuantity>16058.67</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>DICHLOROETHANE-1,2 (DCE)</PollutantCode>
+    <SumOfTotalQuantity>3610</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>DICHLOROMETHANE (DCM)</PollutantCode>
+    <SumOfTotalQuantity>12094.1</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>DIURON</PollutantCode>
+    <SumOfTotalQuantity>1532.03</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ETHYLBENZENE</PollutantCode>
+    <SumOfTotalQuantity>130566.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ETHYLENE OXIDE</PollutantCode>
+    <SumOfTotalQuantity>375.9</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>FLUORANTHENE</PollutantCode>
+    <SumOfTotalQuantity>1328.18</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>FLUORIDES</PollutantCode>
+    <SumOfTotalQuantity>9910620</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>HALOGENATED ORGANIC COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>3911480</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>HEXACHLOROBENZENE (HCB)</PollutantCode>
+    <SumOfTotalQuantity>5.73</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>HEXACHLOROBUTADIENE (HCBD)</PollutantCode>
+    <SumOfTotalQuantity>181.23</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>HEXACHLOROCYCLOHEXANE(HCH)</PollutantCode>
+    <SumOfTotalQuantity>39.79</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>HG AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>4074.81</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>INORG</PollutantCode>
+    <SumOfTotalQuantity>126800</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ISODRIN</PollutantCode>
+    <SumOfTotalQuantity>5.65</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ISOPROTURON</PollutantCode>
+    <SumOfTotalQuantity>160.94</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>LINDANE</PollutantCode>
+    <SumOfTotalQuantity>74.28</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>NAPHTHALENE</PollutantCode>
+    <SumOfTotalQuantity>160934.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>NH3</PollutantCode>
+    <SumOfTotalQuantity>15514</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>NI AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>191610.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>NP/NPES</PollutantCode>
+    <SumOfTotalQuantity>17021.55</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>OCTYLPHENOLS AND OCTYLPHENOL ETHOXYLATES</PollutantCode>
+    <SumOfTotalQuantity>1005.14</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ORGANOTIN - COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>1208</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>OTHORG</PollutantCode>
+    <SumOfTotalQuantity>55439</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>PB AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>2069049.7</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>PCDD+PCDF (DIOXINS+FURANS)</PollutantCode>
+    <SumOfTotalQuantity>1.247402</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>PENTACHLOROBENZENE</PollutantCode>
+    <SumOfTotalQuantity>29.8</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>PENTACHLOROPHENOL (PCP)</PollutantCode>
+    <SumOfTotalQuantity>78.53</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>PHENOLS</PollutantCode>
+    <SumOfTotalQuantity>1019806.7</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>POLYCHLORINATED BIPHENYLS (PCBS)</PollutantCode>
+    <SumOfTotalQuantity>97.556</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>POLYCYCLIC AROMATIC HYDROCARBONS</PollutantCode>
+    <SumOfTotalQuantity>1749.95</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>SIMAZINE</PollutantCode>
+    <SumOfTotalQuantity>2002.63</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>SOX</PollutantCode>
+    <SumOfTotalQuantity>1441500</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TETRACHLOROETHYLENE (PER)</PollutantCode>
+    <SumOfTotalQuantity>1829.3</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TETRACHLOROMETHANE (TCM)</PollutantCode>
+    <SumOfTotalQuantity>598.94</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TOLUENE</PollutantCode>
+    <SumOfTotalQuantity>2232424.1</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TOTAL - NITROGEN</PollutantCode>
+    <SumOfTotalQuantity>420998200</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TOTAL - PHOSPHORUS</PollutantCode>
+    <SumOfTotalQuantity>44870890</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TOTAL ORGANIC CARBON (TOC)</PollutantCode>
+    <SumOfTotalQuantity>728463500</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TOXAPHENE</PollutantCode>
+    <SumOfTotalQuantity>4.3</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TRIBUTYLTIN AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>3.86</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROBENZENES (TCB)</PollutantCode>
+    <SumOfTotalQuantity>432.5</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROETHANE-1,1,1 (TCE)</PollutantCode>
+    <SumOfTotalQuantity>0.21897</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROETHYLENE (TRI)</PollutantCode>
+    <SumOfTotalQuantity>883.7</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TRICHLOROMETHANE</PollutantCode>
+    <SumOfTotalQuantity>8313.2</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>TRIPHENYLTIN AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>3.98</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>VINYL CHLORIDE</PollutantCode>
+    <SumOfTotalQuantity>1090</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>XYLENES</PollutantCode>
+    <SumOfTotalQuantity>723161.4</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <ReleaseMediumCode>WATER</ReleaseMediumCode>
+    <PollutantCode>ZN AND COMPOUNDS</PollutantCode>
+    <SumOfTotalQuantity>1878593</SumOfTotalQuantity>
+    <Unit>Kg</Unit>
+  </row>
+</dataroot>

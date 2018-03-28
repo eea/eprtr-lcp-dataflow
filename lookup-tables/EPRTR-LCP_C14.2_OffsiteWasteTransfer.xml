@@ -1,0 +1,50 @@
+<dataroot generated="2018-03-28T14:13:38">
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <WasteTypeCode>HWIC</WasteTypeCode>
+    <WasteTreatmentCode>D</WasteTreatmentCode>
+    <SumOfQuantity>16973132.561761</SumOfQuantity>
+    <Unit>tonnes (metic)</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <WasteTypeCode>HWIC</WasteTypeCode>
+    <WasteTreatmentCode>R</WasteTreatmentCode>
+    <SumOfQuantity>24777876.485044</SumOfQuantity>
+    <Unit>tonnes (metic)</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <WasteTypeCode>HWOC</WasteTypeCode>
+    <WasteTreatmentCode>D</WasteTreatmentCode>
+    <SumOfQuantity>422484.671</SumOfQuantity>
+    <Unit>tonnes (metic)</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <WasteTypeCode>HWOC</WasteTypeCode>
+    <WasteTreatmentCode>R</WasteTreatmentCode>
+    <SumOfQuantity>2109981.7463</SumOfQuantity>
+    <Unit>tonnes (metic)</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTreatmentCode>D</WasteTreatmentCode>
+    <SumOfQuantity>123143624.66485</SumOfQuantity>
+    <Unit>tonnes (metic)</Unit>
+  </row>
+  <row>
+    <Year>2015</Year>
+    <Scope>E-PRTR Total</Scope>
+    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTreatmentCode>R</WasteTreatmentCode>
+    <SumOfQuantity>382938378.5658</SumOfQuantity>
+    <Unit>tonnes (metic)</Unit>
+  </row>
+</dataroot>
