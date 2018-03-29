@@ -17,13 +17,17 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare variable $source_url as xs:string external;
 (: xml files paths:)
 
-declare variable $xmlconv:BASIC_DATA_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_basicdata.xml");
-declare variable $xmlconv:OLD_PLANTS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_v2_plantsdb.xml");
-declare variable $xmlconv:CLRTAP_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_clrtap.xml");
-declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string := ("average_emissions.xml");
-declare variable $xmlconv:FINDINGS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_Findings_Step1.xml");
+(:declare variable $xmlconv:BASIC_DATA_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_basicdata.xml");:)
+(:declare variable $xmlconv:OLD_PLANTS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_v2_plantsdb.xml");:)
+(:declare variable $xmlconv:CLRTAP_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_clrtap.xml");:)
+(:declare variable $xmlconv:FINDINGS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_Findings_Step1.xml");:)
 
-declare variable $xmlconv:VALID_OTHER_SECTOR as xs:string* := ("iron_steel","esi","district_heating","chp","other");
+declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string := "average_emissions.xml";
+declare variable $xmlconv:CLRTAP_DATA as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_CLRTAP_data.xml";
+declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_CLRTAP_pollutant_lookup.xml";
+declare variable $xmlconv:UNFCC_DATA as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_UNFCCC_data.xml";
+declare variable $xmlconv:UNFCC_POLLUTANT_LOOKUP as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_UNFCCC_pollutant_lookup.xml";
+
 (:declare variable $eworx:SchemaModel := eworx:getSchemaModel($source_url);:)
 
 declare function xmlconv:RowBuilder (
@@ -192,6 +196,8 @@ declare function xmlconv:RunQAs(
 ) as element()* {
 
     let $docRoot := fn:doc($source_url)
+
+    let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
 
     (:  C1.1 – combustionPlantCategory consistency  :)
     let $res :=
@@ -1060,6 +1066,9 @@ declare function xmlconv:RunQAs(
 
     (: TODO not implemented :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
+    let $res :=
+        let $seq := ()
+        return $seq
     let $LCP_14_2 := xmlconv:RowBuilder("EPRTR-LCP 14.2","Identification of ProductionFacility release/transfer outliers against European level data", $res)
 
     let $LCP_14 := xmlconv:RowAggregator(
@@ -1071,14 +1080,105 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    (: TODO not implemented :)
+    (: TODO needs testing :)
     (:  C15.1 – Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD and UNFCCC/EU-MMR National Inventories    :)
-    let $res := ()
-    let $LCP_15_1 := xmlconv:RowBuilder("EPRTR-LCP 15.1","Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD and UNFCCC/EU-MMR National Inventories", $res)
+    let $res :=
+        (: init lookup tables with data :)
+        let $docCLRTAPdata := fn:doc($xmlconv:CLRTAP_DATA)
+        let $docCLRTAPpollutantLookup := fn:doc($xmlconv:CLRTAP_POLLUTANT_LOOKUP)
+        let $docUNFCCdata := fn:doc($xmlconv:UNFCC_DATA)
+        let $docUNFCCpollutantLookup := fn:doc($xmlconv:UNFCC_POLLUTANT_LOOKUP)
+        (: two pollutant types that we need to check :)
+        let $pollutantTypes := ('pollutantRelease', 'emissionsToAir')
+        for $pollutantType in $pollutantTypes
+            let $elemNameTotalQuantity :=
+                if($pollutantType = 'pollutantRelease')
+                then 'totalPollutantQuantityKg'
+                else 'totalPollutantQuantityTNE'
+            let $dataDictName :=
+                if($pollutantType = 'pollutantRelease')
+                then 'EPRTRPollutantCodeValue'
+                else 'LCPPollutantCodeValue'
+            (: get distinct all the pollutants for that specific type:)
+            let $seqPollutants := $docRoot//*[fn:local-name() = $pollutantType]
+            let $pollutants :=
+                fn:distinct-values($seqPollutants/pollutant/fn:data())
+
+            for $pollutant in $pollutants
+                (: get the skos:notation from data dictionary, if not found then substring
+                after the last '/' from URI :)
+                let $pollutant :=
+                    scripts:getCodeNotation($dataDictName, $pollutant)=>functx:substring-after-last("/")
+                (: calculate national total, summ all pollutants from the XML report file :)
+                let $nationalTotal :=
+                    fn:sum($seqPollutants[functx:substring-after-last(pollutant, "/") = $pollutant=>encode-for-uri()]
+                    /*[fn:local-name() = $elemNameTotalQuantity]/fn:number(fn:data()))
+                (: for emissionsToAir type, the measurement is in TNE = metric tonnes per year
+                multiply the value with 1000 to get equivalent in Kg :)
+                let $nationalTotal :=
+                    if($pollutantType = 'pollutantRelease')
+                    then $nationalTotal
+                    else $nationalTotal * 1000
+
+                (: get totals from CLRTAP lookup table :)
+                let $clrtapTotal := scripts:getCLRTAPtotals(
+                        $docCLRTAPdata,
+                        $docCLRTAPpollutantLookup,
+                        $pollutant,
+                        $pollutantType,
+                        $country_code
+                    )
+                (: get totals from UNFCC lookup table :)
+                let $unfccTotal :=
+                    if($pollutantType = 'pollutantRelease')
+                    then scripts:getUNFCCtotals(
+                        $docUNFCCdata,
+                        $docUNFCCpollutantLookup,
+                        $pollutant,
+                        $pollutantType,
+                        $country_code
+                    )
+                    (: for emissionsToAir we dont check UNFCC, so we add +1 to nationalTotal
+                    this way it will not be flagged for warning :)
+                    else $nationalTotal + 1
+                let $ok := (
+                    ($nationalTotal <= $clrtapTotal or $clrtapTotal < 0)
+                    and
+                    ($nationalTotal <= $unfccTotal or $unfccTotal < 0)
+                )
+                return
+                    if(fn:not($ok))
+                    (:if(true()):)
+                    then
+                    <tr>
+                        <td class='warning' title="Details">
+                            Pollutant have exceeded the corresponding values reported under CLRTAP
+                            {if($pollutantType = 'pollutantRelease') then 'or UNFCCC ' else ''}Conventions
+                        </td>
+                        <td title="Pollutant">{$pollutantType}</td>
+                        <td title="Pollutant code"> {$pollutant} </td>
+                        <td class="tdwarning" title="National totals (in kg/year)"> {$nationalTotal=>xs:long()} </td>
+                        <td title="CRLTAP totals (in kg/year)">
+                            {if($clrtapTotal >= 0) then $clrtapTotal=>xs:long() else 'Data not available'}
+                        </td>
+                        <td title="UNFCCC totals (in kg/year)">
+                            {
+                                if($pollutantType = 'pollutantRelease')
+                                then if($unfccTotal >= 0) then $unfccTotal=>xs:long() else 'Data not available'
+                                else 'Not comparable'
+                            }
+                        </td>
+                    </tr>
+                    else ()
+
+
+    let $LCP_15_1 := xmlconv:RowBuilder("EPRTR-LCP 15.1",
+            "Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD and UNFCCC/EU-MMR National Inventories",
+            $res)
 
     let $LCP_15 := xmlconv:RowAggregator(
         "EPRTR-LCP 15",
-        "Verification of national emissions against external datasets (NOT IMPLEMENTED)",
+        "Verification of national emissions against external datasets",
         (
             $LCP_15_1
         )
