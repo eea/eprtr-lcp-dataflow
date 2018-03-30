@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 
 (:~
 : User: laszlo
@@ -8,6 +8,8 @@ xquery version "3.0";
 :)
 
 module namespace scripts = "eprtr-lcp-scripts";
+
+import module namespace functx = "http://www.functx.com" at "eprtr-lcp-functx.xq";
 
 declare namespace act-core = 'http://inspire.ec.europa.eu/schemas/act-core/4.0';
 declare namespace adms = "http://www.w3.org/ns/adms#";
@@ -22,13 +24,14 @@ declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace rest = "http://basex.org/rest";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
+declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
     let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
     let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
     let $url := $vocabulary || $value || "/rdf"
     return
-        data(doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
+        fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
 };
 
 declare function scripts:getCodeNotation (
@@ -88,7 +91,7 @@ declare function scripts:getCLRTAPtotals(
         let $nodeName := if($elem = 'pollutantRelease')
             then 'EPRTRequivalent'
             else 'LCPequivalent'
-        return $docCLRTAPpollutantLookup//row[*[local-name() = $nodeName] = $pollutantCode]
+        return $docCLRTAPpollutantLookup//row[*[fn:local-name() = $nodeName] = $pollutantCode]
                 /CLRTAP_pollutant_lookup/text()
     (:let $asd := trace($pollutantCode, 'pollutantCode: '):)
     (:let $asd := trace($elem, 'elem: '):)
@@ -96,7 +99,7 @@ declare function scripts:getCLRTAPtotals(
     (:let $asd := trace($CLRTAPpollutant_lookup, 'CLRTAPpollutant_lookup: '):)
     let $CLRTAPtotal :=
         $docCLRTAPdata//row[Country_code = $country_code and Pollutant_name = $CLRTAPpollutant_lookup]
-                /SumOfEmissions=>number()
+                /SumOfEmissions => fn:number()
     (:let $asd := trace($CLRTAPtotal, 'CLRTAPtotal: '):)
     let $CLRTAPunit :=
         $docCLRTAPdata//row[Country_code = $country_code and Pollutant_name = $CLRTAPpollutant_lookup]/Unit/text()
@@ -126,5 +129,104 @@ declare function scripts:getUNFCCtotals(
     (:let $asd := trace($UNFCCtotal, 'UNFCCtotal: '):)
     (:let $asd := trace(scripts:getGWLconvertedValue($UNFCCtotal, $GWPconversionfactor), 'getGWLconvertedValue: '):)
     return scripts:getGWLconvertedValue($UNFCCtotal, $GWPconversionfactor)
+
+};
+
+
+declare function scripts:getCountOfPollutant(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $map as map(*),
+    $country_code as xs:string,
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then $map?doc//row[CountryCode = $country_code]/*[fn:local-name() = $map?countNodeName] => fn:number()
+    else if($pollutant = 'pollutantRelease')
+        then $map?doc//row[CountryCode = $country_code and ReleaseMediumCode = $code1]
+                /*[fn:local-name() = $map?countNodeName] => fn:number()
+    else
+        ()
+};
+declare function scripts:getreportCountOfPollutantDistinct(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $doc as document-node(),
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then $doc//*[fn:local-name() = $pollutant]/pollutant => fn:distinct-values() => fn:count()
+    else if($pollutant = 'pollutantRelease')
+        then $doc//*[fn:local-name() = $pollutant and mediumCode=>functx:substring-after-last("/") = $code1]
+                /pollutant => fn:distinct-values() => fn:count()
+    else
+        $doc//*[fn:local-name() = $pollutant and mediumCode=>functx:substring-after-last("/") = $code2]
+                /pollutant => fn:distinct-values() => fn:count()
+};
+declare function scripts:compareNumberOfPollutants(
+    $map1 as map(xs:string, map(*)),
+    $country_code as xs:string,
+    $docRoot as document-node()
+) as element()* {
+    (:let $asd := trace(map:keys($map1),'keys: '):)
+    (:let $asd := trace(map:keys($map1?('pollutantRelease')?filters),'keys: '):)
+    for $pollutant in map:keys($map1)
+        let $keys := map:keys($map1?($pollutant)?filters)
+        (:for $filter in map:keys($map1?($pollutant)?filters):)
+        let $asd := trace($keys[1],'keysSEQ1: ')
+        let $asd := trace($keys[2],'keysSEQ2: ')
+        let $asd := trace(map:keys($map1?($pollutant)?filters),'keys: ')
+        let $asd := trace($map1?($pollutant)?filters?1,'keys: ')
+        for $code1 in $map1?($pollutant)?filters?($keys[1]),
+            $code2 in $map1?($pollutant)?filters?($keys[2])
+            let $asd := trace($pollutant, 'pollutant: ')
+            let $asd := trace($code1, 'code: ')
+            let $asd := trace($code2, 'code: ')
+            let $result :=
+                let $CountOfPollutantCode := $map1?($pollutant)?countFunction(
+                        $code1,
+                        $code2,
+                        $map1?($pollutant),
+                        $country_code,
+                        $pollutant
+                    )
+                let $reportCountOfPollutantCode := $map1?($pollutant)?reportCountFunction(
+                        $code1,
+                        $code2,
+                        $docRoot,
+                        $pollutant
+                    )
+                let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: ')
+                let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: ')
+                let $changePercentage := 100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)
+                let $asd := trace($changePercentage, 'changePercentage: ')
+                let $ok := $changePercentage <= 50
+                let $errorType :=
+                    if($changePercentage > 100)
+                    then 'warning'
+                    else 'info'
+                return
+                    if(fn:not($ok))
+                    then
+                    <tr>
+                        <td class='{$errorType}' title="Details">
+                            Number of reported pollutants changes by more than {
+                            if($errorType = 'warning')
+                            then '100%' else '50%'
+                        }
+                        </td>
+                        <td title="Polutant">
+                            {$pollutant} {if($code1 = '') then '' else ', - '||$code1||$code2}
+                        </td>
+                        <td class="td{$errorType}" title="Change percentage">
+                            {$changePercentage=>fn:round-half-to-even(2)}%
+                        </td>
+                        <td title="National level count">{$reportCountOfPollutantCode}</td>
+                        <td title="Previous year count">{$CountOfPollutantCode}</td>
+                    </tr>
+                    else
+                        ()
+            return
+                $result
 
 };
