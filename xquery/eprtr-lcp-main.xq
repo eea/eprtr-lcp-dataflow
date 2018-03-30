@@ -24,21 +24,21 @@ declare variable $source_url as xs:string external;
 (:declare variable $xmlconv:FINDINGS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_Findings_Step1.xml");:)
 
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
-    "average_emissions.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";
 declare variable $xmlconv:CLRTAP_DATA as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C15.1_CLRTAP_data.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_data.xml";
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C15.1_CLRTAP_pollutant_lookup.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_pollutant_lookup.xml";
 declare variable $xmlconv:UNFCC_DATA as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C15.1_UNFCCC_data.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_UNFCCC_data.xml";
 declare variable $xmlconv:UNFCC_POLLUTANT_LOOKUP as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C15.1_UNFCCC_pollutant_lookup.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_UNFCCC_pollutant_lookup.xml";
 declare variable $xmlconv:COUNT_OF_PollutantRelease as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.1-C13.2-C13.3_PollutantRelease.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.1-C13.2-C13.3_PollutantRelease.xml";
 declare variable $xmlconv:COUNT_OF_PollutantTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.1-C13.2-C13.3_PollutantTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.1-C13.2-C13.3_PollutantTransfer.xml";
 declare variable $xmlconv:COUNT_OF_OffsiteWasteTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.2_OffsiteWasteTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.2_OffsiteWasteTransfer.xml";
 
 (:declare variable $eworx:SchemaModel := eworx:getSchemaModel($source_url);:)
 
