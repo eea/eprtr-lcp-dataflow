@@ -13,6 +13,7 @@ declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace gml = "http://www.opengis.net/gml/3.2";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
+declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
 declare variable $source_url as xs:string external;
 (: xml files paths:)
@@ -27,6 +28,8 @@ declare variable $xmlconv:CLRTAP_DATA as xs:string := "../lookup-tables/EPRTR-LC
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_CLRTAP_pollutant_lookup.xml";
 declare variable $xmlconv:UNFCC_DATA as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_UNFCCC_data.xml";
 declare variable $xmlconv:UNFCC_POLLUTANT_LOOKUP as xs:string := "../lookup-tables/EPRTR-LCP_C15.1_UNFCCC_pollutant_lookup.xml";
+declare variable $xmlconv:COUNT_OF_PollutantRelease as xs:string := "../lookup-tables/EPRTR-LCP_C13.1-C13.2-C13.3_PollutantRelease.xml";
+declare variable $xmlconv:COUNT_OF_PollutantTransfer as xs:string := "../lookup-tables/EPRTR-LCP_C13.1-C13.2-C13.3_PollutantTransfer.xml";
 
 (:declare variable $eworx:SchemaModel := eworx:getSchemaModel($source_url);:)
 
@@ -196,6 +199,8 @@ declare function xmlconv:RunQAs(
 ) as element()* {
 
     let $docRoot := fn:doc($source_url)
+    let $docRootCOUNT_OF_PollutantRelease := fn:doc($xmlconv:COUNT_OF_PollutantRelease)
+    let $docRootCOUNT_OF_PollutantTransfer := fn:doc($xmlconv:COUNT_OF_PollutantTransfer)
 
     let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
 
@@ -1034,23 +1039,91 @@ declare function xmlconv:RunQAs(
     let $res := ()
     (: TODO not implemented :)
     (: C13.1 - C13.1 - Number of ProductionFacilities reporting releases and transfers consistency :)
-    let $LCP_13_1 := xmlconv:RowBuilder("EPRTR-LCP 13.1","Number of ProductionFacilities reporting releases and transfers consistency", $res)
+    let $LCP_13_1 := xmlconv:RowBuilder("EPRTR-LCP 13.1","Number of ProductionFacilities reporting releases and transfers consistency (NOT IMPLEMENTED)", $res)
 
     (: TODO not implemented :)
     (: C13.2 - Reported number of releases and transfers per medium consistency :)
-    let $LCP_13_2 := xmlconv:RowBuilder("EPRTR-LCP 13.2","Reported number of releases and transfers per medium consistency", $res)
+    let $res :=
+        let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer')
+        return ()
+    let $LCP_13_2 := xmlconv:RowBuilder(
+            "EPRTR-LCP 13.2",
+            "Reported number of releases and transfers per medium consistency (NOT IMPLEMENTED)",
+            $res
+    )
 
-    (: TODO not implemented :)
     (: C13.3 - Reported number of pollutants per medium consistency :)
+    let $res :=
+        let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer')
+        let $map1 := map {
+            "pollutantRelease": map {
+                'doc': $docRootCOUNT_OF_PollutantRelease,
+                'mediumCode': ('AIR', 'WATER')
+                } ,
+            "offsitePollutantTransfer": map {
+                'doc': $docRootCOUNT_OF_PollutantTransfer,
+                'mediumCode': ('NA') (: NA = not available:)
+            }
+
+        }
+        for $pollutant in $pollutantTypes
+            for $mediumCode in $map1?($pollutant)?mediumCode
+            (:let $asd := trace($pollutant, 'pollutant: '):)
+            (:let $asd := trace($mediumCode, 'mediumCode: '):)
+            let $result :=
+                let $CountOfPollutantCode :=
+                    if($mediumCode = 'NA')
+                    then $map1?($pollutant)?doc//row[CountryCode = $country_code]/CountOfPollutantCode => fn:number()
+                    else $map1?($pollutant)?doc//row[CountryCode = $country_code and ReleaseMediumCode = $mediumCode]
+                            /CountOfPollutantCode => fn:number()
+                let $reportCountOfPollutantCode :=
+                    if($mediumCode = 'NA')
+                    then $docRoot//*[fn:local-name() = $pollutant]/pollutant => fn:distinct-values() => fn:count()
+                    else $docRoot//*[fn:local-name() = $pollutant
+                            and mediumCode=>functx:substring-after-last("/") = $mediumCode]
+                                /pollutant => fn:distinct-values() => fn:count()
+                (:let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: '):)
+                (:let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: '):)
+                let $changePercentage := 100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)
+                (:let $asd := trace($changePercentage, 'changePercentage: '):)
+                let $ok := $changePercentage <= 50
+                let $errorType :=
+                    if($changePercentage > 100)
+                    then 'warning'
+                    else 'info'
+                return
+                    if(fn:not($ok))
+                    then
+                    <tr>
+                        <td class='{$errorType}' title="Details">
+                            Number of reported pollutants changes by more than {
+                            if($errorType = 'warning')
+                            then '100%' else '50%'
+                        }
+                        </td>
+                        <td title="Polutant">
+                            {$pollutant} {if($mediumCode = 'NA') then '' else ', mediumCode - '||$mediumCode}
+                        </td>
+                        <td class="td{$errorType}" title="Change percentage">
+                            {$changePercentage=>fn:round-half-to-even(2)}%
+                        </td>
+                        <td title="National level count">{$reportCountOfPollutantCode}</td>
+                        <td title="Previous year count">{$CountOfPollutantCode}</td>
+                    </tr>
+                    else
+                        ()
+            return
+                $result
     let $LCP_13_3 := xmlconv:RowBuilder("EPRTR-LCP 13.3","Reported number of pollutants per medium consistency", $res)
 
     (: TODO not implemented :)
     (: C13.4 - Quantity of releases and transfers consistency :)
-    let $LCP_13_4 := xmlconv:RowBuilder("EPRTR-LCP 13.4","Quantity of releases and transfers consistency", $res)
+    let $res := ()
+    let $LCP_13_4 := xmlconv:RowBuilder("EPRTR-LCP 13.4","Quantity of releases and transfers consistency (NOT IMPLEMENTED)", $res)
 
     let $LCP_13 := xmlconv:RowAggregator(
             "EPRTR-LCP 13",
-            "Overview on inter-annual reporting consistency (NOT IMPLEMENTED)",
+            "Overview on inter-annual reporting consistency",
             (
                 $LCP_13_1,
                 $LCP_13_2,
