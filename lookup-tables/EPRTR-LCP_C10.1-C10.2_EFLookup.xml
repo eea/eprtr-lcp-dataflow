@@ -1,121 +1,138 @@
-<dataroot generated="2018-03-28T09:57:19">
+<dataroot generated="2018-04-03T10:32:05">
   <row>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</EF_LOOKUP>
     <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass</fuelInput>
-    <ExpectedCO2tTJ>112</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0084</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0703</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0042</ExpecteddusttTJ>
+    <CO2>112</CO2>
+    <SO2>0.0084</SO2>
+    <NOx>0.0703</NOx>
+    <Dust>0.0042</Dust>
   </row>
   <row>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Coal</EF_LOOKUP>
     <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Coal</fuelInput>
-    <ExpectedCO2tTJ>94.6</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.202</ExpecteddusttTJ>
+    <CO2>94.6</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.202</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite</fuelInput>
-    <ExpectedCO2tTJ>101</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.202</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite</fuelInput>
+    <CO2>101</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.202</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/LiquidFuels</fuelInput>
-    <ExpectedCO2tTJ>74.1</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.1999</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1108</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0089</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/LiquidFuels</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/LiquidFuels</fuelInput>
+    <CO2>74.1</CO2>
+    <SO2>0.1999</SO2>
+    <NOx>0.1108</NOx>
+    <Dust>0.0089</Dust>
   </row>
   <row>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas</EF_LOOKUP>
     <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/NaturalGas</fuelInput>
-    <ExpectedCO2tTJ>56.1</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0007</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0297</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0006</ExpecteddusttTJ>
+    <CO2>56.1</CO2>
+    <SO2>0.0007</SO2>
+    <NOx>0.0297</NOx>
+    <Dust>0.0006</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/BlastFurnaceGas</fuelInput>
-    <ExpectedCO2tTJ>260</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/BlastFurnaceGas</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>260</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/CokeOvenGas</fuelInput>
-    <ExpectedCO2tTJ>44.4</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/CokeOvenGas</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>44.4</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/FurnaceGas</fuelInput>
-    <ExpectedCO2tTJ>44.4</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/FurnaceGas</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>44.4</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG</fuelInput>
-    <ExpectedCO2tTJ>63.1</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/LPG</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>63.1</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/Other</fuelInput>
-    <ExpectedCO2tTJ>44.4</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/Other</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>44.4</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/OxygenSteel</fuelInput>
-    <ExpectedCO2tTJ>182</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/OxygenSteel</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>182</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/RefineryGas</fuelInput>
-    <ExpectedCO2tTJ>57.6</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.0111</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.0369</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0007</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/RefineryGas</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases</fuelInput>
+    <CO2>57.6</CO2>
+    <SO2>0.0111</SO2>
+    <NOx>0.0369</NOx>
+    <Dust>0.0007</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Coke</fuelInput>
-    <ExpectedCO2tTJ>107</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0202</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Coke</EF_LOOKUP>
+    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
+    <CO2>107</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.0202</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Other</fuelInput>
-    <ExpectedCO2tTJ>97.5</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0202</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Other</EF_LOOKUP>
+    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
+    <CO2>97.5</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.0202</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/PatentFuels</fuelInput>
-    <ExpectedCO2tTJ>97.5</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0202</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/PatentFuels</EF_LOOKUP>
+    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
+    <CO2>97.5</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.0202</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Tar</fuelInput>
-    <ExpectedCO2tTJ>80.7</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0202</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/Tar</EF_LOOKUP>
+    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels</fuelInput>
+    <CO2>80.7</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.0202</Dust>
   </row>
   <row>
-    <fuelInput>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat</fuelInput>
-    <ExpectedCO2tTJ>106</ExpectedCO2tTJ>
-    <ExpectedSO2tTJ>0.3463</ExpectedSO2tTJ>
-    <ExpectedNOxtTJ>0.1598</ExpectedNOxtTJ>
-    <ExpecteddusttTJ>0.0202</ExpecteddusttTJ>
+    <EF_LOOKUP>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat</EF_LOOKUP>
+    <fuelInput>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat</fuelInput>
+    <CO2>106</CO2>
+    <SO2>0.3463</SO2>
+    <NOx>0.1598</NOx>
+    <Dust>0.0202</Dust>
   </row>
 </dataroot>

@@ -23,8 +23,10 @@ declare variable $source_url as xs:string external;
 (:declare variable $xmlconv:CLRTAP_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_clrtap.xml");:)
 (:declare variable $xmlconv:FINDINGS_PATH as xs:string := ("https://converters.eionet.europa.eu/xmlfile/LCP_Findings_Step1.xml");:)
 
+(:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
+    "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
-    "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";
+    "../lookup-tables/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
 declare variable $xmlconv:CLRTAP_DATA as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_data.xml";
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string :=
@@ -905,14 +907,16 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $seq:= $docRoot//ProductionInstallationPartReport
         let $docEmissions := fn:doc($xmlconv:AVG_EMISSIONS_PATH)
-        let $emissions := fn:distinct-values($seq/emissionsToAir/functx:substring-after-last(pollutant, "/"))
+        let $emissions := fn:distinct-values($seq/emissionsToAir/pollutant)
         for $elem in $seq
             for $emission in $emissions
                 let $emissionTotal :=
-                    functx:if-empty($elem/emissionsToAir[functx:substring-after-last(pollutant, "/") = $emission]/totalPollutantQuantityTNE, 0)=>fn:number()
+                    $elem/emissionsToAir[pollutant = $emission]/functx:if-empty(totalPollutantQuantityTNE, 0)=>fn:sum()
                 let $expected := fn:sum(
                     for $pollutant in $elem/energyInput
-                    let $emissionFactor := $docEmissions//emission[functx:substring-after-last($pollutant/fuelInput/fuelInput, "/") = fuelInput]/*[fn:local-name() = $emission]
+                    let $emissionFactor :=
+                        $docEmissions//row[$pollutant/fuelInput/fuelInput = fuelInput][1]
+                                /*[fn:local-name() = functx:substring-after-last($emission, "/")]
                     return $pollutant/energyinputTJ * $emissionFactor
                 )
                 let $emissionConstant := if($emission = "NOx") then 1 div 10 else 1 div 100
@@ -923,13 +927,14 @@ declare function xmlconv:RunQAs(
                         or
                         $emissionTotal div $expected < $emissionConstant
                     )
+                    (:if(true()):)
                     then
                         <tr>
                             <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
                             <td title="inspireId">{fn:data($elem/InspireId)}</td>
                             <td title="fuelInput">{$emission}</td>
-                            <td title="total reported">{$emissionTotal}</td>
-                            <td class="tdinfo" title="expected">{$expected}</td>
+                            <td class="tdinfo" title="total reported">{$emissionTotal => xs:long()}</td>
+                            <td title="expected">{$expected => xs:long()}</td>
                         </tr>
                     else
                         ()
@@ -1079,7 +1084,7 @@ declare function xmlconv:RunQAs(
                 'doc': $docRootCOUNT_OF_OffsiteWasteTransfer,
                 'filters': map {
                     'wasteClassification': ('NON-HW', 'HWIC', 'HWOC'),
-                    'wasteTreatment': ('D', 'C', 'CONFIDENTIAL')
+                    'wasteTreatment': ('D', 'R', 'CONFIDENTIAL')
                 },
                 'countNodeName': 'CountOfWasteTransferID',
                 'countFunction': scripts:getCountOfPollutant#5,

@@ -146,7 +146,8 @@ declare function scripts:getCountOfPollutant(
         then $map?doc//row[CountryCode = $country_code and ReleaseMediumCode = $code1]
                 /*[fn:local-name() = $map?countNodeName] => fn:number()
     else
-        ()
+        $map?doc//row[CountryCode = $country_code and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
+            /*[fn:local-name() = $map?countNodeName] => fn:number()
 };
 declare function scripts:getreportCountOfPollutantDistinct(
     $code1 as xs:string,
@@ -173,15 +174,15 @@ declare function scripts:compareNumberOfPollutants(
     for $pollutant in map:keys($map1)
         let $keys := map:keys($map1?($pollutant)?filters)
         (:for $filter in map:keys($map1?($pollutant)?filters):)
-        let $asd := trace($keys[1],'keysSEQ1: ')
-        let $asd := trace($keys[2],'keysSEQ2: ')
-        let $asd := trace(map:keys($map1?($pollutant)?filters),'keys: ')
-        let $asd := trace($map1?($pollutant)?filters?1,'keys: ')
+        (:let $asd := trace($keys[1],'keysSEQ1: '):)
+        (:let $asd := trace($keys[2],'keysSEQ2: '):)
+        (:let $asd := trace(map:keys($map1?($pollutant)?filters),'keys: '):)
+        (:let $asd := trace($map1?($pollutant)?filters?1,'keys: '):)
         for $code1 in $map1?($pollutant)?filters?($keys[1]),
             $code2 in $map1?($pollutant)?filters?($keys[2])
-            let $asd := trace($pollutant, 'pollutant: ')
-            let $asd := trace($code1, 'code: ')
-            let $asd := trace($code2, 'code: ')
+            (:let $asd := trace($pollutant, 'pollutant: '):)
+            (:let $asd := trace($code1, 'code1: '):)
+            (:let $asd := trace($code2, 'code2: '):)
             let $result :=
                 let $CountOfPollutantCode := $map1?($pollutant)?countFunction(
                         $code1,
@@ -196,10 +197,10 @@ declare function scripts:compareNumberOfPollutants(
                         $docRoot,
                         $pollutant
                     )
-                let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: ')
-                let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: ')
+                (:let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: '):)
+                (:let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: '):)
                 let $changePercentage := 100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)
-                let $asd := trace($changePercentage, 'changePercentage: ')
+                (:let $asd := trace($changePercentage, 'changePercentage: '):)
                 let $ok := $changePercentage <= 50
                 let $errorType :=
                     if($changePercentage > 100)
@@ -216,7 +217,8 @@ declare function scripts:compareNumberOfPollutants(
                         }
                         </td>
                         <td title="Polutant">
-                            {$pollutant} {if($code1 = '') then '' else ', - '||$code1||$code2}
+                            {$pollutant} {if($code1 = '') then '' else ' - '||$code1}
+                            {if($code2 = '') then '' else ' - '|| $code2}
                         </td>
                         <td class="td{$errorType}" title="Change percentage">
                             {$changePercentage=>fn:round-half-to-even(2)}%
