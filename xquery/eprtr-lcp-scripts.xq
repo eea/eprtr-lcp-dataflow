@@ -26,6 +26,21 @@ declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
+
+declare function scripts:generateResultTableRow(
+    $dataMap as map(xs:string, map(*))
+) as element(td) {
+    <tr>
+    {
+        for $column in map:keys($dataMap)
+        return
+            <td class="{$dataMap?($column)?errorClass}" title="{$column}">
+                {$dataMap?($column)?text}
+            </td>
+    }
+    </tr>
+};
+
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
     let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
     let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"

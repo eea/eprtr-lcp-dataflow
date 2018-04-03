@@ -29,6 +29,8 @@ declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "../lookup-tables/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
 declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
     "../lookup-tables/EPRTR-LCP_C13.1_OffsiteWasteTransfer.xml";
+declare variable $xmlconv:AVERAGE_3_YEARS as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C12.6.xml";
 declare variable $xmlconv:CLRTAP_DATA as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_data.xml";
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string :=
@@ -1001,21 +1003,24 @@ declare function xmlconv:RunQAs(
     (: C12.1 - Identification of ProductionFacility release/transfer outliers against previous year data at the national level :)
     let $LCP_12_1 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.1",
-            "Identification of ProductionFacility release/transfer outliers against previous year data at the national level",
+            "Identification of ProductionFacility release/transfer outliers
+            against previous year data at the national level (NOT IMPLEMENTED)",
             $res
     )
     (: TODO not implemented :)
     (: C12.2 - Identification of ProductionFacility release/transfer outliers against national total and pollutant threshold :)
     let $LCP_12_2 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.2",
-            "Identification of ProductionFacility release/transfer outliers against national total and pollutant threshold",
+            "Identification of ProductionFacility release/transfer outliers
+            against national total and pollutant threshold (NOT IMPLEMENTED)",
             $res
     )
     (: TODO not implemented :)
     (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
     let $LCP_12_3 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.3",
-            "Identification of ProductionFacility release/transfer outliers against previous year data at the ProductionFacility level",
+            "Identification of ProductionFacility release/transfer outliers
+            against previous year data at the ProductionFacility level (NOT IMPLEMENTED)",
             $res
     )
     (: TODO not implemented :)
@@ -1023,21 +1028,52 @@ declare function xmlconv:RunQAs(
     let $LCP_12_4 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.4",
             "Identification of ProductionInstallationPart emission outliers against
-            previous year data at the ProductionInstallationPart level"
+            previous year data at the ProductionInstallationPart level (NOT IMPLEMENTED)"
             , $res
     )
     (: TODO not implemented :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
     let $LCP_12_5 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.5",
-            "Time series consistency for ProductionFacility emissions",
+            "Time series consistency for ProductionFacility emissions (NOT IMPLEMENTED)",
             $res
     )
     (: TODO not implemented :)
     (: C12.6 - Time series consistency for ProductionInstallationPart emissions :)
+    let $res :=
+        let $docAverage := fn:doc($xmlconv:AVERAGE_3_YEARS)
+        let $pollutants := ('SO2', 'NOx', 'Dust')
+        for $pollutant in $pollutants
+            let $total := fn:sum(
+                $docRoot//emissionsToAir[pollutant => functx:substring-after-last("/") = $pollutant]
+                        /totalPollutantQuantityTNE/fn:data()
+            )
+            let $average3Year :=
+                $docAverage//row/*[fn:local-name() = 'Avg_3yr_' || $pollutant and MemberState = $country_code][1]
+                        /fn:data() => fn:number()
+            let $difference := 100-(($total * 100) div $average3Year)
+            let $errorType :=
+                if($difference > 30)
+                then 'warning'
+                else 'info'
+            let $dataMap := map {
+                'Details': map {'text': 'The pollutant that exceeds the three-year average', 'errorClass': $errorType},
+                'Pollutant': map {'text': 'textssss', 'errorClass': ''},
+                'Total value': map {'text': 'textssss', 'errorClass': ''},
+                'Average 3 year': map {'text': 'textssss', 'errorClass': ''}
+            }
+            let $ok := $difference < 10
+            return
+                if(not($ok))
+                then
+                    scripts:generateResultTableRow(dataMap)
+                else()
+
+
+
     let $LCP_12_6 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.6",
-            "Time series consistency for ProductionInstallationPart emissions",
+            "Time series consistency for ProductionInstallationPart emissions (NOT IMPLEMENTED)",
             $res
     )
 
