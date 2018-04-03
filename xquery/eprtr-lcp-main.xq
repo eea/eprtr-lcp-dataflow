@@ -1049,24 +1049,30 @@ declare function xmlconv:RunQAs(
                         /totalPollutantQuantityTNE/fn:data()
             )
             let $average3Year :=
-                $docAverage//row/*[fn:local-name() = 'Avg_3yr_' || $pollutant and MemberState = $country_code][1]
+                $docAverage//row[MemberState = $country_code][1]/*[fn:local-name() = 'Avg_3yr_' || $pollutant]
                         /fn:data() => fn:number()
-            let $difference := 100-(($total * 100) div $average3Year)
+            (:let $asd := trace($pollutant, "pollutant: "):)
+            (:let $asd := trace($total, "total: "):)
+            (:let $asd := trace($average3Year, "average3Year: "):)
+            let $difference :=
+                (100-(($total * 100) div $average3Year)) => fn:abs() => xs:decimal()  => fn:round-half-to-even(2)
             let $errorType :=
                 if($difference > 30)
                 then 'warning'
                 else 'info'
             let $dataMap := map {
-                'Details': map {'text': 'The pollutant that exceeds the three-year average', 'errorClass': $errorType},
-                'Pollutant': map {'text': 'textssss', 'errorClass': ''},
-                'Total value': map {'text': 'textssss', 'errorClass': ''},
-                'Average 3 year': map {'text': 'textssss', 'errorClass': ''}
+                'Details': map {'text': 'The pollutant exceeds the three-year average', 'errorClass': $errorType},
+                'Pollutant': map {'text': $pollutant, 'errorClass': ''},
+                'Difference': map {'text': $difference || '%', 'errorClass': 'td' || $errorType},
+                'Total value': map {'text': $total=>xs:long(), 'errorClass': ''},
+                'Average 3 year': map {'text': $average3Year, 'errorClass': ''}
             }
             let $ok := $difference < 10
             return
-                if(not($ok))
+                (:if(fn:not($ok)):)
+                if(fn:true())
                 then
-                    scripts:generateResultTableRow(dataMap)
+                    scripts:generateResultTableRow($dataMap)
                 else()
 
 

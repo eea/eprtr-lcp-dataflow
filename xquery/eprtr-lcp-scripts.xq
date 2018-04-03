@@ -29,7 +29,8 @@ declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 
 declare function scripts:generateResultTableRow(
     $dataMap as map(xs:string, map(*))
-) as element(td) {
+    (:$dataMap as map(*):)
+) as element(tr) {
     <tr>
     {
         for $column in map:keys($dataMap)
