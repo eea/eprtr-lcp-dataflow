@@ -176,11 +176,12 @@ declare function scripts:getCountOfPollutant(
     $country_code as xs:string,
     $pollutant as xs:string
 ) as xs:double {
-    if($pollutant = 'offsitePollutantTransfer')
-    then $map?doc//row[CountryCode = $country_code]/*[fn:local-name() = $map?countNodeName] => fn:number()
+    if($pollutant = 'offsitePollutantTransfer' or ($pollutant = 'offsiteWasteTransfer' and $code1 = ''))
+    then $map?doc//row[CountryCode = $country_code]/*[fn:local-name() = $map?countNodeName]
+        => functx:if-empty(0) => fn:number()
     else if($pollutant = 'pollutantRelease')
         then $map?doc//row[CountryCode = $country_code and ReleaseMediumCode = $code1]
-                /*[fn:local-name() = $map?countNodeName] => fn:number()
+                /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else
         $map?doc//row[CountryCode = $country_code and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
             /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
@@ -212,6 +213,23 @@ declare function scripts:getreportCountOfPollutant(
                 /pollutant => fn:count()
     else
         scripts:getreportCountOfPollutantWasteTransfer($code1, $code2, $doc, $pollutant)
+};
+declare function scripts:getreportCountOfFacilities(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $doc as document-node(),
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then $doc//ProductionFacilityReport[*[fn:local-name() = $pollutant]/pollutant]/InspireId/fn:data()
+        => fn:distinct-values() => fn:count()
+    else if($pollutant = 'pollutantRelease')
+        then $doc//ProductionFacilityReport[*[fn:local-name() = $pollutant]
+                /functx:substring-after-last(mediumCode, "/") = $code1]/InspireId/fn:data()
+        => fn:distinct-values() => fn:count()
+    else
+        $doc//ProductionFacilityReport[*[fn:local-name() = $pollutant]/wasteClassification]/InspireId/fn:data()
+        => fn:distinct-values() => fn:count()
 };
 
 declare function scripts:compareNumberOfPollutants(
@@ -249,14 +267,13 @@ declare function scripts:compareNumberOfPollutants(
                     )
                 (:let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: '):)
                 (:let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: '):)
-                let $changePercentage := if($CountOfPollutantCode = 0)
-                    then 100
-                    else (100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)) => fn:abs()
+                let $changePercentage :=
+                    (100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)) => fn:abs()
                 (:let $asd := trace($changePercentage, 'changePercentage: '):)
                 let $ok := (
                     $changePercentage <= 50
                     or
-                    ($CountOfPollutantCode = 0 and $reportCountOfPollutantCode = 0)
+                    $CountOfPollutantCode = 0
                 )
                 let $errorType :=
                     if($changePercentage > 100)

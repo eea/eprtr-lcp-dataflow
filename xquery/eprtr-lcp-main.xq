@@ -27,6 +27,8 @@ declare variable $source_url as xs:string external;
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "../lookup-tables/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
+declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C13.1_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:CLRTAP_DATA as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_data.xml";
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string :=
@@ -212,6 +214,7 @@ declare function xmlconv:RunQAs(
     let $docRoot := fn:doc($source_url)
     let $docRootCOUNT_OF_PollutantRelease := fn:doc($xmlconv:COUNT_OF_PollutantRelease)
     let $docRootCOUNT_OF_PollutantTransfer := fn:doc($xmlconv:COUNT_OF_PollutantTransfer)
+    let $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER)
     let $docRootCOUNT_OF_OffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_OffsiteWasteTransfer)
 
     let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
@@ -1051,19 +1054,56 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $res := ()
-    (: TODO not implemented :)
-    (: C13.1 - C13.1 - Number of ProductionFacilities reporting releases and transfers consistency :)
-    let $LCP_13_1 := xmlconv:RowBuilder("EPRTR-LCP 13.1","Number of ProductionFacilities reporting releases and transfers consistency (NOT IMPLEMENTED)", $res)
+    (: C13.1 - Number of ProductionFacilities reporting releases and transfers consistency :)
+    let $res :=
+        let $map1 := map {
+            "pollutantRelease": map {
+                'doc': $docRootCOUNT_OF_PollutantRelease,
+                'filters': map {
+                    'mediumCode': ('AIR', 'WATER', 'LAND'),
+                    'code1': ('') (: empty code, pollutant type has only 1 code :)
+                },
+                'countNodeName': 'CountOfFacilityID',
+                'countFunction': scripts:getCountOfPollutant#5,
+                'reportCountFunction': scripts:getreportCountOfFacilities#4
+                } ,
+            "offsitePollutantTransfer": map {
+                'doc': $docRootCOUNT_OF_PollutantTransfer,
+                'filters': map {
+                    'code1': (''), (: empty codes, pollutant type does not have :)
+                    'code2': ('')
+                },
+                'countNodeName': 'CountOfFacilityID',
+                'countFunction': scripts:getCountOfPollutant#5,
+                'reportCountFunction': scripts:getreportCountOfFacilities#4
+            },
+            "offsiteWasteTransfer": map {
+                'doc': $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer,
+                'filters': map {
+                    'wasteClassification': (''),
+                    'wasteTreatment': ('')
+                },
+                'countNodeName': 'CountOfFacilityID',
+                'countFunction': scripts:getCountOfPollutant#5,
+                'reportCountFunction': scripts:getreportCountOfFacilities#4
+            }
 
-    (: TODO not implemented :)
+        }
+        return scripts:compareNumberOfPollutants(
+            $map1,
+            $country_code,
+            $docRoot
+        )
+    let $LCP_13_1 := xmlconv:RowBuilder("EPRTR-LCP 13.1",
+            "Number of ProductionFacilities reporting releases and transfers consistency", $res)
+
     (: C13.2 - Reported number of releases and transfers per medium consistency :)
     let $res :=
         let $map1 := map {
             "pollutantRelease": map {
                 'doc': $docRootCOUNT_OF_PollutantRelease,
                 'filters': map {
-                    'mediumCode': ('AIR', 'WATER'),
+                    'mediumCode': ('AIR', 'WATER', 'LAND'),
                     'NA': ('')
                 },
                 'countNodeName': 'CountOfPollutantReleaseID',
@@ -1100,7 +1140,7 @@ declare function xmlconv:RunQAs(
         (:return ():)
     let $LCP_13_2 := xmlconv:RowBuilder(
             "EPRTR-LCP 13.2",
-            "Reported number of releases and transfers per medium consistency (NOT IMPLEMENTED)",
+            "Reported number of releases and transfers per medium consistency",
             $res
     )
 
@@ -1111,7 +1151,7 @@ declare function xmlconv:RunQAs(
             "pollutantRelease": map {
                 'doc': $docRootCOUNT_OF_PollutantRelease,
                 'filters': map {
-                    'mediumCode': ('AIR', 'WATER'),
+                    'mediumCode': ('AIR', 'WATER', 'LAND'),
                     'NA': ('')
                 },
                 'countNodeName': 'CountOfPollutantCode',
