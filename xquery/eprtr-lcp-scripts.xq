@@ -132,7 +132,43 @@ declare function scripts:getUNFCCtotals(
 
 };
 
-
+declare function scripts:getreportCountOfPollutantWasteTransfer(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $doc as document-node(),
+    $pollutant as xs:string
+) as xs:double{
+    if($code2 = 'CONFIDENTIAL')
+    then
+        if($code1 = 'NON-HW')
+        then $doc//*[fn:local-name() = $pollutant and functx:substring-after-last(wasteClassification, "/") = 'NONHW'
+                and fn:string-length(confidentialityReason) > 0] => fn:count()
+        else if($code1 = 'HWIC')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
+                and confidentialityReason => fn:string-length() > 0
+                and transboundaryTransfer/fn:data() => fn:string-length() = 0] => fn:count()
+        else if($code1 = 'HWOC')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
+                and confidentialityReason => fn:string-length() > 0
+                and transboundaryTransfer/fn:data() => fn:string-length() > 0] => fn:count()
+        else -1
+    else
+        if($code1 = 'NON-HW')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'NONHW'
+                and wasteTreatment => functx:substring-after-last("/") = $code2
+                and confidentialityReason => fn:string-length() = 0] => fn:count()
+        else if($code1 = 'HWIC')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
+                and wasteTreatment => functx:substring-after-last("/") = $code2
+                and confidentialityReason => fn:string-length() = 0
+                and transboundaryTransfer/fn:data() => fn:string-length() = 0] => fn:count()
+        else if($code1 = 'HWOC')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
+                and wasteTreatment => functx:substring-after-last("/") = $code2
+                and confidentialityReason => fn:string-length() = 0
+                and transboundaryTransfer/fn:data() => fn:string-length() > 0] => fn:count()
+        else -1
+};
 declare function scripts:getCountOfPollutant(
     $code1 as xs:string,
     $code2 as xs:string,
@@ -147,7 +183,7 @@ declare function scripts:getCountOfPollutant(
                 /*[fn:local-name() = $map?countNodeName] => fn:number()
     else
         $map?doc//row[CountryCode = $country_code and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
-            /*[fn:local-name() = $map?countNodeName] => fn:number()
+            /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
 };
 declare function scripts:getreportCountOfPollutantDistinct(
     $code1 as xs:string,
@@ -161,9 +197,23 @@ declare function scripts:getreportCountOfPollutantDistinct(
         then $doc//*[fn:local-name() = $pollutant and mediumCode=>functx:substring-after-last("/") = $code1]
                 /pollutant => fn:distinct-values() => fn:count()
     else
-        $doc//*[fn:local-name() = $pollutant and mediumCode=>functx:substring-after-last("/") = $code2]
-                /pollutant => fn:distinct-values() => fn:count()
+        -1
 };
+declare function scripts:getreportCountOfPollutant(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $doc as document-node(),
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then $doc//*[fn:local-name() = $pollutant]/pollutant => fn:count()
+    else if($pollutant = 'pollutantRelease')
+        then $doc//*[fn:local-name() = $pollutant and mediumCode=>functx:substring-after-last("/") = $code1]
+                /pollutant => fn:count()
+    else
+        scripts:getreportCountOfPollutantWasteTransfer($code1, $code2, $doc, $pollutant)
+};
+
 declare function scripts:compareNumberOfPollutants(
     $map1 as map(xs:string, map(*)),
     $country_code as xs:string,
@@ -199,15 +249,22 @@ declare function scripts:compareNumberOfPollutants(
                     )
                 (:let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: '):)
                 (:let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: '):)
-                let $changePercentage := 100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)
+                let $changePercentage := if($CountOfPollutantCode = 0)
+                    then 100
+                    else (100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)) => fn:abs()
                 (:let $asd := trace($changePercentage, 'changePercentage: '):)
-                let $ok := $changePercentage <= 50
+                let $ok := (
+                    $changePercentage <= 50
+                    or
+                    ($CountOfPollutantCode = 0 and $reportCountOfPollutantCode = 0)
+                )
                 let $errorType :=
                     if($changePercentage > 100)
                     then 'warning'
                     else 'info'
                 return
                     if(fn:not($ok))
+                    (:if(true()):)
                     then
                     <tr>
                         <td class='{$errorType}' title="Details">
@@ -218,10 +275,10 @@ declare function scripts:compareNumberOfPollutants(
                         </td>
                         <td title="Polutant">
                             {$pollutant} {if($code1 = '') then '' else ' - '||$code1}
-                            {if($code2 = '') then '' else ' - '|| $code2}
+                            {if($code2 = '') then '' else ' / '|| $code2}
                         </td>
                         <td class="td{$errorType}" title="Change percentage">
-                            {$changePercentage=>fn:round-half-to-even(2)}%
+                            {$changePercentage =>fn:round-half-to-even(2)}%
                         </td>
                         <td title="National level count">{$reportCountOfPollutantCode}</td>
                         <td title="Previous year count">{$CountOfPollutantCode}</td>

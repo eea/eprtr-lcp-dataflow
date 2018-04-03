@@ -1068,7 +1068,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfPollutantReleaseID',
                 'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
+                'reportCountFunction': scripts:getreportCountOfPollutant#4
                 } ,
             "offsitePollutantTransfer": map {
                 'doc': $docRootCOUNT_OF_PollutantTransfer,
@@ -1078,7 +1078,7 @@ declare function xmlconv:RunQAs(
                 }, (: NA = not available:)
                 'countNodeName': 'CountOfPollutantTransferID',
                 'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
+                'reportCountFunction': scripts:getreportCountOfPollutant#4
             },
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_OffsiteWasteTransfer,
@@ -1088,7 +1088,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfWasteTransferID',
                 'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
+                'reportCountFunction': scripts:getreportCountOfPollutant#4
             }
 
         }
