@@ -115,6 +115,11 @@ declare function functx:is-a-number
 
    string(number($value)) != 'NaN'
  } ;
+declare function functx:is-value-in-sequence
+  ( $value as xs:anyAtomicType? ,
+    $seq as xs:anyAtomicType* )  as xs:boolean {
 
+   $value = $seq
+ } ;
 
 (: HELPER FUNCTIONS END :)
