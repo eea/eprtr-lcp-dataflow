@@ -26,11 +26,11 @@ declare variable $source_url as xs:string external;
 (:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
 declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.1_OffsiteWasteTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.1_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:AVERAGE_3_YEARS as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.6.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.6.xml";
 declare variable $xmlconv:CLRTAP_DATA as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_data.xml";
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string :=
