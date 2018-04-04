@@ -912,11 +912,10 @@ declare function xmlconv:RunQAs(
             then
                 for $confidentialityReason in $docRoot//confidentialityReason[string-length() > 0]
                 let $dataMap := map {
-                    'Details': map {'text': $errorMessage, 'errorClass': $errorType},
-                    (:'Path': map {'text': $confidentialityReason/ancestor::*[InspireId]/local-name(),'errorClass': ''},:)
-                    'Path': map {'text': $confidentialityReason => functx:path-to-node(),'errorClass': ''},
-                    'InspireId': map {'text': $confidentialityReason/ancestor::*[InspireId]/InspireId, 'errorClass': ''},
-                    'confidentialityReason text': map {'text': $confidentialityReason, 'errorClass': 'td' || $errorType}
+                    'Details': map {'pos': 1,'text': $errorMessage, 'errorClass': $errorType},
+                    'confidentialityReason': map {'pos': 2, 'text': $confidentialityReason, 'errorClass': 'td' || $errorType},
+                    'InspireId': map {'pos': 3, 'text': $confidentialityReason/ancestor::*[InspireId]/InspireId},
+                    'Path': map {'pos': 4, 'text': $confidentialityReason => functx:path-to-node()}
                 }
                 return
                     scripts:generateResultTableRow($dataMap)
@@ -1086,11 +1085,11 @@ declare function xmlconv:RunQAs(
                 then 'warning'
                 else 'info'
             let $dataMap := map {
-                'Details': map {'text': 'The pollutant exceeds the three-year average', 'errorClass': $errorType},
-                'Pollutant': map {'text': $pollutant, 'errorClass': ''},
-                'Difference': map {'text': $difference || '%', 'errorClass': 'td' || $errorType},
-                'Total value': map {'text': $total=>xs:long(), 'errorClass': ''},
-                'Average 3 year': map {'text': $average3Year, 'errorClass': ''}
+                'Details': map {'pos': 1, 'text': 'The pollutant exceeds the three-year average', 'errorClass': $errorType},
+                'Pollutant': map {'pos': 2, 'text': $pollutant},
+                'Difference': map {'pos': 3, 'text': $difference || '%', 'errorClass': 'td' || $errorType},
+                'Total value': map {'pos': 4, 'text': $total=>xs:long()},
+                'Average 3 year': map {'pos': 5, 'text': $average3Year}
             }
             let $ok := $difference < 10
             return

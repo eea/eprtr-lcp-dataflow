@@ -34,8 +34,10 @@ declare function scripts:generateResultTableRow(
     <tr>
     {
         for $column in map:keys($dataMap)
+        order by $dataMap?($column)?pos
         return
-            <td class="{$dataMap?($column)?errorClass}" title="{$column}">
+            <td class="{if(map:contains($dataMap?($column), 'errorClass')) then $dataMap?($column)?errorClass else ''}"
+                title="{$column}">
                 {$dataMap?($column)?text}
             </td>
     }
