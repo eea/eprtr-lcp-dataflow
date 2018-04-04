@@ -897,13 +897,8 @@ declare function xmlconv:RunQAs(
         let $ratio := fn:count($countCondifentialityReasons) div fn:count($seq)
         let $errorType :=
             if($ratio > 0.01)
-            then
-                "error"
-            else if($ratio > 0.005)
-                then
-                "warning"
-            else
-                "info"
+            then "warning"
+            else "info"
         let $errorMessage :=
             if($ratio > 0.01)
             then
@@ -915,10 +910,20 @@ declare function xmlconv:RunQAs(
         return
             if($ratio > 0.005)
             then
-                <tr>
+                for $confidentialityReason in $docRoot//confidentialityReason[string-length() > 0]
+                let $dataMap := map {
+                    'Details': map {'text': $errorMessage, 'errorClass': $errorType},
+                    (:'Path': map {'text': $confidentialityReason/ancestor::*[InspireId]/local-name(),'errorClass': ''},:)
+                    'Path': map {'text': $confidentialityReason => functx:path-to-node(),'errorClass': ''},
+                    'InspireId': map {'text': $confidentialityReason/ancestor::*[InspireId]/InspireId, 'errorClass': ''},
+                    'confidentialityReason text': map {'text': $confidentialityReason, 'errorClass': 'td' || $errorType}
+                }
+                return
+                    scripts:generateResultTableRow($dataMap)
+                (:<tr>
                     <td class='{$errorType}' title="Details">{$errorMessage}</td>
                     <td class="td{$errorType}" title="threshold"> {fn:round-half-to-even($ratio * 100, 1) || '%'} </td>
-                </tr>
+                </tr>:)
             else
                 ()
     let $LCP_9_1 := xmlconv:RowBuilder("EPRTR-LCP 9.1","Confidentiality overuse", $res)
@@ -958,7 +963,7 @@ declare function xmlconv:RunQAs(
                     then
                         <tr>
                             <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
-                            <td title="inspireId">{fn:data($elem/InspireId)}</td>
+                            <td title="inspireId">{$elem/InspireId}</td>
                             <td title="fuelInput">{$emission}</td>
                             <td class="tdinfo" title="total reported">{$emissionTotal => xs:long()}</td>
                             <td title="expected">{$expected => xs:long()}</td>
