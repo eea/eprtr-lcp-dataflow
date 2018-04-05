@@ -25,12 +25,6 @@ declare variable $source_url as xs:string external;
 
 (:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
-declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
-    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
-declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
-    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.1_OffsiteWasteTransfer.xml";
-declare variable $xmlconv:AVERAGE_3_YEARS as xs:string :=
-    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.6.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantRelease as xs:string :=
     "../lookup-tables/EPRTR-LCP_C13.4_PollutantRelease.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantTransfer as xs:string :=
@@ -45,6 +39,12 @@ declare variable $xmlconv:NATIONAL_TOTAL_PollutantTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C12.1_PollutantTransfer.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_PollutantRelease as xs:string :=
     "../lookup-tables/EPRTR-LCP_C12.1_PollutantRelease.xml";
+declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
+declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.1_OffsiteWasteTransfer.xml";
+declare variable $xmlconv:AVERAGE_3_YEARS as xs:string :=
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.6.xml";
 declare variable $xmlconv:CLRTAP_DATA as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C15.1_CLRTAP_data.xml";
 declare variable $xmlconv:CLRTAP_POLLUTANT_LOOKUP as xs:string :=
@@ -82,7 +82,12 @@ declare function xmlconv:RowBuilder (
     (: $ResCode the result of the QA :)
 
     (: TESTING :)
-    let $ResMessage := <p> { fn:count($errors) } Errors, { fn:count($warnings) } Warnings { if (fn:count($info) > 0) then fn:concat(' , ' ,xs:string(fn:count($info)), ' Info' ) else () } </p>
+    let $ResMessage :=
+        <p>
+            { fn:count($errors) } Errors,
+            { fn:count($warnings) } Warnings
+            { if (fn:count($info) > 0) then fn:concat(' , ' ,xs:string(fn:count($info)), ' Info' ) else () }
+        </p>
 
     let $step1 :=
         (: Row Result :)
@@ -97,7 +102,10 @@ declare function xmlconv:RowBuilder (
 
             {if (fn:count($ResDetails) > 0 ) then
                 <td>
-                    <a id='feedbackLink-{$RuleCode}' href='javascript:toggle("feedbackRow","feedbackLink", "{$RuleCode}")' class="feedback">Show records</a>
+                    <a id='feedbackLink-{$RuleCode}'
+                        href='javascript:toggle("feedbackRow","feedbackLink", "{$RuleCode}")' class="feedback">
+                        Show records
+                    </a>
                 </td>
             else <td> </td> (: space to keep the table rows consistent:)
                 }
@@ -142,7 +150,12 @@ declare function xmlconv:RowAggregator (
 
 
     (: TESTING :)
-    let $ResMessage := <p> { fn:count($errors) } Subchecks issued Errors, { fn:count($warnings) } Subchecks issued Warnings { if (fn:count($info) > 0) then fn:concat(' , ' ,xs:string(fn:count($info)), ' Info' ) else () } </p>
+    let $ResMessage :=
+        <p>
+            {fn:count($errors)} Subchecks issued Errors,
+            {fn:count($warnings)} Subchecks issued Warnings
+            {if (fn:count($info) > 0) then fn:concat(' , ' ,xs:string(fn:count($info)), ' Info' ) else ()}
+        </p>
 
     let $step1 :=
         (: Row Result :)
@@ -159,7 +172,10 @@ declare function xmlconv:RowAggregator (
 
             {if (fn:count($ResRows) > 0 ) then
                 <td>
-                    <a id='feedbackLink-{$RuleCode}' href='javascript:toggle("feedbackRow","feedbackLink", "{$RuleCode}")'>Show records</a>
+                    <a id='feedbackLink-{$RuleCode}'
+                        href='javascript:toggle("feedbackRow","feedbackLink", "{$RuleCode}")'>
+                        Show records
+                    </a>
                 </td>
             else <td> </td> (: space to keep the table rows consistent:)
             }
@@ -258,7 +274,8 @@ declare function xmlconv:RunQAs(
 
     (:  C1.3 – EPRTRPollutant consistency   :)
     let $res :=
-        let $seq := $docRoot//ProductionFacilityReport/*[fn:local-name() = ("offsitePollutantTransfer", "pollutantRelease")]//pollutant
+        let $seq := $docRoot//ProductionFacilityReport
+                /*[fn:local-name() = ("offsitePollutantTransfer", "pollutantRelease")]//pollutant
         return xmlconv:isInVocabulary($seq, "EPRTRPollutantCodeValue")
     let $LCP_1_3 := xmlconv:RowBuilder("EPRTR-LCP 1.3","EPRTRPollutantCodeValue consistency", $res )
 
@@ -301,14 +318,16 @@ declare function xmlconv:RunQAs(
     (:  C1.10 – OtherGaseousFuel consistency    :)
     let $res :=
         let $otherGases := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases"
-        let $seq := $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherGases]/otherGaseousFuel
+        let $seq :=
+            $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherGases]/otherGaseousFuel
         return xmlconv:isInVocabulary($seq, "OtherGaseousFuelValue")
     let $LCP_1_10 := xmlconv:RowBuilder("EPRTR-LCP 1.10","OtherGaseousFuelValue consistency", $res )
 
     (:  C1.11 – OtherSolidFuel consistency  :)
     let $res :=
         let $otherSolidFuel := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
-        let $seq := $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherSolidFuel]/otherSolidFuel
+        let $seq :=
+            $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherSolidFuel]/otherSolidFuel
         return xmlconv:isInVocabulary($seq, "OtherSolidFuelValue")
     let $LCP_1_11 := xmlconv:RowBuilder("EPRTR-LCP 1.11","OtherSolidFuelValue consistency", $res )
 
@@ -456,7 +475,9 @@ declare function xmlconv:RunQAs(
             if(fn:not($ok))
             then
                 <tr>
-                    <td class='warning' title="Details"> Other fuel has not been expanded upon under the furtherDetails attribute</td>
+                    <td class='warning' title="Details">
+                        Other fuel has not been expanded upon under the furtherDetails attribute
+                    </td>
                     <td title="FuelInput"> {functx:substring-after-last($fuel/fuelInput, "/")} </td>
                     <td title="Other fuel">
                         {
@@ -491,7 +512,9 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='warning' title="Details"> {$concept} has not been recognised</td>
-                    <td class="tdwarning" title="{fn:node-name($elem/methodClassification)}"> {fn:data($elem/methodClassification)} </td>
+                    <td class="tdwarning" title="{fn:node-name($elem/methodClassification)}">
+                        {fn:data($elem/methodClassification)}
+                    </td>
                     <td title="methodCode">{functx:substring-after-last($elem/methodCode, "/")}</td>
                     <td title="path">{functx:path-to-node($elem/methodClassification)}</td>
                 </tr>
@@ -517,14 +540,17 @@ declare function xmlconv:RunQAs(
             )
             then
                 <tr>
-                    <td class='warning' title="Details"> Not met reporting requirements for the method classification</td>
+                    <td class='warning' title="Details">
+                        Not met reporting requirements for the method classification
+                    </td>
                     <td class="tdwarning" title="furtherDetails"> {fn:data($elem/furtherDetails)} </td>
                     <td title="methodClassifications">{$elem/methodClassification}</td>
                     <td title="path">{functx:path-to-node($elem/methodClassification)}</td>
                 </tr>
             else
                 ()
-    let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5","Required furtherDetails for reporting methodClassification", $res)
+    let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5",
+            "Required furtherDetails for reporting methodClassification", $res)
 
     (:  C3.6 – transboundaryTransfer completeness   :)
     let $res :=
@@ -547,8 +573,12 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details"> Attribute should contain a character string</td>
                     <td title="attribute"> {$attr} </td>
                     <td class="tdwarning" title="Value"> {fn:data($el)} </td>
-                    <td title="localId">{$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}</td>
-                    <td title="namespace">{$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/namespace}</td>
+                    <td title="localId">
+                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
+                    </td>
+                    <td title="namespace">
+                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/namespace}
+                    </td>
                     <td title="path">{functx:path-to-node($el)}</td>
                 </tr>
             else
@@ -576,10 +606,12 @@ declare function xmlconv:RunQAs(
             if(fn:not($envelope-available))
             then
                 <tr>
-                    <td class="error" title="Details">Could not verify envelope year because envelope XML is not available.</td>
+                    <td class="error" title="Details">
+                        Could not verify envelope year because envelope XML is not available.
+                    </td>
                 </tr>
             else
-                let $envelopeDoc := doc($envelope-url)
+                let $envelopeDoc := fn:doc($envelope-url)
                 let $envelopeYear := $envelopeDoc//year
                 for $report in $docRoot//ReportData
                 let $reportYear := $report/reportingYear
@@ -618,8 +650,12 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">accidentalPollutantQuantityKg attribute value is not valid</td>
                     <td class="tdwarning" title="accidentalPollutantQuantityKg"> {$accidentalPollutantQuantityKg} </td>
                     <td title="totalPollutantQuantityKg"> {$totalPollutantQuantityKg} </td>
-                    <td title="localId">{$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}</td>
-                    <td title="namespace">{$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/namespace}</td>
+                    <td title="localId">
+                        {$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
+                    </td>
+                    <td title="namespace">
+                        {$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/namespace}
+                    </td>
                 </tr>
             else
                 ()
@@ -629,13 +665,16 @@ declare function xmlconv:RunQAs(
     (: C4.3 – CO2 reporting plausibility :)
     let $res :=
         let $co2 := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2"
-        let $co2exclBiomass := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2%20EXCL%20BIOMASS"
+        let $co2exclBiomass :=
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2%20EXCL%20BIOMASS"
         let $seq := $docRoot//ProductionFacilityReport
         for $elem in $seq
             let $co2_amount :=
-                functx:if-empty($elem//pollutantRelease[pollutant = $co2]/totalPollutantQuantityKg/data(), 0)=>fn:number()
+                functx:if-empty($elem//pollutantRelease[pollutant = $co2]
+                        /totalPollutantQuantityKg/data(), 0) => fn:number()
             let $co2exclBiomass_amount :=
-                functx:if-empty($elem//pollutantRelease[pollutant = $co2exclBiomass]/totalPollutantQuantityKg/data(), 0)=>fn:number()
+                functx:if-empty($elem//pollutantRelease[pollutant = $co2exclBiomass]
+                        /totalPollutantQuantityKg/data(), 0) => fn:number()
             let $ok := (
                 $co2_amount >= $co2exclBiomass_amount
                 and
@@ -647,7 +686,9 @@ declare function xmlconv:RunQAs(
             if(fn:not($ok))
                 then
                 <tr>
-                    <td class='warning' title="Details">Reported CO2 excluding biomass exceeds reported CO2 emissions</td>
+                    <td class='warning' title="Details">
+                        Reported CO2 excluding biomass exceeds reported CO2 emissions
+                    </td>
                     <td class="tdwarning" title="CO2 excluding biomass"> {fn:data($co2exclBiomass_amount)} </td>
                     <td title="CO2"> {fn:data($co2_amount)} </td>
                     <td title="localId">{$elem/InspireId/localId}</td>
@@ -697,12 +738,14 @@ declare function xmlconv:RunQAs(
     (: TODO implement this :)
     (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
     let $res := ()
-    let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2","Identification of otherSolidFuel duplicates (NOT IMPLEMENTED)", $res)
+    let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2",
+            "Identification of otherSolidFuel duplicates (NOT IMPLEMENTED)", $res)
 
     (: TODO implement this :)
     (:  C.5.3 – Identification of otherGaseousFuel duplicates   :)
     let $res := ()
-    let $LCP_5_3 := xmlconv:RowBuilder("EPRTR-LCP 5.3","Identification of otherGaseousFuel duplicates (NOT IMPLEMENTED)", $res)
+    let $LCP_5_3 := xmlconv:RowBuilder("EPRTR-LCP 5.3",
+            "Identification of otherGaseousFuel duplicates (NOT IMPLEMENTED)", $res)
 
     (:  C5.4 - Identification of EmissionsToAir duplicates  :)
     let $res :=
@@ -716,10 +759,12 @@ declare function xmlconv:RunQAs(
             let $pollutants := $elem/emissionsToAir/pollutant
             for $pollutant in $pollutantValues
                 return
-                if(fn:count(index-of($pollutants, $pollutant)) > 1)
+                if(fn:count(fn:index-of($pollutants, $pollutant)) > 1)
                 then
                     <tr>
-                        <td class='error' title="Details">Pollutant is duplicated within the EmissionsToAir feature type</td>
+                        <td class='error' title="Details">
+                            Pollutant is duplicated within the EmissionsToAir feature type
+                        </td>
                         <td class="tderror" title="pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                         <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
                         <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
@@ -745,11 +790,21 @@ declare function xmlconv:RunQAs(
                 )
                 then
                     <tr>
-                        <td class='error' title="Details">Pollutant and medium pair is duplicated within the PollutantRelease feature type</td>
-                        <td class="tderror" title="mediumCode"> {functx:substring-after-last($el/mediumCode, "/")} </td>
-                        <td class="tderror" title="pollutant"> {functx:substring-after-last($el/pollutant, "/")} </td>
-                        <td title="localId">{$el/ancestor-or-self::*/ProductionFacilityReport/InspireId/localId}</td>
-                        <td title="namespace">{$el/ancestor-or-self::*/ProductionFacilityReport/InspireId/namespace}</td>
+                        <td class='error' title="Details">
+                            Pollutant and medium pair is duplicated within the PollutantRelease feature type
+                        </td>
+                        <td class="tderror" title="mediumCode">
+                            {functx:substring-after-last($el/mediumCode, "/")}
+                        </td>
+                        <td class="tderror" title="pollutant">
+                            {functx:substring-after-last($el/pollutant, "/")}
+                        </td>
+                        <td title="localId">
+                            {$el/ancestor-or-self::*/ProductionFacilityReport/InspireId/localId}
+                        </td>
+                        <td title="namespace">
+                            {$el/ancestor-or-self::*/ProductionFacilityReport/InspireId/namespace}
+                        </td>
                     </tr>
                 else
                     ()
@@ -766,7 +821,9 @@ declare function xmlconv:RunQAs(
                 if(fn:not($ok))
                     then
                         <tr>
-                            <td class='warning' title="Details">Pollutant is duplicated within the OffsitePollutantTransfer feature type</td>
+                            <td class='warning' title="Details">
+                                Pollutant is duplicated within the OffsitePollutantTransfer feature type
+                            </td>
                             <td class="tdwarning" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
                             <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
                             <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
@@ -786,7 +843,9 @@ declare function xmlconv:RunQAs(
                 if(fn:not($ok))
                     then
                         <tr>
-                            <td class='warning' title="Details">Month is duplicated within the DesulphurisationInformationType feature type</td>
+                            <td class='warning' title="Details">
+                                Month is duplicated within the DesulphurisationInformationType feature type
+                            </td>
                             <td class="tdwarning" title="Month"> {functx:substring-after-last($el, "/")} </td>
                             <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
                             <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
@@ -830,11 +889,13 @@ declare function xmlconv:RunQAs(
     let $res := ()
     (: TODO implement this :)
     (:  C7.1 – EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility     :)
-    let $LCP_7_1 := xmlconv:RowBuilder("EPRTR-LCP 7.1","EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility (NOT IMPLEMENTED)", $res)
+    let $LCP_7_1 := xmlconv:RowBuilder("EPRTR-LCP 7.1",
+            "EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility (NOT IMPLEMENTED)", $res)
 
     (: C7.2 – MethodClassification validity :)
     let $res :=
-        let $seq := $docRoot//ProductionFacilityReport/*[fn:local-name() = ("offsitePollutantTransfer", "pollutantRelease")]/method/methodClassification
+        let $seq := $docRoot//ProductionFacilityReport
+                /*[fn:local-name() = ("offsitePollutantTransfer", "pollutantRelease")]/method/methodClassification
         for $elem in $seq
             return
                 if($elem = "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/WEIGH")
@@ -844,7 +905,9 @@ declare function xmlconv:RunQAs(
                         <td class="tdinfo" title="feature type"> {fn:node-name($elem/../..)} </td>
                         <td class="tdinfo" title="methodClassification"> {$elem} </td>
                         <td title="localId">{$elem/ancestor-or-self::*/ProductionFacilityReport/InspireId/localId}</td>
-                        <td title="namespace">{$elem/ancestor-or-self::*/ProductionFacilityReport/InspireId/namespace}</td>
+                        <td title="namespace">
+                            {$elem/ancestor-or-self::*/ProductionFacilityReport/InspireId/namespace}
+                        </td>
                     </tr>
                 else
                     ()
@@ -867,7 +930,10 @@ declare function xmlconv:RunQAs(
     let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (NOT IMPLEMENTED)", $res)
     (: TODO implement this :)
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
-    let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3","Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (NOT IMPLEMENTED)", $res)
+    let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3",
+            "Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (NOT IMPLEMENTED)",
+            $res
+    )
 
     let $LCP_8 := xmlconv:RowAggregator(
             "EPRTR-LCP 8",
@@ -891,10 +957,10 @@ declare function xmlconv:RunQAs(
             "pollutantRelease"
         )
         let $seq := $docRoot/descendant::*[fn:local-name() = $featureTypes]
-        let $countCondifentialityReasons :=
+        let $countConfidentialityReasons :=
             for $elem in $seq/child::*[fn:local-name() = "confidentialityReason"]
             return if($elem/text() != "") then $elem else ()
-        let $ratio := fn:count($countCondifentialityReasons) div fn:count($seq)
+        let $ratio := fn:count($countConfidentialityReasons) div fn:count($seq)
         let $errorType :=
             if($ratio > 0.01)
             then "warning"
@@ -905,15 +971,17 @@ declare function xmlconv:RunQAs(
                 "confidentialityReason attribute exceeded the 1% threshold"
             else if($ratio > 0.005)
                 then
-                "confidentialityReason attribute exceeded the 0.5% threshold, but the value is less than 1%"
+                "confidentialityReason attribute exceeded the 0.5% threshold, but the percentage is less than 1%"
             else "all good"
         return
             if($ratio > 0.005)
             then
-                for $confidentialityReason in $docRoot//confidentialityReason[string-length() > 0]
+                for $confidentialityReason in $docRoot//confidentialityReason[fn:string-length() > 0]
                 let $dataMap := map {
                     'Details': map {'pos': 1,'text': $errorMessage, 'errorClass': $errorType},
-                    'confidentialityReason': map {'pos': 2, 'text': $confidentialityReason, 'errorClass': 'td' || $errorType},
+                    'confidentialityReason': map {
+                        'pos': 2, 'text': $confidentialityReason, 'errorClass': 'td' || $errorType
+                    },
                     'InspireId': map {'pos': 3, 'text': $confidentialityReason/ancestor::*[InspireId]/InspireId},
                     'Path': map {'pos': 4, 'text': $confidentialityReason => functx:path-to-node()}
                 }
@@ -973,10 +1041,12 @@ declare function xmlconv:RunQAs(
     (: TODO not implemented :)
     (:  C10.2 – Energy input and CO2 emissions feasibility  :)
     let $res := ()
-    let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2","Energy input and CO2 emissions feasibility (NOT IMPLEMENTED)", $res)
+    let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2",
+            "Energy input and CO2 emissions feasibility (NOT IMPLEMENTED)", $res)
     (: TODO not implemented :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
-    let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3","ProductionFacility cross pollutant identification (NOT IMPLEMENTED)", $res)
+    let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3",
+            "ProductionFacility cross pollutant identification (NOT IMPLEMENTED)", $res)
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
@@ -999,21 +1069,29 @@ declare function xmlconv:RunQAs(
         for $elem in $seq
         let $elems := $elem/*[fn:local-name() = $attributes]
         return
-            if(empty($elems))
+            if(fn:empty($elems))
             then
                 <tr>
-                    <td class='info' title="Details">No releases/transfers of pollutants nor transfers of waste have been reported</td>
-                    <td class="tdinfo" title="localId">{$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]/InspireId/localId}</td>
-                    <td class="tdinfo" title="namespace">{$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]/InspireId/namespace}</td>
+                    <td class='info' title="Details">
+                        No releases/transfers of pollutants nor transfers of waste have been reported
+                    </td>
+                    <td class="tdinfo" title="localId">
+                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]/InspireId/localId}
+                    </td>
+                    <td class="tdinfo" title="namespace">
+                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]/InspireId/namespace}
+                    </td>
                 </tr>
             else
                 ()
-    let $LCP_11_1 := xmlconv:RowBuilder("EPRTR-LCP 11.1","ProductionFacilityReports without transfers or releases", $res)
+    let $LCP_11_1 := xmlconv:RowBuilder("EPRTR-LCP 11.1",
+            "ProductionFacilityReports without transfers or releases", $res)
 
     let $res := ()
     (: TODO not implemented :)
     (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
-    let $LCP_11_2 := xmlconv:RowBuilder("EPRTR-LCP 11.2","ProductionFacility releases and transfers reported below the thresholds (NOT IMPLEMENTED)", $res)
+    let $LCP_11_2 := xmlconv:RowBuilder("EPRTR-LCP 11.2",
+            "ProductionFacility releases and transfers reported below the thresholds (NOT IMPLEMENTED)", $res)
 
     let $LCP_11 := xmlconv:RowAggregator(
             "EPRTR-LCP 11",
@@ -1026,7 +1104,8 @@ declare function xmlconv:RunQAs(
 
     let $res := ()
     (: TODO not implemented :)
-    (: C12.1 - Identification of ProductionFacility release/transfer outliers against previous year data at the national level :)
+    (: C12.1 - Identification of ProductionFacility release/transfer outliers
+        against previous year data at the national level :)
     let $LCP_12_1 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.1",
             "Identification of ProductionFacility release/transfer outliers
@@ -1034,7 +1113,8 @@ declare function xmlconv:RunQAs(
             $res
     )
     (: TODO not implemented :)
-    (: C12.2 - Identification of ProductionFacility release/transfer outliers against national total and pollutant threshold :)
+    (: C12.2 - Identification of ProductionFacility release/transfer outliers
+        against national total and pollutant threshold :)
     let $LCP_12_2 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.2",
             "Identification of ProductionFacility release/transfer outliers
@@ -1085,7 +1165,11 @@ declare function xmlconv:RunQAs(
                 then 'warning'
                 else 'info'
             let $dataMap := map {
-                'Details': map {'pos': 1, 'text': 'The pollutant exceeds the three-year average', 'errorClass': $errorType},
+                'Details': map {
+                    'pos': 1,
+                    'text': 'The pollutant exceeds the three-year average',
+                    'errorClass': $errorType
+                },
                 'Pollutant': map {'pos': 2, 'text': $pollutant},
                 'Difference': map {'pos': 3, 'text': $difference || '%', 'errorClass': 'td' || $errorType},
                 'Total value': map {'pos': 4, 'text': $total=>xs:long()},
@@ -1343,7 +1427,8 @@ declare function xmlconv:RunQAs(
             $docRoot
         ):)
         return ()
-    let $LCP_13_4 := xmlconv:RowBuilder("EPRTR-LCP 13.4","Quantity of releases and transfers consistency (NOT IMPLEMENTED)", $res)
+    let $LCP_13_4 := xmlconv:RowBuilder("EPRTR-LCP 13.4",
+            "Quantity of releases and transfers consistency (NOT IMPLEMENTED)", $res)
 
     let $LCP_13 := xmlconv:RowAggregator(
             "EPRTR-LCP 13",
@@ -1359,7 +1444,8 @@ declare function xmlconv:RunQAs(
     let $res := ()
     (: TODO not implemented :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
-    let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1","Identification of top 10 ProductionFacility releases/transfers across Europe", $res)
+    let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
+            "Identification of top 10 ProductionFacility releases/transfers across Europe", $res)
 
     (: TODO not implemented :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
@@ -1387,7 +1473,8 @@ declare function xmlconv:RunQAs(
                 then scripts:generateResultTableRow($dataMap)
                 else ():)
 
-    let $LCP_14_2 := xmlconv:RowBuilder("EPRTR-LCP 14.2","Identification of ProductionFacility release/transfer outliers against European level data", $res)
+    let $LCP_14_2 := xmlconv:RowBuilder("EPRTR-LCP 14.2",
+            "Identification of ProductionFacility release/transfer outliers against European level data", $res)
 
     let $LCP_14 := xmlconv:RowAggregator(
             "EPRTR-LCP 14",
@@ -1399,7 +1486,8 @@ declare function xmlconv:RunQAs(
     )
 
     (: TODO needs testing :)
-    (:  C15.1 – Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD and UNFCCC/EU-MMR National Inventories    :)
+    (:  C15.1 – Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD
+        and UNFCCC/EU-MMR National Inventories    :)
     let $res :=
         (: init lookup tables with data :)
         let $docCLRTAPdata := fn:doc($xmlconv:CLRTAP_DATA)
@@ -1429,7 +1517,7 @@ declare function xmlconv:RunQAs(
                     scripts:getCodeNotation($dataDictName, $pollutant)=>functx:substring-after-last("/")
                 (: calculate national total, summ all pollutants from the XML report file :)
                 let $nationalTotal :=
-                    fn:sum($seqPollutants[functx:substring-after-last(pollutant, "/") = $pollutant=>encode-for-uri()]
+                    fn:sum($seqPollutants[functx:substring-after-last(pollutant, "/") = $pollutant=>fn:encode-for-uri()]
                     /*[fn:local-name() = $elemNameTotalQuantity]/fn:number(fn:data()))
                 (: for emissionsToAir type, the measurement is in TNE = metric tonnes per year
                 multiply the value with 1000 to get equivalent in Kg :)
@@ -1523,8 +1611,14 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">Numerical format reporting requirements not met</td>
                     <td class="tdwarning" title="attribute name"> {fn:node-name($elem)} </td>
                     <td class="tdwarning" title="value"> {$elemValue} </td>
-                    <td title="localId">{$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/localId}</td>
-                    <td title="namespace">{$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/namespace}</td>
+                    <td title="localId">
+                        {$elem/ancestor-or-self::*[fn:local-name() =
+                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/localId}
+                    </td>
+                    <td title="namespace">
+                        {$elem/ancestor-or-self::*[fn:local-name() =
+                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/namespace}
+                    </td>
                 </tr>
             else
                 ()
@@ -1548,11 +1642,19 @@ declare function xmlconv:RunQAs(
             if(fn:not($ok))
             then
                 <tr>
-                    <td class='warning' title="Details">Attribute has been populated with a value representing a percentage greater than 100%</td>
+                    <td class='warning' title="Details">
+                        Attribute has been populated with a value representing a percentage greater than 100%
+                    </td>
                     <td class="tdwarning" title="attribute name"> {fn:node-name($elem)} </td>
                     <td class="tdwarning" title="value"> {$elemValue} </td>
-                    <td title="localId">{$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]/InspireId/localId}</td>
-                    <td title="namespace">{$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]/InspireId/namespace}</td>
+                    <td title="localId">
+                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
+                                /InspireId/localId}
+                    </td>
+                    <td title="namespace">
+                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
+                                /InspireId/namespace}
+                    </td>
                 </tr>
 
             else
@@ -1680,10 +1782,26 @@ declare function xmlconv:getLegend() as element()*{
             <legend>How to read the test results</legend>
             All test results are labeled with coloured bullets. The number in the bullet reffers to the rule code. The background colour of the bullets means:
             <ul style="list-style-type: none;">QC TESTS
-                <li><div class="bullet" style="width:50px; display:inline-block;margin-left:10px"><div class="error">Red</div></div> - the check issued an error. Please correct the invalid records.</li>
-                <li><div class="bullet" style="width:50px; display:inline-block;margin-left:10px"><div class="warning">Orange</div></div> - the check issued a warning. Please review the corresponding records.</li>
-                <li><div class="bullet" style="width:50px; display:inline-block;margin-left:10px"><div class="info">Blue</div></div> - the check issued info. Please review the corresponding records.</li>
-                <li><div class="bullet" style="width:50px; display:inline-block;margin-left:10px"><div class="passed">Green</div></div> - the check passed without errors or warnings.</li>
+                <li>
+                    <div class="bullet" style="width:50px; display:inline-block;margin-left:10px">
+                        <div class="error">Red</div>
+                    </div> - the check issued an error. Please correct the invalid records.
+                </li>
+                <li>
+                    <div class="bullet" style="width:50px; display:inline-block;margin-left:10px">
+                        <div class="warning">Orange</div>
+                    </div> - the check issued a warning. Please review the corresponding records.
+                </li>
+                <li>
+                    <div class="bullet" style="width:50px; display:inline-block;margin-left:10px">
+                        <div class="info">Blue</div>
+                    </div> - the check issued info. Please review the corresponding records.
+                </li>
+                <li>
+                    <div class="bullet" style="width:50px; display:inline-block;margin-left:10px">
+                        <div class="passed">Green</div>
+                    </div> - the check passed without errors or warnings.
+                </li>
             </ul>
             <p>Click on the "Show records" link to see more details about the test result.</p>
         </fieldset>
@@ -1776,8 +1894,9 @@ declare function xmlconv:main($source_url as xs:string) {
   let $nameofailedQA := fn:data($failedQA/td/div)
 
   let $errors := if ( fn:count($nameofailedQA) > 0 ) then
-      <div> This XML file issued crucial errors in the following checks : <font color="#E83131"> { fn:string-join($nameofailedQA , ' , ') } </font>
-
+      <div>
+          This XML file issued crucial errors in the following checks :
+          <font color="#E83131"> { fn:string-join($nameofailedQA , ' , ') } </font>
       </div>
   else
       <div> This XML file issued no crucial errors       <br/>
@@ -1788,8 +1907,9 @@ declare function xmlconv:main($source_url as xs:string) {
   let $nameofwarnQA := fn:data($warningQAs/td/div)
 
   let $warnings := if ( fn:count($warningQAs) > 0 ) then
-      <div> This XML file issued warnings in the following checks : <font color="orange"> { fn:string-join($nameofwarnQA , ' , ') } </font>
-
+      <div>
+          This XML file issued warnings in the following checks :
+          <font color="orange"> { fn:string-join($nameofwarnQA , ' , ') } </font>
       </div>
   else
       <div> This XML file issued no warnings       <br/>
@@ -1799,8 +1919,9 @@ declare function xmlconv:main($source_url as xs:string) {
   let $infoName := fn:data($infoQA/td/div)
 
   let $infos := if ( fn:count($infoQA) > 0 ) then
-      <div> This XML file issued info for the following checks : <font color="blue"> { fn:string-join($infoName , ' , ')  }  </font>
-
+      <div>
+          This XML file issued info for the following checks : <
+            font color="blue"> { fn:string-join($infoName , ' , ')  }  </font>
       </div>
   else
       ()
@@ -1810,25 +1931,20 @@ declare function xmlconv:main($source_url as xs:string) {
 
   let $css := xmlconv:getCSS()
 
-  let $feedbackStatus := if (exists ($failedQA) ) then <div>(<level>BLOCKER</level>,<msg>{ $errors }</msg>)</div>
-  else if (exists ($warningQAs) )  then <div> (<level>WARNING</level>,<msg>{ $warnings }</msg>)</div>
+  let $feedbackStatus := if (fn:exists ($failedQA) ) then <div>(<level>BLOCKER</level>,<msg>{ $errors }</msg>)</div>
+  else if (fn:exists ($warningQAs) )  then <div> (<level>WARNING</level>,<msg>{ $warnings }</msg>)</div>
   else <div>(<level>INFO</level>,<msg>"No errors or warnings issued"</msg>)</div>
 
-
-
-  (::)
   return
       <div class="feedbacktext">
-      <span id="feedbackStatus" class="{$feedbackStatus//level}" style="display:none">{fn:data($feedbackStatus//msg)}</span>
-          <h2>Reporting obligation for: E-PRTR data reporting and summary of emission inventory for large combustion plants (LCP), Art 4.(4) and 15.(3) plants
+      <span id="feedbackStatus" class="{$feedbackStatus//level}" style="display:none">
+          {fn:data($feedbackStatus//msg)}
+      </span>
+      <h2>Reporting obligation for: E-PRTR data reporting and summary of emission inventory
+          for large combustion plants (LCP), Art 4.(4) and 15.(3) plants
       </h2>
-
             { ( $css, $js, $errors, $warnings, $infos, $legend,  $ResultTable )}
-
       </div>
-
-
-
 };
 
 xmlconv:main($source_url)
