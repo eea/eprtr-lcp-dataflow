@@ -183,17 +183,17 @@ declare function scripts:getreportCountOfPollutantWasteTransfer(
     else
         if($code1 = 'NON-HW')
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'NONHW'
-                and wasteTreatment => functx:substring-after-last("/") = $code2
-                and confidentialityReason => fn:string-length() = 0] => fn:count()
+                (:and confidentialityReason => fn:string-length() = 0:)
+                and wasteTreatment => functx:substring-after-last("/") = $code2] => fn:count()
         else if($code1 = 'HWIC')
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
                 and wasteTreatment => functx:substring-after-last("/") = $code2
-                and confidentialityReason => fn:string-length() = 0
+                (:and confidentialityReason => fn:string-length() = 0:)
                 and transboundaryTransfer/fn:data() => fn:string-length() = 0] => fn:count()
         else if($code1 = 'HWOC')
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
                 and wasteTreatment => functx:substring-after-last("/") = $code2
-                and confidentialityReason => fn:string-length() = 0
+                (:and confidentialityReason => fn:string-length() = 0:)
                 and transboundaryTransfer/fn:data() => fn:string-length() > 0] => fn:count()
         else -1
 };
@@ -202,16 +202,18 @@ declare function scripts:getCountOfPollutant(
     $code2 as xs:string,
     $map as map(*),
     $country_code as xs:string,
-    $pollutant as xs:string
+    $pollutant as xs:string,
+    $look-up-year as xs:double
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer' or ($pollutant = 'offsiteWasteTransfer' and $code1 = ''))
-    then $map?doc//row[CountryCode = $country_code]/*[fn:local-name() = $map?countNodeName]
-        => functx:if-empty(0) => fn:number()
+    then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year]
+            /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'pollutantRelease')
-        then $map?doc//row[CountryCode = $country_code and ReleaseMediumCode = $code1]
+        then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year and ReleaseMediumCode = $code1]
                 /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else
-        $map?doc//row[CountryCode = $country_code and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
+        $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year
+                and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
             /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
 };
 declare function scripts:getreportCountOfPollutantDistinct(
@@ -265,6 +267,7 @@ declare function scripts:compareNumberOfPollutants(
     $country_code as xs:string,
     $docRoot as document-node()
 ) as element()* {
+    let $look-up-year := $docRoot//reportingYear => number() - 2
     (:let $asd := trace(map:keys($map1),'keys: '):)
     (:let $asd := trace(map:keys($map1?('pollutantRelease')?filters),'keys: '):)
     for $pollutant in map:keys($map1)
@@ -285,7 +288,8 @@ declare function scripts:compareNumberOfPollutants(
                         $code2,
                         $map1?($pollutant),
                         $country_code,
-                        $pollutant
+                        $pollutant,
+                        $look-up-year
                     )
                 let $reportCountOfPollutantCode := $map1?($pollutant)?reportCountFunction(
                         $code1,

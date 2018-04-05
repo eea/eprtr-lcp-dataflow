@@ -1157,7 +1157,7 @@ declare function xmlconv:RunQAs(
                         /totalPollutantQuantityTNE/fn:data()
             )
             let $average3Year :=
-                $docAverage//row[MemberState = $country_code][1]/*[fn:local-name() = 'Avg_3yr_' || $pollutant]
+                $docAverage//row[MemberState = $country_code and ReferenceYear = $look-up-year][1]/*[fn:local-name() = 'Avg_3yr_' || $pollutant]
                         /fn:data() => fn:number()
             (:let $asd := trace($pollutant, "pollutant: "):)
             (:let $asd := trace($total, "total: "):)
@@ -1218,7 +1218,7 @@ declare function xmlconv:RunQAs(
                     'code2': ('') (: empty code, pollutant type has only 1 code :)
                 },
                 'countNodeName': 'CountOfFacilityID',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfFacilities#4
                 } ,
             "offsitePollutantTransfer": map {
@@ -1228,7 +1228,7 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 },
                 'countNodeName': 'CountOfFacilityID',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfFacilities#4
             },
             "offsiteWasteTransfer": map {
@@ -1238,7 +1238,7 @@ declare function xmlconv:RunQAs(
                     'code2': ('') (: wasteTreatment :)
                 },
                 'countNodeName': 'CountOfFacilityID',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfFacilities#4
             }
 
@@ -1261,7 +1261,7 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 },
                 'countNodeName': 'CountOfPollutantReleaseID',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfPollutant#4
                 } ,
             "offsitePollutantTransfer": map {
@@ -1271,17 +1271,17 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 },
                 'countNodeName': 'CountOfPollutantTransferID',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfPollutant#4
             },
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_OffsiteWasteTransfer,
                 'filters': map {
                     'code1': ('NON-HW', 'HWIC', 'HWOC'), (: wasteClassification :)
-                    'code2': ('D', 'R', 'CONFIDENTIAL') (: wasteTreatment :)
+                    'code2': ('D', 'R') (: wasteTreatment :)
                 },
                 'countNodeName': 'CountOfWasteTransferID',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfPollutant#4
             }
 
@@ -1309,7 +1309,7 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 },
                 'countNodeName': 'CountOfPollutantCode',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
                 },
             "offsitePollutantTransfer": map {
@@ -1319,7 +1319,7 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 }, (: NA = not available:)
                 'countNodeName': 'CountOfPollutantCode',
-                'countFunction': scripts:getCountOfPollutant#5,
+                'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
             }
         }
@@ -1390,8 +1390,8 @@ declare function xmlconv:RunQAs(
                     'code2': ('AIR', 'WATER', 'LAND') (: mediumCode :)
                 },
                 'countNodeName': 'SumOfTotalQuantity',
-                'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'countFunction': asd,
+                'reportCountFunction': asd
                 } ,
             "offsitePollutantTransfer": map {
                 'doc': $docQUANTITY_OF_OffsiteWasteTransfer,
@@ -1400,8 +1400,8 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 }, (: NA = not available :)
                 'countNodeName': 'SumOfTotalQuantity',
-                'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'countFunction': asd,
+                'reportCountFunction': asd
             },
             "offsiteWasteTransfer": map {
                 'doc': $docQUANTITY_OF_PollutantTransfer,
@@ -1410,8 +1410,8 @@ declare function xmlconv:RunQAs(
                     'code2': ('') (: wasteTreatment :)
                 },
                 'countNodeName': 'SumOfQuantity',
-                'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'countFunction': asd,
+                'reportCountFunction': asd
             },
             "emissionsToAir": map {
                 'doc': $docAverage,
@@ -1420,8 +1420,8 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 },
                 'countNodeName': '',
-                'countFunction': scripts:getCountOfPollutant#5,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'countFunction': asd,
+                'reportCountFunction': asd
             }
 
         }
