@@ -34,7 +34,9 @@ declare variable $xmlconv:QUANTITY_OF_OffsiteWasteTransfer as xs:string :=
 declare variable $xmlconv:EUROPEAN_TOTAL_PollutantRelease as xs:string :=
     "../lookup-tables/EPRTR-LCP_C14.2_PollutantRelease.xml";
 declare variable $xmlconv:EUROPEAN_TOTAL_PollutantTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.4_PollutantTransfer.xml";
+    "../lookup-tables/EPRTR-LCP_C14.2_PollutantTransfer.xml";
+declare variable $xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C14.2_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_PollutantTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C12.1_PollutantTransfer.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_PollutantRelease as xs:string :=
@@ -248,6 +250,7 @@ declare function xmlconv:RunQAs(
     let $docEmissions := fn:doc($xmlconv:AVG_EMISSIONS_PATH)
     let $docEUROPEAN_TOTAL_PollutantRelease := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantRelease)
     let $docEUROPEAN_TOTAL_PollutantTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantTransfer)
+    let $docEUROPEAN_TOTAL_OffsiteWasteTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer)
     let $docQUANTITY_OF_OffsiteWasteTransfer := fn:doc($xmlconv:QUANTITY_OF_OffsiteWasteTransfer)
     let $docNATIONAL_TOTAL_PollutantTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_PollutantTransfer)
     let $docNATIONAL_TOTAL_PollutantRelease := fn:doc($xmlconv:NATIONAL_TOTAL_PollutantRelease)
@@ -259,6 +262,7 @@ declare function xmlconv:RunQAs(
     let $docRootCOUNT_OF_OffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_OffsiteWasteTransfer)
 
     let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
+    let $look-up-year := $docRoot//reportingYear => number() - 2
 
     (:  C1.1 – combustionPlantCategory consistency  :)
     let $res :=
@@ -1210,8 +1214,8 @@ declare function xmlconv:RunQAs(
             "pollutantRelease": map {
                 'doc': $docRootCOUNT_OF_PollutantRelease,
                 'filters': map {
-                    'mediumCode': ('AIR', 'WATER', 'LAND'),
-                    'code1': ('') (: empty code, pollutant type has only 1 code :)
+                    'code1': ('AIR', 'WATER', 'LAND'), (: mediumCode :)
+                    'code2': ('') (: empty code, pollutant type has only 1 code :)
                 },
                 'countNodeName': 'CountOfFacilityID',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1230,8 +1234,8 @@ declare function xmlconv:RunQAs(
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer,
                 'filters': map {
-                    'wasteClassification': (''),
-                    'wasteTreatment': ('')
+                    'code1': (''), (: wasteClassification :)
+                    'code2': ('') (: wasteTreatment :)
                 },
                 'countNodeName': 'CountOfFacilityID',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1253,8 +1257,8 @@ declare function xmlconv:RunQAs(
             "pollutantRelease": map {
                 'doc': $docRootCOUNT_OF_PollutantRelease,
                 'filters': map {
-                    'mediumCode': ('AIR', 'WATER', 'LAND'),
-                    'NA': ('')
+                    'code1': ('AIR', 'WATER', 'LAND'), (: mediumCode :)
+                    'code2': ('')
                 },
                 'countNodeName': 'CountOfPollutantReleaseID',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1263,9 +1267,9 @@ declare function xmlconv:RunQAs(
             "offsitePollutantTransfer": map {
                 'doc': $docRootCOUNT_OF_PollutantTransfer,
                 'filters': map {
-                    'NA': (''),
-                    'NA2': ('')
-                }, (: NA = not available:)
+                    'code1': (''),
+                    'code2': ('')
+                },
                 'countNodeName': 'CountOfPollutantTransferID',
                 'countFunction': scripts:getCountOfPollutant#5,
                 'reportCountFunction': scripts:getreportCountOfPollutant#4
@@ -1273,8 +1277,8 @@ declare function xmlconv:RunQAs(
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_OffsiteWasteTransfer,
                 'filters': map {
-                    'wasteClassification': ('NON-HW', 'HWIC', 'HWOC'),
-                    'wasteTreatment': ('D', 'R', 'CONFIDENTIAL')
+                    'code1': ('NON-HW', 'HWIC', 'HWOC'), (: wasteClassification :)
+                    'code2': ('D', 'R', 'CONFIDENTIAL') (: wasteTreatment :)
                 },
                 'countNodeName': 'CountOfWasteTransferID',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1301,8 +1305,8 @@ declare function xmlconv:RunQAs(
             "pollutantRelease": map {
                 'doc': $docRootCOUNT_OF_PollutantRelease,
                 'filters': map {
-                    'mediumCode': ('AIR', 'WATER', 'LAND'),
-                    'NA': ('')
+                    'code1': ('AIR', 'WATER', 'LAND'), (: mediumCode :)
+                    'code2': ('')
                 },
                 'countNodeName': 'CountOfPollutantCode',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1311,8 +1315,8 @@ declare function xmlconv:RunQAs(
             "offsitePollutantTransfer": map {
                 'doc': $docRootCOUNT_OF_PollutantTransfer,
                 'filters': map {
-                    'NA': (''),
-                    'NA2': ('')
+                    'code1': (''),
+                    'code2': ('')
                 }, (: NA = not available:)
                 'countNodeName': 'CountOfPollutantCode',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1382,8 +1386,8 @@ declare function xmlconv:RunQAs(
             "pollutantRelease": map {
                 'doc': $docQUANTITY_OF_PollutantRelease,
                 'filters': map {
-                    'pollutantCode': (''),
-                    'mediumCode': ('AIR', 'WATER', 'LAND')
+                    'code1': (''), (: pollutantCode :)
+                    'code2': ('AIR', 'WATER', 'LAND') (: mediumCode :)
                 },
                 'countNodeName': 'SumOfTotalQuantity',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1392,8 +1396,8 @@ declare function xmlconv:RunQAs(
             "offsitePollutantTransfer": map {
                 'doc': $docQUANTITY_OF_OffsiteWasteTransfer,
                 'filters': map {
-                    'NA': (''),
-                    'NA2': ('')
+                    'code1': (''),
+                    'code2': ('')
                 }, (: NA = not available :)
                 'countNodeName': 'SumOfTotalQuantity',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1402,8 +1406,8 @@ declare function xmlconv:RunQAs(
             "offsiteWasteTransfer": map {
                 'doc': $docQUANTITY_OF_PollutantTransfer,
                 'filters': map {
-                    'wasteClassification': ('NON-HW', 'HWIC', 'HWOC'),
-                    'wasteTreatment': ('')
+                    'code1': ('NON-HW', 'HWIC', 'HWOC'), (: wasteClassification :)
+                    'code2': ('') (: wasteTreatment :)
                 },
                 'countNodeName': 'SumOfQuantity',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1412,8 +1416,8 @@ declare function xmlconv:RunQAs(
             "emissionsToAir": map {
                 'doc': $docAverage,
                 'filters': map {
-                    'pollutantCode': ('SO2', 'NOx', 'Dust'),
-                    'NA': ('')
+                    'code1': ('SO2', 'NOx', 'Dust'), (: pollutantCode :)
+                    'code2': ('')
                 },
                 'countNodeName': '',
                 'countFunction': scripts:getCountOfPollutant#5,
@@ -1447,9 +1451,88 @@ declare function xmlconv:RunQAs(
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
             "Identification of top 10 ProductionFacility releases/transfers across Europe", $res)
 
-    (: TODO not implemented :)
+    (: TODO needs more testing, lookup table pollutant codes does not match the DD codes :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
-    let $res := ()
+    let $res :=
+        let $pollutantCodes := scripts:getValidConceptNotations('EPRTRPollutantCodeValue')
+        let $map1 := map {
+            "pollutantRelease": map {
+                'doc': $docEUROPEAN_TOTAL_PollutantRelease,
+                'filters': map {
+                    'code1': $pollutantCodes, (: pollutantCode :)
+                    'code2': ('AIR', 'WATER', 'LAND') (: mediumCode :)
+                },
+                'countNodeName': 'SumOfTotalQuantity',
+                'countFunction': scripts:getEuropeanTotals#5,
+                'reportCountFunction': scripts:getreportFacilityTotals#4
+                } ,
+            "offsitePollutantTransfer": map {
+                'doc': $docEUROPEAN_TOTAL_PollutantTransfer,
+                'filters': map {
+                    'code1': $pollutantCodes, (: pollutantCode :)
+                    'code2': ('')
+                },  (:NA = not available:)
+                'countNodeName': 'SumOfQuantity',
+                'countFunction': scripts:getEuropeanTotals#5,
+                'reportCountFunction': scripts:getreportFacilityTotals#4
+            },
+            "offsiteWasteTransfer": map {
+                'doc': $docEUROPEAN_TOTAL_OffsiteWasteTransfer,
+                'filters': map {
+                    'code1': ('NON-HW', 'HWIC', 'HWOC'), (: wasteClassification :)
+                    'code2': ('D','R') (: wasteTreatment :)
+                },
+                'countNodeName': 'SumOfQuantity',
+                'countFunction': scripts:getEuropeanTotals#5,
+                'reportCountFunction': scripts:getreportFacilityTotals#4
+            }
+        }
+        let $err := 'warning'
+        let $text := 'ProductionFacility represents >90% of the total quantity for the specified type across Europe'
+        let $seq := $docRoot//ProductionFacilityReport
+        for $facility in $seq,
+        $pollutant in map:keys($map1)
+            let $keys := map:keys($map1?($pollutant)?filters)
+            for $code1 in $map1?($pollutant)?filters?code1,
+            $code2 in $map1?($pollutant)?filters?code2
+                (:let $asd := trace($pollutant, 'pollutant: '):)
+                (:let $asd := trace($code1, 'code1: '):)
+                (:let $asd := trace($code2, 'code2: '):)
+
+                let $reportTotal := scripts:getreportFacilityTotals (
+                    $code1,
+                    $code2,
+                    $facility,
+                    $pollutant
+                )
+                let $europeanTotal := scripts:getEuropeanTotals(
+                    $map1?($pollutant),
+                    $code1,
+                    $code2,
+                    $look-up-year,
+                    $pollutant
+                )
+                (:let $asd := trace($europeanTotal, 'europeanTotal: '):)
+                (:let $asd := trace($reportTotal, 'reportTotal: '):)
+                let $percentage := if($europeanTotal = 0)
+                    then 0
+                    else (($reportTotal * 100) div $europeanTotal) => xs:decimal() => fn:round-half-to-even(5)
+
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $err},
+                    'Type': map {'pos': 2, 'text': $pollutant || ' - ' || $code1 || (if($code2 = '') then '' else ' / ' || $code2)},
+                    'InspireId': map {'pos': 3, 'text': $facility/InspireId},
+                    'Percentage': map {'pos': 4, 'text': $percentage || '%', 'errorClass': 'td' || $err},
+                    'Reported total (in kg/year)': map {'pos': 5, 'text': $reportTotal => xs:decimal()},
+                    'European total (in kg/year)': map {'pos': 6, 'text': $europeanTotal => xs:decimal() => fn:round-half-to-even(2)}
+                }
+                let $ok := $percentage < 90
+                return
+                    if(not($ok))
+                    (:if($reportTotal > 0):)
+                    then scripts:generateResultTableRow($dataMap)
+                    else ()
+
         (:let $docDD := fn:doc('inputs/EPRTRPollutantCodeValue.rdf')
         let $pollutantsLookup1 := $docEUROPEAN_TOTAL_PollutantRelease//PollutantCode/data() => fn:distinct-values()
         let $pollutantsLookup2:= $docEUROPEAN_TOTAL_PollutantTransfer//PollutantCode/data() => fn:distinct-values()
@@ -1485,7 +1568,11 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    (: TODO needs testing :)
+    (: TODO needs testing
+        As a result, countries that report high biomass consumption (e.g. Sweden) may report CO2 emissions
+        that exceed the values reported under the UNFCCC/EU-MMR National Inventory and this check
+        will provide a false positive.
+    :)
     (:  C15.1 – Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD
         and UNFCCC/EU-MMR National Inventories    :)
     let $res :=
@@ -1514,11 +1601,12 @@ declare function xmlconv:RunQAs(
                 (: get the skos:notation from data dictionary, if not found then substring
                 after the last '/' from URI :)
                 let $pollutant :=
-                    scripts:getCodeNotation($dataDictName, $pollutant)=>functx:substring-after-last("/")
+                    scripts:getCodeNotation($pollutant, $dataDictName)=>functx:substring-after-last("/")
                 (: calculate national total, summ all pollutants from the XML report file :)
                 let $nationalTotal :=
                     fn:sum($seqPollutants[functx:substring-after-last(pollutant, "/") = $pollutant=>fn:encode-for-uri()]
-                    /*[fn:local-name() = $elemNameTotalQuantity]/fn:number(fn:data()))
+                        /*[fn:local-name() = $elemNameTotalQuantity]/fn:number(fn:data())
+                    )
                 (: for emissionsToAir type, the measurement is in TNE = metric tonnes per year
                 multiply the value with 1000 to get equivalent in Kg :)
                 let $nationalTotal :=
@@ -1532,7 +1620,8 @@ declare function xmlconv:RunQAs(
                         $docCLRTAPpollutantLookup,
                         $pollutant,
                         $pollutantType,
-                        $country_code
+                        $country_code,
+                        $look-up-year
                     )
                 (: get totals from UNFCC lookup table :)
                 let $unfccTotal :=
@@ -1541,8 +1630,8 @@ declare function xmlconv:RunQAs(
                         $docUNFCCdata,
                         $docUNFCCpollutantLookup,
                         $pollutant,
-                        $pollutantType,
-                        $country_code
+                        $country_code,
+                        $look-up-year
                     )
                     (: for emissionsToAir we dont check UNFCC, so we add +1 to nationalTotal
                     this way it will not be flagged for warning :)
@@ -1920,8 +2009,8 @@ declare function xmlconv:main($source_url as xs:string) {
 
   let $infos := if ( fn:count($infoQA) > 0 ) then
       <div>
-          This XML file issued info for the following checks : <
-            font color="blue"> { fn:string-join($infoName , ' , ')  }  </font>
+          This XML file issued info for the following checks :
+          <font color="blue"> { fn:string-join($infoName , ' , ')  }  </font>
       </div>
   else
       ()

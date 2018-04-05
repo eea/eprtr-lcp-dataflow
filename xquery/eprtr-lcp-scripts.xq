@@ -51,10 +51,17 @@ declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
     return
         fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
 };
+declare function scripts:getValidConceptNotations($value as xs:string) as xs:string* {
+    let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
+    let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
+    let $url := $vocabulary || $value || "/rdf"
+    return
+        fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/skos:notation)
+};
 
 declare function scripts:getCodeNotation (
-    $value as xs:string,
-    $codeUri as xs:string
+    $codeUri as xs:string,
+    $value as xs:string
 ) as xs:string {
     let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
     let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
@@ -103,7 +110,8 @@ declare function scripts:getCLRTAPtotals(
         $docCLRTAPpollutantLookup as document-node(),
         $pollutantCode as xs:string,
         $elem as xs:string,
-        $country_code as xs:string
+        $country_code as xs:string,
+        $look-up-year as xs:double
 ) as xs:double {
     let $CLRTAPpollutant_lookup :=
         let $nodeName := if($elem = 'pollutantRelease')
@@ -115,12 +123,13 @@ declare function scripts:getCLRTAPtotals(
     (:let $asd := trace($elem, 'elem: '):)
     (:let $asd := trace($country_code, 'country_code: '):)
     (:let $asd := trace($CLRTAPpollutant_lookup, 'CLRTAPpollutant_lookup: '):)
-    let $CLRTAPtotal :=
-        $docCLRTAPdata//row[Country_code = $country_code and Pollutant_name = $CLRTAPpollutant_lookup]
-                /SumOfEmissions => fn:number()
+    let $CLRTAPtotal := $docCLRTAPdata
+            //row[Country_code = $country_code and Year = $look-up-year and Pollutant_name = $CLRTAPpollutant_lookup]
+            /SumOfEmissions => fn:number()
     (:let $asd := trace($CLRTAPtotal, 'CLRTAPtotal: '):)
-    let $CLRTAPunit :=
-        $docCLRTAPdata//row[Country_code = $country_code and Pollutant_name = $CLRTAPpollutant_lookup]/Unit/text()
+    let $CLRTAPunit := $docCLRTAPdata
+            //row[Country_code = $country_code and Year = $look-up-year and Pollutant_name = $CLRTAPpollutant_lookup]
+            /Unit/text()
     (:let $asd := trace($CLRTAPunit, 'CLRTAPunit: '):)
     (:let $asd := trace(scripts:convertToKG($CLRTAPtotal, $CLRTAPunit), 'convertToKG: '):)
     return scripts:convertToKG($CLRTAPtotal, $CLRTAPunit)
@@ -130,8 +139,8 @@ declare function scripts:getUNFCCtotals(
         $docUNFCCdata as document-node(),
         $docUNFCCpollutantLookup as document-node(),
         $pollutantCode as xs:string,
-        $elem as xs:string,
-        $country_code as xs:string
+        $country_code as xs:string,
+        $look-up-year as xs:double
 ) as xs:double {
     let $UNFCCpollutant_lookup :=
         $docUNFCCpollutantLookup//row[EPRTRequivalent = $pollutantCode]/UNFCCC_pollutant_lookup/text()
@@ -142,11 +151,12 @@ declare function scripts:getUNFCCtotals(
     (:let $asd := trace($country_code, 'country_code: '):)
     (:let $asd := trace($UNFCCpollutant_lookup, 'UNFCCpollutant_lookup: '):)
     (:let $asd := trace($GWPconversionfactor, 'GWPconversionfactor: '):)
-    let $UNFCCtotal :=
-        $docUNFCCdata//row[Country_code = $country_code and Pollutant_name = $UNFCCpollutant_lookup]/SumOfemissions
+    let $UNFCCtotal := $docUNFCCdata
+        //row[Country_code = $country_code and Year = $look-up-year and Pollutant_name = $UNFCCpollutant_lookup]
+        /SumOfemissions
     (:let $asd := trace($UNFCCtotal, 'UNFCCtotal: '):)
     (:let $asd := trace(scripts:getGWLconvertedValue($UNFCCtotal, $GWPconversionfactor), 'getGWLconvertedValue: '):)
-    return scripts:getGWLconvertedValue($UNFCCtotal, $GWPconversionfactor)
+    return scripts:getGWLconvertedValue($UNFCCtotal, $GWPconversionfactor) => scripts:convertToKG('Gg')
 
 };
 
@@ -264,8 +274,8 @@ declare function scripts:compareNumberOfPollutants(
         (:let $asd := trace($keys[2],'keysSEQ2: '):)
         (:let $asd := trace(map:keys($map1?($pollutant)?filters),'keys: '):)
         (:let $asd := trace($map1?($pollutant)?filters?1,'keys: '):)
-        for $code1 in $map1?($pollutant)?filters?($keys[1]),
-            $code2 in $map1?($pollutant)?filters?($keys[2])
+        for $code1 in $map1?($pollutant)?filters?code1,
+            $code2 in $map1?($pollutant)?filters?code2
             (:let $asd := trace($pollutant, 'pollutant: '):)
             (:let $asd := trace($code1, 'code1: '):)
             (:let $asd := trace($code2, 'code2: '):)
@@ -323,4 +333,57 @@ declare function scripts:compareNumberOfPollutants(
             return
                 $result
 
+};
+
+declare function scripts:getreportFacilityTotalsWasteTransfer(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $facility as element()
+) as xs:double{
+    if($code1 = 'NON-HW')
+    then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW'
+            and wasteTreatment => functx:substring-after-last("/") = $code2]/totalWasteQuantityTNE => fn:sum()
+    else if($code1 = 'HWIC')
+    then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
+            and wasteTreatment => functx:substring-after-last("/") = $code2
+            and transboundaryTransfer/fn:data() => fn:string-length() = 0]/totalWasteQuantityTNE => fn:sum()
+    else if($code1 = 'HWOC')
+    then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
+            and wasteTreatment => functx:substring-after-last("/") = $code2
+            and transboundaryTransfer/fn:data() => fn:string-length() > 0]/totalWasteQuantityTNE => fn:sum()
+    else -1
+};
+declare function scripts:getEuropeanTotals(
+    $map1 as map(*),
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $look-up-year as xs:double,
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'pollutantRelease')
+    then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1 and ReleaseMediumCode = $code2]
+        /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
+    else if($pollutant = 'offsitePollutantTransfer')
+    then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1]
+        /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
+    else if($pollutant = 'offsiteWasteTransfer')
+    then $map1?doc//row[Year = $look-up-year and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
+        /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
+    else -1
+};
+declare function scripts:getreportFacilityTotals (
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $facility as element(),
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then $facility//offsitePollutantTransfer[pollutant=>scripts:getCodeNotation('EPRTRPollutantCodeValue') = $code1]
+            /totalPollutantQuantityKg => fn:sum()
+    else if($pollutant = 'pollutantRelease')
+        then $facility//pollutantRelease[mediumCode=>functx:substring-after-last("/") = $code2
+                and pollutant=>scripts:getCodeNotation('EPRTRPollutantCodeValue')  = $code1]
+                /totalPollutantQuantityKg => fn:sum()
+    else
+        scripts:getreportFacilityTotalsWasteTransfer($code1, $code2, $facility)
 };
