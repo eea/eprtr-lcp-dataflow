@@ -27,6 +27,12 @@ declare variable $source_url as xs:string external;
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
     "../lookup-tables/EPRTR-LCP_PollutantLookup.xml";
+declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C12.1_OffsiteWasteTransfer.xml";
+declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C12.1_PollutantTransfer.xml";
+declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C12.1_PollutantRelease.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantRelease as xs:string :=
     "../lookup-tables/EPRTR-LCP_C13.4_PollutantRelease.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantTransfer as xs:string :=
@@ -39,10 +45,6 @@ declare variable $xmlconv:EUROPEAN_TOTAL_PollutantTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C14.2_PollutantTransfer.xml";
 declare variable $xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C14.2_OffsiteWasteTransfer.xml";
-declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.1_PollutantTransfer.xml";
-declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.1_PollutantRelease.xml";
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
 declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
@@ -254,6 +256,7 @@ declare function xmlconv:RunQAs(
     let $docEUROPEAN_TOTAL_PollutantRelease := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantRelease)
     let $docEUROPEAN_TOTAL_PollutantTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantTransfer)
     let $docEUROPEAN_TOTAL_OffsiteWasteTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer)
+    let $docNATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer)
     let $docNATIONAL_TOTAL_ANNEXI_PollutantTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer)
     let $docNATIONAL_TOTAL_ANNEXI_PollutantRelease := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease)
     let $docQUANTITY_OF_OffsiteWasteTransfer := fn:doc($xmlconv:QUANTITY_OF_OffsiteWasteTransfer)
@@ -1110,16 +1113,146 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $res := ()
-    (: TODO implement this :)
+    (: TODO not finished, needs EPRTRAnnexIActivity from EU registry :)
     (: C12.1 - Identification of ProductionFacility release/transfer outliers
         against previous year data at the national level :)
+    let $res :=
+        let $getCode1 := function (
+                $pollutantNode as element(),
+                $nodeName as xs:string
+            ) as xs:string? {
+                if($pollutantNode/local-name() = 'offsiteWasteTransfer')
+                then
+                    let $code1 := $pollutantNode/*[local-name() = $nodeName]/data() => functx:substring-after-last("/")
+                    let $transboundaryTransfer := $pollutantNode/transboundaryTransfer/data()
+                    return
+                        if($code1 = 'NONHW')
+                        then 'NON-HW'
+                        else if (fn:string-length($transboundaryTransfer) > 0)
+                            then $code1 || 'OC'
+                            else $code1 || 'IC'
+
+                else
+                    scripts:getPollutantCode($pollutantNode/*[local-name() = $nodeName]/text(), $docPollutantLookup)
+            }
+        let $getCode2 := function (
+                $pollutantNode as element(),
+                $nodeName as xs:string
+            ) as xs:string {
+                $pollutantNode/*[local-name() = $nodeName]/data() => functx:substring-after-last("/")
+                    => functx:if-empty("")
+            }
+
+        let $getLookupHighestValue := function (
+                $map as map(*),
+                $pollutant,
+                $activity,
+                $code1,
+                $code2
+            ) as xs:double {
+            let $value :=
+                if($pollutant = 'pollutantRelease')
+                then $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
+                    and MainIAActivityCode = $activity and PollutantCode = $code1 and ReleaseMediumCode = $code2]
+                        /SumOfTotalQuantity
+                else if($pollutant = 'offsitePollutantTransfer')
+                then $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
+                    and MainIAActivityCode = $activity and PollutantCode = $code1]/SumOfQuantity
+                else $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
+                    and MainIAActivityCode = $activity and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
+                        /SumOfQuantity
+            return $value => functx:if-empty(0) => fn:number()
+            }
+        let $map := map {
+            "pollutantRelease": map {
+                'doc': $docNATIONAL_TOTAL_ANNEXI_PollutantRelease,
+                'filters': map {
+                    'code1': 'pollutant', (: pollutantCode :)
+                    'code2': 'mediumCode' (: mediumCode :)
+                },
+                'lookupNodeName': 'SumOfTotalQuantity',
+                'reportNodeName': 'totalPollutantQuantityKg'
+            } ,
+            "offsitePollutantTransfer": map {
+                'doc': $docNATIONAL_TOTAL_ANNEXI_PollutantTransfer,
+                'filters': map {
+                    'code1': 'pollutant', (: pollutantCode :)
+                    'code2': ''
+                },  (:NA = not available:)
+                'lookupNodeName': 'SumOfQuantity',
+                'reportNodeName': 'totalPollutantQuantityKg'
+            },
+            "offsiteWasteTransfer": map {
+                'doc': $docNATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer,
+                'filters': map {
+                    'code1': 'wasteClassification', (: wasteClassification :)
+                    'code2': 'wasteTreatment' (: wasteTreatment :)
+                },
+                'lookupNodeName': 'SumOfQuantity',
+                'reportNodeName': 'totalWasteQuantityTNE'
+            }
+        }
+        let $seq := $docRoot//ProductionFacilityReport
+        let $errorType := 'warning'
+        let $text := 'Reported value exceeded parameter value'
+        for $facility in $seq
+            let $EPRTRAnnexIActivity := '1.(a)'
+            for $pollutantNode in $facility/*[local-name() = map:keys($map)]
+                let $pollutant := $pollutantNode/local-name()
+                let $code1 :=
+                    $getCode1(
+                            $pollutantNode,
+                            $map?($pollutant)?filters?code1
+                    )
+                let $code2 :=
+                    $getCode2(
+                            $pollutantNode,
+                            $map?($pollutant)?filters?code2
+                    )
+                let $reportValue := $pollutantNode/*[local-name() = $map?($pollutant)?reportNodeName]
+                        /data() => functx:if-empty(0) => fn:number()
+                let $lookupHighestValue :=
+                    $getLookupHighestValue(
+                        $map?($pollutant),
+                        $pollutant,
+                        $EPRTRAnnexIActivity,
+                        $code1,
+                        $code2
+                    )
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                    'Annex I activity': map {'pos': 3, 'text': $EPRTRAnnexIActivity},
+                    'Type': map {'pos': 4,
+                        'text': $pollutant || ' - ' || $code1 || (if($code2 = '') then '' else ' / ' || $code2)
+                    },
+                    'Reported value': map {'pos': 5,
+                        'text': $reportValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                    },
+                    'Parameter value': map {'pos': 6,
+                        'text': $lookupHighestValue => xs:decimal() => fn:round-half-to-even(2)
+                    }
+                }
+                let $ok := (
+                    $reportValue < 4 * $lookupHighestValue
+                    or
+                    $lookupHighestValue = 0
+                )
+                return
+                    (:if(fn:not($ok)):)
+                    (:if(fn:true()):)
+                    if($reportValue > 0)
+                    then
+                        scripts:generateResultTableRow($dataMap)
+                    else()
+
     let $LCP_12_1 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.1",
             "Identification of ProductionFacility release/transfer outliers
-            against previous year data at the national level (NOT IMPLEMENTED)",
+            against previous year data at the national level",
             $res
     )
+    let $res := ()
     (: TODO implement this :)
     (: C12.2 - Identification of ProductionFacility release/transfer outliers
         against national total and pollutant threshold :)
@@ -1129,6 +1262,7 @@ declare function xmlconv:RunQAs(
             against national total and pollutant threshold (NOT IMPLEMENTED)",
             $res
     )
+    let $res := ()
     (: TODO implement this :)
     (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
     let $LCP_12_3 := xmlconv:RowBuilder(
@@ -1137,6 +1271,7 @@ declare function xmlconv:RunQAs(
             against previous year data at the ProductionFacility level (NOT IMPLEMENTED)",
             $res
     )
+    let $res := ()
     (: TODO implement this :)
     (: C12.4 - Time series consistency for ProductionFacility emissions :)
     let $LCP_12_4 := xmlconv:RowBuilder(
@@ -1145,6 +1280,7 @@ declare function xmlconv:RunQAs(
             previous year data at the ProductionInstallationPart level (NOT IMPLEMENTED)"
             , $res
     )
+    let $res := ()
     (: TODO implement this :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
     let $LCP_12_5 := xmlconv:RowBuilder(
@@ -1167,7 +1303,7 @@ declare function xmlconv:RunQAs(
             (:let $asd := trace($total, "total: "):)
             (:let $asd := trace($average3Year, "average3Year: "):)
             let $difference :=
-                (100-(($total * 100) div $average3Year)) => fn:abs() => xs:decimal()  => fn:round-half-to-even(2)
+                (100-(($total * 100) div $average3Year)) => fn:abs() => xs:decimal() => fn:round-half-to-even(2)
             let $errorType :=
                 if($difference > 30)
                 then 'warning'
@@ -1506,14 +1642,14 @@ declare function xmlconv:RunQAs(
                 (:let $asd := trace($code1, 'code1: '):)
                 (:let $asd := trace($code2, 'code2: '):)
 
-                let $reportTotal := scripts:getreportFacilityTotals (
+                let $reportTotal := $map1?($pollutant)?reportCountFunction (
                     $code1,
                     $code2,
                     $facility,
                     $docPollutantLookup,
                     $pollutant
                 )
-                let $europeanTotal := scripts:getEuropeanTotals(
+                let $europeanTotal := $map1?($pollutant)?countFunction(
                     $map1?($pollutant),
                     $code1,
                     $code2,
@@ -1528,11 +1664,15 @@ declare function xmlconv:RunQAs(
 
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text, 'errorClass': $err},
-                    'Type': map {'pos': 2, 'text': $pollutant || ' - ' || $code1 || (if($code2 = '') then '' else ' / ' || $code2)},
+                    'Type': map {'pos': 2,
+                        'text': $pollutant || ' - ' || $code1 || (if($code2 = '') then '' else ' / ' || $code2)
+                    },
                     'InspireId': map {'pos': 3, 'text': $facility/InspireId},
                     'Percentage': map {'pos': 4, 'text': $percentage || '%', 'errorClass': 'td' || $err},
                     'Reported total (in kg/year)': map {'pos': 5, 'text': $reportTotal => xs:decimal()},
-                    'European total (in kg/year)': map {'pos': 6, 'text': $europeanTotal => xs:decimal() => fn:round-half-to-even(2)}
+                    'European total (in kg/year)': map {'pos': 6,
+                        'text': $europeanTotal => xs:decimal() => fn:round-half-to-even(2)
+                    }
                 }
                 let $ok := $percentage < 90
                 return

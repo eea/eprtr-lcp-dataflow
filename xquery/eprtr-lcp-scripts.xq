@@ -58,6 +58,12 @@ declare function scripts:getCodelistvalue(
 ) as xs:string {
     $docPollutantLookup//row[PollutantCode = $pollutantCode]/Codelistvalue/text()
 };
+declare function scripts:getPollutantCode(
+    $codeListValue as xs:string,
+    $docPollutantLookup as document-node()
+) as xs:string {
+    $docPollutantLookup//row[Codelistvalue = $codeListValue]/PollutantCode/text()
+};
 
 declare function scripts:getCodeNotation (
     $codeUri as xs:string,
