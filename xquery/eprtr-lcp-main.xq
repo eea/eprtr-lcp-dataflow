@@ -25,6 +25,8 @@ declare variable $source_url as xs:string external;
 
 (:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
+declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
+    "../lookup-tables/EPRTR-LCP_PollutantLookup.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantRelease as xs:string :=
     "../lookup-tables/EPRTR-LCP_C13.4_PollutantRelease.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantTransfer as xs:string :=
@@ -37,9 +39,9 @@ declare variable $xmlconv:EUROPEAN_TOTAL_PollutantTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C14.2_PollutantTransfer.xml";
 declare variable $xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C14.2_OffsiteWasteTransfer.xml";
-declare variable $xmlconv:NATIONAL_TOTAL_PollutantTransfer as xs:string :=
+declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C12.1_PollutantTransfer.xml";
-declare variable $xmlconv:NATIONAL_TOTAL_PollutantRelease as xs:string :=
+declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease as xs:string :=
     "../lookup-tables/EPRTR-LCP_C12.1_PollutantRelease.xml";
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
@@ -246,14 +248,15 @@ declare function xmlconv:RunQAs(
 ) as element()* {
 
     let $docRoot := fn:doc($source_url)
+    let $docPollutantLookup := fn:doc ($xmlconv:POLLUTANT_LOOKUP)
     let $docAverage := fn:doc($xmlconv:AVERAGE_3_YEARS)
     let $docEmissions := fn:doc($xmlconv:AVG_EMISSIONS_PATH)
     let $docEUROPEAN_TOTAL_PollutantRelease := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantRelease)
     let $docEUROPEAN_TOTAL_PollutantTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantTransfer)
     let $docEUROPEAN_TOTAL_OffsiteWasteTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer)
+    let $docNATIONAL_TOTAL_ANNEXI_PollutantTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer)
+    let $docNATIONAL_TOTAL_ANNEXI_PollutantRelease := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease)
     let $docQUANTITY_OF_OffsiteWasteTransfer := fn:doc($xmlconv:QUANTITY_OF_OffsiteWasteTransfer)
-    let $docNATIONAL_TOTAL_PollutantTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_PollutantTransfer)
-    let $docNATIONAL_TOTAL_PollutantRelease := fn:doc($xmlconv:NATIONAL_TOTAL_PollutantRelease)
     let $docQUANTITY_OF_PollutantRelease := fn:doc($xmlconv:QUANTITY_OF_PollutantRelease)
     let $docQUANTITY_OF_PollutantTransfer := fn:doc($xmlconv:QUANTITY_OF_PollutantTransfer)
     let $docRootCOUNT_OF_PollutantRelease := fn:doc($xmlconv:COUNT_OF_PollutantRelease)
@@ -262,7 +265,8 @@ declare function xmlconv:RunQAs(
     let $docRootCOUNT_OF_OffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_OffsiteWasteTransfer)
 
     let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
-    let $look-up-year := $docRoot//reportingYear => number() - 2
+    let $look-up-year := $docRoot//reportingYear => fn:number() - 2
+    let $pollutantCodes := $docPollutantLookup//row/PollutantCode/text() => fn:distinct-values()
 
     (:  C1.1 – combustionPlantCategory consistency  :)
     let $res :=
@@ -400,7 +404,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_2 := xmlconv:RowAggregator(
             "EPRTR-LCP 2",
-            "inspireId checks (NOT IMPLEMENTED)",
+            "inspireId checks",
             (
                 $LCP_2_1,
                 $LCP_2_2,
@@ -860,7 +864,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_5 := xmlconv:RowAggregator(
             "EPRTR-LCP 5",
-            "Duplicate identification checks (NOT IMPLEMENTED)",
+            "Duplicate identification checks",
             (
                 $LCP_5_1,
                 $LCP_5_2,
@@ -883,7 +887,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_6 := xmlconv:RowAggregator(
             "EPRTR-LCP 6",
-            "LCP and E-PRTR facility interrelation checks (NOT IMPLEMENTED)",
+            "LCP and E-PRTR facility interrelation checks",
             (
                 $LCP_6_1,
                 $LCP_6_2
@@ -919,7 +923,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_7 := xmlconv:RowAggregator(
             "EPRTR-LCP 7",
-            "Thematic validity checks (NOT IMPLEMENTED)",
+            "Thematic validity checks",
             (
                 $LCP_7_1,
                 $LCP_7_2
@@ -941,7 +945,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_8 := xmlconv:RowAggregator(
             "EPRTR-LCP 8",
-            "Derogation checks (NOT IMPLEMENTED)",
+            "Derogation checks",
             (
                 $LCP_8_1,
                 $LCP_8_2,
@@ -1042,19 +1046,19 @@ declare function xmlconv:RunQAs(
                     else
                         ()
     let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (:  C10.2 – Energy input and CO2 emissions feasibility  :)
     let $res := ()
     let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2",
             "Energy input and CO2 emissions feasibility (NOT IMPLEMENTED)", $res)
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
     let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3",
             "ProductionFacility cross pollutant identification (NOT IMPLEMENTED)", $res)
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
-            "Expected pollutant identification (NOT IMPLEMENTED)",
+            "Expected pollutant identification",
             (
                 $LCP_10_1,
                 $LCP_10_2,
@@ -1092,14 +1096,14 @@ declare function xmlconv:RunQAs(
             "ProductionFacilityReports without transfers or releases", $res)
 
     let $res := ()
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
     let $LCP_11_2 := xmlconv:RowBuilder("EPRTR-LCP 11.2",
             "ProductionFacility releases and transfers reported below the thresholds (NOT IMPLEMENTED)", $res)
 
     let $LCP_11 := xmlconv:RowAggregator(
             "EPRTR-LCP 11",
-            "ProductionFacility voluntary reporting checks (NOT IMPLEMENTED)",
+            "ProductionFacility voluntary reporting checks",
             (
                 $LCP_11_1,
                 $LCP_11_2
@@ -1107,7 +1111,7 @@ declare function xmlconv:RunQAs(
     )
 
     let $res := ()
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (: C12.1 - Identification of ProductionFacility release/transfer outliers
         against previous year data at the national level :)
     let $LCP_12_1 := xmlconv:RowBuilder(
@@ -1116,7 +1120,7 @@ declare function xmlconv:RunQAs(
             against previous year data at the national level (NOT IMPLEMENTED)",
             $res
     )
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (: C12.2 - Identification of ProductionFacility release/transfer outliers
         against national total and pollutant threshold :)
     let $LCP_12_2 := xmlconv:RowBuilder(
@@ -1125,7 +1129,7 @@ declare function xmlconv:RunQAs(
             against national total and pollutant threshold (NOT IMPLEMENTED)",
             $res
     )
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
     let $LCP_12_3 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.3",
@@ -1133,7 +1137,7 @@ declare function xmlconv:RunQAs(
             against previous year data at the ProductionFacility level (NOT IMPLEMENTED)",
             $res
     )
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (: C12.4 - Time series consistency for ProductionFacility emissions :)
     let $LCP_12_4 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.4",
@@ -1141,7 +1145,7 @@ declare function xmlconv:RunQAs(
             previous year data at the ProductionInstallationPart level (NOT IMPLEMENTED)"
             , $res
     )
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
     let $LCP_12_5 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.5",
@@ -1197,7 +1201,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_12 := xmlconv:RowAggregator(
             "EPRTR-LCP 12",
-            "Identification of release and transfer outliers (NOT IMPLEMENTED)",
+            "Identification of release and transfer outliers",
             (
                 $LCP_12_1,
                 $LCP_12_2,
@@ -1219,7 +1223,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfFacilityID',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfFacilities#4
+                'reportCountFunction': scripts:getreportCountOfFacilities#5
                 } ,
             "offsitePollutantTransfer": map {
                 'doc': $docRootCOUNT_OF_PollutantTransfer,
@@ -1229,7 +1233,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfFacilityID',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfFacilities#4
+                'reportCountFunction': scripts:getreportCountOfFacilities#5
             },
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer,
@@ -1239,14 +1243,15 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfFacilityID',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfFacilities#4
+                'reportCountFunction': scripts:getreportCountOfFacilities#5
             }
 
         }
         return scripts:compareNumberOfPollutants(
             $map1,
             $country_code,
-            $docRoot
+            $docRoot,
+            $docPollutantLookup
         )
     let $LCP_13_1 := xmlconv:RowBuilder("EPRTR-LCP 13.1",
             "Number of ProductionFacilities reporting releases and transfers consistency", $res)
@@ -1262,7 +1267,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfPollutantReleaseID',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'reportCountFunction': scripts:getreportCountOfPollutant#5
                 } ,
             "offsitePollutantTransfer": map {
                 'doc': $docRootCOUNT_OF_PollutantTransfer,
@@ -1272,7 +1277,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfPollutantTransferID',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'reportCountFunction': scripts:getreportCountOfPollutant#5
             },
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_OffsiteWasteTransfer,
@@ -1282,14 +1287,15 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfWasteTransferID',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfPollutant#4
+                'reportCountFunction': scripts:getreportCountOfPollutant#5
             }
 
         }
         return scripts:compareNumberOfPollutants(
             $map1,
             $country_code,
-            $docRoot
+            $docRoot,
+            $docPollutantLookup
         )
         (:return ():)
     let $LCP_13_2 := xmlconv:RowBuilder(
@@ -1310,7 +1316,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'CountOfPollutantCode',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
+                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#5
                 },
             "offsitePollutantTransfer": map {
                 'doc': $docRootCOUNT_OF_PollutantTransfer,
@@ -1320,13 +1326,14 @@ declare function xmlconv:RunQAs(
                 }, (: NA = not available:)
                 'countNodeName': 'CountOfPollutantCode',
                 'countFunction': scripts:getCountOfPollutant#6,
-                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#4
+                'reportCountFunction': scripts:getreportCountOfPollutantDistinct#5
             }
         }
         return scripts:compareNumberOfPollutants(
             $map1,
             $country_code,
-            $docRoot
+            $docRoot,
+            $docPollutantLookup
         )
         (:
         for $pollutant in $pollutantTypes
@@ -1379,29 +1386,29 @@ declare function xmlconv:RunQAs(
                 $result:)
     let $LCP_13_3 := xmlconv:RowBuilder("EPRTR-LCP 13.3","Reported number of pollutants per medium consistency", $res)
 
-    (: TODO not implemented :)
+    (: TODO needs some testing :)
     (: C13.4 - Quantity of releases and transfers consistency :)
     let $res :=
         let $map1 := map {
             "pollutantRelease": map {
                 'doc': $docQUANTITY_OF_PollutantRelease,
                 'filters': map {
-                    'code1': (''), (: pollutantCode :)
-                    'code2': ('AIR', 'WATER', 'LAND') (: mediumCode :)
+                    'code1': ('AIR', 'WATER', 'LAND'), (: mediumCode :)
+                    'code2': $pollutantCodes (: pollutantCode :)
                 },
                 'countNodeName': 'SumOfTotalQuantity',
-                'countFunction': asd,
-                'reportCountFunction': asd
+                'countFunction': scripts:getTotalsOfPollutant#6,
+                'reportCountFunction': scripts:getreportTotalsOfPollutant#5
                 } ,
             "offsitePollutantTransfer": map {
                 'doc': $docQUANTITY_OF_OffsiteWasteTransfer,
                 'filters': map {
-                    'code1': (''),
+                    'code1': $pollutantCodes, (: pollutantCode :)
                     'code2': ('')
-                }, (: NA = not available :)
+                },
                 'countNodeName': 'SumOfTotalQuantity',
-                'countFunction': asd,
-                'reportCountFunction': asd
+                'countFunction': scripts:getTotalsOfPollutant#6,
+                'reportCountFunction': scripts:getreportTotalsOfPollutant#5
             },
             "offsiteWasteTransfer": map {
                 'doc': $docQUANTITY_OF_PollutantTransfer,
@@ -1410,8 +1417,8 @@ declare function xmlconv:RunQAs(
                     'code2': ('') (: wasteTreatment :)
                 },
                 'countNodeName': 'SumOfQuantity',
-                'countFunction': asd,
-                'reportCountFunction': asd
+                'countFunction': scripts:getTotalsOfPollutant#6,
+                'reportCountFunction': scripts:getreportTotalsOfPollutant#5
             },
             "emissionsToAir": map {
                 'doc': $docAverage,
@@ -1420,19 +1427,20 @@ declare function xmlconv:RunQAs(
                     'code2': ('')
                 },
                 'countNodeName': '',
-                'countFunction': asd,
-                'reportCountFunction': asd
+                'countFunction': scripts:getTotalsOfPollutant#6,
+                'reportCountFunction': scripts:getreportTotalsOfPollutant#5
             }
-
         }
-        (:return scripts:compareNumberOfPollutants(
+
+        return scripts:compareNumberOfPollutants(
             $map1,
             $country_code,
-            $docRoot
-        ):)
-        return ()
+            $docRoot,
+            $docPollutantLookup
+        )
+        (:return ():)
     let $LCP_13_4 := xmlconv:RowBuilder("EPRTR-LCP 13.4",
-            "Quantity of releases and transfers consistency (NOT IMPLEMENTED)", $res)
+            "Quantity of releases and transfers consistency", $res)
 
     let $LCP_13 := xmlconv:RowAggregator(
             "EPRTR-LCP 13",
@@ -1446,15 +1454,14 @@ declare function xmlconv:RunQAs(
     )
 
     let $res := ()
-    (: TODO not implemented :)
+    (: TODO implement this :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
-            "Identification of top 10 ProductionFacility releases/transfers across Europe", $res)
+            "Identification of top 10 ProductionFacility releases/transfers across Europe (NOT IMPLEMENTED)", $res)
 
     (: TODO needs more testing, lookup table pollutant codes does not match the DD codes :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
     let $res :=
-        let $pollutantCodes := scripts:getValidConceptNotations('EPRTRPollutantCodeValue')
         let $map1 := map {
             "pollutantRelease": map {
                 'doc': $docEUROPEAN_TOTAL_PollutantRelease,
@@ -1492,7 +1499,7 @@ declare function xmlconv:RunQAs(
         let $seq := $docRoot//ProductionFacilityReport
         for $facility in $seq,
         $pollutant in map:keys($map1)
-            let $keys := map:keys($map1?($pollutant)?filters)
+            (:let $keys := map:keys($map1?($pollutant)?filters):)
             for $code1 in $map1?($pollutant)?filters?code1,
             $code2 in $map1?($pollutant)?filters?code2
                 (:let $asd := trace($pollutant, 'pollutant: '):)
@@ -1561,7 +1568,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_14 := xmlconv:RowAggregator(
             "EPRTR-LCP 14",
-            "Verification of emissions against European level data (NOT IMPLEMENTED)",
+            "Verification of emissions against European level data",
             (
                 $LCP_14_1,
                 $LCP_14_2

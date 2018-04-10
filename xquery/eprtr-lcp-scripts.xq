@@ -51,12 +51,12 @@ declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
     return
         fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
 };
-declare function scripts:getValidConceptNotations($value as xs:string) as xs:string* {
-    let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
-    let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
-    let $url := $vocabulary || $value || "/rdf"
-    return
-        fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/skos:notation)
+
+declare function scripts:getCodelistvalue(
+    $pollutantCode as xs:string,
+    $docPollutantLookup as document-node()
+) as xs:string {
+    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Codelistvalue/text()
 };
 
 declare function scripts:getCodeNotation (
@@ -220,6 +220,7 @@ declare function scripts:getreportCountOfPollutantDistinct(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
+    $docPollutantLookup as document-node(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -234,6 +235,7 @@ declare function scripts:getreportCountOfPollutant(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
+    $docPollutantLookup as document-node(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -248,6 +250,7 @@ declare function scripts:getreportCountOfFacilities(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
+    $docPollutantLookup as document-node(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -265,13 +268,14 @@ declare function scripts:getreportCountOfFacilities(
 declare function scripts:compareNumberOfPollutants(
     $map1 as map(xs:string, map(*)),
     $country_code as xs:string,
-    $docRoot as document-node()
+    $docRoot as document-node(),
+    $docPollutantLookup as document-node()
 ) as element()* {
-    let $look-up-year := $docRoot//reportingYear => number() - 2
+    let $look-up-year := $docRoot//reportingYear => fn:number() - 2
     (:let $asd := trace(map:keys($map1),'keys: '):)
     (:let $asd := trace(map:keys($map1?('pollutantRelease')?filters),'keys: '):)
     for $pollutant in map:keys($map1)
-        let $keys := map:keys($map1?($pollutant)?filters)
+        (:let $keys := map:keys($map1?($pollutant)?filters):)
         (:for $filter in map:keys($map1?($pollutant)?filters):)
         (:let $asd := trace($keys[1],'keysSEQ1: '):)
         (:let $asd := trace($keys[2],'keysSEQ2: '):)
@@ -291,13 +295,14 @@ declare function scripts:compareNumberOfPollutants(
                         $pollutant,
                         $look-up-year
                     )
+                (:let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: '):)
                 let $reportCountOfPollutantCode := $map1?($pollutant)?reportCountFunction(
                         $code1,
                         $code2,
                         $docRoot,
+                        $docPollutantLookup,
                         $pollutant
                     )
-                (:let $asd := trace($CountOfPollutantCode, 'CountOfPollutantCode: '):)
                 (:let $asd := trace($reportCountOfPollutantCode, 'reportCountOfPollutantCode: '):)
                 let $changePercentage :=
                     (100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)) => fn:abs()
@@ -329,8 +334,8 @@ declare function scripts:compareNumberOfPollutants(
                         <td class="td{$errorType}" title="Change percentage">
                             {$changePercentage =>fn:round-half-to-even(2)}%
                         </td>
-                        <td title="National level count">{$reportCountOfPollutantCode}</td>
-                        <td title="Previous year count">{$CountOfPollutantCode}</td>
+                        <td title="National level">{$reportCountOfPollutantCode => xs:decimal()}</td>
+                        <td title="Previous year">{$CountOfPollutantCode =>xs:decimal()=>fn:round-half-to-even(2)}</td>
                     </tr>
                     else
                         ()
@@ -391,3 +396,65 @@ declare function scripts:getreportFacilityTotals (
     else
         scripts:getreportFacilityTotalsWasteTransfer($code1, $code2, $facility)
 };
+
+
+declare function scripts:getTotalsOfPollutant(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $map as map(*),
+    $country_code as xs:string,
+    $pollutant as xs:string,
+    $look-up-year as xs:double
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then $map?doc//row[CountryCode = $country_code and Year = $look-up-year
+            and PollutantCode = $code1]/*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
+    else if($pollutant = 'pollutantRelease')
+        then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and ReleaseMediumCode = $code1
+            and PollutantCode = $code2]/*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
+    else if($pollutant = 'offsiteWasteTransfer')
+        then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and WasteTypeCode = $code1]
+            /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
+    else
+        $map?doc//row[MemberState = $country_code and ReferenceYear = $look-up-year]
+            /*[fn:local-name() = 'SumOf' || $code1] => functx:if-empty(0) => fn:number()
+};
+
+declare function scripts:getreportTotalsOfPollutantWasteTransfer(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $doc as document-node()
+) as xs:double{
+    if($code1 = 'NON-HW')
+    then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW']
+            /totalWasteQuantityTNE => fn:sum()
+    else if($code1 = 'HWIC')
+    then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
+            and transboundaryTransfer/fn:data() => fn:string-length() = 0]/totalWasteQuantityTNE => fn:sum()
+    else if($code1 = 'HWOC')
+    then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
+            and transboundaryTransfer/fn:data() => fn:string-length() > 0]/totalWasteQuantityTNE => fn:sum()
+    else -1
+};
+declare function scripts:getreportTotalsOfPollutant(
+    $code1 as xs:string,
+    $code2 as xs:string,
+    $doc as document-node(),
+    $docPollutantLookup as document-node(),
+    $pollutant as xs:string
+) as xs:double {
+    if($pollutant = 'offsitePollutantTransfer')
+    then
+        $doc//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
+                /totalPollutantQuantityKg => fn:sum() => functx:if-empty(0)
+    else if($pollutant = 'pollutantRelease')
+        then $doc//pollutantRelease[mediumCode = $code1
+                and pollutant = $code2=>scripts:getCodelistvalue($docPollutantLookup)]
+                    /totalPollutantQuantityKg => fn:sum() => functx:if-empty(0)
+    else if($pollutant = 'offsiteWasteTransfer')
+        then scripts:getreportTotalsOfPollutantWasteTransfer($code1, $code2, $doc)
+    else
+        $doc//emissionsToAir[pollutant=>functx:substring-after-last("/") = $code1]
+                /totalPollutantQuantityTNE => fn:sum() => functx:if-empty(0)
+};
+
