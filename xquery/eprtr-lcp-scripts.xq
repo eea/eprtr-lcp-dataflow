@@ -384,14 +384,15 @@ declare function scripts:getreportFacilityTotals (
     $code1 as xs:string,
     $code2 as xs:string,
     $facility as element(),
+    $docPollutantLookup as document-node(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
-    then $facility//offsitePollutantTransfer[pollutant=>scripts:getCodeNotation('EPRTRPollutantCodeValue') = $code1]
+    then $facility//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
             /totalPollutantQuantityKg => fn:sum()
     else if($pollutant = 'pollutantRelease')
         then $facility//pollutantRelease[mediumCode=>functx:substring-after-last("/") = $code2
-                and pollutant=>scripts:getCodeNotation('EPRTRPollutantCodeValue')  = $code1]
+                and pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
                 /totalPollutantQuantityKg => fn:sum()
     else
         scripts:getreportFacilityTotalsWasteTransfer($code1, $code2, $facility)

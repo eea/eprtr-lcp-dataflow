@@ -1471,7 +1471,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'SumOfTotalQuantity',
                 'countFunction': scripts:getEuropeanTotals#5,
-                'reportCountFunction': scripts:getreportFacilityTotals#4
+                'reportCountFunction': scripts:getreportFacilityTotals#5
                 } ,
             "offsitePollutantTransfer": map {
                 'doc': $docEUROPEAN_TOTAL_PollutantTransfer,
@@ -1481,7 +1481,7 @@ declare function xmlconv:RunQAs(
                 },  (:NA = not available:)
                 'countNodeName': 'SumOfQuantity',
                 'countFunction': scripts:getEuropeanTotals#5,
-                'reportCountFunction': scripts:getreportFacilityTotals#4
+                'reportCountFunction': scripts:getreportFacilityTotals#5
             },
             "offsiteWasteTransfer": map {
                 'doc': $docEUROPEAN_TOTAL_OffsiteWasteTransfer,
@@ -1491,7 +1491,7 @@ declare function xmlconv:RunQAs(
                 },
                 'countNodeName': 'SumOfQuantity',
                 'countFunction': scripts:getEuropeanTotals#5,
-                'reportCountFunction': scripts:getreportFacilityTotals#4
+                'reportCountFunction': scripts:getreportFacilityTotals#5
             }
         }
         let $err := 'warning'
@@ -1510,6 +1510,7 @@ declare function xmlconv:RunQAs(
                     $code1,
                     $code2,
                     $facility,
+                    $docPollutantLookup,
                     $pollutant
                 )
                 let $europeanTotal := scripts:getEuropeanTotals(
@@ -1535,7 +1536,7 @@ declare function xmlconv:RunQAs(
                 }
                 let $ok := $percentage < 90
                 return
-                    if(not($ok))
+                    if(fn:not($ok))
                     (:if($reportTotal > 0):)
                     then scripts:generateResultTableRow($dataMap)
                     else ()
