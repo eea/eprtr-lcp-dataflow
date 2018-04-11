@@ -1240,8 +1240,8 @@ declare function xmlconv:RunQAs(
                 )
                 return
                     (:if(fn:not($ok)):)
-                    (:if(fn:true()):)
-                    if($reportValue > 0)
+                    if(fn:false())
+                    (:if($reportValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
                     else()
