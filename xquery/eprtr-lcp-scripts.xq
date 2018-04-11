@@ -44,6 +44,12 @@ declare function scripts:generateResultTableRow(
     </tr>
 };
 
+declare function scripts:getEPRTRAnnexIActivity (
+    $inspireId as xs:string
+) as xs:string {
+    '1.(a)'
+};
+
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
     let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
     let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"

@@ -748,7 +748,74 @@ declare function xmlconv:RunQAs(
 
     (: TODO implement this :)
     (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
-    let $res := ()
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $map := map {
+            'Other': 'furtherDetails',
+            'SpecifiedFuel': 'otherSolidFuel'
+        }
+        let $fuelInput := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
+        let $errorType := 'warning'
+        let $text := 'Fuel has been duplicated within the EnergyInput feature type'
+        for $part in $seq
+            let $furtherDetailsSeq :=
+                $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") = 'Other'
+                    and fuelInput = $fuelInput and furtherDetails=>fn:string-length() > 0]
+                        /furtherDetails/text()
+            let $otherSolidFuelSeq :=
+                $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") != 'Other'
+                    and fuelInput = $fuelInput and otherSolidFuel=>fn:string-length() > 0]
+                        /otherSolidFuel/functx:substring-after-last(text(), "/")
+            for $fuelType in map:keys($map)
+            let $fuelSeq :=
+                if($fuelType = 'Other')
+                then $furtherDetailsSeq => fn:distinct-values()
+                else $otherSolidFuelSeq => fn:distinct-values()
+            for $fuel in $fuelSeq
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                    'Fuel': map {'pos': 3, 'text': $fuel, 'errorClass': 'td' || $errorType}
+                }
+                let $ok :=
+                    if($fuelType = 'Other')
+                    then $furtherDetailsSeq => fn:index-of($fuel) => fn:count() = 1
+                    else $otherSolidFuelSeq => fn:index-of($fuel) => fn:count() = 1
+                return
+                    if(not($ok))
+                    then scripts:generateResultTableRow($dataMap)
+                    else ()
+
+
+
+(:
+            let $otherSolidFuelsDistinct := $part/energyInput/fuelInput/otherSolidFuel
+                    /functx:substring-after-last(text(), "/") => fn:distinct-values()
+            for $otherSolidFuel in $otherSolidFuelsDistinct
+                let $invalidFuels :=
+                    if($otherSolidFuel = 'Other')
+                    then
+                        let $otherSolidFuelTypes :=
+                            $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") = 'Other']
+                                    /furtherDetails/functx:substring-after-last(text(), "/") => fn:distinct-values()
+                        for $otherSolidFuelType in $otherSolidFuelTypes
+                        let $countAppearance :=
+                            $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") = 'Other'
+                                and furtherDetails = $otherSolidFuelType] => fn:count()
+                        return if($countAppearance > 1)
+                        then $otherSolidFuel
+                        else ()
+                    else
+                        let $countAppearance :=
+                            $part/energyInput/fuelInput[otherSolidFuel = $otherSolidFuel] => fn:count()
+                        return if($countAppearance > 1)
+                        then $otherSolidFuel
+                        else ()
+                let $asd := trace($invalidFuels, "invalidFuels: ")
+
+        return ()
+:)
+
     let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2",
             "Identification of otherSolidFuel duplicates (NOT IMPLEMENTED)", $res)
 
@@ -1056,6 +1123,10 @@ declare function xmlconv:RunQAs(
             "Energy input and CO2 emissions feasibility (NOT IMPLEMENTED)", $res)
     (: TODO implement this :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
+    let $res := ()
+        (:let $seq := $docRoot//ProductionFacilityReport:)
+        (:for $facility in $seq:)
+
     let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3",
             "ProductionFacility cross pollutant identification (NOT IMPLEMENTED)", $res)
 
@@ -1196,7 +1267,7 @@ declare function xmlconv:RunQAs(
         let $errorType := 'warning'
         let $text := 'Reported value exceeded parameter value'
         for $facility in $seq
-            let $EPRTRAnnexIActivity := '1.(a)'
+            let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
             for $pollutantNode in $facility/*[local-name() = map:keys($map)]
                 let $pollutant := $pollutantNode/local-name()
                 let $code1 :=
