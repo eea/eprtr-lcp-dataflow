@@ -922,6 +922,19 @@ declare function xmlconv:RunQAs(
     (: TODO needs more testing :)
     (:  C6.1 – Individual EmissionsToAir feasibility    :)
     let $res :=
+        let $getParentFacilityQuantity := function (
+            $namespace as xs:string,
+            $localId as xs:string,
+            $mediumCode as xs:string,
+            $pollutant as xs:string
+        ) as xs:double {
+        $docRoot//ProductionFacilityReport[InspireId/namespace = $namespace
+            and InspireId/localId=>fn:substring-before('.') = $localId]
+                /pollutantRelease[mediumCode = $mediumCode
+                    and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
+                        /totalPollutantQuantityKg=> functx:if-empty(0) => fn:number()
+        }
+
         let $seq := $docRoot//ProductionInstallationPartReport
         let $errorType := 'warning'
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
@@ -930,6 +943,7 @@ declare function xmlconv:RunQAs(
         for $part in $seq
             let $namespace := $part/InspireId/namespace
             let $localId := $part/InspireId/localId => fn:substring-before('.')
+
             for $emission in $part/emissionsToAir
                 let $pol := $emission/pollutant => functx:substring-after-last("/")
                 let $pollutant :=
@@ -940,11 +954,10 @@ declare function xmlconv:RunQAs(
                     else 'nox'
                 let $pollutantQuantityKg :=
                     $emission/totalPollutantQuantityTNE => functx:if-empty(0) => fn:number() * 1000
-                let $parentFacilityQuantityKg := $docRoot//ProductionFacilityReport[InspireId/namespace = $namespace
-                    and InspireId/localId=>fn:substring-before('.') = $localId]
-                        /pollutantRelease[mediumCode = $mediumCode
-                            and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
-                                /totalPollutantQuantityKg=> functx:if-empty(0) => fn:number()
+
+                let $parentFacilityQuantityKg :=
+                    $getParentFacilityQuantity($namespace, $localId, $mediumCode, $pollutant)
+
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                     'InspireId': map {'pos': 2, 'text': $part/InspireId},
@@ -964,11 +977,66 @@ declare function xmlconv:RunQAs(
                     if(not($ok))
                     then scripts:generateResultTableRow($dataMap)
                     else ()
-    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility", $res)
+    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
 
     (: TODO implement this :)
     (: C6.2 – Cumulative EmissionsToAir feasibility :)
-    let $res := ()
+    let $res :=
+        let $getTotalPartsQuantity := function (
+            $namespace as xs:string,
+            $localId as xs:string,
+            $pollutant as xs:string
+        ) as xs:double{
+            $docRoot//ProductionInstallationPartReport[InspireId/namespace = $namespace
+                and InspireId/localId=>fn:substring-before('.') = $localId]
+                /emissionsToAir[pollutant=>functx:substring-after-last("/") = $pollutant]
+                /functx:if-empty(totalPollutantQuantityTNE, 0) => sum()
+        }
+
+        let $seq := $docRoot//ProductionFacilityReport
+        let $errorType := 'warning'
+        let $text := 'Cumulative EmissionsToAir for all ProductionInstallationParts under the parent ProductionFacility
+            exceed the PollutantRelease value for the specified pollutant.'
+        let $emissions := ('SO2', 'NOx', 'Dust')
+        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+        for $facility in $seq
+            let $namespace := $facility/InspireId/namespace
+            let $localId := $facility/InspireId/localId => fn:substring-before('.')
+
+            for $pol in $emissions
+                let $pollutant :=
+                    if($pol = 'Dust')
+                    then 'pm10'
+                    else if($pol = 'SO2')
+                    then 'sox'
+                    else 'nox'
+                let $facilityQuantityKg := $facility/pollutantRelease[mediumCode = $mediumCode
+                            and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
+                                /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+
+                let $totalPartsQuantityKg :=
+                    $getTotalPartsQuantity($namespace, $localId, $pol) * 1000
+
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                    'Pollutant': map {'pos': 3, 'text': $pol},
+                    'Parts pollutant quantity (in Kg)':
+                        map {'pos': 4, 'text': $totalPartsQuantityKg => xs:decimal()=> fn:round-half-to-even(2)
+                            , 'errorClass': 'td' || $errorType},
+                    'Facility pollutant quantity (in Kg)':
+                        map {'pos': 5, 'text': $facilityQuantityKg => xs:decimal() => fn:round-half-to-even(2)}
+                }
+                let $ok :=
+                    if($pol = 'Dust')
+                    then $totalPartsQuantityKg <= $facilityQuantityKg div 2
+                    else $totalPartsQuantityKg <= $facilityQuantityKg
+
+                return
+                    (:if(true()):)
+                    if(not($ok))
+                    then scripts:generateResultTableRow($dataMap)
+                    else ()
     let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
 
     let $LCP_6 := xmlconv:RowAggregator(
