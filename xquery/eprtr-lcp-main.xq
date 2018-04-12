@@ -746,7 +746,7 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_5_1 := xmlconv:RowBuilder("EPRTR-LCP 5.1","Identification of fuelInput duplicates", $res)
 
-    (: TODO needs some testing :)
+    (: TODO needs more testing :)
     (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
@@ -771,7 +771,7 @@ declare function xmlconv:RunQAs(
     let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2",
             "Identification of otherSolidFuel duplicates", $res)
 
-    (: TODO needs some testing :)
+    (: TODO needs more testing :)
     (:  C.5.3 – Identification of otherGaseousFuel duplicates   :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
@@ -918,13 +918,57 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $res := ()
-    (: TODO implement this :)
+
+    (: TODO needs more testing :)
     (:  C6.1 – Individual EmissionsToAir feasibility    :)
-    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $errorType := 'warning'
+        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+        let $text := 'Reported EmissionsToAir is inconsistent with the PollutantRelease
+            reported to air for the parent ProductionFacility'
+        for $part in $seq
+            let $namespace := $part/InspireId/namespace
+            let $localId := $part/InspireId/localId => fn:substring-before('.')
+            for $emission in $part/emissionsToAir
+                let $pol := $emission/pollutant => functx:substring-after-last("/")
+                let $pollutant :=
+                    if($pol = 'Dust')
+                    then 'pm10'
+                    else if($pol = 'SO2')
+                    then 'sox'
+                    else 'nox'
+                let $pollutantQuantityKg :=
+                    $emission/totalPollutantQuantityTNE => functx:if-empty(0) => fn:number() * 1000
+                let $parentFacilityQuantityKg := $docRoot//ProductionFacilityReport[InspireId/namespace = $namespace
+                    and InspireId/localId=>fn:substring-before('.') = $localId]
+                        /pollutantRelease[mediumCode = $mediumCode
+                            and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
+                                /totalPollutantQuantityKg=> functx:if-empty(0) => fn:number()
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                    'Pollutant': map {'pos': 3, 'text': $pol},
+                    'Pollutant quantity (in Kg)':
+                        map {'pos': 4, 'text': $pollutantQuantityKg => xs:decimal()=> fn:round-half-to-even(2)
+                            , 'errorClass': 'td' || $errorType},
+                    'Parent facility pollutant quantity (in Kg)':
+                        map {'pos': 5, 'text': $parentFacilityQuantityKg => xs:decimal() => fn:round-half-to-even(2)}
+                }
+                let $ok :=
+                    if($pol = 'Dust')
+                    then $pollutantQuantityKg <= $parentFacilityQuantityKg div 2
+                    else $pollutantQuantityKg <= $parentFacilityQuantityKg
+                return
+                    (:if(true()):)
+                    if(not($ok))
+                    then scripts:generateResultTableRow($dataMap)
+                    else ()
+    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility", $res)
 
     (: TODO implement this :)
     (: C6.2 – Cumulative EmissionsToAir feasibility :)
+    let $res := ()
     let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
 
     let $LCP_6 := xmlconv:RowAggregator(
