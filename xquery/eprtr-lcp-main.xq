@@ -388,14 +388,55 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $res := ()
     (: TODO implement this :)
     (:  C2.1 – inspireId consistency    :)
-    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $facilityInspireIds := ('000000001.FACILITYES.CAED')
+        let $installationPartInspireIds := ()
+        let $errorType := 'error'
+        let $text := 'InspireId could not be found within the EU Registry'
+        let $map := map {
+            'ProductionInstallationPartReport': $installationPartInspireIds,
+            'ProductionFacilityReport': $facilityInspireIds
+        }
+        for $featureType in $docRoot//*[local-name() = map:keys($map)]
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'Feature type': map {'pos': 2, 'text': $featureType/local-name()},
+                'InspireId': map {'pos': 3, 'text': $featureType/InspireId}
+            }
+            let $ok := $featureType/InspireId/data() = $map?($featureType/local-name())
+            return
+                if(not($ok))
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency (Partially IMPLEMENTED)", $res)
 
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (:  C2.2 – Comprehensive LCP reporting    :)
-    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $euRegfacilityInspireIds := ('000000001.FACILITYES.CAED')
+        let $euReginstallationPartInspireIds := ('000000006.FACILITYES.CAED')
+        let $errorType := 'error'
+        let $text := 'InspireId could not be found within the E-PRTR and LCP integrated reporting XML'
+        let $map := map {
+            'ProductionInstallationPartReport': $euReginstallationPartInspireIds,
+            'ProductionFacilityReport': $euRegfacilityInspireIds
+        }
+        for $featureType in map:keys($map)
+            let $reportInspireIds := $docRoot//*[local-name() = $featureType]/InspireId/data()
+            for $inspideId in $map?($featureType)
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'Feature type': map {'pos': 2, 'text': $featureType},
+                'InspireId': map {'pos': 3, 'text': $inspideId}
+            }
+            let $ok := $inspideId = $reportInspireIds
+            return
+                if(not($ok))
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (Partially IMPLEMENTED)", $res)
 
     (:  C2.3 – ProductionFacility inspireId uniqueness    :)
     let $res := xmlconv:InspireIdUniqueness($docRoot, "ProductionFacilityReport")
@@ -977,7 +1018,7 @@ declare function xmlconv:RunQAs(
                     if(not($ok))
                     then scripts:generateResultTableRow($dataMap)
                     else ()
-    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
+    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (Partially IMPLEMENTED)", $res)
 
     (: TODO implement this :)
     (: C6.2 – Cumulative EmissionsToAir feasibility :)
@@ -1037,7 +1078,7 @@ declare function xmlconv:RunQAs(
                     if(not($ok))
                     then scripts:generateResultTableRow($dataMap)
                     else ()
-    let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (NOT IMPLEMENTED)", $res)
+    let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (Partially IMPLEMENTED)", $res)
 
     let $LCP_6 := xmlconv:RowAggregator(
             "EPRTR-LCP 6",
@@ -1404,7 +1445,7 @@ declare function xmlconv:RunQAs(
     let $LCP_12_1 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.1",
             "Identification of ProductionFacility release/transfer outliers
-            against previous year data at the national level",
+            against previous year data at the national level (Partially IMPLEMENTED)",
             $res
     )
     let $res := ()
@@ -1750,7 +1791,7 @@ declare function xmlconv:RunQAs(
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
             "Identification of top 10 ProductionFacility releases/transfers across Europe (NOT IMPLEMENTED)", $res)
 
-    (: TODO needs more testing, lookup table pollutant codes does not match the DD codes :)
+    (: TODO needs more testing :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
     let $res :=
         let $map1 := map {
