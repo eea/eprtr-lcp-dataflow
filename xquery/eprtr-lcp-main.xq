@@ -403,7 +403,8 @@ declare function xmlconv:RunQAs(
             let $dataMap := map {
                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                 'Feature type': map {'pos': 2, 'text': $featureType/local-name()},
-                'InspireId': map {'pos': 3, 'text': $featureType/InspireId}
+                'InspireId':
+                    map {'pos': 3, 'text': $featureType/InspireId, 'errorClass': 'td' || $errorType}
             }
             let $ok := $featureType/InspireId/data() = $map?($featureType/local-name())
             return
@@ -429,7 +430,7 @@ declare function xmlconv:RunQAs(
             let $dataMap := map {
                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                 'Feature type': map {'pos': 2, 'text': $featureType},
-                'InspireId': map {'pos': 3, 'text': $inspideId}
+                'InspireId': map {'pos': 3, 'text': $inspideId, 'errorClass': 'td' || $errorType}
             }
             let $ok := $inspideId = $reportInspireIds
             return
@@ -1089,11 +1090,60 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $res := ()
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (:  C7.1 – EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility     :)
+    let $res :=
+        let $getTotalRatedThermalInput := function(
+            $inspireId as xs:string
+        ) as xs:double {
+            123
+        }
+        let $getParentFacilityNrOfOperatingHours := function(
+        ) as xs:double {
+            6789
+        }
+
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $errorType := 'warning'
+        let $text := map {
+            1: 'are above the reported numberOfOperatingHours by more than 10%',
+            2: 'exceed 8784 hours',
+            3: 'exceed the reported numberOfOperatingHours for the associated parent ProductionFacility'
+        }
+        for $part in $seq
+            let $aggregatedEnergyInputMW
+                := $part/energyInput/energyinputTJ/functx:if-empty(text(), 0) => sum() * 0.0317
+            let $totalRatedThermalInput := $getTotalRatedThermalInput($part/InspireId/data())
+            let $proportionOfFuelCapacityBurned := $aggregatedEnergyInputMW div $totalRatedThermalInput
+            let $calculatedOperatingHours := $proportionOfFuelCapacityBurned * 8784
+            let $nrOfOperatingHours := $part/numberOfOperatingHours => functx:if-empty(0) => fn:number()
+            let $parentFacilityNrOfOperatingHours := $getParentFacilityNrOfOperatingHours()
+
+            let $errors :=
+                if($calculatedOperatingHours gt ($nrOfOperatingHours * 110) div 100)
+                then 1
+                else if($calculatedOperatingHours > 8784)
+                then 2
+                else if($calculatedOperatingHours > $parentFacilityNrOfOperatingHours)
+                then 3
+                else 0
+            let $dataMap := map {
+                'Details':
+                    map {'pos': 1, 'text': 'Calculated operating hours ' || $text?($errors), 'errorClass': $errorType},
+                'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                'Calculated operating hours':
+                    map {'pos': 3, 'text': $calculatedOperatingHours => round-half-to-even(2), 'errorClass': 'td' || $errorType},
+                'Number of operating hours': map {'pos': 4, 'text': $nrOfOperatingHours},
+                'Parent facility number of operating hours': map {'pos': 4, 'text': $parentFacilityNrOfOperatingHours}
+            }
+            return
+                if($errors > 0)
+                (:if(true()):)
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+
     let $LCP_7_1 := xmlconv:RowBuilder("EPRTR-LCP 7.1",
-            "EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility (NOT IMPLEMENTED)", $res)
+            "EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility (Partially IMPLEMENTED)", $res)
 
     (: C7.2 – MethodClassification validity :)
     let $res :=
