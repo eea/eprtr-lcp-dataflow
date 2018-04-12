@@ -1246,7 +1246,7 @@ declare function xmlconv:RunQAs(
                 else true()
             let $dataMap := map {
                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                'InspireId': map {'pos': 2, 'text': $part/InspireId}
+                'InspireId': map {'pos': 2, 'text': $part/InspireId, 'errorClass': 'td' || $errorType}
             }
             return
                 if(not($ok))
@@ -1256,11 +1256,34 @@ declare function xmlconv:RunQAs(
 
     let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (partially IMPLEMENTED)", $res)
 
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
-    let $res := ()
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $errorType := 'info'
+        let $text := 'Proportion of useful heat production for district heating has been omitted or reported below 50%'
+        for $part in $seq
+            let $proportion :=
+                $part/proportionOfUsefulHeatProductionForDistrictHeating => functx:if-empty(0) => fn:number()
+            let $derogation := 'Article 35'
+            let $ok := if($derogation != 'Article 35')
+                then true()
+                else $proportion >= 50
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                'Proportion of useful heat production for district heating':
+                    map {'pos': 3, 'text': $proportion || '%', 'errorClass': 'td' || $errorType}
+            }
+            return
+                if(not($ok))
+                (:if(true()):)
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+
+
     let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3",
-            "Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (NOT IMPLEMENTED)",
+            "Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (partially IMPLEMENTED)",
             $res
     )
 
