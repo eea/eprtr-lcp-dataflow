@@ -1175,15 +1175,15 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    let $getDerogation := function (
+        $inspireId as xs:string
+    ) as xs:string {
+        'Article 31'
+    }
+
     (: TODO needs more testing :)
     (:   C8.1 – Article 31 derogation compliance   :)
     let $res :=
-        let $getDerogation := function (
-            $inspireId as xs:string
-        ) as xs:string {
-            'Article 31'
-        }
-
         let $seq := $docRoot//ProductionInstallationPartReport
         let $errorType := 'info'
         let $text := 'Installation part has not met the specifications for reporting an Article 31 derogation'
@@ -1222,10 +1222,39 @@ declare function xmlconv:RunQAs(
                 else ()
     let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance (partially IMPLEMENTED)", $res)
 
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (:  C8.2 – Article 31 derogation justification  :)
-    let $res := ()
-    let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $isDerogationFirstYear := function (
+            $inspireId as xs:string
+        ) as xs:boolean {
+            true()
+        }
+        let $isTechnicalJustificationOK := function (
+            $part as element()
+        ) as xs:boolean {
+            $part/desulphurisationInformation[technicalJustification=>string-length() > 0]=> count() > 0
+            and
+            $part/desulphurisationInformation[technicalJustification=>string-length() = 0]=> count() = 0
+        }
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $errorType := 'warning'
+        let $text := 'Technical justification has been omitted for the Installation part'
+        for $part in $seq
+            let $ok := if($isDerogationFirstYear($part/InspireId/data()))
+                then $isTechnicalJustificationOK($part)
+                else true()
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'InspireId': map {'pos': 2, 'text': $part/InspireId}
+            }
+            return
+                if(not($ok))
+                (:if(true()):)
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+
+    let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (partially IMPLEMENTED)", $res)
 
     (: TODO implement this :)
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
