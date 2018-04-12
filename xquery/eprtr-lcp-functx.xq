@@ -121,5 +121,10 @@ declare function functx:is-value-in-sequence
 
    $value = $seq
  } ;
+declare function functx:value-intersect
+  ( $arg1 as xs:anyAtomicType* ,
+    $arg2 as xs:anyAtomicType* )  as xs:anyAtomicType* {
 
+  distinct-values($arg1[.=$arg2])
+ } ;
 (: HELPER FUNCTIONS END :)

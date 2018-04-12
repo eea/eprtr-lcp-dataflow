@@ -1174,15 +1174,62 @@ declare function xmlconv:RunQAs(
                 $LCP_7_2
             )
     )
-    let $res := ()
-    (: TODO implement this :)
+
+    (: TODO needs more testing :)
     (:   C8.1 – Article 31 derogation compliance   :)
-    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance (NOT IMPLEMENTED)", $res)
+    let $res :=
+        let $getDerogation := function (
+            $inspireId as xs:string
+        ) as xs:string {
+            'Article 31'
+        }
+
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $errorType := 'info'
+        let $text := 'Installation part has not met the specifications for reporting an Article 31 derogation'
+        let $errorMap := map {
+            1: 'At least one of the reported fuelInputs must reflect an indigenous solid fuel type',
+            2: 'The desulphurisationInformation data type must be populated'
+        }
+        let $solidFuelTypes := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Coal",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Biomass",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Lignite",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat"
+        )
+        for $part in $seq
+            let $derogation := $getDerogation($part/InspireId/data())
+            let $fuelInputs := $part/energyInput/fuelInput/fuelInput/text()
+            let $errorNr :=
+                if($derogation != 'Article 31')
+                then 0
+                else if(functx:value-intersect($solidFuelTypes, $fuelInputs)=>fn:count() = 0)
+                    then 1
+                else if($part/desulphurisationInformation/data()=>fn:string-join()=>fn:string-length() = 0)
+                    then 2
+                else 0
+
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                'Additional info': map {'pos': 3, 'text': $errorMap?($errorNr), 'errorClass': 'td' || $errorType}
+            }
+            return
+                if($errorNr > 0)
+                (:if(true()):)
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance (partially IMPLEMENTED)", $res)
+
     (: TODO implement this :)
     (:  C8.2 – Article 31 derogation justification  :)
+    let $res := ()
     let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (NOT IMPLEMENTED)", $res)
+
     (: TODO implement this :)
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
+    let $res := ()
     let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3",
             "Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (NOT IMPLEMENTED)",
             $res
