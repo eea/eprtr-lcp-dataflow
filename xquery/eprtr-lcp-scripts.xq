@@ -58,6 +58,47 @@ declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
         fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
 };
 
+declare function scripts:checkOtherFuelDuplicates(
+    $seq as element()*,
+    $map as map(xs:string,xs:string),
+    $errorType as xs:string,
+    $fuelInput as xs:string,
+    $text as map(xs:string,xs:string)
+) as element(tr)* {
+    for $part in $seq
+        let $furtherDetailsSeq :=
+            $part/energyInput/fuelInput[*[fn:local-name() = $map?SpecifiedFuel]
+                => functx:substring-after-last("/") = 'Other'
+                and fuelInput = $fuelInput and furtherDetails=>fn:string-length() > 0]
+                    /furtherDetails/text()
+        let $otherFuelSeq :=
+            $part/energyInput/fuelInput[*[fn:local-name() = $map?SpecifiedFuel]
+                => functx:substring-after-last("/") != 'Other'
+                and fuelInput = $fuelInput and *[fn:local-name() = $map?SpecifiedFuel]=>fn:string-length() > 0]
+                    /*[fn:local-name() = $map?SpecifiedFuel]/functx:substring-after-last(text(), "/")
+        for $fuelType in map:keys($map)
+        let $fuelSeq :=
+            if($fuelType = 'Other')
+            then $furtherDetailsSeq => fn:distinct-values()
+            else $otherFuelSeq => fn:distinct-values()
+        for $fuel in $fuelSeq
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text?($fuelType), 'errorClass': $errorType},
+                'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                'Fuel input': map {'pos': 3, 'text': $fuelInput => functx:substring-after-last("/")},
+                'Fuel': map {'pos': 4, 'text': $fuel, 'errorClass': 'td' || $errorType}
+            }
+            let $ok :=
+                if($fuelType = 'Other')
+                then $furtherDetailsSeq => fn:index-of($fuel) => fn:count() = 1
+                else $otherFuelSeq => fn:index-of($fuel) => fn:count() = 1
+            return
+                if(fn:not($ok))
+                then scripts:generateResultTableRow($dataMap)
+                else ()
+};
+
+
 declare function scripts:getCodelistvalue(
     $pollutantCode as xs:string,
     $docPollutantLookup as document-node()

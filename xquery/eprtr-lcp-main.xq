@@ -746,7 +746,7 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_5_1 := xmlconv:RowBuilder("EPRTR-LCP 5.1","Identification of fuelInput duplicates", $res)
 
-    (: TODO implement this :)
+    (: TODO needs some testing :)
     (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
@@ -756,74 +756,46 @@ declare function xmlconv:RunQAs(
         }
         let $fuelInput := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
         let $errorType := 'warning'
-        let $text := 'Fuel has been duplicated within the EnergyInput feature type'
-        for $part in $seq
-            let $furtherDetailsSeq :=
-                $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") = 'Other'
-                    and fuelInput = $fuelInput and furtherDetails=>fn:string-length() > 0]
-                        /furtherDetails/text()
-            let $otherSolidFuelSeq :=
-                $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") != 'Other'
-                    and fuelInput = $fuelInput and otherSolidFuel=>fn:string-length() > 0]
-                        /otherSolidFuel/functx:substring-after-last(text(), "/")
-            for $fuelType in map:keys($map)
-            let $fuelSeq :=
-                if($fuelType = 'Other')
-                then $furtherDetailsSeq => fn:distinct-values()
-                else $otherSolidFuelSeq => fn:distinct-values()
-            for $fuel in $fuelSeq
-                let $dataMap := map {
-                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                    'InspireId': map {'pos': 2, 'text': $part/InspireId},
-                    'Fuel': map {'pos': 3, 'text': $fuel, 'errorClass': 'td' || $errorType}
-                }
-                let $ok :=
-                    if($fuelType = 'Other')
-                    then $furtherDetailsSeq => fn:index-of($fuel) => fn:count() = 1
-                    else $otherSolidFuelSeq => fn:index-of($fuel) => fn:count() = 1
-                return
-                    if(not($ok))
-                    then scripts:generateResultTableRow($dataMap)
-                    else ()
-
-
-
-(:
-            let $otherSolidFuelsDistinct := $part/energyInput/fuelInput/otherSolidFuel
-                    /functx:substring-after-last(text(), "/") => fn:distinct-values()
-            for $otherSolidFuel in $otherSolidFuelsDistinct
-                let $invalidFuels :=
-                    if($otherSolidFuel = 'Other')
-                    then
-                        let $otherSolidFuelTypes :=
-                            $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") = 'Other']
-                                    /furtherDetails/functx:substring-after-last(text(), "/") => fn:distinct-values()
-                        for $otherSolidFuelType in $otherSolidFuelTypes
-                        let $countAppearance :=
-                            $part/energyInput/fuelInput[otherSolidFuel => functx:substring-after-last("/") = 'Other'
-                                and furtherDetails = $otherSolidFuelType] => fn:count()
-                        return if($countAppearance > 1)
-                        then $otherSolidFuel
-                        else ()
-                    else
-                        let $countAppearance :=
-                            $part/energyInput/fuelInput[otherSolidFuel = $otherSolidFuel] => fn:count()
-                        return if($countAppearance > 1)
-                        then $otherSolidFuel
-                        else ()
-                let $asd := trace($invalidFuels, "invalidFuels: ")
-
-        return ()
-:)
-
+        let $text := map {
+            'Other': 'furtherDetails exceed the similarity threshold',
+            'SpecifiedFuel': 'Fuel has been duplicated within the EnergyInput feature type'
+        }
+        return
+            scripts:checkOtherFuelDuplicates(
+                $seq,
+                $map,
+                $errorType,
+                $fuelInput,
+                $text
+            )
     let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2",
-            "Identification of otherSolidFuel duplicates (NOT IMPLEMENTED)", $res)
+            "Identification of otherSolidFuel duplicates", $res)
 
-    (: TODO implement this :)
+    (: TODO needs some testing :)
     (:  C.5.3 – Identification of otherGaseousFuel duplicates   :)
-    let $res := ()
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $map := map {
+            'Other': 'furtherDetails',
+            'SpecifiedFuel': 'otherGaseousFuel'
+        }
+        let $fuelInput := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases"
+        let $errorType := 'warning'
+        let $text := map {
+            'Other': 'furtherDetails exceed the similarity threshold',
+            'SpecifiedFuel': 'Fuel has been duplicated within the EnergyInput feature type'
+        }
+        return
+            scripts:checkOtherFuelDuplicates(
+                $seq,
+                $map,
+                $errorType,
+                $fuelInput,
+                $text
+            )
+
     let $LCP_5_3 := xmlconv:RowBuilder("EPRTR-LCP 5.3",
-            "Identification of otherGaseousFuel duplicates (NOT IMPLEMENTED)", $res)
+            "Identification of otherGaseousFuel duplicates", $res)
 
     (:  C5.4 - Identification of EmissionsToAir duplicates  :)
     let $res :=
