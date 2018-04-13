@@ -27,6 +27,8 @@ declare variable $source_url as xs:string external;
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
     "../lookup-tables/EPRTR-LCP_PollutantLookup.xml";
+declare variable $xmlconv:CrossPollutants as xs:string :=
+    "../lookup-tables/EPRTR-LCP_C10.3_CrossPollutants.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer as xs:string :=
     "../lookup-tables/EPRTR-LCP_C12.1_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer as xs:string :=
@@ -253,6 +255,7 @@ declare function xmlconv:RunQAs(
     let $docPollutantLookup := fn:doc ($xmlconv:POLLUTANT_LOOKUP)
     let $docAverage := fn:doc($xmlconv:AVERAGE_3_YEARS)
     let $docEmissions := fn:doc($xmlconv:AVG_EMISSIONS_PATH)
+    let $docCrossPollutants := fn:doc($xmlconv:CrossPollutants)
     let $docEUROPEAN_TOTAL_PollutantRelease := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantRelease)
     let $docEUROPEAN_TOTAL_PollutantTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantTransfer)
     let $docEUROPEAN_TOTAL_OffsiteWasteTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer)
@@ -1427,8 +1430,6 @@ declare function xmlconv:RunQAs(
                 },
                 'Installation part aggregated CO2 amount':
                     map {'pos': 5, 'text': $aggregatedPartsCO2 => xs:decimal() => fn:round-half-to-even(2)}
-
-
             }
             let $ok := if($reportedCO2 > $aggregatedPartsCO2)
                 then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100 < 100
@@ -1440,17 +1441,72 @@ declare function xmlconv:RunQAs(
                 then
                     scripts:generateResultTableRow($dataMap)
                 else()
-
     let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2",
             "Energy input and CO2 emissions feasibility (partially IMPLEMENTED)", $res)
-    (: TODO implement this :)
-    (:  C10.3 – ProductionFacility cross pollutant identification   :)
-    let $res := ()
-        (:let $seq := $docRoot//ProductionFacilityReport:)
-        (:for $facility in $seq:)
 
+    (: TODO needs more testing :)
+    (:  C10.3 – ProductionFacility cross pollutant identification   :)
+    let $res :=
+        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+        let $getPollutantValue := function (
+            $facility as element(),
+            $sourcePollutant as xs:string
+        ) as xs:double {
+            let $codeListValue := scripts:getCodelistvalue($sourcePollutant, $docPollutantLookup)
+            return $facility/pollutantRelease[mediumCode = $mediumCode and pollutant = $codeListValue]
+                /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+        }
+
+        let $seq := $docRoot//ProductionFacilityReport
+        let $errorType := 'warning'
+        let $text := map {
+            1: 'Resultant pollutant emissions to air is missing',
+            2: 'Resultant pollutant is low/high based on comparison with expected ranges'
+        }
+
+        for $facility in $seq
+            let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
+            for $row in $docCrossPollutants//row[AnnexIActivityCode = $EPRTRAnnexIActivity]
+                let $sourcePollutantValue := $getPollutantValue($facility, $row/SourcePollutant)
+                let $resultingPollutantValue := $getPollutantValue($facility, $row/ResultingPollutant)
+                let $distanceMin := $resultingPollutantValue - $sourcePollutantValue * $row/MinFactor
+                let $distanceMax := $resultingPollutantValue - $sourcePollutantValue * $row/MaxFactor
+                let $expectedEmissionFactorMin := $distanceMin div $row/ReportingThreshold
+                let $expectedEmissionFactorMax := $distanceMax div $row/ReportingThreshold
+
+                let $errorNR := if($resultingPollutantValue = 0)
+                    then 1
+                    else 2
+
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text?($errorNR), 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                    'Source pollutant': map {'pos': 3, 'text': $row/SourcePollutant},
+                    'Source pollutant amount': map {
+                        'pos': 4,
+                        'text': $sourcePollutantValue => xs:decimal() => fn:round-half-to-even(2),
+                        'errorClass': 'td' || $errorType
+                    },
+                    'Resulting pollutant': map {'pos': 5, 'text': $row/ResultingPollutant},
+                    'Resulting pollutant amount': map {
+                        'pos': 6,
+                        'text': $resultingPollutantValue => xs:decimal() => fn:round-half-to-even(2)
+                    },
+                    'distance': map {'pos': 7,
+                        'text': 'min: '||$distanceMin => xs:decimal() => fn:round-half-to-even(2)||' / max: '||$distanceMax => xs:decimal() => fn:round-half-to-even(2)},
+                    'expectedEmissionFactor':
+                        map {'pos': 8, 'text': 'min: '||$expectedEmissionFactorMin=> xs:decimal() => fn:round-half-to-even(2) ||' / max: '||$expectedEmissionFactorMax=> xs:decimal() => fn:round-half-to-even(2)}
+                }
+                let $ok := true()
+                return
+                    (:if(fn:not($ok)):)
+                    if(fn:true())
+                    (:if($reportValue > 0):)
+                    then
+                        scripts:generateResultTableRow($dataMap)
+                    else()
     let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3",
-            "ProductionFacility cross pollutant identification (NOT IMPLEMENTED)", $res)
+            "ProductionFacility cross pollutant identification (partially IMPLEMENTED)", $res)
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",

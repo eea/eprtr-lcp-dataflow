@@ -1,0 +1,382 @@
+<dataroot generated="2018-04-10T09:54:58">
+  <row>
+    <PollutantCode>ALACHLOR</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ALACHLOR</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ALDRIN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ALDRIN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ANTHRACENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ANTHRACENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>AS AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ASandCompounds</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ASBESTOS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ASBESTOS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ATRAZINE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ATRAZINE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>BENZENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>BENZO(G,H,I)PERYLENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZO(G,H,I)PERYLENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>Black Carbon</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BlackCarbon</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>BROMINATED DIPHENYLETHER</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PBDE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CD AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CDandCompounds</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CFCS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CFCS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CH4</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CH4</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CHLORDECONE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORDECONE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CHLORFENVINPHOS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORFENVINPHOS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CHLORIDES</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORIDES</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CHLORINE AND INORGANIC COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CHLORO-ALKANES (C10-13)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORO-ALKANES(C10-13)</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CHLORPYRIFOS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORPYRIFOS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CLORDANE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CLORDANE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CO</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CO2</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CO2 EXCL BIOMASS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2%20EXCL%20BIOMASS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CR AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CR%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CU AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CU%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>CYANIDES</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CYANIDES</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>DDT</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/DDT</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>DEHP</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/DEHP</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>DICHLOROETHANE-1,2 (DCE)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/DCE-1,2%20</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>DICHLOROMETHANE (DCM)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/DCM</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>DIELDRIN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/DIELDRIN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>DIURON</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/DIURON</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ENDOSULPHAN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ENDOSULPHAN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ENDRIN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ENDRIN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ETHYLBENZENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ETHYLBENZENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ETHYLENE OXIDE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ETHYLENE%20OXIDE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>FLUORANTHENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORANTHENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>FLUORIDES</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORIDES</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>FLUORINE AND INORGANIC COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINE%20AND%20INORGANIC%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HALOGENATED ORGANIC COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HALOGENATED%20ORGANIC%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HALONS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HALONS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HCFCS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HCFCS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HCN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HCN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HEPTACHLOR</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HEPTACHLOR</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HEXABROMOBIPHENYL</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HEXABROMOBIPHENYL</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HEXACHLOROBENZENE (HCB)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HCB</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HEXACHLOROBUTADIENE (HCBD)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HCBD</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HEXACHLOROCYCLOHEXANE(HCH)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HCH</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HFCS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HFCS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>HG AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HG%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ISODRIN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ISODRIN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ISOPROTURON</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ISOPROTURON</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>LINDANE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/LINDANE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>MIREX</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/MIREX</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>N2O</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/N2O</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>NAPHTHALENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NAPHTHALENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>NH3</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NH3</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>NI AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NI%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>NMVOC</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NMVOC</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>NOX</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>NP/NPES</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NP%20AND%20NPES</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>OCTYLPHENOLS AND OCTYLPHENOL ETHOXYLATES</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/OCTYLPHENOLS%20AND%20OCTYLPHENOL%20ETHOXYLATES</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ORGANOTIN - COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ORGANOTIN%20COMPOUNDS</Codelistvalue>
+  </row>
+<!--  <row>
+    <PollutantCode>PAHs in EPER</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PAHs</Codelistvalue>
+  </row>-->
+  <row>
+    <PollutantCode>PB AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PB%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PCDD+PCDF (DIOXINS+FURANS)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PCDD+PCDF%20(DIOXINS+FURANS)</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PENTACHLOROBENZENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PENTACHLOROBENZENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PENTACHLOROPHENOL (PCP)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PCP</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PFCS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PFCS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PHENOLS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PHENOLS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PM10</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>PM2.5</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM2.5</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>POLYCHLORINATED BIPHENYLS (PCBS)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PCBS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>POLYCYCLIC AROMATIC HYDROCARBONS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PAHs</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>SF6</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SF6</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>SIMAZINE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SIMAZINE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>SOX</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TETRACHLOROETHANE-1,1,2,2</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TETRACHLOROETHANE-1,1,2,2</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TETRACHLOROETHYLENE (PER)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PER</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TETRACHLOROMETHANE (TCM)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TCM</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TOLUENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TOLUENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TOTAL - NITROGEN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TOTAL%20NITROGEN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TOTAL - PHOSPHORUS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TOTAL%20PHOSPHORUS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TOTAL ORGANIC CARBON (TOC)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TOC</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TOXAPHENE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TOXAPHENE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRIBUTYLTIN AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TRIBUTYLTIN%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRICHLOROBENZENES (TCB)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TCB</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRICHLOROETHANE-1,1,1 (TCE)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TCE-1,1,1</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRICHLOROETHYLENE (TRI)</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TRI</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRICHLOROMETHANE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TRICHLOROMETHANE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRIFLURALIN</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TRIFLURALIN</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>TRIPHENYLTIN AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TRIPHENYLTIN%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>VINYL CHLORIDE</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/VINYL%20CHLORIDE</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>XYLENES</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/XYLENES</Codelistvalue>
+  </row>
+  <row>
+    <PollutantCode>ZN AND COMPOUNDS</PollutantCode>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZN%20AND%20COMPOUNDS</Codelistvalue>
+  </row>
+</dataroot>
