@@ -1390,11 +1390,59 @@ declare function xmlconv:RunQAs(
                     else
                         ()
     let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
-    (: TODO implement this :)
+
+    (: TODO needs more testing :)
     (:  C10.2 – Energy input and CO2 emissions feasibility  :)
-    let $res := ()
+    let $res :=
+        let $getAggregatedPartsCO2 := function (
+            $inspireId as xs:string
+        ) as xs:double {
+            123456
+        }
+
+        let $pollutant := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2'
+        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+        let $seq := $docRoot//ProductionFacilityReport
+        let $errorType := 'warning'
+        let $text := 'CO2 emissions deviate from expected emissions given the fuel inputs
+            reported for associated LCP InstallationParts'
+        for $facility in $seq
+            let $reportedCO2 := $facility/pollutantRelease[pollutant = $pollutant and mediumCode = $mediumCode]
+                /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+            let $aggregatedPartsCO2 := $getAggregatedPartsCO2($facility/InspireId)
+            let $percentage := if($reportedCO2 > $aggregatedPartsCO2)
+                then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100
+                else ($aggregatedPartsCO2 div $reportedCO2) * 100 - 100
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                'Deviation percentage': map {
+                    'pos': 3,
+                    'text': $percentage => xs:decimal() => fn:round-half-to-even(2) || '%',
+                    'errorClass': 'td' || $errorType
+                },
+                'Facility reported CO2 amount': map {
+                    'pos': 4,
+                    'text': $reportedCO2 => xs:decimal() => fn:round-half-to-even(2)
+                },
+                'Installation part aggregated CO2 amount':
+                    map {'pos': 5, 'text': $aggregatedPartsCO2 => xs:decimal() => fn:round-half-to-even(2)}
+
+
+            }
+            let $ok := if($reportedCO2 > $aggregatedPartsCO2)
+                then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100 < 100
+                else ($aggregatedPartsCO2 div $reportedCO2) * 100 - 100 < 30
+            return
+                if(fn:not($ok))
+                (:if(fn:true()):)
+                (:if($reportValue > 0):)
+                then
+                    scripts:generateResultTableRow($dataMap)
+                else()
+
     let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2",
-            "Energy input and CO2 emissions feasibility (NOT IMPLEMENTED)", $res)
+            "Energy input and CO2 emissions feasibility (partially IMPLEMENTED)", $res)
     (: TODO implement this :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
     let $res := ()
@@ -1647,10 +1695,10 @@ declare function xmlconv:RunQAs(
             (:let $asd := trace($pollutant, "pollutant: "):)
             (:let $asd := trace($total, "total: "):)
             (:let $asd := trace($average3Year, "average3Year: "):)
-            let $difference :=
-                (100-(($total * 100) div $average3Year)) => fn:abs() => xs:decimal() => fn:round-half-to-even(2)
+            let $percentage :=
+                (($total * 100) div $average3Year)- 100 => xs:decimal() => fn:round-half-to-even(2)
             let $errorType :=
-                if($difference > 30)
+                if($percentage > 30)
                 then 'warning'
                 else 'info'
             let $dataMap := map {
@@ -1660,14 +1708,14 @@ declare function xmlconv:RunQAs(
                     'errorClass': $errorType
                 },
                 'Pollutant': map {'pos': 2, 'text': $pollutant},
-                'Difference': map {'pos': 3, 'text': $difference || '%', 'errorClass': 'td' || $errorType},
+                'Percentage': map {'pos': 3, 'text': $percentage || '%', 'errorClass': 'td' || $errorType},
                 'Total value': map {'pos': 4, 'text': $total=>xs:long()},
                 'Average 3 year': map {'pos': 5, 'text': $average3Year}
             }
-            let $ok := $difference < 10
+            let $ok := $percentage < 10
             return
-                (:if(fn:not($ok)):)
-                if(fn:true())
+                if(fn:not($ok))
+                (:if(fn:true()):)
                 then
                     scripts:generateResultTableRow($dataMap)
                 else()
@@ -1935,7 +1983,7 @@ declare function xmlconv:RunQAs(
     )
 
 
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
     let $res :=
         let $getPollutantReleaseValue := function (
@@ -2018,7 +2066,7 @@ declare function xmlconv:RunQAs(
             }
         }
         let $errorType := 'info'
-        let $text := 'ProductionFacility releases/transfer rank among the top 10 at the European level'
+        let $text := 'ProductionFacility release/transfer rank among the top 10 at the European level'
 
         let $seq := $docRoot//ProductionFacilityReport
             for $facility in $seq
@@ -2028,7 +2076,7 @@ declare function xmlconv:RunQAs(
                     let $pollutantTypeDataMap := $map1?($pollutantName)?report($pollutantType)
                     let $reportedValue := $pollutantTypeDataMap?value
                     let $lookupTableValue := $map1?($pollutantName)?lookup($pollutantTypeDataMap, $EPRTRAnnexIActivity)
-                    let $ok := reportedValue < $lookupTableValue
+                    let $ok := $reportedValue < $lookupTableValue
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'InspireId': map {'pos': 2, 'text': $facility/InspireId},
@@ -2038,8 +2086,8 @@ declare function xmlconv:RunQAs(
                         'European 10th value (in Kg)': map {'pos': 5, 'text': $lookupTableValue => xs:decimal()}
                     }
                     return
-                        (:if(not($ok)):)
-                        if(true())
+                        if(not($ok))
+                        (:if(true()):)
                         then scripts:generateResultTableRow($dataMap)
                         else ()
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
