@@ -1934,11 +1934,116 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $res := ()
+
     (: TODO implement this :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
+    let $res :=
+        let $getPollutantReleaseValue := function (
+            $pollutantNode as element()
+        ) as map(*){
+            map {
+                'value': $pollutantNode/totalPollutantQuantityKg => functx:if-empty(0) => fn:number(),
+                'pollutant': $pollutantNode/pollutant => scripts:getPollutantCode($docPollutantLookup),
+                'mediumCode': $pollutantNode/mediumCode => functx:substring-after-last("/")
+            }
+        }
+        let $getPollutantReleaseLookupValue := function (
+            $pollutantTypeDataMap as map(*),
+            $EPRTRAnnexIActivity as xs:string
+        ) as xs:double {
+            12345
+        }
+        let $getOffsitePollutantTransferValue := function (
+            $pollutantNode as element()
+        ) as map(*){
+            map {
+                'value': $pollutantNode/totalPollutantQuantityKg => functx:if-empty(0) => fn:number(),
+                'pollutant': $pollutantNode/pollutant => scripts:getPollutantCode($docPollutantLookup)
+            }
+        }
+        let $getOffsitePollutantTransferLookupValue := function (
+            $pollutantTypeDataMap as map(*),
+            $EPRTRAnnexIActivity as xs:string
+        ) as xs:double {
+            23456
+        }
+        let $getOffsiteWasteTransferValue := function (
+            $pollutantNode as element()
+        ) as map(*){
+            map {
+                'value': $pollutantNode/totalWasteQuantityTNE => functx:if-empty(0) => fn:number() * 1000,
+                'wasteClassification':
+                    let $code := $pollutantNode/wasteClassification/data() => functx:substring-after-last("/")
+                    let $transboundaryTransfer := $pollutantNode/transboundaryTransfer/data()
+                    return
+                        if($code = 'NONHW')
+                        then 'NON-HW'
+                        else if (fn:string-length($transboundaryTransfer) > 0)
+                            then $code || 'OC'
+                            else $code || 'IC',
+                'wasteTreatment': $pollutantNode/wasteTreatment/text() => functx:substring-after-last("/")
+            }
+        }
+        let $getOffsiteWasteTransferLookupValue := function (
+            $pollutantTypeDataMap as map(*),
+            $EPRTRAnnexIActivity as xs:string
+        ) as xs:double {
+            34567
+        }
+        let $getCodes := function (
+            $pollutantTypeDataMap as map(*)
+        ) as xs:string {
+            let $codes :=
+                for $code in map:keys($pollutantTypeDataMap)
+                return
+                    if($code != 'value')
+                    then
+                        $pollutantTypeDataMap?($code)
+                    else ()
+            return $codes => string-join(' / ')
+        }
+
+        let $map1 := map {
+            "pollutantRelease": map {
+                'report': $getPollutantReleaseValue,
+                'lookup': $getPollutantReleaseLookupValue
+            },
+            "offsitePollutantTransfer": map {
+                'report': $getOffsitePollutantTransferValue,
+                'lookup': $getOffsitePollutantTransferLookupValue
+            },
+            "offsiteWasteTransfer": map {
+                'report': $getOffsiteWasteTransferValue,
+                'lookup': $getOffsiteWasteTransferLookupValue
+            }
+        }
+        let $errorType := 'info'
+        let $text := 'ProductionFacility releases/transfer rank among the top 10 at the European level'
+
+        let $seq := $docRoot//ProductionFacilityReport
+            for $facility in $seq
+                let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
+                for $pollutantType in $facility/*[local-name() = map:keys($map1)]
+                    let $pollutantName := $pollutantType/local-name()
+                    let $pollutantTypeDataMap := $map1?($pollutantName)?report($pollutantType)
+                    let $reportedValue := $pollutantTypeDataMap?value
+                    let $lookupTableValue := $map1?($pollutantName)?lookup($pollutantTypeDataMap, $EPRTRAnnexIActivity)
+                    let $ok := reportedValue < $lookupTableValue
+                    let $dataMap := map {
+                        'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                        'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                        'Type': map {'pos': 3, 'text': $pollutantName || ' - ' || $getCodes($pollutantTypeDataMap)},
+                        'Reported amount (in Kg)':
+                            map {'pos': 4, 'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType},
+                        'European 10th value (in Kg)': map {'pos': 5, 'text': $lookupTableValue => xs:decimal()}
+                    }
+                    return
+                        (:if(not($ok)):)
+                        if(true())
+                        then scripts:generateResultTableRow($dataMap)
+                        else ()
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
-            "Identification of top 10 ProductionFacility releases/transfers across Europe (NOT IMPLEMENTED)", $res)
+            "Identification of top 10 ProductionFacility releases/transfers across Europe (Partially IMPLEMENTED)", $res)
 
     (: TODO needs more testing :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
