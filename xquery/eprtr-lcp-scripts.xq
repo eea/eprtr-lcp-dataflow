@@ -109,7 +109,7 @@ declare function scripts:getPollutantCode(
     $codeListValue as xs:string,
     $docPollutantLookup as document-node()
 ) as xs:string {
-    $docPollutantLookup//row[Codelistvalue = $codeListValue]/PollutantCode/text()
+    $docPollutantLookup//row[Codelistvalue = $codeListValue]/PollutantCode/text() => functx:if-empty('Not Found')
 };
 
 declare function scripts:getCodeNotation (
