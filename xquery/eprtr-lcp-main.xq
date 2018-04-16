@@ -1448,6 +1448,7 @@ declare function xmlconv:RunQAs(
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
     let $res :=
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+
         let $getPollutantValue := function (
             $facility as element(),
             $sourcePollutant as xs:string
@@ -1467,12 +1468,42 @@ declare function xmlconv:RunQAs(
         for $facility in $seq
             let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
             for $row in $docCrossPollutants//row[AnnexIActivityCode = $EPRTRAnnexIActivity]
+                let $reportingThreshold := $row/ReportingThreshold => fn:number()
                 let $sourcePollutantValue := $getPollutantValue($facility, $row/SourcePollutant)
                 let $resultingPollutantValue := $getPollutantValue($facility, $row/ResultingPollutant)
-                let $distanceMin := $resultingPollutantValue - $sourcePollutantValue * $row/MinFactor
-                let $distanceMax := $resultingPollutantValue - $sourcePollutantValue * $row/MaxFactor
-                let $expectedEmissionFactorMin := $distanceMin div $row/ReportingThreshold
-                let $expectedEmissionFactorMax := $distanceMax div $row/ReportingThreshold
+                let $minExpectedEmission := ($sourcePollutantValue * $row/MinFactor) => fn:number()
+                let $maxExpectedEmission := ($sourcePollutantValue * $row/MaxFactor) => fn:number()
+                let $distanceMin := ($resultingPollutantValue - $minExpectedEmission) => fn:abs()
+                let $distanceMax := ($resultingPollutantValue - $maxExpectedEmission) => fn:abs()
+                let $expectedEmissionFactorMin := $distanceMin div $reportingThreshold
+                let $expectedEmissionFactorMax := $distanceMax div $reportingThreshold
+
+(:
+                let $tracer :=
+                if($resultingPollutantValue > 0)
+                then
+                    let $asd := trace($row/SourcePollutant/text(), "Source pollutant: ")
+                    let $asd := trace($sourcePollutantValue => xs:decimal() => fn:round-half-to-even(2), "Source pollutant amount: ")
+                    let $asd := trace($row/ResultingPollutant/text(), "Resulting pollutant: ")
+                    let $asd := trace($resultingPollutantValue => xs:decimal() => fn:round-half-to-even(2), "Resulting pollutant amount: ")
+                    let $asd := trace($minExpectedEmission => xs:decimal() => fn:round-half-to-even(2), "minExpectedEmission: ")
+                    let $asd := trace($maxExpectedEmission => xs:decimal() => fn:round-half-to-even(2), "maxExpectedEmission: ")
+                    let $asd := trace($distanceMin => xs:decimal() => fn:round-half-to-even(2), "distanceMin: ")
+                    let $asd := trace($distanceMax => xs:decimal() => fn:round-half-to-even(2), "distanceMax: ")
+                    let $asd := trace($expectedEmissionFactorMin => xs:decimal() => fn:round-half-to-even(2), "expectedEmissionFactorMin: ")
+                    let $asd := trace($expectedEmissionFactorMax => xs:decimal() => fn:round-half-to-even(2), "expectedEmissionFactorMax: ")
+                    return 0
+                else 0
+:)
+
+                let $priority :=
+                    if($expectedEmissionFactorMax <= 2)
+                    then 'low'
+                    else if($expectedEmissionFactorMax > 2 and $expectedEmissionFactorMax < 10)
+                    then 'medium'
+                    else 'high'
+                let $additionalComment := 'The priority of the failure of this check has been classified as
+                    '|| $priority ||' based on the expected emissions factor.'
 
                 let $errorNR := if($resultingPollutantValue = 0)
                     then 1
@@ -1481,32 +1512,42 @@ declare function xmlconv:RunQAs(
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text?($errorNR), 'errorClass': $errorType},
                     'InspireId': map {'pos': 2, 'text': $facility/InspireId},
-                    'Source pollutant': map {'pos': 3, 'text': $row/SourcePollutant},
+                    'Source pollutant': map {'pos': 3, 'text': $row/SourcePollutant/text()},
                     'Source pollutant amount': map {
                         'pos': 4,
-                        'text': $sourcePollutantValue => xs:decimal() => fn:round-half-to-even(2),
-                        'errorClass': 'td' || $errorType
+                        'text': $sourcePollutantValue => xs:decimal() => fn:round-half-to-even(2)
                     },
-                    'Resulting pollutant': map {'pos': 5, 'text': $row/ResultingPollutant},
+                    'Resulting pollutant': map {'pos': 5, 'text': $row/ResultingPollutant/text()},
                     'Resulting pollutant amount': map {
                         'pos': 6,
-                        'text': $resultingPollutantValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $resultingPollutantValue => xs:decimal() => fn:round-half-to-even(2),
+                        'errorClass': 'td' || $errorType
                     },
-                    'distance': map {'pos': 7,
-                        'text': 'min: '||$distanceMin => xs:decimal() => fn:round-half-to-even(2)||' / max: '||$distanceMax => xs:decimal() => fn:round-half-to-even(2)},
-                    'expectedEmissionFactor':
-                        map {'pos': 8, 'text': 'min: '||$expectedEmissionFactorMin=> xs:decimal() => fn:round-half-to-even(2) ||' / max: '||$expectedEmissionFactorMax=> xs:decimal() => fn:round-half-to-even(2)}
+                    'Minimum expected emission':
+                        map {'pos': 7, 'text': $minExpectedEmission => xs:decimal() => fn:round-half-to-even(2)},
+                    'Maximum expected emission':
+                        map {'pos': 8, 'text': $maxExpectedEmission => xs:decimal() => fn:round-half-to-even(2)},
+                    'Priority': map {'pos': 9, 'text': $additionalComment}
                 }
-                let $ok := true()
+                let $ok := (
+                    $maxExpectedEmission < $reportingThreshold
+                    or
+                    (
+                        $resultingPollutantValue > $minExpectedEmission
+                        and
+                        $resultingPollutantValue > $maxExpectedEmission
+                    )
+                )
                 return
-                    (:if(fn:not($ok)):)
-                    if(fn:true())
+                    if(fn:not($ok))
+                    (:if(fn:true()):)
+                    (:if($resultingPollutantValue > 0):)
                     (:if($reportValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
                     else()
     let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3",
-            "ProductionFacility cross pollutant identification (partially IMPLEMENTED)", $res)
+            "ProductionFacility cross pollutant identification (Needs more testing)", $res)
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
