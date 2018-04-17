@@ -2097,12 +2097,54 @@ declare function xmlconv:RunQAs(
             previous year data at the ProductionInstallationPart level (partially IMPLEMENTED)"
             , $res
     )
-    let $res := ()
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
+    let $res :=
+        let $getLowestPollutant := function (
+        ) as xs:string {
+            'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CR%20AND%20COMPOUNDS'
+        }
+
+        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+        let $errorType := 'warning'
+        let $text := 'Pollutant release ratio threshold has been exceeded'
+        for $facility in $docRoot//ProductionFacilityReport
+            let $lowestValuePrevYears := 1234
+            let $lowestValueActualYear := $facility/pollutantRelease/totalPollutantQuantityKg => fn:min()
+            let $lowestValue := fn:min($lowestValuePrevYears, $lowestValueActualYear)
+            let $lowestPollutant :=
+                if($lowestValuePrevYears < $lowestValueActualYear)
+                then $getLowestPollutant()
+                else $facility/pollutantRelease[totalPollutantQuantityKg = $lowestValueActualYear]/pollutant
+            let $thresholdValue := $docANNEXII//row[Codelistvalue = $lowestPollutant]
+                /toAir => functx:if-empty(0) => fn:number()
+
+            let $eligible := $lowestValue > $thresholdValue * 20
+            return
+                if($eligible)
+                (:if(fn:false()):)
+                (:if($reportValue > 0):)
+                then
+                    let $maxQuantity := 123
+                    let $minQuantity := 1
+                    let $ratio := $maxQuantity div $minQuantity
+
+                    let $dataMap := map {
+                        'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                        'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                        'PollutantRelease': map {'pos': 3,
+                            'text': '', 'errorClass': 'td' || $errorType
+                        },
+                        'Year': map {'pos': 4, 'text': ''}
+                    }
+                    return
+                        scripts:generateResultTableRow($dataMap)
+                else ()
+
+
     let $LCP_12_5 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.5",
-            "Time series consistency for ProductionFacility emissions (NOT IMPLEMENTED)",
+            "Time series consistency for ProductionFacility emissions (Partially IMPLEMENTED)",
             $res
     )
     (: C12.6 - Time series consistency for ProductionInstallationPart emissions :)
