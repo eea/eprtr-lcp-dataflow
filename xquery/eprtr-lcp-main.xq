@@ -1592,6 +1592,21 @@ declare function xmlconv:RunQAs(
     let $LCP_11_1 := xmlconv:RowBuilder("EPRTR-LCP 11.1",
             "ProductionFacilityReports without transfers or releases", $res)
 
+    let $getCodes := function (
+        $pollutantNode as element()
+    ) as xs:string {
+        let $nodeName := $pollutantNode/local-name()
+        return
+        if($nodeName = 'pollutantRelease')
+        then ' - ' || scripts:getPollutantCode($pollutantNode/pollutant, $docPollutantLookup)
+            || ' / ' || $pollutantNode/mediumCode => functx:substring-after-last("/")
+        else if($nodeName = 'offsiteWasteTransfer')
+        then ' - ' || $pollutantNode/wasteClassification => functx:substring-after-last("/")
+            || ' / ' || $pollutantNode/wasteTreatment => functx:substring-after-last("/")
+        else ' - ' || scripts:getPollutantCode($pollutantNode/pollutant, $docPollutantLookup)
+    }
+
+
     (: TODO needs more testing :)
     (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
     let $res :=
@@ -1628,19 +1643,6 @@ declare function xmlconv:RunQAs(
                 then 2
                 else 2000
             return $threshold
-        }
-        let $getCodes := function (
-            $pollutantNode as element()
-        ) as xs:string {
-            let $nodeName := $pollutantNode/local-name()
-            return
-            if($nodeName = 'pollutantRelease')
-            then ' - ' || scripts:getPollutantCode($pollutantNode/pollutant, $docPollutantLookup)
-                || ' / ' || $pollutantNode/mediumCode => functx:substring-after-last("/")
-            else if($nodeName = 'offsiteWasteTransfer')
-            then ' - ' || $pollutantNode/wasteClassification => functx:substring-after-last("/")
-                || ' / ' || $pollutantNode/wasteTreatment => functx:substring-after-last("/")
-            else ' - ' || scripts:getPollutantCode($pollutantNode/pollutant, $docPollutantLookup)
         }
 
         let $map := map {
@@ -1845,76 +1847,150 @@ declare function xmlconv:RunQAs(
             against national total and pollutant threshold (NOT IMPLEMENTED)",
             $res
     )
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
     let $res :=
-        let $map := map {
-            "pollutantRelease": map {
-                'filters': ('pollutant','mediumCode')
-            },
-            "offsitePollutantTransfer": map {
-                'filters': ('pollutant')
-            },
-            "offsiteWasteTransfer": map {
-                'filters': ('wasteClassification')
-            }
+        let $getLastYearValue := function (
+            $pollutantNode as element()
+        ) as xs:double {
+            if($pollutantNode/local-name() = 'pollutantRelease')
+            then 1234
+            else if($pollutantNode/local-name() = 'offsitePollutantTransfer')
+            then 2345
+            else -1
         }
-
+        let $getLastYearValueOffsiteWasteTransfer := function (
+            $wasteClassification as xs:string
+        ) as xs:double {
+            3456
+        }
+        let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer', 'offsiteWasteTransfer')
+        let $seq := $docRoot//ProductionFacilityReport
         let $errorType := 'warning'
-        let $text := 'Reported value exceeded parameter value'
-        for $pollutantType in map:keys($map)
-            let $allNodes :=
-                for $pollutantNode in $docRoot//*[local-name() = $pollutantType]
-                let $nodes := array {
-                    for $node in $map?($pollutantType)?filters
-                    return $pollutantNode/*[local-name() = $node]/text() => functx:substring-after-last("/")
+        let $text := 'Threshold exceeded the data compared to the previous year'
+        for $facility in $seq
+            for $pollutantType in $pollutantTypes
+            (:let $trace := trace($pollutantType, "pollutantType: "):)
+            let $result := if($pollutantType != 'offsiteWasteTransfer')
+            then
+                for $pollutantNode in $facility/*[local-name() = $pollutantType]
+                let $reportedValue := $pollutantNode/totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+                let $lastYearValue := $getLastYearValue($pollutantNode)
+                (:let $trace := trace($reportedValue, "reportedValue: "):)
+                (:let $trace := trace($lastYearValue, "lastYearValue: "):)
+                let $ok := (
+                    $reportedValue < $lastYearValue * 2
+                    and
+                    $reportedValue * 10 > $lastYearValue
+                )
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                    'Type': map {'pos': 3, 'text': $pollutantType || $getCodes($pollutantNode)
+                    },
+                    'Reported value': map {'pos': 4,
+                        'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                    },
+                    'Last year value': map {'pos': 5,
+                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(2)
+                    }
                 }
-                return $nodes
+                return
+                    (:if(fn:not($ok)):)
+                    if(fn:false())
+                    (:if($reportedValue > 0):)
+                    then
+                        scripts:generateResultTableRow($dataMap)
+                    else()
 
-            let $asd := trace($pollutantType, "pollutantType: ")
-            let $asd := trace($allNodes, "nodes: ")
-            let $asd := trace($allNodes => count(), "count: ")
-
-
-
-            let $reportedAmount := 1
-            let $lastYearAmount := 1
-
-            let $dataMap := map {
-                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                'InspireId': map {'pos': 2, 'text': '123123'},
-                'Type': map {'pos': 3, 'text': $pollutantType
-                },
-                'Reported value': map {'pos': 4,
-                    'text': $reportedAmount => xs:decimal(), 'errorClass': 'td' || $errorType
-                },
-                'Last year value': map {'pos': 5,
-                    'text': $lastYearAmount => xs:decimal() => fn:round-half-to-even(2)
+            else
+                for $wasteClassification in ('HW', 'NONHW')
+                let $reportedValue := $facility/offsiteWasteTransfer
+                    [wasteClassification => functx:substring-after-last("/") = $wasteClassification]
+                        /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
+                let $lastYearValue := $getLastYearValueOffsiteWasteTransfer($wasteClassification)
+                (:let $trace := trace($wasteClassification, "wasteClassification: "):)
+                (:let $trace := trace($reportedValue, "reportedValue: "):)
+                (:let $trace := trace($lastYearValue, "lastYearValue: "):)
+                let $ok := (
+                    $reportedValue < $lastYearValue * 10
+                    and
+                    $reportedValue * 10 > $lastYearValue
+                )
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                    'Type': map {'pos': 3, 'text': $pollutantType || ' - ' || $wasteClassification
+                    },
+                    'Reported value': map {'pos': 4,
+                        'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                    },
+                    'Last year value': map {'pos': 5,
+                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(2)
+                    }
                 }
-            }
-            let $ok := true()
-            return
-                if(fn:not($ok))
-                (:if(fn:false()):)
-                (:if($reportValue > 0):)
-                then
-                    scripts:generateResultTableRow($dataMap)
-                else()
-
+                return
+                    (:if(fn:not($ok)):)
+                    if(fn:false())
+                    (:if($reportedValue > 0):)
+                    then
+                        scripts:generateResultTableRow($dataMap)
+                    else()
+            return $result
 
     let $LCP_12_3 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.3",
             "Identification of ProductionFacility release/transfer outliers
-            against previous year data at the ProductionFacility level (NOT IMPLEMENTED)",
+            against previous year data at the ProductionFacility level (partially IMPLEMENTED)",
             $res
     )
-    let $res := ()
-    (: TODO implement this :)
+
+    (: TODO needs more testing :)
     (: C12.4 - Time series consistency for ProductionFacility emissions :)
+    let $res :=
+        let $getLastYearValue := function (
+            $emissionNode as element()
+        ) as xs:double {
+            1234
+        }
+        let $seq := $docRoot//ProductionInstallationPartReport
+        let $errorType := 'warning'
+        let $text := 'Threshold exceeded the data compared to the previous year'
+        for $part in $seq
+            for $emissionNode in $part/emissionsToAir
+                let $reportedValue := $emissionNode/totalPollutantQuantityTNE => functx:if-empty(0) => fn:number()
+                let $lastYearValue := $getLastYearValue($emissionNode)
+                (:let $trace := trace($reportedValue, "reportedValue: "):)
+                (:let $trace := trace($lastYearValue, "lastYearValue: "):)
+                let $ok := (
+                    $reportedValue < $lastYearValue * 2
+                    and
+                    $reportedValue * 10 > $lastYearValue
+                )
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                    'Type': map {'pos': 3, 'text': $emissionNode/pollutant => functx:substring-after-last("/")},
+                    'Reported value': map {'pos': 4,
+                        'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                    },
+                    'Last year value': map {'pos': 5,
+                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(2)
+                    }
+                }
+                return
+                    (:if(fn:not($ok)):)
+                    if(fn:false())
+                    (:if($reportedValue > 0):)
+                    then
+                        scripts:generateResultTableRow($dataMap)
+                    else()
+
+
     let $LCP_12_4 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.4",
             "Identification of ProductionInstallationPart emission outliers against
-            previous year data at the ProductionInstallationPart level (NOT IMPLEMENTED)"
+            previous year data at the ProductionInstallationPart level (partially IMPLEMENTED)"
             , $res
     )
     let $res := ()
