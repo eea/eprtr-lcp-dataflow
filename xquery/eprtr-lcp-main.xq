@@ -1602,49 +1602,49 @@ declare function xmlconv:RunQAs(
             || ' / ' || $pollutantNode/mediumCode => functx:substring-after-last("/")
         else if($nodeName = 'offsiteWasteTransfer')
         then ' - ' || $pollutantNode/wasteClassification => functx:substring-after-last("/")
-            || ' / ' || $pollutantNode/wasteTreatment => functx:substring-after-last("/")
+            (:|| ' / ' || $pollutantNode/wasteTreatment => functx:substring-after-last("/"):)
         else ' - ' || scripts:getPollutantCode($pollutantNode/pollutant, $docPollutantLookup)
     }
 
+    let $getThresholdPollutantRelease := function (
+        $pollutantNode as element()
+    ) as xs:double {
+        let $mediumCode := $pollutantNode/mediumCode => functx:substring-after-last("/")
+        let $mediumMap := map {
+            'AIR': 'toAir',
+            'WATER': 'toWater',
+            'LAND': 'toLand'
+        }
+        let $threshold := $docANNEXII//row[Codelistvalue = $pollutantNode/pollutant]
+            /*[local-name() = $mediumMap?($mediumCode)]
+        return if($threshold = 'NA')
+            then -1
+            else $threshold => functx:if-empty(0) => fn:number()
+    }
 
+    let $getThresholdOffsitePollutantTransfer := function (
+        $pollutantNode as element()
+    ) as xs:double {
+        let $threshold := $docANNEXII//row[Codelistvalue = $pollutantNode/pollutant]
+            /toWater
+        return if($threshold = 'NA')
+            then -1
+            else $threshold => functx:if-empty(0) => fn:number()
+    }
+
+    let $getThresholdOffsiteWasteTransfer := function (
+        $pollutantNode as element()
+    ) as xs:double {
+        let $wasteClassification := $pollutantNode/wasteClassification => functx:substring-after-last("/")
+        let $threshold :=
+            if($wasteClassification = 'HW')
+            then 2
+            else 2000
+        return $threshold
+    }
     (: TODO needs more testing :)
     (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
     let $res :=
-        let $getThresholdPollutantRelease := function (
-            $pollutantNode as element()
-        ) as xs:double {
-            let $mediumCode := $pollutantNode/mediumCode => functx:substring-after-last("/")
-            let $mediumMap := map {
-                'AIR': 'toAir',
-                'WATER': 'toWater',
-                'LAND': 'toLand'
-            }
-            let $threshold := $docANNEXII//row[Codelistvalue = $pollutantNode/pollutant]
-                /*[local-name() = $mediumMap?($mediumCode)]
-            return if($threshold = 'NA')
-                then -1
-                else $threshold => functx:if-empty(0) => fn:number()
-        }
-        let $getThresholdOffsitePollutantTransfer := function (
-            $pollutantNode as element()
-        ) as xs:double {
-            let $threshold := $docANNEXII//row[Codelistvalue = $pollutantNode/pollutant]
-                /toWater
-            return if($threshold = 'NA')
-                then -1
-                else $threshold => functx:if-empty(0) => fn:number()
-        }
-        let $getThresholdOffsiteWasteTransfer := function (
-            $pollutantNode as element()
-        ) as xs:double {
-            let $wasteClassification := $pollutantNode/wasteClassification => functx:substring-after-last("/")
-            let $threshold :=
-                if($wasteClassification = 'HW')
-                then 2
-                else 2000
-            return $threshold
-        }
-
         let $map := map {
             "pollutantRelease": map {
                 'getFunction': $getThresholdPollutantRelease,
@@ -1837,14 +1837,118 @@ declare function xmlconv:RunQAs(
             against previous year data at the national level (Partially IMPLEMENTED)",
             $res
     )
-    (: TODO implement this :)
+    (: TODO needs more testing :)
     (: C12.2 - Identification of ProductionFacility release/transfer outliers
         against national total and pollutant threshold :)
-    let $res := ()
+    let $res :=
+        let $getThresholdValue := function (
+            $pollutantNode as element()
+        ) as xs:double {
+            let $type := $pollutantNode/local-name()
+            return
+                if($type = 'pollutantRelease')
+                then $getThresholdPollutantRelease($pollutantNode)
+                else if($type = 'offsitePollutantTransfer')
+                then $getThresholdOffsitePollutantTransfer($pollutantNode)
+                else $getThresholdOffsiteWasteTransfer($pollutantNode)
+        }
+        let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer', 'offsiteWasteTransfer')
+        let $nationalValuesXML :=
+        <data>
+        {
+            for $pollutantNode in $docRoot//ProductionFacilityReport/*[local-name() = $pollutantTypes]
+            return
+            <row>
+                <InspireId>{$pollutantNode/ancestor::ProductionFacilityReport/InspireId/*}</InspireId>
+                <type>{$pollutantNode/local-name()}</type>
+                <EPRTRAnnexIActivity>{scripts:getEPRTRAnnexIActivity('')}</EPRTRAnnexIActivity>
+                <pollutant>{$pollutantNode/pollutant/text()}</pollutant>
+                <mediumCode>{$pollutantNode/mediumCode/text()}</mediumCode>
+                <totalPollutantQuantityKg>
+                    {$pollutantNode/totalPollutantQuantityKg => functx:if-empty(0) => fn:number()}
+                </totalPollutantQuantityKg>
+                <totalWasteQuantityTNE>
+                    {$pollutantNode/totalWasteQuantityTNE => functx:if-empty(0) => fn:number()}
+                </totalWasteQuantityTNE>
+                <wasteClassification>
+                    {$pollutantNode/wasteClassification/text()}
+                </wasteClassification>
+            </row>
+        }
+        </data>
+        (:let $trace := trace($nationalValuesXML, "nationalTotal: "):)
+
+        let $getNationalTotal := function (
+            $pollutantNode as element(),
+            $EPRTRAnnexIActivity as xs:string
+        ) as xs:double {
+            let $type := $pollutantNode/local-name()
+            return
+            if($type = 'offsiteWasteTransfer')
+            then
+                $nationalValuesXML//row[type = $type
+                    and EPRTRAnnexIActivity = $EPRTRAnnexIActivity
+                        and wasteClassification = $pollutantNode/wasteClassification]
+                        /totalWasteQuantityTNE => fn:sum()
+            else if($type = 'pollutantRelease')
+            then
+                $nationalValuesXML//row[type = $type and pollutant = $pollutantNode/pollutant
+                    and EPRTRAnnexIActivity = $EPRTRAnnexIActivity and mediumCode = $pollutantNode/mediumCode]
+                        /totalPollutantQuantityKg => fn:sum()
+            else
+                $nationalValuesXML//row[type = $type and pollutant = $pollutantNode/pollutant
+                    and EPRTRAnnexIActivity = $EPRTRAnnexIActivity]
+                        /totalPollutantQuantityKg => fn:sum()
+        }
+
+        let $seq := $docRoot//ProductionFacilityReport
+        let $errorType := 'warning'
+        let $text := 'Reported value exceeds the threshold conditions'
+
+        for $facility in $seq
+            let $InspireId := $facility/InspireId
+            let $EPRTRAnnexIActivity :=
+                $nationalValuesXML//row[InspireId/data() = $InspireId/data()][1]/EPRTRAnnexIActivity/text()
+            for $pollutantNode in $facility/*[local-name() = $pollutantTypes]
+                let $pollutantType := $pollutantNode/local-name()
+                let $nationalTotal := $getNationalTotal($pollutantNode, $EPRTRAnnexIActivity)
+                let $reportedValue :=
+                    $pollutantNode/totalPollutantQuantityKg => functx:if-empty($pollutantNode/totalWasteQuantityTNE)
+                        => functx:if-empty(0) => fn:number()
+                let $thresholdValue := $getThresholdValue($pollutantNode)
+                let $notOk := (
+                    $reportedValue > $thresholdValue * 10000
+                    and
+                    $reportedValue > $nationalTotal div 10
+                )
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                    'Type': map {'pos': 3, 'text': $pollutantType || $getCodes($pollutantNode)
+                    },
+                    'Reported value': map {'pos': 4,
+                        'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                    },
+                    'National total': map {'pos': 5,
+                        'text': $nationalTotal => xs:decimal() => fn:round-half-to-even(2)
+                    },
+                    'Threshold value': map {'pos': 6,
+                        'text': $thresholdValue => xs:decimal() => fn:round-half-to-even(2)
+                    }
+                }
+                return
+                    (:if($notOk):)
+                    if(fn:false())
+                    (:if($reportedValue > 0):)
+                    then
+                        scripts:generateResultTableRow($dataMap)
+                    else()
+
+
     let $LCP_12_2 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.2",
             "Identification of ProductionFacility release/transfer outliers
-            against national total and pollutant threshold (NOT IMPLEMENTED)",
+            against national total and pollutant threshold (partially IMPLEMENTED)",
             $res
     )
     (: TODO needs more testing :)
