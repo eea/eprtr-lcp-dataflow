@@ -1,8 +1,23 @@
 <data>
     <ProductionFacility>
+        <year/>
         <InspireId/>
         <EPRTRAnnexIActivity/>
         <StatusType/>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE/>
+            <wasteClassification/>
+            <wasteTreatment/>
+        </offsiteWasteTransfer>
+        <offsitePoluantTransfer>
+            <totalPollutantQuantityKg/>
+            <pollutant/>
+        </offsitePoluantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg/>
+            <mediumCode/>
+            <pollutant/>
+        </pollutantRelease>
     </ProductionFacility>
     <ProductionFacility>
         ....
@@ -11,12 +26,3 @@
         ....
     </ProductionFacility>
 </data>
-
-
-8.2
-a look-up table of ProductionInstallationPart derogations from the previous reporting year
-be added to the semantic data service
-
-11.2
-a look-up table populated with threshold values stipulated in Annex II of Regulation (EC) No 166/2006
-
