@@ -415,7 +415,8 @@ declare function xmlconv:RunQAs(
             }
             let $ok := $featureType/InspireId/data() = $map?($featureType/local-name())
             return
-                if(not($ok))
+                (:if(not($ok)):)
+                if(false())
                 then scripts:generateResultTableRow($dataMap)
                 else ()
     let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency (Partially IMPLEMENTED)", $res)
@@ -441,7 +442,8 @@ declare function xmlconv:RunQAs(
             }
             let $ok := $inspideId = $reportInspireIds
             return
-                if(not($ok))
+                (:if(not($ok)):)
+                if(false())
                 then scripts:generateResultTableRow($dataMap)
                 else ()
     let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (Partially IMPLEMENTED)", $res)
@@ -622,7 +624,7 @@ declare function xmlconv:RunQAs(
             "postalCode",
             "streetName"
         )
-        let $seq := $docRoot//offsiteWasteTransfer
+        let $seq := $docRoot//offsiteWasteTransfer[wasteClassification => functx:substring-after-last("/") = 'HW']
         for $elem in $seq
         for $attr in $attributesToVerify
         for $el in $elem//*[fn:local-name() = $attr]
@@ -630,16 +632,15 @@ declare function xmlconv:RunQAs(
             if(functx:if-empty($el, "") = "")
             then
                 <tr>
-                    <td class='warning' title="Details"> Attribute should contain a character string</td>
+                    <td class='info' title="Details"> Attribute should contain a character string</td>
                     <td title="attribute"> {$attr} </td>
-                    <td class="tdwarning" title="Value"> {fn:data($el)} </td>
-                    <td title="localId">
-                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
+                    <td class="tdinfo" title="Value"> {fn:data($el)} </td>
+                    <td title="InspireId">
+                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId}
                     </td>
-                    <td title="namespace">
-                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/namespace}
+                    <td title="Attribute">
+                        {functx:path-to-node($el)=>functx:substring-after-last('transboundaryTransfer/')}
                     </td>
-                    <td title="path">{functx:path-to-node($el)}</td>
                 </tr>
             else
                 ()
@@ -1022,8 +1023,8 @@ declare function xmlconv:RunQAs(
                     then $pollutantQuantityKg <= $parentFacilityQuantityKg div 2
                     else $pollutantQuantityKg <= $parentFacilityQuantityKg
                 return
-                    (:if(true()):)
-                    if(not($ok))
+                    if(false())
+                    (:if(not($ok)):)
                     then scripts:generateResultTableRow($dataMap)
                     else ()
     let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (Partially IMPLEMENTED)", $res)
@@ -1082,8 +1083,8 @@ declare function xmlconv:RunQAs(
                     else $totalPartsQuantityKg <= $facilityQuantityKg
 
                 return
-                    (:if(true()):)
-                    if(not($ok))
+                    if(false())
+                    (:if(not($ok)):)
                     then scripts:generateResultTableRow($dataMap)
                     else ()
     let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (Partially IMPLEMENTED)", $res)
@@ -1144,8 +1145,8 @@ declare function xmlconv:RunQAs(
                 'Parent facility number of operating hours': map {'pos': 4, 'text': $parentFacilityNrOfOperatingHours}
             }
             return
-                if($errors > 0)
-                (:if(true()):)
+                (:if($errors > 0):)
+                if(false())
                 then scripts:generateResultTableRow($dataMap)
                 else ()
 
@@ -1223,8 +1224,8 @@ declare function xmlconv:RunQAs(
                 'Additional info': map {'pos': 3, 'text': $errorMap?($errorNr), 'errorClass': 'td' || $errorType}
             }
             return
-                if($errorNr > 0)
-                (:if(true()):)
+                (:if($errorNr > 0):)
+                if(false())
                 then scripts:generateResultTableRow($dataMap)
                 else ()
     let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance (partially IMPLEMENTED)", $res)
@@ -1256,8 +1257,8 @@ declare function xmlconv:RunQAs(
                 'InspireId': map {'pos': 2, 'text': $part/InspireId, 'errorClass': 'td' || $errorType}
             }
             return
-                if(not($ok))
-                (:if(true()):)
+                (:if(not($ok)):)
+                if(false())
                 then scripts:generateResultTableRow($dataMap)
                 else ()
 
@@ -1283,8 +1284,8 @@ declare function xmlconv:RunQAs(
                     map {'pos': 3, 'text': $proportion || '%', 'errorClass': 'td' || $errorType}
             }
             return
-                if(not($ok))
-                (:if(true()):)
+                (:if(not($ok)):)
+                if(false())
                 then scripts:generateResultTableRow($dataMap)
                 else ()
 
@@ -1439,8 +1440,8 @@ declare function xmlconv:RunQAs(
                 then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100 < 100
                 else ($aggregatedPartsCO2 div $reportedCO2) * 100 - 100 < 30
             return
-                if(fn:not($ok))
-                (:if(fn:true()):)
+                (:if(fn:not($ok)):)
+                if(fn:false())
                 (:if($reportValue > 0):)
                 then
                     scripts:generateResultTableRow($dataMap)
@@ -2121,8 +2122,8 @@ declare function xmlconv:RunQAs(
 
             let $eligible := $lowestValue > $thresholdValue * 20
             return
-                if($eligible)
-                (:if(fn:false()):)
+                (:if($eligible):)
+                if(fn:false())
                 (:if($reportValue > 0):)
                 then
                     let $maxQuantity := 123
@@ -2552,8 +2553,8 @@ declare function xmlconv:RunQAs(
                         'European 10th value (in Kg)': map {'pos': 5, 'text': $lookupTableValue => xs:decimal()}
                     }
                     return
-                        if(not($ok))
-                        (:if(true()):)
+                        (:if(not($ok)):)
+                        if(false())
                         then scripts:generateResultTableRow($dataMap)
                         else ()
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
@@ -2803,14 +2804,14 @@ declare function xmlconv:RunQAs(
         let $ok := (
             $elemValue castable as xs:double
             and
-            fn:string-length(fn:substring-after($elemValue, '.') ) <= 3
+            fn:string-length(fn:substring-after($elemValue, '.') ) >= 3
         )
         return
             if(fn:not($ok))
             then
                 <tr>
                     <td class='warning' title="Details">Numerical format reporting requirements not met</td>
-                    <td class="tdwarning" title="attribute name"> {fn:node-name($elem)} </td>
+                    <td title="attribute name"> {fn:node-name($elem)} </td>
                     <td class="tdwarning" title="value"> {$elemValue} </td>
                     <td title="localId">
                         {$elem/ancestor-or-self::*[fn:local-name() =
