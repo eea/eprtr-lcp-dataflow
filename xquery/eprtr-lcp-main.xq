@@ -27,29 +27,29 @@ declare variable $source_url as xs:string external;
 (:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
-    "../lookup-tables/EPRTR-LCP_PollutantLookup.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_PollutantLookup.xml";
 declare variable $xmlconv:CrossPollutants as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C10.3_CrossPollutants.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.3_CrossPollutants.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.1_OffsiteWasteTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.1_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.1_PollutantTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.1_PollutantTransfer.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.1_PollutantRelease.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.1_PollutantRelease.xml";
 declare variable $xmlconv:ANNEX_II_THRESHOLD as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C12.2_ThreshholdLookup.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C12.2_ThreshholdLookup.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantRelease as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.4_PollutantRelease.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.4_PollutantRelease.xml";
 declare variable $xmlconv:QUANTITY_OF_PollutantTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.4_PollutantTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.4_PollutantTransfer.xml";
 declare variable $xmlconv:QUANTITY_OF_OffsiteWasteTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C13.4_OffsiteWasteTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C13.4_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:EUROPEAN_TOTAL_PollutantRelease as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C14.2_PollutantRelease.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C14.2_PollutantRelease.xml";
 declare variable $xmlconv:EUROPEAN_TOTAL_PollutantTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C14.2_PollutantTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C14.2_PollutantTransfer.xml";
 declare variable $xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer as xs:string :=
-    "../lookup-tables/EPRTR-LCP_C14.2_OffsiteWasteTransfer.xml";
+    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C14.2_OffsiteWasteTransfer.xml";
 declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.1-C10.2_EFLookup.xml";
 declare variable $xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER as xs:string :=
