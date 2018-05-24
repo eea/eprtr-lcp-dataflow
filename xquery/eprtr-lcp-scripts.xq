@@ -98,18 +98,24 @@ declare function scripts:checkOtherFuelDuplicates(
                 else ()
 };
 
-
+declare function scripts:getCodelistvalueForOldCode(
+    $pollutantCode as xs:string,
+    $docPollutantLookup as document-node()
+) as xs:string {
+    $docPollutantLookup//row[Newcodelistvalue = $pollutantCode]
+            /Previouscodelistvalue/text() => functx:if-empty('')
+};
 declare function scripts:getCodelistvalue(
     $pollutantCode as xs:string,
     $docPollutantLookup as document-node()
 ) as xs:string {
-    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Codelistvalue/text()
+    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Newcodelistvalue/text()
 };
 declare function scripts:getPollutantCode(
     $codeListValue as xs:string,
     $docPollutantLookup as document-node()
 ) as xs:string {
-    $docPollutantLookup//row[Codelistvalue = $codeListValue]/PollutantCode/text() => functx:if-empty('Not Found')
+    $docPollutantLookup//row[Newcodelistvalue = $codeListValue]/PollutantCode/text() => functx:if-empty('Not Found')
 };
 
 declare function scripts:getCodeNotation (
@@ -221,7 +227,7 @@ declare function scripts:getreportCountOfPollutantWasteTransfer(
 ) as xs:double{
     if($code2 = 'CONFIDENTIAL')
     then
-        if($code1 = 'NON-HW')
+        if($code1 = 'NONHW')
         then $doc//*[fn:local-name() = $pollutant and functx:substring-after-last(wasteClassification, "/") = 'NONHW'
                 and fn:string-length(confidentialityReason) > 0] => fn:count()
         else if($code1 = 'HWIC')
@@ -234,7 +240,7 @@ declare function scripts:getreportCountOfPollutantWasteTransfer(
                 and transboundaryTransfer/fn:data() => fn:string-length() > 0] => fn:count()
         else -1
     else
-        if($code1 = 'NON-HW')
+        if($code1 = 'NONHW')
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'NONHW'
                 (:and confidentialityReason => fn:string-length() = 0:)
                 and wasteTreatment => functx:substring-after-last("/") = $code2] => fn:count()
@@ -322,7 +328,8 @@ declare function scripts:compareNumberOfPollutants(
     $map1 as map(xs:string, map(*)),
     $country_code as xs:string,
     $docRoot as document-node(),
-    $docPollutantLookup as document-node()
+    $docPollutantLookup as document-node(),
+    $errorText as xs:string
 ) as element()* {
     let $look-up-year := $docRoot//reportingYear => fn:number() - 2
     (:let $asd := trace(map:keys($map1),'keys: '):)
@@ -363,10 +370,12 @@ declare function scripts:compareNumberOfPollutants(
                 let $ok := (
                     $changePercentage <= 50
                     or
-                    $CountOfPollutantCode = 0
+                    ($CountOfPollutantCode = 0
+                    and
+                    $reportCountOfPollutantCode = 0)
                 )
                 let $errorType :=
-                    if($changePercentage > 100)
+                    if($changePercentage >= 100)
                     then 'warning'
                     else 'info'
                 return
@@ -375,7 +384,7 @@ declare function scripts:compareNumberOfPollutants(
                     then
                     <tr>
                         <td class='{$errorType}' title="Details">
-                            Number of reported pollutants changes by more than {
+                            {$errorText || ' '} {
                             if($errorType = 'warning')
                             then '100%' else '50%'
                         }
@@ -402,7 +411,7 @@ declare function scripts:getreportFacilityTotalsWasteTransfer(
     $code2 as xs:string,
     $facility as element()
 ) as xs:double{
-    if($code1 = 'NON-HW')
+    if($code1 = 'NONHW')
     then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW'
             and wasteTreatment => functx:substring-after-last("/") = $code2]/totalWasteQuantityTNE => fn:sum()
     else if($code1 = 'HWIC')
@@ -479,7 +488,7 @@ declare function scripts:getreportTotalsOfPollutantWasteTransfer(
     $code2 as xs:string,
     $doc as document-node()
 ) as xs:double{
-    if($code1 = 'NON-HW')
+    if($code1 = 'NONHW')
     then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW']
             /totalWasteQuantityTNE => fn:sum()
     else if($code1 = 'HWIC')
@@ -502,7 +511,7 @@ declare function scripts:getreportTotalsOfPollutant(
         $doc//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
                 /totalPollutantQuantityKg => fn:sum() => functx:if-empty(0)
     else if($pollutant = 'pollutantRelease')
-        then $doc//pollutantRelease[mediumCode = $code1
+        then $doc//pollutantRelease[mediumCode=>functx:substring-after-last("/") = $code1
                 and pollutant = $code2=>scripts:getCodelistvalue($docPollutantLookup)]
                     /totalPollutantQuantityKg => fn:sum() => functx:if-empty(0)
     else if($pollutant = 'offsiteWasteTransfer')

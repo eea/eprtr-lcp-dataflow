@@ -3,946 +3,946 @@
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>AT</MemberState>
     <SumOfSO2>2938.215</SumOfSO2>
-    <SumOfNOx>7312.946</SumOfNOx>
-    <SumOfDust>520.8764</SumOfDust>
+    <SumOfNOX>7312.946</SumOfNOX>
+    <SumOfDUST>520.8764</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2923.65433333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6765.65266666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>451.723133333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6765.65266666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>451.723133333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>BE</MemberState>
     <SumOfSO2>3012.04733272</SumOfSO2>
-    <SumOfNOx>11617.46</SumOfNOx>
-    <SumOfDust>212.353906474</SumOfDust>
+    <SumOfNOX>11617.46</SumOfNOX>
+    <SumOfDUST>212.353906474</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2789.04321024</Avg_3yr_SO2>
-    <Avg_3yr_NOx>10981.1819933333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>201.710615491333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>10981.1819933333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>201.710615491333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>BG</MemberState>
     <SumOfSO2>116666</SumOfSO2>
-    <SumOfNOx>36846</SumOfNOx>
-    <SumOfDust>4479</SumOfDust>
+    <SumOfNOX>36846</SumOfNOX>
+    <SumOfDUST>4479</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>101339.333333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>35041</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3156</Avg_3yr_Dust>
+    <Avg_3yr_NOX>35041</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3156</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>CY</MemberState>
     <SumOfSO2>10396.064</SumOfSO2>
-    <SumOfNOx>2908</SumOfNOx>
-    <SumOfDust>344.95</SumOfDust>
+    <SumOfNOX>2908</SumOfNOX>
+    <SumOfDUST>344.95</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>11302.5613333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>3012.4</Avg_3yr_NOx>
-    <Avg_3yr_Dust>325.612333333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>3012.4</Avg_3yr_NOX>
+    <Avg_3yr_DUST>325.612333333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>CZ</MemberState>
     <SumOfSO2>98321.4169999999</SumOfSO2>
-    <SumOfNOx>65812.439</SumOfNOx>
-    <SumOfDust>3389.19</SumOfDust>
+    <SumOfNOX>65812.439</SumOfNOX>
+    <SumOfDUST>3389.19</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>91865.8209146666</Avg_3yr_SO2>
-    <Avg_3yr_NOx>60429.3933633333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3131.52400933333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>60429.3933633333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3131.52400933333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>DE</MemberState>
     <SumOfSO2>171647.28</SumOfSO2>
-    <SumOfNOx>236116.916</SumOfNOx>
-    <SumOfDust>5586.923</SumOfDust>
+    <SumOfNOX>236116.916</SumOfNOX>
+    <SumOfDUST>5586.923</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>158361.853</Avg_3yr_SO2>
-    <Avg_3yr_NOx>226074.366333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5292.48466666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>226074.366333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5292.48466666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>DK</MemberState>
     <SumOfSO2>3607.904</SumOfSO2>
-    <SumOfNOx>9322.036</SumOfNOx>
-    <SumOfDust>761.849</SumOfDust>
+    <SumOfNOX>9322.036</SumOfNOX>
+    <SumOfDUST>761.849</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2550.78676666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6678.55706666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>494.158033333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6678.55706666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>494.158033333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>EE</MemberState>
     <SumOfSO2>25991.783</SumOfSO2>
-    <SumOfNOx>9430.346</SumOfNOx>
-    <SumOfDust>7865.918</SumOfDust>
+    <SumOfNOX>9430.346</SumOfNOX>
+    <SumOfDUST>7865.918</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>25354.0541666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>8518.35166666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5721.23533333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>8518.35166666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5721.23533333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>ES</MemberState>
     <SumOfSO2>102280.717</SumOfSO2>
-    <SumOfNOx>96210.53</SumOfNOx>
-    <SumOfDust>5402.8544</SumOfDust>
+    <SumOfNOX>96210.53</SumOfNOX>
+    <SumOfDUST>5402.8544</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>120783.045439333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>107527.578</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5649.60409753333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>107527.578</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5649.60409753333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>FI</MemberState>
     <SumOfSO2>19837.72</SumOfSO2>
-    <SumOfNOx>31445.32</SumOfNOx>
-    <SumOfDust>1086.29</SumOfDust>
+    <SumOfNOX>31445.32</SumOfNOX>
+    <SumOfDUST>1086.29</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>17172.2033333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>28106.5433333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>906.66</Avg_3yr_Dust>
+    <Avg_3yr_NOX>28106.5433333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>906.66</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>FR</MemberState>
     <SumOfSO2>93099.4889906055</SumOfSO2>
-    <SumOfNOx>64859.8113544762</SumOfNOx>
-    <SumOfDust>4862.74438768755</SumOfDust>
+    <SumOfNOX>64859.8113544762</SumOfNOX>
+    <SumOfDUST>4862.74438768755</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>65551.2056916157</Avg_3yr_SO2>
-    <Avg_3yr_NOx>48752.0726085965</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3345.17000365601</Avg_3yr_Dust>
+    <Avg_3yr_NOX>48752.0726085965</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3345.17000365601</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>GR</MemberState>
     <SumOfSO2>58683.73496</SumOfSO2>
-    <SumOfNOx>43849.02416</SumOfNOx>
-    <SumOfDust>12754.991</SumOfDust>
+    <SumOfNOX>43849.02416</SumOfNOX>
+    <SumOfDUST>12754.991</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>54006.6854428895</Avg_3yr_SO2>
-    <Avg_3yr_NOx>39706.2605676597</Avg_3yr_NOx>
-    <Avg_3yr_Dust>9586.914375065</Avg_3yr_Dust>
+    <Avg_3yr_NOX>39706.2605676597</Avg_3yr_NOX>
+    <Avg_3yr_DUST>9586.914375065</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>HR</MemberState>
     <SumOfSO2>10238.546</SumOfSO2>
-    <SumOfNOx>8819.536</SumOfNOx>
-    <SumOfDust>163.684</SumOfDust>
+    <SumOfNOX>8819.536</SumOfNOX>
+    <SumOfDUST>163.684</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7720.42795966667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>5868.266026</Avg_3yr_NOx>
-    <Avg_3yr_Dust>170.35426</Avg_3yr_Dust>
+    <Avg_3yr_NOX>5868.266026</Avg_3yr_NOX>
+    <Avg_3yr_DUST>170.35426</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>HU</MemberState>
     <SumOfSO2>8676.4966</SumOfSO2>
-    <SumOfNOx>13127.856</SumOfNOx>
-    <SumOfDust>441.092</SumOfDust>
+    <SumOfNOX>13127.856</SumOfNOX>
+    <SumOfDUST>441.092</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>8314.11083333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>12423.135</Avg_3yr_NOx>
-    <Avg_3yr_Dust>423.317666666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>12423.135</Avg_3yr_NOX>
+    <Avg_3yr_DUST>423.317666666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>IE</MemberState>
     <SumOfSO2>10188.1084</SumOfSO2>
-    <SumOfNOx>9244.5479</SumOfNOx>
-    <SumOfDust>387.9599</SumOfDust>
+    <SumOfNOX>9244.5479</SumOfNOX>
+    <SumOfDUST>387.9599</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7301.85613333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>8904.6593</Avg_3yr_NOx>
-    <Avg_3yr_Dust>303.6433</Avg_3yr_Dust>
+    <Avg_3yr_NOX>8904.6593</Avg_3yr_NOX>
+    <Avg_3yr_DUST>303.6433</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>IT</MemberState>
     <SumOfSO2>45725.58</SumOfSO2>
-    <SumOfNOx>58612.356</SumOfNOx>
-    <SumOfDust>1849.79</SumOfDust>
+    <SumOfNOX>58612.356</SumOfNOX>
+    <SumOfDUST>1849.79</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>36990.5106266812</Avg_3yr_SO2>
-    <Avg_3yr_NOx>52179.3705260543</Avg_3yr_NOx>
-    <Avg_3yr_Dust>1589.89284784383</Avg_3yr_Dust>
+    <Avg_3yr_NOX>52179.3705260543</Avg_3yr_NOX>
+    <Avg_3yr_DUST>1589.89284784383</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>LT</MemberState>
     <SumOfSO2>3484.1299</SumOfSO2>
-    <SumOfNOx>2881.5572</SumOfNOx>
-    <SumOfDust>180.1538</SumOfDust>
+    <SumOfNOX>2881.5572</SumOfNOX>
+    <SumOfDUST>180.1538</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3421.3567</Avg_3yr_SO2>
-    <Avg_3yr_NOx>2706.7683</Avg_3yr_NOx>
-    <Avg_3yr_Dust>205.087</Avg_3yr_Dust>
+    <Avg_3yr_NOX>2706.7683</Avg_3yr_NOX>
+    <Avg_3yr_DUST>205.087</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>LU</MemberState>
     <SumOfSO2>2.173</SumOfSO2>
-    <SumOfNOx>175.329</SumOfNOx>
-    <SumOfDust>0.031</SumOfDust>
+    <SumOfNOX>175.329</SumOfNOX>
+    <SumOfDUST>0.031</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>1.88333333333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>157.786666666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>0.018</Avg_3yr_Dust>
+    <Avg_3yr_NOX>157.786666666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>0.018</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>LV</MemberState>
     <SumOfSO2>48.7303</SumOfSO2>
-    <SumOfNOx>1053.868</SumOfNOx>
-    <SumOfDust>2.43609</SumOfDust>
+    <SumOfNOX>1053.868</SumOfNOX>
+    <SumOfDUST>2.43609</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>94.4519</Avg_3yr_SO2>
-    <Avg_3yr_NOx>985.321666666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>4.71849666666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>985.321666666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>4.71849666666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>MT</MemberState>
     <SumOfSO2>4880.283</SumOfSO2>
-    <SumOfNOx>2954.175</SumOfNOx>
-    <SumOfDust>228.037</SumOfDust>
+    <SumOfNOX>2954.175</SumOfNOX>
+    <SumOfDUST>228.037</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3815.52766666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>2445.59166666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>254.423</Avg_3yr_Dust>
+    <Avg_3yr_NOX>2445.59166666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>254.423</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>NL</MemberState>
     <SumOfSO2>12550.439</SumOfSO2>
-    <SumOfNOx>25510.516</SumOfNOx>
-    <SumOfDust>375.66587</SumOfDust>
+    <SumOfNOX>25510.516</SumOfNOX>
+    <SumOfDUST>375.66587</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>12237.1548566667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>24351.4013778667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>397.353688793333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>24351.4013778667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>397.353688793333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>PL</MemberState>
     <SumOfSO2>337034.765</SumOfSO2>
-    <SumOfNOx>223849.135</SumOfNOx>
-    <SumOfDust>15882.704</SumOfDust>
+    <SumOfNOX>223849.135</SumOfNOX>
+    <SumOfDUST>15882.704</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>321076.624958419</Avg_3yr_SO2>
-    <Avg_3yr_NOx>204179.102064156</Avg_3yr_NOx>
-    <Avg_3yr_Dust>14700.7404736064</Avg_3yr_Dust>
+    <Avg_3yr_NOX>204179.102064156</Avg_3yr_NOX>
+    <Avg_3yr_DUST>14700.7404736064</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>PT</MemberState>
     <SumOfSO2>6928.808</SumOfSO2>
-    <SumOfNOx>8929.397</SumOfNOx>
-    <SumOfDust>307.8447</SumOfDust>
+    <SumOfNOX>8929.397</SumOfNOX>
+    <SumOfDUST>307.8447</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>6570.18127666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>9432.33138</Avg_3yr_NOx>
-    <Avg_3yr_Dust>314.682053333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>9432.33138</Avg_3yr_NOX>
+    <Avg_3yr_DUST>314.682053333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>RO</MemberState>
     <SumOfSO2>160416.57036</SumOfSO2>
-    <SumOfNOx>42438.2274</SumOfNOx>
-    <SumOfDust>10052.082</SumOfDust>
+    <SumOfNOX>42438.2274</SumOfNOX>
+    <SumOfDUST>10052.082</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>134056.166453333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>40933.1624666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>7651.39113333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>40933.1624666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>7651.39113333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>SE</MemberState>
     <SumOfSO2>1844.564</SumOfSO2>
-    <SumOfNOx>6520.8322</SumOfNOx>
-    <SumOfDust>453.7355</SumOfDust>
+    <SumOfNOX>6520.8322</SumOfNOX>
+    <SumOfDUST>453.7355</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>1404.77055622967</Avg_3yr_SO2>
-    <Avg_3yr_NOx>5533.43611963333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>361.193634264667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>5533.43611963333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>361.193634264667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>SI</MemberState>
     <SumOfSO2>5292.3746</SumOfSO2>
-    <SumOfNOx>8429.6865</SumOfNOx>
-    <SumOfDust>269.2994</SumOfDust>
+    <SumOfNOX>8429.6865</SumOfNOX>
+    <SumOfDUST>269.2994</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3551.59305666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6307.74671333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>184.13883</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6307.74671333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>184.13883</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>SK</MemberState>
     <SumOfSO2>40395.811195</SumOfSO2>
-    <SumOfNOx>12852.697763</SumOfNOx>
-    <SumOfDust>760.125452</SumOfDust>
+    <SumOfNOX>12852.697763</SumOfNOX>
+    <SumOfDUST>760.125452</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>42312.5381637611</Avg_3yr_SO2>
-    <Avg_3yr_NOx>11461.8171722742</Avg_3yr_NOx>
-    <Avg_3yr_Dust>737.448722134254</Avg_3yr_Dust>
+    <Avg_3yr_NOX>11461.8171722742</Avg_3yr_NOX>
+    <Avg_3yr_DUST>737.448722134254</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2013</ReferenceYear>
     <MemberState>UK</MemberState>
     <SumOfSO2>176327.37147</SumOfSO2>
-    <SumOfNOx>222530.019</SumOfNOx>
-    <SumOfDust>7992.83175</SumOfDust>
+    <SumOfNOX>222530.019</SumOfNOX>
+    <SumOfDUST>7992.83175</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>141484.089077933</Avg_3yr_SO2>
-    <Avg_3yr_NOx>195693.636333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>6728.96845</Avg_3yr_Dust>
+    <Avg_3yr_NOX>195693.636333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>6728.96845</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>AT</MemberState>
     <SumOfSO2>3164.99</SumOfSO2>
-    <SumOfNOx>6439.848</SumOfNOx>
-    <SumOfDust>434.957</SumOfDust>
+    <SumOfNOX>6439.848</SumOfNOX>
+    <SumOfDUST>434.957</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2923.65433333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6765.65266666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>451.723133333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6765.65266666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>451.723133333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>BE</MemberState>
     <SumOfSO2>2413.081888</SumOfSO2>
-    <SumOfNOx>10220.07438</SumOfNOx>
-    <SumOfDust>162.64907</SumOfDust>
+    <SumOfNOX>10220.07438</SumOfNOX>
+    <SumOfDUST>162.64907</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2789.04321024</Avg_3yr_SO2>
-    <Avg_3yr_NOx>10981.1819933333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>201.710615491333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>10981.1819933333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>201.710615491333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>BG</MemberState>
     <SumOfSO2>112814</SumOfSO2>
-    <SumOfNOx>37926</SumOfNOx>
-    <SumOfDust>3775</SumOfDust>
+    <SumOfNOX>37926</SumOfNOX>
+    <SumOfDUST>3775</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>101339.333333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>35041</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3156</Avg_3yr_Dust>
+    <Avg_3yr_NOX>35041</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3156</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>CY</MemberState>
     <SumOfSO2>13186</SumOfSO2>
-    <SumOfNOx>2979.7</SumOfNOx>
-    <SumOfDust>286.38</SumOfDust>
+    <SumOfNOX>2979.7</SumOfNOX>
+    <SumOfDUST>286.38</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>11302.5613333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>3012.4</Avg_3yr_NOx>
-    <Avg_3yr_Dust>325.612333333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>3012.4</Avg_3yr_NOX>
+    <Avg_3yr_DUST>325.612333333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>CZ</MemberState>
     <SumOfSO2>91711.25222</SumOfSO2>
-    <SumOfNOx>60134.91709</SumOfNOx>
-    <SumOfDust>3135.99902</SumOfDust>
+    <SumOfNOX>60134.91709</SumOfNOX>
+    <SumOfDUST>3135.99902</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>91865.8209146666</Avg_3yr_SO2>
-    <Avg_3yr_NOx>60429.3933633333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3131.52400933333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>60429.3933633333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3131.52400933333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>DE</MemberState>
     <SumOfSO2>157813.981</SumOfSO2>
-    <SumOfNOx>223174.776</SumOfNOx>
-    <SumOfDust>5215.91500000001</SumOfDust>
+    <SumOfNOX>223174.776</SumOfNOX>
+    <SumOfDUST>5215.91500000001</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>158361.853</Avg_3yr_SO2>
-    <Avg_3yr_NOx>226074.366333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5292.48466666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>226074.366333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5292.48466666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>DK</MemberState>
     <SumOfSO2>2238.6723</SumOfSO2>
-    <SumOfNOx>6096.6432</SumOfNOx>
-    <SumOfDust>480.5294</SumOfDust>
+    <SumOfNOX>6096.6432</SumOfNOX>
+    <SumOfDUST>480.5294</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2550.78676666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6678.55706666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>494.158033333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6678.55706666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>494.158033333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>EE</MemberState>
     <SumOfSO2>29704.8305</SumOfSO2>
-    <SumOfNOx>9362.536</SumOfNOx>
-    <SumOfDust>5923.434</SumOfDust>
+    <SumOfNOX>9362.536</SumOfNOX>
+    <SumOfDUST>5923.434</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>25354.0541666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>8518.35166666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5721.23533333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>8518.35166666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5721.23533333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>ES</MemberState>
     <SumOfSO2>123832.838</SumOfSO2>
-    <SumOfNOx>106734.997</SumOfNOx>
-    <SumOfDust>5654.362</SumOfDust>
+    <SumOfNOX>106734.997</SumOfNOX>
+    <SumOfDUST>5654.362</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>120783.045439333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>107527.578</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5649.60409753333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>107527.578</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5649.60409753333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>FI</MemberState>
     <SumOfSO2>17240.91</SumOfSO2>
-    <SumOfNOx>28686.69</SumOfNOx>
-    <SumOfDust>839.78</SumOfDust>
+    <SumOfNOX>28686.69</SumOfNOX>
+    <SumOfDUST>839.78</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>17172.2033333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>28106.5433333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>906.66</Avg_3yr_Dust>
+    <Avg_3yr_NOX>28106.5433333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>906.66</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>FR</MemberState>
     <SumOfSO2>57610.2926067225</SumOfSO2>
-    <SumOfNOx>42288.761835282</SumOfNOx>
-    <SumOfDust>2545.64655620457</SumOfDust>
+    <SumOfNOX>42288.761835282</SumOfNOX>
+    <SumOfDUST>2545.64655620457</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>65551.2056916157</Avg_3yr_SO2>
-    <Avg_3yr_NOx>48752.0726085965</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3345.17000365601</Avg_3yr_Dust>
+    <Avg_3yr_NOX>48752.0726085965</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3345.17000365601</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>GR</MemberState>
     <SumOfSO2>52199.5706686684</SumOfSO2>
-    <SumOfNOx>40357.662542979</SumOfNOx>
-    <SumOfDust>12706.994425195</SumOfDust>
+    <SumOfNOX>40357.662542979</SumOfNOX>
+    <SumOfDUST>12706.994425195</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>54006.6854428895</Avg_3yr_SO2>
-    <Avg_3yr_NOx>39706.2605676597</Avg_3yr_NOx>
-    <Avg_3yr_Dust>9586.914375065</Avg_3yr_Dust>
+    <Avg_3yr_NOX>39706.2605676597</Avg_3yr_NOX>
+    <Avg_3yr_DUST>9586.914375065</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>HR</MemberState>
     <SumOfSO2>5847.67589</SumOfSO2>
-    <SumOfNOx>5084.78063</SumOfNOx>
-    <SumOfDust>185.28747</SumOfDust>
+    <SumOfNOX>5084.78063</SumOfNOX>
+    <SumOfDUST>185.28747</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7720.42795966667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>5868.266026</Avg_3yr_NOx>
-    <Avg_3yr_Dust>170.35426</Avg_3yr_Dust>
+    <Avg_3yr_NOX>5868.266026</Avg_3yr_NOX>
+    <Avg_3yr_DUST>170.35426</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>HU</MemberState>
     <SumOfSO2>9410.8439</SumOfSO2>
-    <SumOfNOx>11721.595</SumOfNOx>
-    <SumOfDust>446.432</SumOfDust>
+    <SumOfNOX>11721.595</SumOfNOX>
+    <SumOfDUST>446.432</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>8314.11083333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>12423.135</Avg_3yr_NOx>
-    <Avg_3yr_Dust>423.317666666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>12423.135</Avg_3yr_NOX>
+    <Avg_3yr_DUST>423.317666666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>IE</MemberState>
     <SumOfSO2>6494.09</SumOfSO2>
-    <SumOfNOx>7874.67</SumOfNOx>
-    <SumOfDust>269.42</SumOfDust>
+    <SumOfNOX>7874.67</SumOfNOX>
+    <SumOfDUST>269.42</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7301.85613333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>8904.6593</Avg_3yr_NOx>
-    <Avg_3yr_Dust>303.6433</Avg_3yr_Dust>
+    <Avg_3yr_NOX>8904.6593</Avg_3yr_NOX>
+    <Avg_3yr_DUST>303.6433</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>IT</MemberState>
     <SumOfSO2>36101.6340237275</SumOfSO2>
-    <SumOfNOx>49907.4126746818</SumOfNOx>
-    <SumOfDust>1566.5889761425</SumOfDust>
+    <SumOfNOX>49907.4126746818</SumOfNOX>
+    <SumOfDUST>1566.5889761425</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>36990.5106266812</Avg_3yr_SO2>
-    <Avg_3yr_NOx>52179.3705260543</Avg_3yr_NOx>
-    <Avg_3yr_Dust>1589.89284784383</Avg_3yr_Dust>
+    <Avg_3yr_NOX>52179.3705260543</Avg_3yr_NOX>
+    <Avg_3yr_DUST>1589.89284784383</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>LT</MemberState>
     <SumOfSO2>2647.7118</SumOfSO2>
-    <SumOfNOx>2294.752</SumOfNOx>
-    <SumOfDust>236.4354</SumOfDust>
+    <SumOfNOX>2294.752</SumOfNOX>
+    <SumOfDUST>236.4354</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3421.3567</Avg_3yr_SO2>
-    <Avg_3yr_NOx>2706.7683</Avg_3yr_NOx>
-    <Avg_3yr_Dust>205.087</Avg_3yr_Dust>
+    <Avg_3yr_NOX>2706.7683</Avg_3yr_NOX>
+    <Avg_3yr_DUST>205.087</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>LU</MemberState>
     <SumOfSO2>2.336</SumOfSO2>
-    <SumOfNOx>187.02</SumOfNOx>
-    <SumOfDust>0.023</SumOfDust>
+    <SumOfNOX>187.02</SumOfNOX>
+    <SumOfDUST>0.023</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>1.88333333333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>157.786666666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>0.018</Avg_3yr_Dust>
+    <Avg_3yr_NOX>157.786666666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>0.018</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>LV</MemberState>
     <SumOfSO2>120.7167</SumOfSO2>
-    <SumOfNOx>907.021</SumOfNOx>
-    <SumOfDust>6.0217</SumOfDust>
+    <SumOfNOX>907.021</SumOfNOX>
+    <SumOfDUST>6.0217</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>94.4519</Avg_3yr_SO2>
-    <Avg_3yr_NOx>985.321666666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>4.71849666666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>985.321666666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>4.71849666666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>MT</MemberState>
     <SumOfSO2>4566.5</SumOfSO2>
-    <SumOfNOx>2840.9</SumOfNOx>
-    <SumOfDust>405.7</SumOfDust>
+    <SumOfNOX>2840.9</SumOfNOX>
+    <SumOfDUST>405.7</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3815.52766666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>2445.59166666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>254.423</Avg_3yr_Dust>
+    <Avg_3yr_NOX>2445.59166666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>254.423</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>NL</MemberState>
     <SumOfSO2>12173.83313</SumOfSO2>
-    <SumOfNOx>23410.7344</SumOfNOx>
-    <SumOfDust>386.81595</SumOfDust>
+    <SumOfNOX>23410.7344</SumOfNOX>
+    <SumOfDUST>386.81595</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>12237.1548566667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>24351.4013778667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>397.353688793333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>24351.4013778667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>397.353688793333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>PL</MemberState>
     <SumOfSO2>317764.428875257</SumOfSO2>
-    <SumOfNOx>200282.193192468</SumOfNOx>
-    <SumOfDust>15093.6904208193</SumOfDust>
+    <SumOfNOX>200282.193192468</SumOfNOX>
+    <SumOfDUST>15093.6904208193</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>321076.624958419</Avg_3yr_SO2>
-    <Avg_3yr_NOx>204179.102064156</Avg_3yr_NOx>
-    <Avg_3yr_Dust>14700.7404736064</Avg_3yr_Dust>
+    <Avg_3yr_NOX>204179.102064156</Avg_3yr_NOX>
+    <Avg_3yr_DUST>14700.7404736064</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>PT</MemberState>
     <SumOfSO2>5592.06222</SumOfSO2>
-    <SumOfNOx>8400.11042</SumOfNOx>
-    <SumOfDust>329.67319</SumOfDust>
+    <SumOfNOX>8400.11042</SumOfNOX>
+    <SumOfDUST>329.67319</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>6570.18127666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>9432.33138</Avg_3yr_NOx>
-    <Avg_3yr_Dust>314.682053333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>9432.33138</Avg_3yr_NOX>
+    <Avg_3yr_DUST>314.682053333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>RO</MemberState>
     <SumOfSO2>134967.208</SumOfSO2>
-    <SumOfNOx>41431.672</SumOfNOx>
-    <SumOfDust>7550.8204</SumOfDust>
+    <SumOfNOX>41431.672</SumOfNOX>
+    <SumOfDUST>7550.8204</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>134056.166453333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>40933.1624666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>7651.39113333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>40933.1624666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>7651.39113333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>SE</MemberState>
     <SumOfSO2>1305.303692689</SumOfSO2>
-    <SumOfNOx>5217.5162289</SumOfNOx>
-    <SumOfDust>315.177392794</SumOfDust>
+    <SumOfNOX>5217.5162289</SumOfNOX>
+    <SumOfDUST>315.177392794</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>1404.77055622967</Avg_3yr_SO2>
-    <Avg_3yr_NOx>5533.43611963333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>361.193634264667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>5533.43611963333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>361.193634264667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>SI</MemberState>
     <SumOfSO2>3589.3767</SumOfSO2>
-    <SumOfNOx>6364.95667</SumOfNOx>
-    <SumOfDust>172.3339</SumOfDust>
+    <SumOfNOX>6364.95667</SumOfNOX>
+    <SumOfDUST>172.3339</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3551.59305666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6307.74671333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>184.13883</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6307.74671333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>184.13883</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>SK</MemberState>
     <SumOfSO2>32627.6453142398</SumOfSO2>
-    <SumOfNOx>10928.775505896</SumOfNOx>
-    <SumOfDust>646.153299229</SumOfDust>
+    <SumOfNOX>10928.775505896</SumOfNOX>
+    <SumOfDUST>646.153299229</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>42312.5381637611</Avg_3yr_SO2>
-    <Avg_3yr_NOx>11461.8171722742</Avg_3yr_NOx>
-    <Avg_3yr_Dust>737.448722134254</Avg_3yr_Dust>
+    <Avg_3yr_NOX>11461.8171722742</Avg_3yr_NOX>
+    <Avg_3yr_DUST>737.448722134254</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>UK</MemberState>
     <SumOfSO2>153921.63129</SumOfSO2>
-    <SumOfNOx>190070.086</SumOfNOx>
-    <SumOfDust>6954.4752</SumOfDust>
+    <SumOfNOX>190070.086</SumOfNOX>
+    <SumOfDUST>6954.4752</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>141484.089077933</Avg_3yr_SO2>
-    <Avg_3yr_NOx>195693.636333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>6728.96845</Avg_3yr_Dust>
+    <Avg_3yr_NOX>195693.636333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>6728.96845</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2014</ReferenceYear>
     <MemberState>XK</MemberState>
     <SumOfSO2>13419</SumOfSO2>
-    <SumOfNOx>18757</SumOfNOx>
-    <SumOfDust>14443</SumOfDust>
+    <SumOfNOX>18757</SumOfNOX>
+    <SumOfDUST>14443</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7138.66666666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>13084.3333333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>7483.33333333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>13084.3333333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>7483.33333333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>AT</MemberState>
     <SumOfSO2>2667.758</SumOfSO2>
-    <SumOfNOx>6544.164</SumOfNOx>
-    <SumOfDust>399.336</SumOfDust>
+    <SumOfNOX>6544.164</SumOfNOX>
+    <SumOfDUST>399.336</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2923.65433333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6765.65266666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>451.723133333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6765.65266666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>451.723133333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>BE</MemberState>
     <SumOfSO2>2942.00041</SumOfSO2>
-    <SumOfNOx>11106.0116</SumOfNOx>
-    <SumOfDust>230.12887</SumOfDust>
+    <SumOfNOX>11106.0116</SumOfNOX>
+    <SumOfDUST>230.12887</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2789.04321024</Avg_3yr_SO2>
-    <Avg_3yr_NOx>10981.1819933333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>201.710615491333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>10981.1819933333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>201.710615491333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>BG</MemberState>
     <SumOfSO2>74538</SumOfSO2>
-    <SumOfNOx>30351</SumOfNOx>
-    <SumOfDust>1214</SumOfDust>
+    <SumOfNOX>30351</SumOfNOX>
+    <SumOfDUST>1214</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>101339.333333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>35041</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3156</Avg_3yr_Dust>
+    <Avg_3yr_NOX>35041</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3156</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>CY</MemberState>
     <SumOfSO2>10325.62</SumOfSO2>
-    <SumOfNOx>3149.5</SumOfNOx>
-    <SumOfDust>345.507</SumOfDust>
+    <SumOfNOX>3149.5</SumOfNOX>
+    <SumOfDUST>345.507</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>11302.5613333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>3012.4</Avg_3yr_NOx>
-    <Avg_3yr_Dust>325.612333333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>3012.4</Avg_3yr_NOX>
+    <Avg_3yr_DUST>325.612333333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>CZ</MemberState>
     <SumOfSO2>85564.793524</SumOfSO2>
-    <SumOfNOx>55340.824</SumOfNOx>
-    <SumOfDust>2869.383008</SumOfDust>
+    <SumOfNOX>55340.824</SumOfNOX>
+    <SumOfDUST>2869.383008</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>91865.8209146666</Avg_3yr_SO2>
-    <Avg_3yr_NOx>60429.3933633333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3131.52400933333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>60429.3933633333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3131.52400933333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>DE</MemberState>
     <SumOfSO2>145624.298</SumOfSO2>
-    <SumOfNOx>218931.407</SumOfNOx>
-    <SumOfDust>5074.616</SumOfDust>
+    <SumOfNOX>218931.407</SumOfNOX>
+    <SumOfDUST>5074.616</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>158361.853</Avg_3yr_SO2>
-    <Avg_3yr_NOx>226074.366333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5292.48466666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>226074.366333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5292.48466666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>DK</MemberState>
     <SumOfSO2>1805.784</SumOfSO2>
-    <SumOfNOx>4616.992</SumOfNOx>
-    <SumOfDust>240.0957</SumOfDust>
+    <SumOfNOX>4616.992</SumOfNOX>
+    <SumOfDUST>240.0957</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>2550.78676666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6678.55706666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>494.158033333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6678.55706666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>494.158033333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>EE</MemberState>
     <SumOfSO2>20365.549</SumOfSO2>
-    <SumOfNOx>6762.173</SumOfNOx>
-    <SumOfDust>3374.354</SumOfDust>
+    <SumOfNOX>6762.173</SumOfNOX>
+    <SumOfDUST>3374.354</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>25354.0541666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>8518.35166666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5721.23533333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>8518.35166666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5721.23533333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>ES</MemberState>
     <SumOfSO2>136235.581318</SumOfSO2>
-    <SumOfNOx>119637.207</SumOfNOx>
-    <SumOfDust>5891.5958926</SumOfDust>
+    <SumOfNOX>119637.207</SumOfNOX>
+    <SumOfDUST>5891.5958926</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>120783.045439333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>107527.578</Avg_3yr_NOx>
-    <Avg_3yr_Dust>5649.60409753333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>107527.578</Avg_3yr_NOX>
+    <Avg_3yr_DUST>5649.60409753333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>FI</MemberState>
     <SumOfSO2>14437.98</SumOfSO2>
-    <SumOfNOx>24187.62</SumOfNOx>
-    <SumOfDust>793.91</SumOfDust>
+    <SumOfNOX>24187.62</SumOfNOX>
+    <SumOfDUST>793.91</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>17172.2033333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>28106.5433333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>906.66</Avg_3yr_Dust>
+    <Avg_3yr_NOX>28106.5433333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>906.66</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>FR</MemberState>
     <SumOfSO2>45943.8354775192</SumOfSO2>
-    <SumOfNOx>39107.6446360313</SumOfNOx>
-    <SumOfDust>2627.11906707589</SumOfDust>
+    <SumOfNOX>39107.6446360313</SumOfNOX>
+    <SumOfDUST>2627.11906707589</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>65551.2056916157</Avg_3yr_SO2>
-    <Avg_3yr_NOx>48752.0726085965</Avg_3yr_NOx>
-    <Avg_3yr_Dust>3345.17000365601</Avg_3yr_Dust>
+    <Avg_3yr_NOX>48752.0726085965</Avg_3yr_NOX>
+    <Avg_3yr_DUST>3345.17000365601</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>GR</MemberState>
     <SumOfSO2>51136.7507</SumOfSO2>
-    <SumOfNOx>34912.095</SumOfNOx>
-    <SumOfDust>3298.7577</SumOfDust>
+    <SumOfNOX>34912.095</SumOfNOX>
+    <SumOfDUST>3298.7577</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>54006.6854428895</Avg_3yr_SO2>
-    <Avg_3yr_NOx>39706.2605676597</Avg_3yr_NOx>
-    <Avg_3yr_Dust>9586.914375065</Avg_3yr_Dust>
+    <Avg_3yr_NOX>39706.2605676597</Avg_3yr_NOX>
+    <Avg_3yr_DUST>9586.914375065</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>HR</MemberState>
     <SumOfSO2>7075.061989</SumOfSO2>
-    <SumOfNOx>3700.481448</SumOfNOx>
-    <SumOfDust>162.09131</SumOfDust>
+    <SumOfNOX>3700.481448</SumOfNOX>
+    <SumOfDUST>162.09131</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7720.42795966667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>5868.266026</Avg_3yr_NOx>
-    <Avg_3yr_Dust>170.35426</Avg_3yr_Dust>
+    <Avg_3yr_NOX>5868.266026</Avg_3yr_NOX>
+    <Avg_3yr_DUST>170.35426</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>HU</MemberState>
     <SumOfSO2>6854.992</SumOfSO2>
-    <SumOfNOx>12419.954</SumOfNOx>
-    <SumOfDust>382.429</SumOfDust>
+    <SumOfNOX>12419.954</SumOfNOX>
+    <SumOfDUST>382.429</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>8314.11083333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>12423.135</Avg_3yr_NOx>
-    <Avg_3yr_Dust>423.317666666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>12423.135</Avg_3yr_NOX>
+    <Avg_3yr_DUST>423.317666666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>IE</MemberState>
     <SumOfSO2>5223.37</SumOfSO2>
-    <SumOfNOx>9594.76</SumOfNOx>
-    <SumOfDust>253.55</SumOfDust>
+    <SumOfNOX>9594.76</SumOfNOX>
+    <SumOfDUST>253.55</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7301.85613333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>8904.6593</Avg_3yr_NOx>
-    <Avg_3yr_Dust>303.6433</Avg_3yr_Dust>
+    <Avg_3yr_NOX>8904.6593</Avg_3yr_NOX>
+    <Avg_3yr_DUST>303.6433</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>IT</MemberState>
     <SumOfSO2>29144.317856316</SumOfSO2>
-    <SumOfNOx>48018.342903481</SumOfNOx>
-    <SumOfDust>1353.299567389</SumOfDust>
+    <SumOfNOX>48018.342903481</SumOfNOX>
+    <SumOfDUST>1353.299567389</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>36990.5106266812</Avg_3yr_SO2>
-    <Avg_3yr_NOx>52179.3705260543</Avg_3yr_NOx>
-    <Avg_3yr_Dust>1589.89284784383</Avg_3yr_Dust>
+    <Avg_3yr_NOX>52179.3705260543</Avg_3yr_NOX>
+    <Avg_3yr_DUST>1589.89284784383</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>LT</MemberState>
     <SumOfSO2>4132.2284</SumOfSO2>
-    <SumOfNOx>2943.9957</SumOfNOx>
-    <SumOfDust>198.6718</SumOfDust>
+    <SumOfNOX>2943.9957</SumOfNOX>
+    <SumOfDUST>198.6718</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3421.3567</Avg_3yr_SO2>
-    <Avg_3yr_NOx>2706.7683</Avg_3yr_NOx>
-    <Avg_3yr_Dust>205.087</Avg_3yr_Dust>
+    <Avg_3yr_NOX>2706.7683</Avg_3yr_NOX>
+    <Avg_3yr_DUST>205.087</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>LU</MemberState>
     <SumOfSO2>1.141</SumOfSO2>
-    <SumOfNOx>111.011</SumOfNOx>
-    <SumOfDust>0</SumOfDust>
+    <SumOfNOX>111.011</SumOfNOX>
+    <SumOfDUST>0</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>1.88333333333333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>157.786666666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>0.018</Avg_3yr_Dust>
+    <Avg_3yr_NOX>157.786666666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>0.018</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>LV</MemberState>
     <SumOfSO2>113.9087</SumOfSO2>
-    <SumOfNOx>995.076</SumOfNOx>
-    <SumOfDust>5.6977</SumOfDust>
+    <SumOfNOX>995.076</SumOfNOX>
+    <SumOfDUST>5.6977</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>94.4519</Avg_3yr_SO2>
-    <Avg_3yr_NOx>985.321666666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>4.71849666666667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>985.321666666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>4.71849666666667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>MT</MemberState>
     <SumOfSO2>1999.8</SumOfSO2>
-    <SumOfNOx>1541.7</SumOfNOx>
-    <SumOfDust>129.532</SumOfDust>
+    <SumOfNOX>1541.7</SumOfNOX>
+    <SumOfDUST>129.532</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3815.52766666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>2445.59166666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>254.423</Avg_3yr_Dust>
+    <Avg_3yr_NOX>2445.59166666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>254.423</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>NL</MemberState>
     <SumOfSO2>11987.19244</SumOfSO2>
-    <SumOfNOx>24132.9537336</SumOfNOx>
-    <SumOfDust>429.57924638</SumOfDust>
+    <SumOfNOX>24132.9537336</SumOfNOX>
+    <SumOfDUST>429.57924638</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>12237.1548566667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>24351.4013778667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>397.353688793333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>24351.4013778667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>397.353688793333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>PL</MemberState>
     <SumOfSO2>308430.681</SumOfSO2>
-    <SumOfNOx>188405.978</SumOfNOx>
-    <SumOfDust>13125.827</SumOfDust>
+    <SumOfNOX>188405.978</SumOfNOX>
+    <SumOfDUST>13125.827</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>321076.624958419</Avg_3yr_SO2>
-    <Avg_3yr_NOx>204179.102064156</Avg_3yr_NOx>
-    <Avg_3yr_Dust>14700.7404736064</Avg_3yr_Dust>
+    <Avg_3yr_NOX>204179.102064156</Avg_3yr_NOX>
+    <Avg_3yr_DUST>14700.7404736064</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>PT</MemberState>
     <SumOfSO2>7189.67361</SumOfSO2>
-    <SumOfNOx>10967.48672</SumOfNOx>
-    <SumOfDust>306.52827</SumOfDust>
+    <SumOfNOX>10967.48672</SumOfNOX>
+    <SumOfDUST>306.52827</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>6570.18127666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>9432.33138</Avg_3yr_NOx>
-    <Avg_3yr_Dust>314.682053333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>9432.33138</Avg_3yr_NOX>
+    <Avg_3yr_DUST>314.682053333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>RO</MemberState>
     <SumOfSO2>106784.721</SumOfSO2>
-    <SumOfNOx>38929.588</SumOfNOx>
-    <SumOfDust>5351.271</SumOfDust>
+    <SumOfNOX>38929.588</SumOfNOX>
+    <SumOfDUST>5351.271</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>134056.166453333</Avg_3yr_SO2>
-    <Avg_3yr_NOx>40933.1624666667</Avg_3yr_NOx>
-    <Avg_3yr_Dust>7651.39113333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>40933.1624666667</Avg_3yr_NOX>
+    <Avg_3yr_DUST>7651.39113333333</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>SE</MemberState>
     <SumOfSO2>1064.443976</SumOfSO2>
-    <SumOfNOx>4861.95993</SumOfNOx>
-    <SumOfDust>314.66801</SumOfDust>
+    <SumOfNOX>4861.95993</SumOfNOX>
+    <SumOfDUST>314.66801</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>1404.77055622967</Avg_3yr_SO2>
-    <Avg_3yr_NOx>5533.43611963333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>361.193634264667</Avg_3yr_Dust>
+    <Avg_3yr_NOX>5533.43611963333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>361.193634264667</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>SI</MemberState>
     <SumOfSO2>1773.02787</SumOfSO2>
-    <SumOfNOx>4128.59697</SumOfNOx>
-    <SumOfDust>110.78319</SumOfDust>
+    <SumOfNOX>4128.59697</SumOfNOX>
+    <SumOfDUST>110.78319</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>3551.59305666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>6307.74671333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>184.13883</Avg_3yr_Dust>
+    <Avg_3yr_NOX>6307.74671333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>184.13883</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>SK</MemberState>
     <SumOfSO2>53914.1579820436</SumOfSO2>
-    <SumOfNOx>10603.9782479267</SumOfNOx>
-    <SumOfDust>806.067415173761</SumOfDust>
+    <SumOfNOX>10603.9782479267</SumOfNOX>
+    <SumOfDUST>806.067415173761</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>42312.5381637611</Avg_3yr_SO2>
-    <Avg_3yr_NOx>11461.8171722742</Avg_3yr_NOx>
-    <Avg_3yr_Dust>737.448722134254</Avg_3yr_Dust>
+    <Avg_3yr_NOX>11461.8171722742</Avg_3yr_NOX>
+    <Avg_3yr_DUST>737.448722134254</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>UK</MemberState>
     <SumOfSO2>94203.2644738</SumOfSO2>
-    <SumOfNOx>174480.804</SumOfNOx>
-    <SumOfDust>5239.5984</SumOfDust>
+    <SumOfNOX>174480.804</SumOfNOX>
+    <SumOfDUST>5239.5984</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>141484.089077933</Avg_3yr_SO2>
-    <Avg_3yr_NOx>195693.636333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>6728.96845</Avg_3yr_Dust>
+    <Avg_3yr_NOX>195693.636333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>6728.96845</Avg_3yr_DUST>
   </row>
   <row>
     <ReferenceYear>2015</ReferenceYear>
     <MemberState>XK</MemberState>
     <SumOfSO2>7997</SumOfSO2>
-    <SumOfNOx>20496</SumOfNOx>
-    <SumOfDust>8007</SumOfDust>
+    <SumOfNOX>20496</SumOfNOX>
+    <SumOfDUST>8007</SumOfDUST>
     <Units>tonnes (metric)</Units>
     <Avg_3yr_SO2>7138.66666666667</Avg_3yr_SO2>
-    <Avg_3yr_NOx>13084.3333333333</Avg_3yr_NOx>
-    <Avg_3yr_Dust>7483.33333333333</Avg_3yr_Dust>
+    <Avg_3yr_NOX>13084.3333333333</Avg_3yr_NOX>
+    <Avg_3yr_DUST>7483.33333333333</Avg_3yr_DUST>
   </row>
 </dataroot>

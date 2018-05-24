@@ -30,14 +30,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>AT</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>66</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>AT</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>87</CountOfWasteTransferID>
   </row>
@@ -72,14 +72,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>BE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>538</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>BE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>1414</CountOfWasteTransferID>
   </row>
@@ -121,21 +121,21 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>BG</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>CONFIDENTIAL</WasteTreatmentCode>
     <CountOfWasteTransferID>1</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>BG</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>22</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>BG</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>26</CountOfWasteTransferID>
   </row>
@@ -170,14 +170,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>CH</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>58</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>CH</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>59</CountOfWasteTransferID>
   </row>
@@ -191,14 +191,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>CY</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>3</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>CY</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>11</CountOfWasteTransferID>
   </row>
@@ -233,14 +233,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>CZ</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>639</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>CZ</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>903</CountOfWasteTransferID>
   </row>
@@ -275,21 +275,21 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>DE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>CONFIDENTIAL</WasteTreatmentCode>
     <CountOfWasteTransferID>3</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>DE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>849</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>DE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>2187</CountOfWasteTransferID>
   </row>
@@ -324,14 +324,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>DK</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>37</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>DK</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>68</CountOfWasteTransferID>
   </row>
@@ -366,14 +366,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>EE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>13</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>EE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>28</CountOfWasteTransferID>
   </row>
@@ -408,14 +408,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>EL</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>22</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>EL</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>33</CountOfWasteTransferID>
   </row>
@@ -450,14 +450,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>ES</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>482</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>ES</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>652</CountOfWasteTransferID>
   </row>
@@ -492,14 +492,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>FI</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>209</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>FI</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>241</CountOfWasteTransferID>
   </row>
@@ -534,14 +534,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>FR</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>822</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>FR</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>923</CountOfWasteTransferID>
   </row>
@@ -576,14 +576,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>HR</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>12</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>HR</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>18</CountOfWasteTransferID>
   </row>
@@ -611,14 +611,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>HU</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>39</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>HU</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>102</CountOfWasteTransferID>
   </row>
@@ -653,14 +653,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>IE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>290</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>IE</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>1675</CountOfWasteTransferID>
   </row>
@@ -688,14 +688,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>IS</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>2</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>IS</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>5</CountOfWasteTransferID>
   </row>
@@ -716,14 +716,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LI</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>1</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LI</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>1</CountOfWasteTransferID>
   </row>
@@ -758,14 +758,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LT</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>16</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LT</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>20</CountOfWasteTransferID>
   </row>
@@ -807,14 +807,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LU</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>17</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LU</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>17</CountOfWasteTransferID>
   </row>
@@ -842,14 +842,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LV</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>16</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>LV</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>23</CountOfWasteTransferID>
   </row>
@@ -884,14 +884,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>NL</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>286</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>NL</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>400</CountOfWasteTransferID>
   </row>
@@ -926,14 +926,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>NO</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>45</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>NO</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>67</CountOfWasteTransferID>
   </row>
@@ -968,14 +968,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>PL</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>336</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>PL</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>675</CountOfWasteTransferID>
   </row>
@@ -1010,14 +1010,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>PT</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>124</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>PT</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>154</CountOfWasteTransferID>
   </row>
@@ -1059,21 +1059,21 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>RO</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>CONFIDENTIAL</WasteTreatmentCode>
     <CountOfWasteTransferID>8</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>RO</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>214</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>RO</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>239</CountOfWasteTransferID>
   </row>
@@ -1108,14 +1108,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>RS</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>15</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>RS</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>18</CountOfWasteTransferID>
   </row>
@@ -1150,14 +1150,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>SI</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>33</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>SI</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>49</CountOfWasteTransferID>
   </row>
@@ -1192,14 +1192,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>SK</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>66</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>SK</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>66</CountOfWasteTransferID>
   </row>
@@ -1234,14 +1234,14 @@
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>UK</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>D</WasteTreatmentCode>
     <CountOfWasteTransferID>3304</CountOfWasteTransferID>
   </row>
   <row>
     <ReportingYear>2015</ReportingYear>
     <CountryCode>UK</CountryCode>
-    <WasteTypeCode>NON-HW</WasteTypeCode>
+    <WasteTypeCode>NONHW</WasteTypeCode>
     <WasteTreatmentCode>R</WasteTreatmentCode>
     <CountOfWasteTransferID>3715</CountOfWasteTransferID>
   </row>

@@ -1,12 +1,12 @@
 <dataroot generated="2018-03-28T14:27:05">
   <row>
     <CLRTAP_pollutant_lookup>As</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>ASandCompounds</EPRTRequivalent>
+    <EPRTRequivalent>ASANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
     <CLRTAP_pollutant_lookup>BC</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>BlackCarbon</EPRTRequivalent>
+    <EPRTRequivalent>BLACKCARBON</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
@@ -16,7 +16,7 @@
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Cd</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>CDandCompounds</EPRTRequivalent>
+    <EPRTRequivalent>CDANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
@@ -26,17 +26,17 @@
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Cr</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>CR AND COMPOUNDS</EPRTRequivalent>
+    <EPRTRequivalent>CRANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Cu</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>CU AND COMPOUNDS</EPRTRequivalent>
+    <EPRTRequivalent>CUANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
     <CLRTAP_pollutant_lookup>dio</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>PCDD+PCDF (DIOXINS+FURANS)</EPRTRequivalent>
+    <EPRTRequivalent>PCDD+PCDF(DIOXINS+FURANS)</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
@@ -46,7 +46,7 @@
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Hg</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>HG AND COMPOUNDS</EPRTRequivalent>
+    <EPRTRequivalent>HGANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
@@ -61,7 +61,7 @@
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Ni</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>NI AND COMPOUNDS</EPRTRequivalent>
+    <EPRTRequivalent>NIANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
@@ -72,11 +72,11 @@
   <row>
     <CLRTAP_pollutant_lookup>NOx</CLRTAP_pollutant_lookup>
     <EPRTRequivalent>NOX</EPRTRequivalent>
-    <LCPequivalent>NOx</LCPequivalent>
+    <LCPequivalent>NOX</LCPequivalent>
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Pb</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>PB AND COMPOUNDS</EPRTRequivalent>
+    <EPRTRequivalent>PBANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
@@ -106,17 +106,17 @@
   </row>
   <row>
     <CLRTAP_pollutant_lookup>tot</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>PAHs</EPRTRequivalent>
+    <EPRTRequivalent>PAHS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
   <row>
     <CLRTAP_pollutant_lookup>TSP</CLRTAP_pollutant_lookup>
     <EPRTRequivalent>-</EPRTRequivalent>
-    <LCPequivalent>Dust</LCPequivalent>
+    <LCPequivalent>DUST</LCPequivalent>
   </row>
   <row>
     <CLRTAP_pollutant_lookup>Zn</CLRTAP_pollutant_lookup>
-    <EPRTRequivalent>ZN AND COMPOUNDS</EPRTRequivalent>
+    <EPRTRequivalent>ZNANDCOMPOUNDS</EPRTRequivalent>
     <LCPequivalent>-</LCPequivalent>
   </row>
 </dataroot>
