@@ -473,13 +473,34 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    let $getAdditionalInformation := function (
+        $element as element()
+    ) as xs:string {
+        let $map := map {
+            'offsiteWasteTransfer': ('wasteClassification', 'wasteTreatment'),
+            'offsitePollutantTransfer': ('pollutant'),
+            'pollutantRelease': ('pollutant', 'mediumCode'),
+            'emissionsToAir': ('pollutant')
+        }
+        let $elementName := $element/local-name()
+        let $infoSequence :=
+            for $info in $map?($elementName)
+                return $element/*[local-name() = $info]/data() => functx:substring-after-last("/")
+        return $infoSequence => fn:string-join(' / ')
+    }
+
     (:  C3.1 – Pollutant reporting completeness     :)
     let $res :=
+(:
         let $pollutants := (
             "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx",
             "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2",
             "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/Dust"
         )
+:)
+        let $pollutants :=
+            $docRoot//ProductionInstallationPartReport/emissionsToAir/pollutant => fn:distinct-values()
+
         let $seq := $docRoot//ProductionInstallationPartReport
         for $elem in $seq
         for $pollutant in $pollutants
@@ -580,10 +601,13 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='warning' title="Details"> {$concept} has not been recognised</td>
+                    <td title="inspireId">{$elem/ancestor::*[InspireId]/InspireId}</td>
                     <td class="tdwarning" title="{fn:node-name($elem/methodClassification)}">
-                        {fn:data($elem/methodClassification)}
+                        {$elem/methodClassification/text()}
                     </td>
                     <td title="methodCode">{functx:substring-after-last($elem/methodCode, "/")}</td>
+                    <td title="Feature type">{$elem/parent::*/local-name()}</td>
+                    <td title="Additional info">{$getAdditionalInformation($elem/parent::*)}</td>
                 </tr>
             else
                 ()
@@ -610,8 +634,11 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">
                         Not met reporting requirements for the method classification
                     </td>
+                    <td title="inspireId">{$elem/ancestor::*[InspireId]/InspireId}</td>
                     <td class="tdwarning" title="furtherDetails"> {fn:data($elem/furtherDetails)} </td>
                     <td title="methodClassifications">{$elem/methodClassification}</td>
+                    <td title="Feature type">{$elem/parent::*/local-name()}</td>
+                    <td title="Additional info">{$getAdditionalInformation($elem/parent::*)}</td>
                 </tr>
             else
                 ()
@@ -1409,7 +1436,7 @@ declare function xmlconv:RunQAs(
                         <tr>
                             <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
                             <td title="inspireId">{$elem/InspireId}</td>
-                            <td title="fuelInput">{$emission}</td>
+                            <td title="fuelInput">{$emission => functx:substring-after-last("/")}</td>
                             <td class="tdinfo" title="total reported">{$emissionTotal => xs:long()}</td>
                             <td title="expected">{$expected => xs:long()}</td>
                         </tr>
@@ -2812,8 +2839,8 @@ declare function xmlconv:RunQAs(
                     ($nationalTotal <= $unfccTotal or $unfccTotal < 0)
                 )
                 return
-                    (:if(fn:not($ok)):)
-                    if(true())
+                    if(fn:not($ok))
+                    (:if(true()):)
                     then
                     <tr>
                         <td class='warning' title="Details">
@@ -2870,22 +2897,6 @@ declare function xmlconv:RunQAs(
                 return $nr => fn:string-length()
     }
 
-    let $getAdditionalInformation := function (
-        $element as element()
-    ) as xs:string {
-        let $map := map {
-            'offsiteWasteTransfer': ('wasteClassification', 'wasteTreatment'),
-            'offsitePollutantTransfer': ('pollutant'),
-            'pollutantRelease': ('pollutant', 'mediumCode'),
-            'emissionsToAir': ('pollutant')
-        }
-        let $elementName := $element/local-name()
-        let $infoSequence :=
-            for $info in $map?($elementName)
-                return $element/*[local-name() = $info]/data() => functx:substring-after-last("/")
-        return $infoSequence => fn:string-join(' / ')
-    }
-
     let $res :=
         let $attributes := (
             "totalWasteQuantityTNE",
@@ -2905,7 +2916,7 @@ declare function xmlconv:RunQAs(
             (
                 $significantDigits = 3
                 or
-                ($significantDigits < 3 and fn:string-length(string($elemValue)) > 3)
+                ($significantDigits < 3 and fn:string-length(string($elemValue)) > 2)
             )
         )
         return

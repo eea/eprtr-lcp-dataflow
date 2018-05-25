@@ -108,7 +108,7 @@ declare function scripts:checkOtherFuelDuplicates(
                     => functx:substring-after-last("/") = 'Other'
                     and fuelInput = $fuelInput and furtherDetails=>fn:string-length() > 0]
                             /furtherDetails/text()
-            let $asd := trace($furtherDetailsSeq, 'furtherDetailsSeq: ')
+            (:let $asd := trace($furtherDetailsSeq, 'furtherDetailsSeq: '):)
             let $similarFurtherDetails :=
                 for $further1 at $pos1 in $furtherDetailsSeq,
                     $further2 at $pos2 in $furtherDetailsSeq
@@ -121,7 +121,7 @@ declare function scripts:checkOtherFuelDuplicates(
                         if($lev >= 0.75 and $lev < 1)
                         then ($further1, $further2)
                         else ()
-            let $asd := trace($similarFurtherDetails, 'similarFurtherDetails: ')
+            (:let $asd := trace($similarFurtherDetails, 'similarFurtherDetails: '):)
             for $furtherDetail in $similarFurtherDetails
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text?('Other'), 'errorClass': $errorType},
