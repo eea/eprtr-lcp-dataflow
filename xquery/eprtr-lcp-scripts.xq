@@ -25,6 +25,7 @@ declare namespace rest = "http://basex.org/rest";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
+declare namespace strings = "http://basex.org/modules/strings";
 
 
 declare function scripts:generateResultTableRow(
@@ -65,6 +66,7 @@ declare function scripts:checkOtherFuelDuplicates(
     $fuelInput as xs:string,
     $text as map(xs:string,xs:string)
 ) as element(tr)* {
+    let $part1 :=
     for $part in $seq
         let $furtherDetailsSeq :=
             $part/energyInput/fuelInput[*[fn:local-name() = $map?SpecifiedFuel]
@@ -90,12 +92,46 @@ declare function scripts:checkOtherFuelDuplicates(
             }
             let $ok :=
                 if($fuelType = 'Other')
-                then $furtherDetailsSeq => fn:index-of($fuel) => fn:count() = 1
+                then
+                    $furtherDetailsSeq => fn:index-of($fuel) => fn:count() = 1
                 else $otherFuelSeq => fn:index-of($fuel) => fn:count() = 1
             return
                 if(fn:not($ok))
                 then scripts:generateResultTableRow($dataMap)
                 else ()
+    let $part2 :=
+        for $part in $seq[energyInput/fuelInput[*[fn:local-name() = $map?SpecifiedFuel]
+                => functx:substring-after-last("/") = 'Other'
+                    and fuelInput = $fuelInput and furtherDetails=>fn:string-length() > 0]]
+            let $furtherDetailsSeq :=
+                $part/energyInput/fuelInput[*[fn:local-name() = $map?SpecifiedFuel]
+                    => functx:substring-after-last("/") = 'Other'
+                    and fuelInput = $fuelInput and furtherDetails=>fn:string-length() > 0]
+                            /furtherDetails/text()
+            let $asd := trace($furtherDetailsSeq, 'furtherDetailsSeq: ')
+            let $similarFurtherDetails :=
+                for $further1 at $pos1 in $furtherDetailsSeq,
+                    $further2 at $pos2 in $furtherDetailsSeq
+                    return
+                    if($pos2 >= $pos1)
+                    then ()
+                    else
+                        let $lev := strings:levenshtein($further1, $further2)
+                        return
+                        if($lev >= 0.75 and $lev < 1)
+                        then ($further1, $further2)
+                        else ()
+            let $asd := trace($similarFurtherDetails, 'similarFurtherDetails: ')
+            for $furtherDetail in $similarFurtherDetails
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text?('Other'), 'errorClass': $errorType},
+                    'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                    'Fuel input': map {'pos': 3, 'text': $fuelInput => functx:substring-after-last("/")},
+                    'Fuel': map {'pos': 4, 'text': $furtherDetail, 'errorClass': 'td' || $errorType}
+                }
+                return scripts:generateResultTableRow($dataMap)
+
+    return ($part1, $part2)
 };
 
 declare function scripts:getCodelistvalueForOldCode(

@@ -27,7 +27,7 @@ declare variable $source_url as xs:string external;
 (:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
 declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
-    "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_PollutantLookup.xml";
+    "../lookup-tables/EPRTR-LCP_PollutantLookup.xml";
 declare variable $xmlconv:CrossPollutants as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/EPRTR-LCP_C10.3_CrossPollutants.xml";
 declare variable $xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer as xs:string :=
@@ -248,6 +248,7 @@ declare function xmlconv:isInVocabulary(
                 <tr>
                     <td class='error' title="Details"> {$concept} has not been recognised</td>
                     <td title='inspireId'>{$elem/ancestor::*[InspireId]/InspireId}</td>
+                    <td title='Feature type'>{$elem/parent::*/local-name()}</td>
                     <td class="tderror" title="{fn:node-name($elem)}"> {fn:data($elem)} </td>
 
                 </tr>
@@ -488,8 +489,8 @@ declare function xmlconv:RunQAs(
                 <tr>
                     <td class='warning' title="Details"> Pollutant has not been reported</td>
                     <td class="tdwarning" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
-                    <td title="localId">{$elem/descendant::*/localId}</td>
-                    <td title="namespace">{$elem/descendant::*/namespace}</td>
+                    <td title="Feature type">emissionsToAir</td>
+                    <td title="inspireId">{$elem/InspireId}</td>
                 </tr>
             else
                 ()
@@ -636,13 +637,17 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='info' title="Details"> Attribute should contain a character string</td>
-                    <td title="attribute"> {$attr} </td>
                     <td class="tdinfo" title="Value"> {fn:data($el)} </td>
                     <td title="InspireId">
                         {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId}
                     </td>
-                    <td title="Attribute">
-                        {functx:path-to-node($el)=>functx:substring-after-last('transboundaryTransfer/')}
+                    <td title="Parent feature type"> {$el/parent::*/local-name()} </td>
+                    <td title="attribute"> {$attr} </td>
+                    <td title="wasteClassification">
+                        {$el/ancestor::offsiteWasteTransfer/wasteClassification/data() => functx:substring-after-last("/")}
+                    </td>
+                    <td title="wasteTreatment">
+                        {$el/ancestor::offsiteWasteTransfer/wasteTreatment/data() => functx:substring-after-last("/")}
                     </td>
                 </tr>
             else
@@ -772,7 +777,7 @@ declare function xmlconv:RunQAs(
                 $LCP_4_3
             )
     )
-
+    (:let $asd := trace(fn:current-time(), 'started 5 at: '):)
     (:  C.5.1 – Identification of fuelInput duplicates  :)
     let $res :=
         let $fuelInputs := (
@@ -975,7 +980,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
-
+    (:let $asd := trace(fn:current-time(), 'started 6 at: '):)
     (: TODO needs more testing :)
     (:  C6.1 – Individual EmissionsToAir feasibility    :)
     let $res :=
@@ -1105,6 +1110,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (:let $asd := trace(fn:current-time(), 'started 7 at: '):)
     (: TODO needs more testing :)
     (:  C7.1 – EnergyInput, totalRatedThermalInput and numberOfOperatingHours plausibility     :)
     let $res :=
@@ -1198,6 +1204,7 @@ declare function xmlconv:RunQAs(
         'Article 31'
     }
 
+    (:let $asd := trace(fn:current-time(), 'started 8 at: '):)
     (: TODO needs more testing :)
     (:   C8.1 – Article 31 derogation compliance   :)
     let $res :=
@@ -1372,6 +1379,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (:let $asd := trace(fn:current-time(), 'started 10 at: '):)
     (:  C10.1 – EmissionsToAir outlier identification   :)
     let $res :=
         let $seq:= $docRoot//ProductionInstallationPartReport
@@ -1409,6 +1417,7 @@ declare function xmlconv:RunQAs(
                         ()
     let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
 
+    (:let $asd := trace(fn:current-time(), 'started 10.2 at: '):)
     (: TODO needs more testing :)
     (:  C10.2 – Energy input and CO2 emissions feasibility  :)
     let $res :=
@@ -1459,6 +1468,7 @@ declare function xmlconv:RunQAs(
     let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2",
             "Energy input and CO2 emissions feasibility (partially IMPLEMENTED)", $res)
 
+    (:let $asd := trace(fn:current-time(), 'started 10.3 at: '):)
     (: TODO needs more testing :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
     let $res :=
@@ -1469,7 +1479,7 @@ declare function xmlconv:RunQAs(
             $sourcePollutant as xs:string
         ) as xs:double {
             let $codeListValue := scripts:getCodelistvalue($sourcePollutant, $docPollutantLookup)
-            return $facility/pollutantRelease[mediumCode = $mediumCode and pollutant = $codeListValue]
+            return $facility/pollutantRelease[mediumCode = $mediumCode and pollutant = $codeListValue][1]
                 /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
         }
 
@@ -1574,6 +1584,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
+    (:let $asd := trace(fn:current-time(), 'started 11 at: '):)
     (:  C11.1 - ProductionFacilityReports without transfers or releases :)
     let $res :=
         let $attributes := (
@@ -2840,23 +2851,39 @@ declare function xmlconv:RunQAs(
 
     (:let $asd := trace(fn:current-time(), 'started 16 at: '):)
     (:  C16.1 - Significant figure format compliance    :)
+
     let $getNumberOfSignificantDigits := function (
-        $number as xs:double
+        $number as xs:string
     ) as xs:double {
-        let $nr := xs:string($number)
-        return
-            if($number = 0)
-            then 0
+        (:let $asd := trace($number, "number: "):)
+        if($number = '0')
+        then 0
+        else
+            if(fn:contains($number, '.'))
+            then
+                let $nr := replace($number, '\.+', '')
+                let $nr := replace($nr, '^0+', '')
+                return $nr => fn:string-length()
             else
-                if(fn:contains($nr, '.'))
-                then
-                    let $nr := replace($nr, '\.+', '')
-                    let $nr := replace($nr, '^0+', '')
-                    return $nr => fn:string-length()
-                else
-                    let $nr := replace($nr, '^0+', '')
-                    let $nr := replace($nr, '0+$', '')
-                    return $nr => fn:string-length()
+                let $nr := replace($number, '^0+', '')
+                let $nr := replace($nr, '0+$', '')
+                return $nr => fn:string-length()
+    }
+
+    let $getAdditionalInformation := function (
+        $element as element()
+    ) as xs:string {
+        let $map := map {
+            'offsiteWasteTransfer': ('wasteClassification', 'wasteTreatment'),
+            'offsitePollutantTransfer': ('pollutant'),
+            'pollutantRelease': ('pollutant', 'mediumCode'),
+            'emissionsToAir': ('pollutant')
+        }
+        let $elementName := $element/local-name()
+        let $infoSequence :=
+            for $info in $map?($elementName)
+                return $element/*[local-name() = $info]/data() => functx:substring-after-last("/")
+        return $infoSequence => fn:string-join(' / ')
     }
 
     let $res :=
@@ -2869,11 +2896,17 @@ declare function xmlconv:RunQAs(
         for $elem in $seq
         let $elemValue := functx:if-empty($elem/data(), 0)
         let $significantDigits :=
-            $getNumberOfSignificantDigits($elemValue)
+            $getNumberOfSignificantDigits($elemValue => fn:string())
+        (:let $asd := trace($elemValue, "elemValue: "):)
+        (:let $asd := trace($significantDigits, "significantDigits: "):)
         let $ok := (
             $elemValue castable as xs:double
             and
-            $significantDigits > 2
+            (
+                $significantDigits = 3
+                or
+                ($significantDigits < 3 and fn:string-length(string($elemValue)) > 3)
+            )
         )
         return
             if(fn:not($ok))
@@ -2881,17 +2914,15 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='warning' title="Details">Numerical format reporting requirements not met</td>
-                    <td title="attribute name"> {fn:node-name($elem)} </td>
+                    <td title="inspideId">
+                        {$elem/ancestor-or-self::*[fn:local-name() =
+                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId}
+                    </td>
+                    <td title="Parent feature type">{fn:node-name($elem/parent::*)}</td>
+                    <td title='Additional info'>{$getAdditionalInformation($elem/parent::*)}</td>
+                    <td title='Attribute name'>{fn:node-name($elem)}</td>
                     <td class="tdwarning" title="value"> {$elemValue} </td>
                     <td title="Number of significant digits"> {$significantDigits} </td>
-                    <td title="localId">
-                        {$elem/ancestor-or-self::*[fn:local-name() =
-                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/localId}
-                    </td>
-                    <td title="namespace">
-                        {$elem/ancestor-or-self::*[fn:local-name() =
-                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/namespace}
-                    </td>
                 </tr>
             else
                 ()
@@ -2918,16 +2949,13 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">
                         Attribute has been populated with a value representing a percentage greater than 100%
                     </td>
-                    <td class="tdwarning" title="attribute name"> {fn:node-name($elem)} </td>
+                    <td title="inspireId">
+                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
+                                /InspireId}
+                    </td>
+                    <td title="Feature type">{fn:node-name($elem/parent::*)}</td>
+                    <td class="tdwarning" title="Attribute name"> {fn:node-name($elem)} </td>
                     <td class="tdwarning" title="value"> {$elemValue} </td>
-                    <td title="localId">
-                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
-                                /InspireId/localId}
-                    </td>
-                    <td title="namespace">
-                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
-                                /InspireId/namespace}
-                    </td>
                 </tr>
 
             else
@@ -3221,3 +3249,4 @@ declare function xmlconv:main($source_url as xs:string) {
 };
 
 xmlconv:main($source_url)
+
