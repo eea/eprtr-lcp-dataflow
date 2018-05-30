@@ -47,10 +47,10 @@ declare function scripts:generateResultTableRow(
 
 declare function scripts:getEPRTRAnnexIActivity (
     $inspireId as xs:string,
-    $previous-year as xs:double,
+    $reporting-year as xs:double,
     $docProductionFacility as document-node()
 ) as xs:string {
-    $docProductionFacility//ProductionFacility[year = $previous-year
+    $docProductionFacility//ProductionFacility[year = $reporting-year
         and InspireId = $inspireId]/EPRTRAnnexIActivity => functx:substring-after-last("/")
 };
 

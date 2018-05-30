@@ -1,6 +1,6 @@
 <data>
 	<ProductionFacility>
-        <year>2016</year>
+        <year>2017</year>
         <InspireId>
             <localId>000000001.FACILITY</localId>
             <namespace>ES.CAED</namespace>
@@ -70,7 +70,7 @@
         </pollutantRelease>
 	</ProductionFacility>
     <ProductionFacility>
-        <year>2016</year>
+        <year>2017</year>
         <InspireId>
             <localId>000000002.FACILITY</localId>
             <namespace>ES.CAED</namespace>
@@ -125,7 +125,7 @@
         </pollutantRelease>
     </ProductionFacility>
 	<ProductionFacility>
-        <year>2016</year>
+        <year>2017</year>
         <InspireId>
             <localId>000000003.FACILITY</localId>
             <namespace>ES.CAED</namespace>
@@ -193,7 +193,7 @@
         </pollutantRelease>
     </ProductionFacility>
 	<ProductionFacility>
-        <year>2015</year>
+        <year>2016</year>
         <InspireId>
             <localId>000000003.FACILITY</localId>
             <namespace>ES.CAED</namespace>
@@ -261,7 +261,7 @@
         </pollutantRelease>
     </ProductionFacility>
 	<ProductionFacility>
-        <year>2014</year>
+        <year>2015</year>
         <InspireId>
             <localId>000000003.FACILITY</localId>
             <namespace>ES.CAED</namespace>
