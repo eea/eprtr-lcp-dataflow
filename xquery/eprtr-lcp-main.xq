@@ -26,6 +26,10 @@ declare variable $source_url as xs:string external;
 
 (:declare variable $xmlconv:AVG_EMISSIONS_PATH as xs:string :=
     "https://converterstest.eionet.europa.eu/xmlfile/average_emissions.xml";:)
+declare variable $xmlconv:PRODUCTION_FACILITY_LOOKUP as xs:string :=
+    "../lookup-tables/ProductionFacility.xml";
+declare variable $xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP as xs:string :=
+    "../lookup-tables/ProductionInstallationPart.xml";
 declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
     "../lookup-tables/EPRTR-LCP_PollutantLookup.xml";
 declare variable $xmlconv:CrossPollutants as xs:string :=
@@ -280,8 +284,12 @@ declare function xmlconv:RunQAs(
     let $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER)
     let $docRootCOUNT_OF_OffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_OffsiteWasteTransfer)
 
+    let $docProductionFacilities := fn:doc($xmlconv:PRODUCTION_FACILITY_LOOKUP)
+    let $docProductionInstallationParts := fn:doc($xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP)
+
     let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
     let $look-up-year := $docRoot//reportingYear => fn:number() - 2
+    let $previous-year := $docRoot//reportingYear => fn:number() - 1
     let $pollutantCodes := $docPollutantLookup//row/PollutantCode/text() => fn:distinct-values()
 
     (:  C1.1 – combustionPlantCategory consistency  :)
@@ -401,11 +409,14 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    (: TODO implement this :)
+    let $facilityInspireIds :=
+        $docProductionFacilities//ProductionFacility[year = $previous-year]/InspireId
+    let $installationPartInspireIds :=
+        $docProductionInstallationParts//ProductionInstallationPart[year = $previous-year]/InspireId
+
+    (: TODO not final version :)
     (:  C2.1 – inspireId consistency    :)
     let $res :=
-        let $facilityInspireIds := ('000000001.FACILITYES.CAED')
-        let $installationPartInspireIds := ()
         let $errorType := 'error'
         let $text := 'InspireId could not be found within the EU Registry'
         let $map := map {
@@ -421,22 +432,21 @@ declare function xmlconv:RunQAs(
             }
             let $ok := $featureType/InspireId/data() = $map?($featureType/local-name())
             return
-                (:if(not($ok)):)
-                if(false())
+                if(not($ok))
+                (:if(false()):)
+                (:if(true()):)
                 then scripts:generateResultTableRow($dataMap)
                 else ()
-    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency (Partially IMPLEMENTED)", $res)
+    let $LCP_2_1 := xmlconv:RowBuilder("EPRTR-LCP 2.1","inspireId consistency", $res)
 
     (: TODO needs more testing :)
     (:  C2.2 – Comprehensive LCP reporting    :)
     let $res :=
-        let $euRegfacilityInspireIds := ('000000001.FACILITYES.CAED')
-        let $euReginstallationPartInspireIds := ('000000006.FACILITYES.CAED')
         let $errorType := 'error'
         let $text := 'InspireId could not be found within the E-PRTR and LCP integrated reporting XML'
         let $map := map {
-            'ProductionInstallationPartReport': $euReginstallationPartInspireIds,
-            'ProductionFacilityReport': $euRegfacilityInspireIds
+            'ProductionInstallationPartReport': $installationPartInspireIds,
+            'ProductionFacilityReport': $facilityInspireIds
         }
         for $featureType in map:keys($map)
             let $reportInspireIds := $docRoot//*[local-name() = $featureType]/InspireId/data()
@@ -448,11 +458,12 @@ declare function xmlconv:RunQAs(
             }
             let $ok := $inspideId = $reportInspireIds
             return
-                (:if(not($ok)):)
-                if(false())
+                if(not($ok))
+                (:if(false()):)
+                (:if(true()):)
                 then scripts:generateResultTableRow($dataMap)
                 else ()
-    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting (Partially IMPLEMENTED)", $res)
+    let $LCP_2_2 := xmlconv:RowBuilder("EPRTR-LCP 2.2","Comprehensive LCP reporting", $res)
 
     (:  C2.3 – ProductionFacility inspireId uniqueness    :)
     let $res := xmlconv:InspireIdUniqueness($docRoot, "ProductionFacilityReport")
@@ -831,7 +842,6 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_5_1 := xmlconv:RowBuilder("EPRTR-LCP 5.1","Identification of fuelInput duplicates", $res)
 
-    (: TODO needs more testing :)
     (:  C.5.2 – Identification of otherSolidFuel duplicates   :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
@@ -856,7 +866,6 @@ declare function xmlconv:RunQAs(
     let $LCP_5_2 := xmlconv:RowBuilder("EPRTR-LCP 5.2",
             "Identification of otherSolidFuel duplicates", $res)
 
-    (: TODO needs more testing :)
     (:  C.5.3 – Identification of otherGaseousFuel duplicates   :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
@@ -1008,7 +1017,7 @@ declare function xmlconv:RunQAs(
     )
 
     (:let $asd := trace(fn:current-time(), 'started 6 at: '):)
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (:  C6.1 – Individual EmissionsToAir feasibility    :)
     let $res :=
         let $getParentFacilityQuantity := function (
@@ -1018,8 +1027,7 @@ declare function xmlconv:RunQAs(
             $pollutant as xs:string
         ) as xs:double {
         $docRoot//ProductionFacilityReport[InspireId/namespace = $namespace
-            and InspireId/localId=>fn:substring-before('.') = $localId]
-                /pollutantRelease[mediumCode = $mediumCode
+            and InspireId/localId = $localId]/pollutantRelease[mediumCode = $mediumCode
                     and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
                         /totalPollutantQuantityKg=> functx:if-empty(0) => fn:number()
         }
@@ -1030,13 +1038,16 @@ declare function xmlconv:RunQAs(
         let $text := 'Reported EmissionsToAir is inconsistent with the PollutantRelease
             reported to air for the parent ProductionFacility'
         for $part in $seq
-            let $namespace := $part/InspireId/namespace
-            let $localId := $part/InspireId/localId => fn:substring-before('.')
+            let $parentFacilityInspireId := $docProductionInstallationParts//ProductionInstallationPart
+                [year = $previous-year and InspireId/data() = $part/InspireId/data()]
+                    /parentFacilityInspireId
+            let $namespace := $parentFacilityInspireId/namespace => functx:if-empty('Not found')
+            let $localId := $parentFacilityInspireId/localId => functx:if-empty('Not found')
 
             for $emission in $part/emissionsToAir
                 let $pol := $emission/pollutant => functx:substring-after-last("/")
                 let $pollutant :=
-                    if($pol = 'Dust')
+                    if($pol = 'DUST')
                     then 'pm10'
                     else if($pol = 'SO2')
                     then 'sox'
@@ -1058,53 +1069,52 @@ declare function xmlconv:RunQAs(
                         map {'pos': 5, 'text': $parentFacilityQuantityKg => xs:decimal() => fn:round-half-to-even(2)}
                 }
                 let $ok :=
-                    if($pol = 'Dust')
+                    if($pol = 'DUST')
                     then $pollutantQuantityKg <= $parentFacilityQuantityKg div 2
                     else $pollutantQuantityKg <= $parentFacilityQuantityKg
                 return
-                    if(false())
-                    (:if(not($ok)):)
+                    (:if(false()):)
+                    if(not($ok))
+                    (:if(true()):)
                     then scripts:generateResultTableRow($dataMap)
                     else ()
-    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility (Partially IMPLEMENTED)", $res)
+    let $LCP_6_1 := xmlconv:RowBuilder("EPRTR-LCP 6.1","Individual EmissionsToAir feasibility", $res)
 
-    (: TODO implement this :)
+    (: TODO not final version :)
     (: C6.2 – Cumulative EmissionsToAir feasibility :)
     let $res :=
         let $getTotalPartsQuantity := function (
-            $namespace as xs:string,
-            $localId as xs:string,
+            $partsInspireIds as xs:string+,
             $pollutant as xs:string
         ) as xs:double{
-            $docRoot//ProductionInstallationPartReport[InspireId/namespace = $namespace
-                and InspireId/localId=>fn:substring-before('.') = $localId]
-                /emissionsToAir[pollutant=>functx:substring-after-last("/") = $pollutant]
-                /functx:if-empty(totalPollutantQuantityTNE, 0) => sum()
+            $docRoot//ProductionInstallationPartReport[InspireId = $partsInspireIds]
+                    /emissionsToAir[pollutant=>functx:substring-after-last("/") = $pollutant]
+                        /functx:if-empty(totalPollutantQuantityTNE, 0) => sum()
         }
 
         let $seq := $docRoot//ProductionFacilityReport
         let $errorType := 'warning'
         let $text := 'Cumulative EmissionsToAir for all ProductionInstallationParts under the parent ProductionFacility
             exceed the PollutantRelease value for the specified pollutant.'
-        let $emissions := ('SO2', 'NOx', 'Dust')
+        let $emissions := ('SO2', 'NOX', 'DUST')
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
         for $facility in $seq
-            let $namespace := $facility/InspireId/namespace
-            let $localId := $facility/InspireId/localId => fn:substring-before('.')
+            let $partsInspireIds := $docProductionInstallationParts//ProductionInstallationPart
+                [parentFacilityInspireId = $facility/InspireId]/InspireId
 
             for $pol in $emissions
                 let $pollutant :=
-                    if($pol = 'Dust')
+                    if($pol = 'DUST')
                     then 'pm10'
                     else if($pol = 'SO2')
                     then 'sox'
                     else 'nox'
                 let $facilityQuantityKg := $facility/pollutantRelease[mediumCode = $mediumCode
-                            and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
-                                /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+                    and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
+                        /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
 
                 let $totalPartsQuantityKg :=
-                    $getTotalPartsQuantity($namespace, $localId, $pol) * 1000
+                    $getTotalPartsQuantity($partsInspireIds, $pol) * 1000
 
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
@@ -1117,16 +1127,17 @@ declare function xmlconv:RunQAs(
                         map {'pos': 5, 'text': $facilityQuantityKg => xs:decimal() => fn:round-half-to-even(2)}
                 }
                 let $ok :=
-                    if($pol = 'Dust')
+                    if($pol = 'DUST')
                     then $totalPartsQuantityKg <= $facilityQuantityKg div 2
                     else $totalPartsQuantityKg <= $facilityQuantityKg
 
                 return
-                    if(false())
-                    (:if(not($ok)):)
+                    (:if(true()):)
+                    (:if(false()):)
+                    if(not($ok))
                     then scripts:generateResultTableRow($dataMap)
                     else ()
-    let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility (Partially IMPLEMENTED)", $res)
+    let $LCP_6_2 := xmlconv:RowBuilder("EPRTR-LCP 6.2","Cumulative EmissionsToAir feasibility", $res)
 
     let $LCP_6 := xmlconv:RowAggregator(
             "EPRTR-LCP 6",
@@ -1228,7 +1239,9 @@ declare function xmlconv:RunQAs(
     let $getDerogation := function (
         $inspireId as xs:string
     ) as xs:string {
-        'Article 31'
+        let $derogation := $docProductionInstallationParts//ProductionInstallationPart[year = $previous-year
+            and InspireId = $inspireId]/derogations => functx:substring-after-last("/")
+        return $derogation
     }
 
     (:let $asd := trace(fn:current-time(), 'started 8 at: '):)
@@ -1250,10 +1263,11 @@ declare function xmlconv:RunQAs(
             "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/Peat"
         )
         for $part in $seq
-            let $derogation := $getDerogation($part/InspireId/data())
+            (: TODO inspireid = localid/namespace , maybe we need to include namespace too :)
+            let $derogation := $getDerogation($part/InspireId/localId/data())
             let $fuelInputs := $part/energyInput/fuelInput/fuelInput/text()
             let $errorNr :=
-                if($derogation != 'Article 31')
+                if($derogation != 'Article31')
                 then 0
                 else if(functx:value-intersect($solidFuelTypes, $fuelInputs)=>fn:count() = 0)
                     then 1
@@ -1267,11 +1281,12 @@ declare function xmlconv:RunQAs(
                 'Additional info': map {'pos': 3, 'text': $errorMap?($errorNr), 'errorClass': 'td' || $errorType}
             }
             return
-                (:if($errorNr > 0):)
-                if(false())
+                if($errorNr > 0)
+                (:if(false()):)
+                (:if(true()):)
                 then scripts:generateResultTableRow($dataMap)
                 else ()
-    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance (partially IMPLEMENTED)", $res)
+    let $LCP_8_1 := xmlconv:RowBuilder("EPRTR-LCP 8.1","Article 31 derogation compliance", $res)
 
     (: TODO needs more testing :)
     (:  C8.2 – Article 31 derogation justification  :)
@@ -1307,19 +1322,19 @@ declare function xmlconv:RunQAs(
 
     let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification (partially IMPLEMENTED)", $res)
 
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
     let $res :=
-        let $seq := $docRoot//ProductionInstallationPartReport
+        let $inspireIdsNedded := $docProductionInstallationParts//ProductionInstallationPart
+            [year = $previous-year and derogations=>functx:substring-after-last("/") = 'Article35']
+                /InspireId/data()
+        let $seq := $docRoot//ProductionInstallationPartReport[InspireId/localId = $inspireIdsNedded]
         let $errorType := 'info'
         let $text := 'Proportion of useful heat production for district heating has been omitted or reported below 50%'
         for $part in $seq
             let $proportion :=
                 $part/proportionOfUsefulHeatProductionForDistrictHeating => functx:if-empty(0) => fn:number()
-            let $derogation := 'Article 35'
-            let $ok := if($derogation != 'Article 35')
-                then true()
-                else $proportion >= 50
+            let $ok := $proportion >= 50
             let $dataMap := map {
                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                 'InspireId': map {'pos': 2, 'text': $part/InspireId},
@@ -1327,14 +1342,14 @@ declare function xmlconv:RunQAs(
                     map {'pos': 3, 'text': $proportion || '%', 'errorClass': 'td' || $errorType}
             }
             return
-                (:if(not($ok)):)
-                if(false())
+                if(not($ok))
+                (:if(false()):)
                 then scripts:generateResultTableRow($dataMap)
                 else ()
 
 
     let $LCP_8_3 := xmlconv:RowBuilder("EPRTR-LCP 8.3",
-            "Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison (partially IMPLEMENTED)",
+            "Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison",
             $res
     )
 
@@ -1445,13 +1460,38 @@ declare function xmlconv:RunQAs(
     let $LCP_10_1 := xmlconv:RowBuilder("EPRTR-LCP 10.1","EmissionsToAir outlier identification", $res)
 
     (:let $asd := trace(fn:current-time(), 'started 10.2 at: '):)
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (:  C10.2 – Energy input and CO2 emissions feasibility  :)
     let $res :=
         let $getAggregatedPartsCO2 := function (
-            $inspireId as xs:string
+            $inspireId as element()
         ) as xs:double {
-            123456
+            (: 000000001.FACILITY
+            1200 * 94.6 + 8 * 44.4 + 8 * 44.4 + 150 * 107 + 150 * 107 + 300 * 97.5 + 300 * 97.5
+            204830.4
+            :)
+            let $partsInspireIds :=
+                $docProductionInstallationParts//ProductionInstallationPart[year = $previous-year
+                    and parentFacilityInspireId = $inspireId/localId/data()]
+                    /InspireId
+            let $result :=
+            for $emission in $docRoot//ProductionInstallationPartReport[InspireId/localId = $partsInspireIds]
+                    /energyInput
+                let $energyinput := $emission/energyinputTJ => functx:if-empty(0) => fn:number()
+                let $fuelInput :=
+                    let $fuel := $emission/fuelInput/fuelInput/data()
+                    return
+                    if($fuel => functx:substring-after-last("/") = 'OtherSolidFuels')
+                    then $emission/fuelInput/otherSolidFuel/data()
+                    else if($fuel => functx:substring-after-last("/") = 'OtherGases')
+                    then $emission/fuelInput/otherGaseousFuel/data()
+                    else $fuel
+
+                let $emissionFactor :=
+                    $docEmissions//row[EF_LOOKUP = $fuelInput]/CO2 => functx:if-empty(0) => fn:number()
+                return $energyinput * $emissionFactor
+
+            return $result => fn:sum()
         }
 
         let $pollutant := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2'
@@ -1464,7 +1504,7 @@ declare function xmlconv:RunQAs(
             let $reportedCO2 := $facility/pollutantRelease[pollutant = $pollutant and mediumCode = $mediumCode]
                 /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             let $aggregatedPartsCO2 := $getAggregatedPartsCO2($facility/InspireId)
-            let $percentage := if($reportedCO2 > $aggregatedPartsCO2 or $reportedCO2 = 0)
+            let $percentage := if($reportedCO2 >= $aggregatedPartsCO2 or $reportedCO2 = 0)
                 then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100
                 else ($aggregatedPartsCO2 div $reportedCO2) * 100 - 100
             let $dataMap := map {
@@ -1472,7 +1512,7 @@ declare function xmlconv:RunQAs(
                 'InspireId': map {'pos': 2, 'text': $facility/InspireId},
                 'Deviation percentage': map {
                     'pos': 3,
-                    'text': $percentage => xs:decimal() => fn:round-half-to-even(2) || '%',
+                    'text': $percentage (:=> xs:decimal() => fn:round-half-to-even(2):) || '%',
                     'errorClass': 'td' || $errorType
                 },
                 'Facility reported CO2 amount': map {
@@ -1486,17 +1526,17 @@ declare function xmlconv:RunQAs(
                 then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100 < 100
                 else ($aggregatedPartsCO2 div $reportedCO2) * 100 - 100 < 30
             return
-                (:if(fn:not($ok)):)
-                if(fn:false())
-                (:if($reportValue > 0):)
+                if(fn:not($ok))
+                (:if(fn:false()):)
+                (:if($reportedCO2 > 0):)
                 then
                     scripts:generateResultTableRow($dataMap)
                 else()
     let $LCP_10_2 := xmlconv:RowBuilder("EPRTR-LCP 10.2",
-            "Energy input and CO2 emissions feasibility (partially IMPLEMENTED)", $res)
+            "Energy input and CO2 emissions feasibility", $res)
 
     (:let $asd := trace(fn:current-time(), 'started 10.3 at: '):)
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (:  C10.3 – ProductionFacility cross pollutant identification   :)
     let $res :=
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
@@ -1518,13 +1558,19 @@ declare function xmlconv:RunQAs(
         }
 
         for $facility in $seq
-            let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
-            for $row in $docCrossPollutants//row[AnnexIActivityCode = $EPRTRAnnexIActivity]
+            let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity(
+                    $facility/InspireId/localId,
+                    $previous-year,
+                    $docProductionFacilities
+            )
+            for $row in $docCrossPollutants//row[AnnexIActivityCode => replace('\.', '') = $EPRTRAnnexIActivity]
                 let $reportingThreshold := $row/ReportingThreshold => fn:number()
                 let $sourcePollutantValue := $getPollutantValue($facility, $row/SourcePollutant)
                 let $resultingPollutantValue := $getPollutantValue($facility, $row/ResultingPollutant)
-                let $minExpectedEmission := ($sourcePollutantValue * $row/MinFactor) => fn:number()
-                let $maxExpectedEmission := ($sourcePollutantValue * $row/MaxFactor) => fn:number()
+                let $minExpectedEmission :=
+                    ($sourcePollutantValue * $row/MinFactor => functx:if-empty(0)) => fn:number()
+                let $maxExpectedEmission :=
+                    ($sourcePollutantValue * $row/MaxFactor => functx:if-empty(0)) => fn:number()
                 let $distanceMin := ($resultingPollutantValue - $minExpectedEmission) => fn:abs()
                 let $distanceMax := ($resultingPollutantValue - $maxExpectedEmission) => fn:abs()
                 let $expectedEmissionFactorMin := $distanceMin div $reportingThreshold
@@ -1599,7 +1645,7 @@ declare function xmlconv:RunQAs(
                         scripts:generateResultTableRow($dataMap)
                     else()
     let $LCP_10_3 := xmlconv:RowBuilder("EPRTR-LCP 10.3",
-            "ProductionFacility cross pollutant identification (Needs more testing)", $res)
+            "ProductionFacility cross pollutant identification", $res)
 
     let $LCP_10 := xmlconv:RowAggregator(
             "EPRTR-LCP 10",
@@ -1692,7 +1738,7 @@ declare function xmlconv:RunQAs(
             else 2000
         return $threshold
     }
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
     let $res :=
         let $map := map {
@@ -1749,7 +1795,7 @@ declare function xmlconv:RunQAs(
     )
 
     (:let $asd := trace(fn:current-time(), 'started 12 at: '):)
-    (: TODO not finished, needs EPRTRAnnexIActivity from EU registry :)
+    (: TODO not final version :)
     (: C12.1 - Identification of ProductionFacility release/transfer outliers
         against previous year data at the national level :)
     let $res :=
@@ -1789,14 +1835,17 @@ declare function xmlconv:RunQAs(
             let $value :=
                 if($pollutant = 'pollutantRelease')
                 then $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
-                    and MainIAActivityCode = $activity and PollutantCode = $code1 and ReleaseMediumCode = $code2]
-                        /SumOfTotalQuantity
+                    and MainIAActivityCode => replace('\.', '') = $activity and PollutantCode = $code1
+                        and ReleaseMediumCode = $code2]
+                            /SumOfTotalQuantity
                 else if($pollutant = 'offsitePollutantTransfer')
                 then $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
-                    and MainIAActivityCode = $activity and PollutantCode = $code1]/SumOfQuantity
-                else $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
-                    and MainIAActivityCode = $activity and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
+                    and MainIAActivityCode => replace('\.', '') = $activity and PollutantCode = $code1]
                         /SumOfQuantity
+                else $map?doc//row[ReportingYear = $look-up-year and CountryCode = $country_code
+                    and MainIAActivityCode => replace('\.', '') = $activity and WasteTypeCode = $code1
+                        and WasteTreatmentCode = $code2]
+                            /SumOfQuantity
             return $value => functx:if-empty(0) => fn:number()
             }
         let $map := map {
@@ -1814,7 +1863,7 @@ declare function xmlconv:RunQAs(
                 'filters': map {
                     'code1': 'pollutant', (: pollutantCode :)
                     'code2': ''
-                },  (:NA = not available:)
+                },
                 'lookupNodeName': 'SumOfQuantity',
                 'reportNodeName': 'totalPollutantQuantityKg'
             },
@@ -1832,7 +1881,11 @@ declare function xmlconv:RunQAs(
         let $errorType := 'warning'
         let $text := 'Reported value exceeded parameter value'
         for $facility in $seq
-            let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
+            let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity(
+                    $facility/InspireId/localId,
+                    $previous-year,
+                    $docProductionFacilities
+            )
             for $pollutantNode in $facility/*[local-name() = map:keys($map)]
                 let $pollutant := $pollutantNode/local-name()
                 let $code1 :=
@@ -1875,8 +1928,8 @@ declare function xmlconv:RunQAs(
                     $lookupHighestValue = 0
                 )
                 return
-                    (:if(fn:not($ok)):)
-                    if(fn:false())
+                    if(fn:not($ok))
+                    (:if(fn:false()):)
                     (:if($reportValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
@@ -1885,10 +1938,10 @@ declare function xmlconv:RunQAs(
     let $LCP_12_1 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.1",
             "Identification of ProductionFacility release/transfer outliers
-            against previous year data at the national level (Partially IMPLEMENTED)",
+            against previous year data at the national level",
             $res
     )
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (: C12.2 - Identification of ProductionFacility release/transfer outliers
         against national total and pollutant threshold :)
     let $res :=
@@ -1912,7 +1965,12 @@ declare function xmlconv:RunQAs(
             <row>
                 <InspireId>{$pollutantNode/ancestor::ProductionFacilityReport/InspireId/*}</InspireId>
                 <type>{$pollutantNode/local-name()}</type>
-                <EPRTRAnnexIActivity>{scripts:getEPRTRAnnexIActivity('')}</EPRTRAnnexIActivity>
+                <EPRTRAnnexIActivity>
+                    {scripts:getEPRTRAnnexIActivity(
+                            $pollutantNode/ancestor::ProductionFacilityReport/InspireId/localId,
+                            $previous-year,
+                            $docProductionFacilities)}
+                </EPRTRAnnexIActivity>
                 <pollutant>{$pollutantNode/pollutant/text()}</pollutant>
                 <mediumCode>{$pollutantNode/mediumCode/text()}</mediumCode>
                 <totalPollutantQuantityKg>
@@ -1959,7 +2017,8 @@ declare function xmlconv:RunQAs(
         for $facility in $seq
             let $InspireId := $facility/InspireId
             let $EPRTRAnnexIActivity :=
-                $nationalValuesXML//row[InspireId/data() = $InspireId/data()][1]/EPRTRAnnexIActivity/text()
+                $nationalValuesXML//row[InspireId/data() = $InspireId/data()][1]
+                    /EPRTRAnnexIActivity/text() => functx:if-empty('Activity not found')
             for $pollutantNode in $facility/*[local-name() = $pollutantTypes]
                 let $pollutantType := $pollutantNode/local-name()
                 let $nationalTotal := $getNationalTotal($pollutantNode, $EPRTRAnnexIActivity)
@@ -1988,8 +2047,9 @@ declare function xmlconv:RunQAs(
                     }
                 }
                 return
-                    (:if($notOk):)
-                    if(fn:false())
+                    if($notOk)
+                    (:if(fn:false()):)
+                    (:if(fn:true()):)
                     (:if($reportedValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
@@ -1999,44 +2059,58 @@ declare function xmlconv:RunQAs(
     let $LCP_12_2 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.2",
             "Identification of ProductionFacility release/transfer outliers
-            against national total and pollutant threshold (partially IMPLEMENTED)",
+            against national total and pollutant threshold",
             $res
     )
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
     let $res :=
         let $getLastYearValue := function (
-            $pollutantNode as element()
+            $pollutantNode as element(),
+            $inspireId as xs:string
         ) as xs:double {
             if($pollutantNode/local-name() = 'pollutantRelease')
-            then 1234
+            then $docProductionFacilities//ProductionFacility[year = $previous-year
+                and InspireId = $inspireId]/pollutantRelease[mediumCode = $pollutantNode/mediumCode
+                    and pollutant = $pollutantNode/pollutant]
+                        /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             else if($pollutantNode/local-name() = 'offsitePollutantTransfer')
-            then 2345
+            then $docProductionFacilities//ProductionFacility[year = $previous-year
+                and InspireId = $inspireId]/offsitePollutantTransfer[pollutant = $pollutantNode/pollutant]
+                    /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             else -1
         }
         let $getLastYearValueOffsiteWasteTransfer := function (
-            $wasteClassification as xs:string
+            $wasteClassification as xs:string,
+            $inspireId as xs:string
         ) as xs:double {
-            3456
+            $docProductionFacilities//ProductionFacility[year = $previous-year
+                and InspireId = $inspireId]/offsiteWasteTransfer
+                    [wasteClassification => functx:substring-after-last("/") = $wasteClassification]
+                        /totalWasteQuantityTNE => fn:sum()
+
         }
         let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer', 'offsiteWasteTransfer')
-        let $seq := $docRoot//ProductionFacilityReport
+        let $seq := $docRoot//ProductionFacilityReport[InspireId/localId = $facilityInspireIds]
         let $errorType := 'warning'
         let $text := 'Threshold exceeded the data compared to the previous year'
         for $facility in $seq
             for $pollutantType in $pollutantTypes
             (:let $trace := trace($pollutantType, "pollutantType: "):)
-            let $result := if($pollutantType != 'offsiteWasteTransfer')
+            let $result :=
+            if($pollutantType != 'offsiteWasteTransfer')
             then
                 for $pollutantNode in $facility/*[local-name() = $pollutantType]
                 let $reportedValue := $pollutantNode/totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
-                let $lastYearValue := $getLastYearValue($pollutantNode)
+                let $lastYearValue := $getLastYearValue($pollutantNode, $facility/InspireId/localId/data())
                 (:let $trace := trace($reportedValue, "reportedValue: "):)
                 (:let $trace := trace($lastYearValue, "lastYearValue: "):)
                 let $ok := (
-                    $reportedValue < $lastYearValue * 2
+                    $reportedValue + $lastYearValue = 0
+                    or
+                    ($reportedValue < $lastYearValue * 2
                     and
-                    $reportedValue * 10 > $lastYearValue
+                    $reportedValue * 10 > $lastYearValue)
                 )
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
@@ -2051,8 +2125,9 @@ declare function xmlconv:RunQAs(
                     }
                 }
                 return
-                    (:if(fn:not($ok)):)
-                    if(fn:false())
+                    if(fn:not($ok))
+                    (:if(fn:false()):)
+                    (:if(fn:true()):)
                     (:if($reportedValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
@@ -2063,14 +2138,19 @@ declare function xmlconv:RunQAs(
                 let $reportedValue := $facility/offsiteWasteTransfer
                     [wasteClassification => functx:substring-after-last("/") = $wasteClassification]
                         /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
-                let $lastYearValue := $getLastYearValueOffsiteWasteTransfer($wasteClassification)
+                let $lastYearValue := $getLastYearValueOffsiteWasteTransfer(
+                        $wasteClassification,
+                        $facility/InspireId/localId/data()
+                )
                 (:let $trace := trace($wasteClassification, "wasteClassification: "):)
                 (:let $trace := trace($reportedValue, "reportedValue: "):)
                 (:let $trace := trace($lastYearValue, "lastYearValue: "):)
                 let $ok := (
-                    $reportedValue < $lastYearValue * 10
+                    $reportedValue + $lastYearValue = 0
+                    or
+                    ($reportedValue < $lastYearValue * 10
                     and
-                    $reportedValue * 10 > $lastYearValue
+                    $reportedValue * 10 > $lastYearValue)
                 )
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
@@ -2085,8 +2165,9 @@ declare function xmlconv:RunQAs(
                     }
                 }
                 return
-                    (:if(fn:not($ok)):)
-                    if(fn:false())
+                    if(fn:not($ok))
+                    (:if(fn:false()):)
+                    (:if(fn:true()):)
                     (:if($reportedValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
@@ -2096,25 +2177,31 @@ declare function xmlconv:RunQAs(
     let $LCP_12_3 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.3",
             "Identification of ProductionFacility release/transfer outliers
-            against previous year data at the ProductionFacility level (partially IMPLEMENTED)",
+            against previous year data at the ProductionFacility level",
             $res
     )
 
-    (: TODO needs more testing :)
-    (: C12.4 - Time series consistency for ProductionFacility emissions :)
+    (: TODO not final version :)
+    (: C12.4 - Identification of ProductionInstallationPart emission outliers
+        against previous year data at the ProductionInstallationPart level. :)
     let $res :=
         let $getLastYearValue := function (
-            $emissionNode as element()
+            $emissionNode as element(),
+            $inspireId as xs:string
         ) as xs:double {
-            1234
+            $docProductionInstallationParts//ProductionInstallationPart[year = $previous-year
+                and InspireId = $inspireId]/emissionsToAir
+                    [pollutant = $emissionNode/pollutant]
+                        /totalPollutantQuantityTNE => functx:if-empty(0) => fn:number()
+
         }
-        let $seq := $docRoot//ProductionInstallationPartReport
+        let $seq := $docRoot//ProductionInstallationPartReport[InspireId/localId = $installationPartInspireIds]
         let $errorType := 'warning'
         let $text := 'Threshold exceeded the data compared to the previous year'
         for $part in $seq
             for $emissionNode in $part/emissionsToAir
                 let $reportedValue := $emissionNode/totalPollutantQuantityTNE => functx:if-empty(0) => fn:number()
-                let $lastYearValue := $getLastYearValue($emissionNode)
+                let $lastYearValue := $getLastYearValue($emissionNode, $part/InspireId/localId/data())
                 (:let $trace := trace($reportedValue, "reportedValue: "):)
                 (:let $trace := trace($lastYearValue, "lastYearValue: "):)
                 let $ok := (
@@ -2134,8 +2221,8 @@ declare function xmlconv:RunQAs(
                     }
                 }
                 return
-                    (:if(fn:not($ok)):)
-                    if(fn:false())
+                    if(fn:not($ok))
+                    (:if(fn:false()):)
                     (:if($reportedValue > 0):)
                     then
                         scripts:generateResultTableRow($dataMap)
@@ -2145,10 +2232,10 @@ declare function xmlconv:RunQAs(
     let $LCP_12_4 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.4",
             "Identification of ProductionInstallationPart emission outliers against
-            previous year data at the ProductionInstallationPart level (partially IMPLEMENTED)"
+            previous year data at the ProductionInstallationPart level"
             , $res
     )
-    (: TODO needs more testing :)
+    (: TODO not final version :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
     let $res :=
         let $getLowestPollutant := function (
@@ -2196,7 +2283,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_12_5 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.5",
-            "Time series consistency for ProductionFacility emissions (Partially IMPLEMENTED)",
+            "Time series consistency for ProductionFacility emissions",
             $res
     )
     (: C12.6 - Time series consistency for ProductionInstallationPart emissions :)
@@ -2450,7 +2537,6 @@ declare function xmlconv:RunQAs(
     let $LCP_13_3 := xmlconv:RowBuilder("EPRTR-LCP 13.3","Reported number of pollutants per medium consistency", $res)
 
     (:let $asd := trace(fn:current-time(), 'started 13.4 at: '):)
-    (: TODO needs some testing :)
     (: C13.4 - Quantity of releases and transfers consistency :)
     let $res :=
         let $pollutantReleaseCodesLastYear :=
@@ -2526,7 +2612,7 @@ declare function xmlconv:RunQAs(
     )
 
     (:let $asd := trace(fn:current-time(), 'started 14.1 at: '):)
-    (: TODO needs more testing :)
+    (: TODO partially implemented :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
     let $res :=
         let $getPollutantReleaseValue := function (
@@ -2613,7 +2699,11 @@ declare function xmlconv:RunQAs(
 
         let $seq := $docRoot//ProductionFacilityReport
             for $facility in $seq
-                let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity($facility/InspireId)
+                let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity(
+                    $facility/InspireId/localId,
+                    $previous-year,
+                    $docProductionFacilities
+            )
                 for $pollutantType in $facility/*[local-name() = map:keys($map1)]
                     let $pollutantName := $pollutantType/local-name()
                     let $pollutantTypeDataMap := $map1?($pollutantName)?report($pollutantType)
@@ -2637,7 +2727,6 @@ declare function xmlconv:RunQAs(
             "Identification of top 10 ProductionFacility releases/transfers across Europe (Partially IMPLEMENTED)", $res)
 
     (:let $asd := trace(fn:current-time(), 'started 14.2 at: '):)
-    (: TODO needs more testing :)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
     let $res :=
         let $reportedPollutantCodes := $docRoot//pollutant => fn:distinct-values()
@@ -2724,8 +2813,8 @@ declare function xmlconv:RunQAs(
                 }
                 let $ok := $percentage < 90
                 return
-                    (:if(fn:not($ok)):)
-                    if($reportTotal > 0)
+                    if(fn:not($ok))
+                    (:if($reportTotal > 0):)
                     then scripts:generateResultTableRow($dataMap)
                     else ()
 
@@ -2765,7 +2854,7 @@ declare function xmlconv:RunQAs(
     )
 
     (:let $asd := trace(fn:current-time(), 'started 15 at: '):)
-    (: TODO needs testing
+    (:
         As a result, countries that report high biomass consumption (e.g. Sweden) may report CO2 emissions
         that exceed the values reported under the UNFCCC/EU-MMR National Inventory and this check
         will provide a false positive.

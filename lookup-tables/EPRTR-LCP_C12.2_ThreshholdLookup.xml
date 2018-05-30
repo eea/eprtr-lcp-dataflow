@@ -347,7 +347,7 @@
     <toLand>20</toLand>
   </row>
   <row>
-    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</Codelistvalue>
+    <Codelistvalue>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOx</Codelistvalue>
     <toAir>100000</toAir>
     <toWater>NA</toWater>
     <toLand>NA</toLand>

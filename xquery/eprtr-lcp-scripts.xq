@@ -46,9 +46,12 @@ declare function scripts:generateResultTableRow(
 };
 
 declare function scripts:getEPRTRAnnexIActivity (
-    $inspireId as xs:string
+    $inspireId as xs:string,
+    $previous-year as xs:double,
+    $docProductionFacility as document-node()
 ) as xs:string {
-    '1.(a)'
+    $docProductionFacility//ProductionFacility[year = $previous-year
+        and InspireId = $inspireId]/EPRTRAnnexIActivity => functx:substring-after-last("/")
 };
 
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
@@ -145,7 +148,7 @@ declare function scripts:getCodelistvalue(
     $pollutantCode as xs:string,
     $docPollutantLookup as document-node()
 ) as xs:string {
-    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Newcodelistvalue/text()
+    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Newcodelistvalue/text() => functx:if-empty('Not Found')
 };
 declare function scripts:getPollutantCode(
     $codeListValue as xs:string,
