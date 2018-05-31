@@ -45,6 +45,7 @@ declare function scripts:generateResultTableRow(
     </tr>
 };
 
+
 declare function scripts:getEPRTRAnnexIActivity (
     $inspireId as xs:string,
     $reporting-year as xs:double,
@@ -148,13 +149,15 @@ declare function scripts:getCodelistvalue(
     $pollutantCode as xs:string,
     $docPollutantLookup as document-node()
 ) as xs:string {
-    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Newcodelistvalue/text() => functx:if-empty('Not Found')
+    $docPollutantLookup//row[PollutantCode = $pollutantCode]/Newcodelistvalue
+        /text() => functx:if-empty(functx:substring-after-last($pollutantCode, "/"))
 };
 declare function scripts:getPollutantCode(
     $codeListValue as xs:string,
     $docPollutantLookup as document-node()
 ) as xs:string {
-    $docPollutantLookup//row[Newcodelistvalue = $codeListValue]/PollutantCode/text() => functx:if-empty('Not Found')
+    $docPollutantLookup//row[Newcodelistvalue = $codeListValue]/PollutantCode
+        /text() => functx:if-empty(functx:substring-after-last($codeListValue, "/"))
 };
 
 declare function scripts:getCodeNotation (
