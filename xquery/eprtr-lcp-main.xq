@@ -2795,6 +2795,96 @@ declare function xmlconv:RunQAs(
     (: TODO partially implemented :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
     let $res :=
+        let $seqActivities := $docProductionFacilities//ProductionFacility[year = $previous-year]
+                /EPRTRAnnexIActivity => distinct-values()
+        let $seqPollutants := $docProductionFacilities//ProductionFacility[year = $previous-year]
+                //pollutant => distinct-values()
+
+        let $xmlPollutantRelease :=
+        <data>
+        {
+            let $seqMediumCodes := $docProductionFacilities//ProductionFacility[year = $previous-year]
+                /pollutantRelease/mediumCode => distinct-values()
+            for $activity in $seqActivities,
+                $pollutant in $seqPollutants,
+                $mediumCode in $seqMediumCodes
+                let $values :=
+                    for $pol in $docProductionFacilities//ProductionFacility
+                        [year = $previous-year and EPRTRAnnexIActivity = $activity]
+                        /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
+                    order by $pol/totalPollutantQuantityKg/data() descending
+                    return $pol/totalPollutantQuantityKg/data()
+                let $value10th := $values[10] => functx:if-empty(0) => xs:decimal()
+                return if($value10th > 0)
+                then
+                    <row>
+                        <EPRTRAnnexIActivity>{$activity}</EPRTRAnnexIActivity>
+                        <pollutant>{$pollutant}</pollutant>
+                        <mediumCode>{$mediumCode}</mediumCode>
+                        <value10th>{$value10th}</value10th>
+                    </row>
+                else ()
+        }
+        </data>
+        (:let $asd := trace($xmlPollutantRelease, "xmlPollutantRelease: "):)
+
+        let $xmlOffsiteWasteTransfer :=
+        <data>
+        {
+            let $seqWasteClassification := $docProductionFacilities//ProductionFacility[year = $previous-year]
+                /offsiteWasteTransfer/wasteClassification => distinct-values()
+            let $seqWasteTreatment := $docProductionFacilities//ProductionFacility[year = $previous-year]
+                /offsiteWasteTransfer/wasteTreatment => distinct-values()
+            for $activity in $seqActivities,
+                $wasteClassification in $seqWasteClassification,
+                $wasteTreatment in $seqWasteTreatment
+                let $values :=
+                    for $pol in $docProductionFacilities//ProductionFacility
+                        [year = $previous-year and EPRTRAnnexIActivity = $activity]
+                        /offsiteWasteTransfer[wasteClassification = $wasteClassification
+                                    and wasteTreatment = $wasteTreatment]
+                    order by $pol/totalWasteQuantityTNE/data() descending
+                    return $pol/totalWasteQuantityTNE/data()
+                let $value10th := $values[10] => functx:if-empty(0) => xs:decimal()
+                return if($value10th > 0)
+                then
+                    <row>
+                        <EPRTRAnnexIActivity>{$activity}</EPRTRAnnexIActivity>
+                        <wasteClassification>{$wasteClassification}</wasteClassification>
+                        <wasteTreatment>{$wasteTreatment}</wasteTreatment>
+                        <value10th>{$value10th}</value10th>
+                    </row>
+                else
+                    ()
+        }
+        </data>
+        (:let $asd := trace($xmlOffsiteWasteTransfer, "xmlOffsiteWasteTransfer: "):)
+
+        let $xmlOffsitePollutantTransfer :=
+        <data>
+        {
+            for $activity in $seqActivities,
+                $pollutant in $seqPollutants
+                let $values :=
+                    for $pol in $docProductionFacilities//ProductionFacility
+                        [year = $previous-year and EPRTRAnnexIActivity = $activity]
+                        /offsitePollutantTransfer[pollutant = $pollutant]
+                    order by $pol/totalPollutantQuantityKg/data() descending
+                    return $pol/totalPollutantQuantityKg/data()
+                let $value10th := $values[10] => functx:if-empty(0) => xs:decimal()
+                return if($value10th > 0)
+                then
+                    <row>
+                        <EPRTRAnnexIActivity>{$activity}</EPRTRAnnexIActivity>
+                        <pollutant>{$pollutant}</pollutant>
+                        <value10th>{$value10th}</value10th>
+                    </row>
+                else
+                    ()
+        }
+        </data>
+        (:let $asd := trace($xmlOffsitePollutantTransfer, "xmlOffsitePollutantTransfer: "):)
+
         let $getPollutantReleaseValue := function (
             $pollutantNode as element()
         ) as map(*){
@@ -2808,7 +2898,12 @@ declare function xmlconv:RunQAs(
             $pollutantTypeDataMap as map(*),
             $EPRTRAnnexIActivity as xs:string
         ) as xs:double {
-            12345
+            let $value := $xmlPollutantRelease//row
+                [EPRTRAnnexIActivity => functx:substring-after-last("/") = $EPRTRAnnexIActivity
+                and pollutant => scripts:getPollutantCode($docPollutantLookup) = $pollutantTypeDataMap?pollutant
+                and mediumCode => functx:substring-after-last("/") = $pollutantTypeDataMap?mediumCode]
+                /value10th => functx:if-empty(0) => xs:decimal()
+            return $value
         }
         let $getOffsitePollutantTransferValue := function (
             $pollutantNode as element()
@@ -2822,22 +2917,28 @@ declare function xmlconv:RunQAs(
             $pollutantTypeDataMap as map(*),
             $EPRTRAnnexIActivity as xs:string
         ) as xs:double {
-            23456
+            let $value := $xmlOffsitePollutantTransfer//row
+                [EPRTRAnnexIActivity => functx:substring-after-last("/") = $EPRTRAnnexIActivity
+                and pollutant => scripts:getPollutantCode($docPollutantLookup) = $pollutantTypeDataMap?pollutant]
+                /value10th => functx:if-empty(0) => xs:decimal()
+            return $value
+
         }
         let $getOffsiteWasteTransferValue := function (
             $pollutantNode as element()
         ) as map(*){
             map {
-                'value': $pollutantNode/totalWasteQuantityTNE => functx:if-empty(0) => fn:number() * 1000,
+                'value': $pollutantNode/totalWasteQuantityTNE => functx:if-empty(0) => fn:number(),
                 'wasteClassification':
                     let $code := $pollutantNode/wasteClassification/data() => functx:substring-after-last("/")
                     let $transboundaryTransfer := $pollutantNode/transboundaryTransfer/data()
                     return
                         if($code = 'NONHW')
                         then 'NONHW'
-                        else if (fn:string-length($transboundaryTransfer) > 0)
+                        (:else if (fn:string-length($transboundaryTransfer) > 0)
                             then $code || 'OC'
-                            else $code || 'IC',
+                            else $code || 'IC':)
+                        else 'HW',
                 'wasteTreatment': $pollutantNode/wasteTreatment/text() => functx:substring-after-last("/")
             }
         }
@@ -2845,7 +2946,13 @@ declare function xmlconv:RunQAs(
             $pollutantTypeDataMap as map(*),
             $EPRTRAnnexIActivity as xs:string
         ) as xs:double {
-            34567
+            let $value := $xmlOffsiteWasteTransfer/row
+                [EPRTRAnnexIActivity => functx:substring-after-last("/") = $EPRTRAnnexIActivity
+                and wasteClassification => functx:substring-after-last("/") = $pollutantTypeDataMap?wasteClassification
+                and wasteTreatment => functx:substring-after-last("/") = $pollutantTypeDataMap?wasteTreatment]
+                /value10th => functx:if-empty(0) => xs:decimal()
+            return $value
+
         }
         let $getCodes := function (
             $pollutantTypeDataMap as map(*)
@@ -2880,8 +2987,8 @@ declare function xmlconv:RunQAs(
         let $seq := $docRoot//ProductionFacilityReport
             for $facility in $seq
                 let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity(
-                    $facility/InspireId/localId,
-                    $previous-year,
+                    $facility/InspireId/data(),
+                    $reporting-year,
                     $docProductionFacilities
             )
                 for $pollutantType in $facility/*[local-name() = map:keys($map1)]
@@ -2894,13 +3001,14 @@ declare function xmlconv:RunQAs(
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'InspireId': map {'pos': 2, 'text': $facility/InspireId},
                         'Type': map {'pos': 3, 'text': $pollutantName || ' - ' || $getCodes($pollutantTypeDataMap)},
-                        'Reported amount (in Kg)':
+                        'Reported amount':
                             map {'pos': 4, 'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType},
-                        'European 10th value (in Kg)': map {'pos': 5, 'text': $lookupTableValue => xs:decimal()}
+                        'European 10th value': map {'pos': 5, 'text': $lookupTableValue => xs:decimal()}
                     }
                     return
-                        (:if(not($ok)):)
-                        if(false())
+                        if(not($ok))
+                        (:if(false()):)
+                        (:if(true()):)
                         then scripts:generateResultTableRow($dataMap)
                         else ()
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",

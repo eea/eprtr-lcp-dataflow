@@ -61,7 +61,7 @@
 		<pollutantRelease>
             <totalPollutantQuantityKg>91800</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINE%20AND%20INORGANIC%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>2480</totalPollutantQuantityKg>
@@ -116,12 +116,12 @@
 		<pollutantRelease>
             <totalPollutantQuantityKg>15.8</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ASandCompounds</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ASANDCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>54.9</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/WATER</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CU%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CUANDCOMPOUNDS</pollutant>
         </pollutantRelease>
     </ProductionFacility>
 	<ProductionFacility>
@@ -139,7 +139,7 @@
 		</offsiteWasteTransfer>
         <offsitePollutantTransfer>
 			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
-			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NI%20AND%20COMPOUNDS</pollutant>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
 		</offsitePollutantTransfer>        
         <pollutantRelease>
             <totalPollutantQuantityKg>22300000</totalPollutantQuantityKg>
@@ -174,22 +174,22 @@
 		<pollutantRelease>
             <totalPollutantQuantityKg>80000</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS</pollutant>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>11400</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINE%20AND%20INORGANIC%20COMPOUNDS</pollutant>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>708</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HG%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>708</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZN%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
         </pollutantRelease>
     </ProductionFacility>
 	<ProductionFacility>
@@ -207,7 +207,7 @@
 		</offsiteWasteTransfer>
         <offsitePollutantTransfer>
 			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
-			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NI%20AND%20COMPOUNDS</pollutant>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
 		</offsitePollutantTransfer>        
         <pollutantRelease>
             <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
@@ -242,22 +242,634 @@
 		<pollutantRelease>
             <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS</pollutant>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINE%20AND%20INORGANIC%20COMPOUNDS</pollutant>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HG%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZN%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000033.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000034.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000035.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000036.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000037.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>100</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000038.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000039.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000040.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>3400000000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+    </ProductionFacility>
+	<ProductionFacility>
+        <year>2016</year>
+        <InspireId>
+            <localId>0000000041.FACILITY</localId>
+            <namespace>ES.CAED</namespace>
+        </InspireId>
+        <EPRTRAnnexIActivity>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/EPRTRAnnexIActivityValue/1(c)</EPRTRAnnexIActivity>
+        <StatusType>http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/functional</StatusType>
+        <offsiteWasteTransfer>
+            <totalWasteQuantityTNE>17800</totalWasteQuantityTNE>
+            <wasteClassification>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW</wasteClassification>
+            <wasteTreatment>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/D</wasteTreatment>
+		</offsiteWasteTransfer>
+        <offsitePollutantTransfer>
+			<totalPollutantQuantityKg>350</totalPollutantQuantityKg>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
+		</offsitePollutantTransfer>
+        <pollutantRelease>
+            <totalPollutantQuantityKg>22600000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>222</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO2</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>5980000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/SOX</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>454000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/PM10</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>7140000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CO</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>1150</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>91200</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>15000</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>672</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
+        </pollutantRelease>
+		<pollutantRelease>
+            <totalPollutantQuantityKg>323</totalPollutantQuantityKg>
+            <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
         </pollutantRelease>
     </ProductionFacility>
 	<ProductionFacility>
@@ -275,7 +887,7 @@
 		</offsiteWasteTransfer>
         <offsitePollutantTransfer>
 			<totalPollutantQuantityKg>50</totalPollutantQuantityKg>
-			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NI%20AND%20COMPOUNDS</pollutant>
+			<pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/NIANDCOMPOUNDS</pollutant>
 		</offsitePollutantTransfer>        
         <pollutantRelease>
             <totalPollutantQuantityKg>2800000</totalPollutantQuantityKg>
@@ -310,22 +922,22 @@
 		<pollutantRelease>
             <totalPollutantQuantityKg>2000</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEandINORGANICCOMPOUNDS</pollutant>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CHLORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>1800</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINE%20AND%20INORGANIC%20COMPOUNDS</pollutant>
+            <pollutant>	http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/FLUORINEANDINORGANICCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>67</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HG%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/HGANDCOMPOUNDS</pollutant>
         </pollutantRelease>
 		<pollutantRelease>
             <totalPollutantQuantityKg>31</totalPollutantQuantityKg>
             <mediumCode>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR</mediumCode>
-            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZN%20AND%20COMPOUNDS</pollutant>
+            <pollutant>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ZNANDCOMPOUNDS</pollutant>
         </pollutantRelease>
     </ProductionFacility>
 </data>
