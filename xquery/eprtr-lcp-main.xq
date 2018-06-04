@@ -1102,10 +1102,10 @@ declare function xmlconv:RunQAs(
                     'InspireId': map {'pos': 2, 'text': $part/InspireId},
                     'Pollutant': map {'pos': 3, 'text': $pol},
                     'Pollutant quantity (in Kg)':
-                        map {'pos': 4, 'text': $pollutantQuantityKg => xs:decimal()=> fn:round-half-to-even(2)
+                        map {'pos': 4, 'text': $pollutantQuantityKg => xs:decimal()=> fn:round-half-to-even(1)
                             , 'errorClass': 'td' || $errorType},
                     'Parent facility pollutant quantity (in Kg)':
-                        map {'pos': 5, 'text': $parentFacilityQuantityKg => xs:decimal() => fn:round-half-to-even(2)}
+                        map {'pos': 5, 'text': $parentFacilityQuantityKg => xs:decimal() => fn:round-half-to-even(1)}
                 }
                 let $ok :=
                     if($pol = 'DUST')
@@ -1167,10 +1167,10 @@ declare function xmlconv:RunQAs(
                     'InspireId': map {'pos': 2, 'text': $facility/InspireId},
                     'Pollutant': map {'pos': 3, 'text': $pol},
                     'Parts pollutant quantity (in Kg)':
-                        map {'pos': 4, 'text': $totalPartsQuantityKg => xs:decimal()=> fn:round-half-to-even(2)
+                        map {'pos': 4, 'text': $totalPartsQuantityKg => xs:decimal()=> fn:round-half-to-even(1)
                             , 'errorClass': 'td' || $errorType},
                     'Facility pollutant quantity (in Kg)':
-                        map {'pos': 5, 'text': $facilityQuantityKg => xs:decimal() => fn:round-half-to-even(2)}
+                        map {'pos': 5, 'text': $facilityQuantityKg => xs:decimal() => fn:round-half-to-even(1)}
                 }
                 let $ok :=
                     if($pol = 'DUST')
@@ -1599,15 +1599,15 @@ declare function xmlconv:RunQAs(
                 'InspireId': map {'pos': 2, 'text': $facility/InspireId},
                 'Deviation percentage': map {
                     'pos': 3,
-                    'text': $percentage (:=> xs:decimal() => fn:round-half-to-even(2):) || '%',
+                    'text': $percentage (:=> xs:decimal() => fn:round-half-to-even(1):) || '%',
                     'errorClass': 'td' || $errorType
                 },
                 'Facility reported CO2 amount': map {
                     'pos': 4,
-                    'text': $reportedCO2 => xs:decimal() => fn:round-half-to-even(2)
+                    'text': $reportedCO2 => xs:decimal() => fn:round-half-to-even(1)
                 },
                 'Installation part aggregated CO2 amount':
-                    map {'pos': 5, 'text': $aggregatedPartsCO2 => xs:decimal() => fn:round-half-to-even(2)}
+                    map {'pos': 5, 'text': $aggregatedPartsCO2 => xs:decimal() => fn:round-half-to-even(1)}
             }
             let $ok := if($reportedCO2 > $aggregatedPartsCO2)
                 then ($reportedCO2 div $aggregatedPartsCO2) * 100 - 100 < 100
@@ -1668,15 +1668,15 @@ declare function xmlconv:RunQAs(
                 if($resultingPollutantValue > 0)
                 then
                     let $asd := trace($row/SourcePollutant/text(), "Source pollutant: ")
-                    let $asd := trace($sourcePollutantValue => xs:decimal() => fn:round-half-to-even(2), "Source pollutant amount: ")
+                    let $asd := trace($sourcePollutantValue => xs:decimal() => fn:round-half-to-even(1), "Source pollutant amount: ")
                     let $asd := trace($row/ResultingPollutant/text(), "Resulting pollutant: ")
-                    let $asd := trace($resultingPollutantValue => xs:decimal() => fn:round-half-to-even(2), "Resulting pollutant amount: ")
-                    let $asd := trace($minExpectedEmission => xs:decimal() => fn:round-half-to-even(2), "minExpectedEmission: ")
-                    let $asd := trace($maxExpectedEmission => xs:decimal() => fn:round-half-to-even(2), "maxExpectedEmission: ")
-                    let $asd := trace($distanceMin => xs:decimal() => fn:round-half-to-even(2), "distanceMin: ")
-                    let $asd := trace($distanceMax => xs:decimal() => fn:round-half-to-even(2), "distanceMax: ")
-                    let $asd := trace($expectedEmissionFactorMin => xs:decimal() => fn:round-half-to-even(2), "expectedEmissionFactorMin: ")
-                    let $asd := trace($expectedEmissionFactorMax => xs:decimal() => fn:round-half-to-even(2), "expectedEmissionFactorMax: ")
+                    let $asd := trace($resultingPollutantValue => xs:decimal() => fn:round-half-to-even(1), "Resulting pollutant amount: ")
+                    let $asd := trace($minExpectedEmission => xs:decimal() => fn:round-half-to-even(1), "minExpectedEmission: ")
+                    let $asd := trace($maxExpectedEmission => xs:decimal() => fn:round-half-to-even(1), "maxExpectedEmission: ")
+                    let $asd := trace($distanceMin => xs:decimal() => fn:round-half-to-even(1), "distanceMin: ")
+                    let $asd := trace($distanceMax => xs:decimal() => fn:round-half-to-even(1), "distanceMax: ")
+                    let $asd := trace($expectedEmissionFactorMin => xs:decimal() => fn:round-half-to-even(1), "expectedEmissionFactorMin: ")
+                    let $asd := trace($expectedEmissionFactorMax => xs:decimal() => fn:round-half-to-even(1), "expectedEmissionFactorMax: ")
                     return 0
                 else 0
 :)
@@ -1700,18 +1700,18 @@ declare function xmlconv:RunQAs(
                     'Source pollutant': map {'pos': 3, 'text': $row/SourcePollutant/text()},
                     'Source pollutant amount': map {
                         'pos': 4,
-                        'text': $sourcePollutantValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $sourcePollutantValue => xs:decimal() => fn:round-half-to-even(1)
                     },
                     'Resulting pollutant': map {'pos': 5, 'text': $row/ResultingPollutant/text()},
                     'Resulting pollutant amount': map {
                         'pos': 6,
-                        'text': $resultingPollutantValue => xs:decimal() => fn:round-half-to-even(2),
+                        'text': $resultingPollutantValue => xs:decimal() => fn:round-half-to-even(1),
                         'errorClass': 'td' || $errorType
                     },
                     'Minimum expected emission':
-                        map {'pos': 7, 'text': $minExpectedEmission => xs:decimal() => fn:round-half-to-even(2)},
+                        map {'pos': 7, 'text': $minExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},
                     'Maximum expected emission':
-                        map {'pos': 8, 'text': $maxExpectedEmission => xs:decimal() => fn:round-half-to-even(2)},
+                        map {'pos': 8, 'text': $maxExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},
                     'Priority': map {'pos': 9, 'text': $additionalComment}
                 }
                 let $ok := (
@@ -2013,7 +2013,7 @@ declare function xmlconv:RunQAs(
                         'text': $reportValue => xs:decimal(), 'errorClass': 'td' || $errorType
                     },
                     'Parameter value': map {'pos': 6,
-                        'text': $lookupHighestValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $lookupHighestValue => xs:decimal() => fn:round-half-to-even(1)
                     }
                 }
                 let $ok := (
@@ -2224,10 +2224,10 @@ declare function xmlconv:RunQAs(
                         'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
                     },
                     'National total': map {'pos': 5,
-                        'text': $nationalTotal => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $nationalTotal => xs:decimal() => fn:round-half-to-even(1)
                     },
                     'Threshold value': map {'pos': 6,
-                        'text': $thresholdValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $thresholdValue => xs:decimal() => fn:round-half-to-even(1)
                     }
                 }
                 return
@@ -2308,7 +2308,7 @@ declare function xmlconv:RunQAs(
                         'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
                     },
                     'Last year value': map {'pos': 5,
-                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(1)
                     }
                 }
                 return
@@ -2348,7 +2348,7 @@ declare function xmlconv:RunQAs(
                         'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
                     },
                     'Last year value': map {'pos': 5,
-                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(1)
                     }
                 }
                 return
@@ -2408,7 +2408,7 @@ declare function xmlconv:RunQAs(
                         'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
                     },
                     'Last year value': map {'pos': 5,
-                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(1)
                     }
                 }
                 return
@@ -2602,14 +2602,15 @@ declare function xmlconv:RunQAs(
             let $average3Year :=
                 $docAverage//row[MemberState = $country_code and ReferenceYear = $look-up-year][1]
                     /*[fn:local-name() = 'Avg_3yr_' || $pollutant]/fn:data() => functx:if-empty(0) => fn:number()
+                        => fn:round-half-to-even(1)
             (:let $asd := trace($pollutant, "pollutant: "):)
             (:let $asd := trace($total, "total: "):)
             (:let $asd := trace($average3Year, "average3Year: "):)
             let $percentage :=
                 if($total > $average3Year)
-                then (($total * 100) div $average3Year) - 100 => xs:decimal() => fn:round-half-to-even(2)
+                then (($total * 100) div $average3Year) - 100 => xs:decimal() => fn:round-half-to-even(1)
                 else if($total < $average3Year)
-                then (100 - ($total * 100) div $average3Year) => xs:decimal() => fn:round-half-to-even(2)
+                then (100 - ($total * 100) div $average3Year) => xs:decimal() => fn:round-half-to-even(1)
                 else 100
 
             let $errorType :=
@@ -2831,7 +2832,7 @@ declare function xmlconv:RunQAs(
                             {$pollutant} {if($mediumCode = 'NA') then '' else ', mediumCode - '||$mediumCode}
                         </td>
                         <td class="td{$errorType}" title="Change percentage">
-                            {$changePercentage=>fn:round-half-to-even(2)}%
+                            {$changePercentage=>fn:round-half-to-even(1)}%
                         </td>
                         <td title="National level count">{$reportCountOfPollutantCode}</td>
                         <td title="Previous year count">{$CountOfPollutantCode}</td>
@@ -3211,7 +3212,7 @@ declare function xmlconv:RunQAs(
                 (:let $asd := trace($reportTotal, 'reportTotal: '):)
                 let $percentage := if($europeanTotal = 0)
                     then 0
-                    else (($reportTotal * 100) div $europeanTotal) => xs:decimal() => fn:round-half-to-even(5)
+                    else (($reportTotal * 100) div $europeanTotal) => xs:decimal() => fn:round-half-to-even(1)
 
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text, 'errorClass': $err},
@@ -3222,7 +3223,7 @@ declare function xmlconv:RunQAs(
                     'Percentage': map {'pos': 4, 'text': $percentage || '%', 'errorClass': 'td' || $err},
                     'Reported total (in kg/year)': map {'pos': 5, 'text': $reportTotal => xs:decimal()},
                     'European total (in kg/year)': map {'pos': 6,
-                        'text': $europeanTotal => xs:decimal() => fn:round-half-to-even(2)
+                        'text': $europeanTotal => xs:decimal() => fn:round-half-to-even(1)
                     }
                 }
                 let $ok := $percentage < 90
