@@ -480,8 +480,8 @@ declare function xmlconv:RunQAs(
         let $errorType := 'error'
         let $text := 'InspireId could not be found within the E-PRTR and LCP integrated reporting XML'
         let $map := map {
-            'ProductionInstallationPartReport': $installationPartInspireIds,
-            'ProductionFacilityReport': $facilityInspireIds
+            'ProductionInstallationPartReport': $installationPartInspireIds
+            (:'ProductionFacilityReport': $facilityInspireIds:)
         }
         for $featureType in map:keys($map)
             let $reportInspireIds := $docRoot//*[local-name() = $featureType]/InspireId/data()
@@ -2411,20 +2411,132 @@ declare function xmlconv:RunQAs(
             previous year data at the ProductionInstallationPart level"
             , $res
     )
-
     (: let $asd := trace(fn:current-time(), 'started 12.5 at: ') :)
     (: TODO not final version :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
     let $res :=
+        let $disused := (
+            'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/disused',
+            'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
+        )
+        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
+        let $errorType := 'warning'
+        let $text := 'Pollutant release ratio threshold has been exceeded'
+        let $facilitiesNeeded := $docProductionFacilities//ProductionFacility[year = 2008]
+                /InspireId/data()
+        let $disusedFacilities := $docProductionFacilities//ProductionFacility[year = $reporting-year
+            and StatusType = $disused]/InspireId/data()
+        let $pollutantsFromReportXML := $docRoot//ProductionFacilityReport/pollutantRelease
+            [mediumCode = $mediumCode and pollutant = $validPollutants]/pollutant => distinct-values()
+
+        let $eligibleFacilities :=(
+            for $pollutant in $pollutantsFromReportXML
+                let $thresholdValue := $docANNEXII//row[Codelistvalue
+                    = $pollutant=>scripts:getCodelistvalueForOldCode($docPollutantLookup)]
+                        /toAir => functx:if-empty(0) => xs:decimal()
+                (:let $asd := trace($pollutant, 'pollutant: '):)
+                (:let $asd := trace($thresholdValue, 'thresholdValue: '):)
+                for $pollutantRelease in $docRoot//ProductionFacilityReport[InspireId = $facilitiesNeeded]
+                        /pollutantRelease[pollutant = $pollutant]
+                let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
+                let $lowestValue := $docProductionFacilities//ProductionFacility[InspireId = $inspireId]
+                    /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
+                        /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
+
+                (:let $asd := trace($inspireId, 'inspireId: '):)
+                (:let $asd := trace($lowestValue, 'lowestValue: '):)
+                return
+                    if($lowestValue > $thresholdValue * 20)
+                    then $inspireId
+                    else ()
+        ) => distinct-values()
+        (:let $asd := trace($eligibleFacilities, 'eligibleFacilities: '):)
+
+        let $notEligibleFacilities := (
+            for $pollutant in $pollutantsFromReportXML
+                (:let $asd := trace($pollutant, 'pollutant: '):)
+                (:let $asd := trace($thresholdValue, 'thresholdValue: '):)
+                for $pollutantRelease in $docRoot//ProductionFacilityReport[InspireId = $eligibleFacilities
+                    and InspireId = $disusedFacilities]
+                        /pollutantRelease[pollutant = $pollutant]
+                let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
+                let $lowestValue := $docProductionFacilities//ProductionFacility[InspireId = $inspireId
+                    and year = $previous-year]
+                    /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
+                        /totalPollutantQuantityKg => fn:min() => functx:if-empty(-1) => xs:decimal()
+
+                (:let $asd := trace($inspireId, 'inspireId: '):)
+                (:let $asd := trace($lowestValue, 'lowestValue: '):)
+                return
+                    if($lowestValue = 0)
+                    then $inspireId
+                    else ()
+        ) => distinct-values()
+        (:let $asd := trace($notEligibleFacilities, 'notEligibleFacilities: '):)
+
+        let $eligibleFacilitiesFinal := functx:value-except($eligibleFacilities, $notEligibleFacilities)
+        (:let $asd := trace($eligibleFacilitiesFinal, 'eligibleFacilitiesFinal: '):)
+
+        for $pollutantRelease in $docRoot//ProductionFacilityReport[InspireId = $eligibleFacilitiesFinal]
+                /pollutantRelease
+            let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
+            let $minimumValuePrev := $docProductionFacilities//ProductionFacility[InspireId = $inspireId
+                    and year != $reporting-year]
+                    /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
+                        /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
+            let $maximumValuePrev := $docProductionFacilities//ProductionFacility[InspireId = $inspireId
+                    and year != $reporting-year]
+                    /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
+                        /totalPollutantQuantityKg => fn:max() => functx:if-empty(0) => xs:decimal()
+            let $currentYearValue :=
+                $pollutantRelease/totalPollutantQuantityKg => functx:if-empty(0) => xs:decimal()
+            let $minimumValue := ($minimumValuePrev, $currentYearValue) => fn:min()
+            let $maximumValue := ($maximumValuePrev, $currentYearValue) => fn:max()
+            let $ok := (
+                $maximumValue div $minimumValue <= 10
+                or
+                $maximumValue + $minimumValue = 0
+            )
+            return
+                if(not($ok))
+                (:if(true()):)
+                then
+                    let $dataMap := map {
+                        'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                        'InspireId': map {'pos': 2, 'text': $inspireId},
+                        'PollutantRelease': map {'pos': 3,
+                            'text': scripts:getPollutantCode($pollutantRelease/pollutant, $docPollutantLookup),
+                            'errorClass': 'td' || $errorType
+                        },
+                        'Minimum value': map {'pos': 4, 'text': $minimumValue},
+                        'Maximum value': map {'pos': 5, 'text': $maximumValue}
+                    }
+                    return
+                        scripts:generateResultTableRow($dataMap)
+                else
+                    ()
+
+
+(:
+    let $res_old :=
         let $getLowestPollutant := function (
         ) as xs:string {
             'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CRANDCOMPOUNDS'
         }
-
+        let $disused := (
+            'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/disused',
+            'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
+        )
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
         let $errorType := 'warning'
         let $text := 'Pollutant release ratio threshold has been exceeded'
-        for $facility in $docRoot//ProductionFacilityReport
+
+        let $eligibleFacilities := $docProductionFacilities//ProductionFacility[year = 2008]
+                /InspireId/data()
+        let $disusedFacilities := $docProductionFacilities//ProductionFacility[year = $reporting-year
+            and StatusType = $disused]/InspireId/data()
+
+        for $facility in $docRoot//ProductionFacilityReport[InspireId = $eligibleFacilities]
             let $lowestValuePrevYears := 1234
             let $lowestValueActualYear := $facility/pollutantRelease/totalPollutantQuantityKg => fn:min()
             let $lowestValue := fn:min($lowestValuePrevYears, $lowestValueActualYear)
@@ -2457,7 +2569,7 @@ declare function xmlconv:RunQAs(
                     return
                         scripts:generateResultTableRow($dataMap)
                 else ()
-
+:)
 
     let $LCP_12_5 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.5",
@@ -3352,7 +3464,7 @@ declare function xmlconv:RunQAs(
 
     let $LCP_16 := xmlconv:RowAggregator(
             "EPRTR-LCP 16",
-            "Expected pollutant identification",
+            "Miscellaneous checks",
             (
                 $LCP_16_1,
                 $LCP_16_2

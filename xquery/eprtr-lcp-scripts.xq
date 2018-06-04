@@ -410,14 +410,14 @@ declare function scripts:compareNumberOfPollutants(
                     (100-(($reportCountOfPollutantCode * 100) div $CountOfPollutantCode)) => fn:abs()
                 (:let $asd := trace($changePercentage, 'changePercentage: '):)
                 let $ok := (
-                    $changePercentage <= 50
+                    $changePercentage <= 25
                     or
                     ($CountOfPollutantCode = 0
                     and
                     $reportCountOfPollutantCode = 0)
                 )
                 let $errorType :=
-                    if($changePercentage >= 100)
+                    if($changePercentage >= 50)
                     then 'warning'
                     else 'info'
                 return

@@ -127,4 +127,10 @@ declare function functx:value-intersect
 
   distinct-values($arg1[.=$arg2])
  } ;
+declare function functx:value-except
+  ( $arg1 as xs:anyAtomicType* ,
+    $arg2 as xs:anyAtomicType* )  as xs:anyAtomicType* {
+
+  distinct-values($arg1[not(.=$arg2)])
+ } ;
 (: HELPER FUNCTIONS END :)
