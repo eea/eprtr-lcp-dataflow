@@ -51,7 +51,7 @@ declare function scripts:getEPRTRAnnexIActivity (
     $reporting-year as xs:double,
     $docProductionFacility as document-node()
 ) as xs:string {
-    $docProductionFacility//ProductionFacility[year = $reporting-year
+    $docProductionFacility/data/ProductionFacility[year = $reporting-year
         and InspireId = $inspireId]/EPRTRAnnexIActivity => functx:substring-after-last("/")
 };
 
@@ -428,7 +428,7 @@ declare function scripts:compareNumberOfPollutants(
                         <td class='{$errorType}' title="Details">
                             {$errorText || ' '} {
                             if($errorType = 'warning')
-                            then '100%' else '50%'
+                            then '50%' else '25%'
                         }
                         </td>
                         <td title="Polutant">
