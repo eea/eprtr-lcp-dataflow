@@ -32,7 +32,7 @@ declare function scripts:generateResultTableRow(
     $dataMap as map(xs:string, map(*))
     (:$dataMap as map(*):)
 ) as element(tr) {
-    <tr>
+    <tr sort="{if(map:contains($dataMap?Details, 'sortValue')) then $dataMap?Details?sortValue else 0}">
     {
         for $column in map:keys($dataMap)
         order by $dataMap?($column)?pos
