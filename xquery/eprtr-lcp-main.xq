@@ -1022,23 +1022,32 @@ declare function xmlconv:RunQAs(
     (:  C.5.7 – Identification of month duplicates  :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
+        let $months := scripts:getValidConcepts('MonthValue')
+        let $errorMessages := map {
+            1: 'Month is duplicated within the DesulphurisationInformationType feature type',
+            2: 'Month is missing from the DesulphurisationInformationType feature type'
+        }
         for $elem in $seq
-            let $allMonths := $elem/desulphurisationInformation/month
-            for $el in fn:distinct-values($elem/desulphurisationInformation/month)
-            let $ok := fn:count(index-of($allMonths, $el)) = 1
-            return
-                if(fn:not($ok))
-                    then
-                        <tr>
-                            <td class='warning' title="Details">
-                                Month is duplicated within the DesulphurisationInformationType feature type
-                            </td>
-                            <td class="tdwarning" title="Month"> {functx:substring-after-last($el, "/")} </td>
-                            <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
-                            <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
-                        </tr>
-                    else
-                        ()
+            let $allMonths := $elem/desulphurisationInformation/month/data()
+            for $month in $months
+                let $error := if(fn:count(index-of($allMonths, $month)) > 1)
+                    then 1
+                    else if(fn:count(index-of($allMonths, $month)) < 1)
+                    then 2
+                    else ()
+                return
+                    if($error)
+                        then
+                            <tr>
+                                <td class='warning' title="Details">
+                                    {$errorMessages?($error)}
+                                </td>
+                                <td class="tdwarning" title="Month"> {functx:substring-after-last($month, "/")} </td>
+                                <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                                <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
+                            </tr>
+                        else
+                            ()
     let $LCP_5_7 := xmlconv:RowBuilder("EPRTR-LCP 5.7","Identification of month duplicates", $res)
 
     let $LCP_5 := xmlconv:RowAggregator(
@@ -1555,9 +1564,9 @@ declare function xmlconv:RunQAs(
         let $getAggregatedPartsCO2 := function (
             $inspireId as element()
         ) as xs:double {
-            (: 000000001.FACILITY
-            1200 * 94.6 + 8 * 44.4 + 8 * 44.4 + 150 * 107 + 150 * 107 + 300 * 97.5 + 300 * 97.5
-            204830.4
+            (: 000000003.PART
+            2465 * 56.1
+            138286.5
             :)
             let $partsInspireIds := $docProductionInstallationParts//ProductionInstallationPart
                     [parentFacilityInspireId = $inspireId/data()]/InspireId => distinct-values()
@@ -1661,10 +1670,27 @@ declare function xmlconv:RunQAs(
                     $reporting-year,
                     $docProductionFacilities
             )
+            (:let $asd := trace($EPRTRAnnexIActivity, 'EPRTRAnnexIActivity: '):)
             for $row in $docCrossPollutants//row[AnnexIActivityCode => replace('\.', '') = $EPRTRAnnexIActivity]
+                let $conditionPollutant := $row/ConditionPollutant/data()
+                let $conditionValue := $row/ConditionValue => fn:number()
+                let $conditionSourcePollutant := $row/ConditionSourcePollutant/data()
+
                 let $reportingThreshold := $row/ReportingThreshold => fn:number()
                 let $sourcePollutantValue := $getPollutantValue($facility, $row/SourcePollutant)
                 let $resultingPollutantValue := $getPollutantValue($facility, $row/ResultingPollutant)
+                let $conditionPollutantValue := $getPollutantValue($facility, $conditionPollutant)
+                let $conditionSourcePollutantValue := $getPollutantValue($facility, $conditionSourcePollutant)
+
+                (:let $asd := trace(($conditionSourcePollutantValue * $conditionValue) div 100, 'calc cond val: '):)
+                (:let $asd := trace($conditionPollutantValue, 'cond val: '):)
+
+                let $cond := if($conditionValue > 0)
+                    then $conditionPollutantValue < ($conditionSourcePollutantValue * $conditionValue) div 100
+                    else fn:true()
+
+                where $cond
+
                 let $minExpectedEmission :=
                     ($sourcePollutantValue * $row/MinFactor => functx:if-empty(0)) => fn:number()
                 let $maxExpectedEmission :=
@@ -1679,6 +1705,9 @@ declare function xmlconv:RunQAs(
                 (:let $asd := trace($row/ResultingPollutant/text(), 'ResultingPollutant: '):)
                 (:let $asd := trace($sourcePollutantValue, 'sourcePollutantValue: '):)
                 (:let $asd := trace($resultingPollutantValue, 'resultingPollutantValue: '):)
+                (:let $asd := trace($conditionPollutant, 'conditionPollutant: '):)
+                (:let $asd := trace($conditionValue, 'conditionValue: '):)
+
                 (:let $asd := trace($reportingThreshold, 'reportingThreshold: '):)
                 (:let $asd := trace($maxExpectedEmission, 'maxExpectedEmission: '):)
 (:
@@ -1878,10 +1907,6 @@ declare function xmlconv:RunQAs(
             "offsitePollutantTransfer": map {
                 'getFunction': $getThresholdOffsitePollutantTransfer,
                 'nodeNameQuantity': 'totalPollutantQuantityKg'
-            },
-            "offsiteWasteTransfer": map {
-                'getFunction': $getThresholdOffsiteWasteTransfer,
-                'nodeNameQuantity': 'totalWasteQuantityTNE'
             }
         }
 
@@ -1917,8 +1942,41 @@ declare function xmlconv:RunQAs(
                     return scripts:generateResultTableRow($dataMap)
                 else ()
 
+    let $res2 :=
+        let $seq := $docRoot/ReportData/ProductionFacilityReport
+        let $errorType := 'info'
+        let $text := 'Amount reported is below the threshold value'
+        let $wasteClassifications := ('http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/NONHW',
+            'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/HW')
+
+        for $facility in $seq
+            for $waste in $wasteClassifications
+                let $wasteClass := $waste => functx:substring-after-last("/")
+                let $threshold :=
+                    if($wasteClass = 'HW')
+                    then 2
+                    else 2000
+
+                let $reportedAmount := $facility//offsiteWasteTransfer[wasteClassification = $waste]
+                        /totalWasteQuantityTNE => fn:sum()
+
+                where $reportedAmount > 0 and $reportedAmount < $threshold
+
+                let $dataMap := map {
+                    'Details' : map {'pos' : 1, 'text' : $text, 'errorClass' : $errorType},
+                    'InspireId' : map {'pos' : 2, 'text' : $facility/InspireId/data()},
+                    'Type' : map {'pos' : 3, 'text' : 'offsiteWasteTransfer - ' || $wasteClass},
+                    'Reported amount':
+                        map {'pos' : 4, 'text' : $reportedAmount => xs:decimal(), 'errorClass': 'td' || $errorType},
+                    'Threshold value': map {'pos' : 5, 'text' : $threshold => xs:decimal()}
+                    }
+
+                return scripts:generateResultTableRow($dataMap)
+
+
     let $LCP_11_2 := xmlconv:RowBuilder("EPRTR-LCP 11.2",
-            "ProductionFacility releases and transfers reported below the thresholds", $res)
+            "ProductionFacility releases and transfers reported below the thresholds",
+            ($res, $res2))
 
     let $LCP_11 := xmlconv:RowAggregator(
             "EPRTR-LCP 11",
@@ -2960,7 +3018,7 @@ declare function xmlconv:RunQAs(
 
     (: let $asd := trace(fn:current-time(), 'started 14.1 at: ') :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
-    let $res :=
+    (:   let $res :=
         let $seqActivities := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
                 /EPRTRAnnexIActivity => distinct-values()
         let $seqPollutants := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
@@ -3178,8 +3236,11 @@ declare function xmlconv:RunQAs(
                             }
                             return scripts:generateResultTableRow($dataMap)
                         else ()
+:)
+    let $res := ()
     let $LCP_14_1 := xmlconv:RowBuilder("EPRTR-LCP 14.1",
-            "Identification of top 10 ProductionFacility releases/transfers across Europe", $res)
+            "Identification of top 10 ProductionFacility releases/transfers across Europe",
+            $res)
 
     (:let $asd := trace(fn:current-time(), 'started 14.2 at: '):)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
