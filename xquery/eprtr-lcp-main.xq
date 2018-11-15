@@ -1605,6 +1605,13 @@ declare function xmlconv:RunQAs(
             let $reportedCO2 := $facility/pollutantRelease[pollutant = $pollutant and mediumCode = $mediumCode]
                 /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             let $aggregatedPartsCO2 := $getAggregatedPartsCO2($facility/InspireId)
+
+            let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
+                = $pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
+                    /toAir
+
+            where $aggregatedPartsCO2 > $thresholdValue
+
             (:let $asd := trace($reportedCO2, "reportedCO2: "):)
             (:let $asd := trace($aggregatedPartsCO2, "aggregatedPartsCO2: "):)
             let $percentage := if($reportedCO2 = 0 or $aggregatedPartsCO2 = 0)
@@ -2604,9 +2611,11 @@ declare function xmlconv:RunQAs(
             let $minimumValue := ($minimumValuePrev, $currentYearValue) => fn:min()
             let $maximumValue := ($maximumValuePrev, $currentYearValue) => fn:max()
             let $ok := (
-                $maximumValue div $minimumValue <= 10
-                or
                 $maximumValue + $minimumValue = 0
+                or
+                (if($minimumValue = 0 and $maximumValue > 0)
+                then false()
+                else $maximumValue div $minimumValue <= 10)
             )
             return
                 if(not($ok))
