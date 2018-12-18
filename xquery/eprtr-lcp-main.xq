@@ -269,6 +269,7 @@ declare function xmlconv:isInVocabulary(
 declare function xmlconv:RunQAs(
         $source_url
 ) as element()* {
+    let $skip_countries := ('SE')
 
     let $docRoot := fn:doc($source_url)
     let $docPollutantLookup := fn:doc ($xmlconv:POLLUTANT_LOOKUP)
@@ -1021,6 +1022,9 @@ declare function xmlconv:RunQAs(
 
     (:  C.5.7 – Identification of month duplicates  :)
     let $res :=
+    if ($country_code = $skip_countries)
+    then ()
+    else
         let $seq := $docRoot//ProductionInstallationPartReport
         let $months := scripts:getValidConcepts('MonthValue')
         let $errorMessages := map {
