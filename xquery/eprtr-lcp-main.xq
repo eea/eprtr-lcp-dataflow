@@ -449,10 +449,11 @@ declare function xmlconv:RunQAs(
     let $decommissioned :=
         'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
     let $facilityInspireIds :=
-        $docProductionFacilities/data/ProductionFacility[year = $reporting-year]/InspireId => distinct-values()
+        $docProductionFacilities/data/ProductionFacility[year = $reporting-year]
+                /InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
     let $installationPartInspireIds :=
         $docProductionInstallationParts//ProductionInstallationPart[StatusType != $decommissioned
-            and year = $reporting-year]/InspireId => distinct-values()
+            and year = $reporting-year]/InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
 
     (:  C2.1 – inspireId consistency    :)
     let $res :=
@@ -1316,7 +1317,7 @@ declare function xmlconv:RunQAs(
 
     let $inspireIdsNeeded := $docProductionInstallationParts//ProductionInstallationPart
         [year = $reporting-year and derogations => functx:substring-after-last("/") = 'Article31']
-            /InspireId/data()
+            /InspireId[substring-before(namespace, '.') = $country_code]/data()
 
     (: let $asd := trace(fn:current-time(), 'started 8 at: ') :)
     (:   C8.1 – Article 31 derogation compliance   :)
@@ -1428,7 +1429,7 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $inspireIdsNedded := $docProductionInstallationParts//ProductionInstallationPart
             [year = $reporting-year and derogations=>functx:substring-after-last("/") = 'Article35']
-                /InspireId/data()
+                /InspireId[substring-before(namespace, '.') = $country_code]/data()
         let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $inspireIdsNedded]
         let $errorType := 'info'
         let $text := 'Proportion of useful heat production for district heating has been omitted or reported below 50%'
@@ -2386,7 +2387,8 @@ declare function xmlconv:RunQAs(
 
         }
         let $facilityInspireIdsNeeded :=
-            $docProductionFacilities/data/ProductionFacility[year != $reporting-year]/InspireId => distinct-values()
+            $docProductionFacilities/data/ProductionFacility[year != $reporting-year]
+                    /InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
         let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer', 'offsiteWasteTransfer')
         let $seq := $docRoot//ProductionFacilityReport[InspireId = $facilityInspireIdsNeeded]
         let $errorType := 'warning'
@@ -2495,7 +2497,7 @@ declare function xmlconv:RunQAs(
         }
         let $installationPartInspireIdsNeeded :=
             $docProductionInstallationParts//ProductionInstallationPart[year != $reporting-year]
-                /InspireId => distinct-values()
+                /InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
         let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $installationPartInspireIdsNeeded]
         let $errorType := 'warning'
         let $text := 'Reported data exceeds threshold of deviation from previous year data'
@@ -2546,10 +2548,10 @@ declare function xmlconv:RunQAs(
         let $errorType := 'warning'
         let $text := 'Pollutant release ratio threshold has been exceeded'
         let $facilitiesNeeded := $docProductionFacilities/data/ProductionFacility(:[year = 2008]:)
-                /InspireId
+                /InspireId[substring-before(namespace, '.') = $country_code]
         (:let $asd := trace($facilitiesNeeded, 'facilitiesNeeded: '):)
         let $disusedFacilities := $docProductionFacilities/data/ProductionFacility[year = $reporting-year
-            and StatusType = $disused]/InspireId/data()
+            and StatusType = $disused]/InspireId[substring-before(namespace, '.') = $country_code]/data()
         let $pollutantsFromReportXML := $docRoot//ProductionFacilityReport/pollutantRelease
             [mediumCode = $mediumCode and pollutant = $validPollutants]/pollutant => distinct-values()
 
