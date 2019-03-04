@@ -424,6 +424,12 @@ declare function xmlconv:RunQAs(
         return xmlconv:isInVocabulary($seq, "WasteTreatmentValue")
     let $LCP_1_15 := xmlconv:RowBuilder("EPRTR-LCP 1.15","WasteTreatmentValue consistency", $res )
 
+    (:  C1.16 – stackHeightClass consistency  :)
+    let $res :=
+        let $seq := $docRoot//stackHeightClass
+        return xmlconv:isInVocabulary($seq, "StackHeightClassValue")
+    let $LCP_1_16 := xmlconv:RowBuilder("EPRTR-LCP 1.16","StackHeightClassValue consistency", $res )
+
     let $LCP_1 := xmlconv:RowAggregator(
             "EPRTR-LCP 1",
             "Code list checks",
@@ -442,7 +448,8 @@ declare function xmlconv:RunQAs(
                 $LCP_1_12,
                 $LCP_1_13,
                 $LCP_1_14,
-                $LCP_1_15
+                $LCP_1_15,
+                $LCP_1_16
             )
     )
 
