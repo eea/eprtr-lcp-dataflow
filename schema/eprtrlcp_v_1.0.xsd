@@ -1,0 +1,690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			Schema used for E-PRTR and LCP integrated data reporting (http://rod.eionet.europa.eu/obligations/720)
+			Created: 23.10.2017
+			Last updated: 21.01.2019
+			Version: 1.2
+		</xs:appinfo>
+	</xs:annotation>
+	<!-- data types -->
+
+	<xs:complexType name="AddressDetailsType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type designed to collect address information when an address is required to be reported.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="buildingNumber" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string populated with the building/property number.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="city" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string populated with the name of the city where the building/property is located.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="countryCode" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CountryCodeValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postalCode" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string populated with the postal code of the building/property.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="streetName" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string populated with name of the street or road in which the building/property
+                        is located.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CombustionPlantCategoryType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type designed to describe the type of LCP being reported.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="combustionPlantCategory" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CombustionPlantCategoryValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="furtherDetails" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string provided to enable reporting countries to expand upon the value provided in
+                        the combustionPlantCategory attribute above.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="DesulphurisationInformationType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type designed to provide the information required under Article 33(1) and Article 72 (4a)
+                of the IED.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="desulphurisationRate" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute to be populated with a double value representing the rate of desulphurisation
+                        achieved on average over the month reported in the month attribute described below.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="month" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MonthValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sulphurContent" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute to be populated with a double value representing the sulphur content of the
+                        indigenous solid fuel used.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="technicalJustification" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string enabling reporting countries to comment on the nonfeasibility of complying
+                        with the emission limit values referred to in Article 30(2) and (3) of the IED.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="DoubleOrNothing">
+		<xs:annotation>
+			<xs:documentation>Double or null(allows empty xml element)</xs:documentation>
+		</xs:annotation>
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:double"></xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+
+	<xs:complexType name="FuelInputType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type used to detail further contextual information in regards to the energyInputTJ attribute
+                in the EnergyInput feature type.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fuelInput" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="furtherDetails" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string enabling the reporting country to expand on either the
+                        OtherSolidFuel or OtherGaseousFuel attributes above if ‘other’ is chosen to populate either
+                        attribute.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="otherGaseousFuel" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherGaseousFuelValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="otherSolidFuel" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/OtherSolidFuelValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IdentifierType">
+		<xs:sequence>
+			<xs:element name="localId" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+					-- Definition -- A local identifier, assigned by the data provider. The local identifier is unique within the namespace, that is no other spatial object carries the same unique identifier. -- Description -- NOTE It is the responsibility of the data provider to guarantee uniqueness of the local identifier within the namespace.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="namespace" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+					-- Definition -- Namespace uniquely identifying the data source of the spatial object. -- Description -- NOTE The namespace value will be owned by the data provider of the spatial object and will be registered in the INSPIRE External Object Identifier Namespaces Register.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProductionVolumeType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type designed to detail both the product and the volume of produce produced in the reporting
+                year, associated with the reported E-PRTR facility.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="productionVolume" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute designed to be populated with a double value representing the volume of the product
+                        reported in the productName attribute above.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionVolumeUnits" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/UnitCodeValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productName" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string enabling the reporting country to enter the name of the product referred
+                        to in the attributes below.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="MethodType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type designed to describe the method by which a quantity in the data model has been determined.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="furtherDetails" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string enabling the reporting country to provide a statement expanding on the
+                        methodCode and/or methodClassification attributes above.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="methodClassification" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodClassificationValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="methodCode" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MethodCodeValue/</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TransboundaryMovementType">
+		<xs:annotation>
+			<xs:documentation>
+                A data type designed to account for all the additional information required under Annex III of the
+                E-PRTR Regulation if the off-site waste transfer occurs across the boundary of the country reporting.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="nameOfReceiver" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        A character string populated with the name of the company receiving the waste transfer.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addressOfReceiver" type="AddressDetailsType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Links to the AddressDetails data type, with the intention to be used to detail the address of
+                        the company receiving the transfer, aligning with the name referenced in the nameOfReceiver
+                        attribute above.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addressOfReceivingSite" type="AddressDetailsType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Links to the AddressDetails data type, with the intention that it be used to detail the address
+                        of the site receiving the transfer and should be aligned to a site owned by the company
+                        detailed in the nameOfReceiver and addressOfReceiver attributes.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- feature types -->
+
+	<xs:complexType name="EmissionsToAirType">
+		<xs:annotation>
+			<xs:documentation>
+                This feature type is linked to the parent ProductionInstallationPartReport feature type, and thus details data
+                specific to LCPs.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pollutant" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalPollutantQuantityTNE" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute containing a double value representing the quantity of the pollutant emitted to air,
+                        specified in metric tonnes per year.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="EnergyInputType">
+		<xs:annotation>
+			<xs:documentation>
+                This feature type is linked to the parent ProductionInstallationPartReport feature type, and thus details data
+                specific to LCPs. Under Article 72(3)a of the IED, this data is required to be split according to different fuel
+                types.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="energyinputTJ" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute used to provide a double value detailing the energy input (the net calorific
+                        value reported in terajoules per year).
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fuelInput" type="FuelInputType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        This attribute links to the FuelInputType data type, which provides further attributes to
+                        enable the reporting country to detail the fuel type, in accordance with the requirement outlined in
+                        Article 72 (3)a of the IED.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="OffsitePollutantTransferType">
+		<xs:annotation>
+			<xs:documentation>
+                This feature type is linked to the parent ProductionFacilityReport feature type, and thus details data specific
+                to E-PRTR facilities.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pollutant" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalPollutantQuantityKg" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute containing a double value which details the total annual quantity, in kilograms,
+                        of the pollutant contained in the wastewater destined for waste water treatment.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="method" type="MethodType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+                        Links to the MethodType data type, which in turns uses additional attributes to further
+                        characterise how the quantity reported has been determined.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="OffsiteWasteTransferType">
+		<xs:annotation>
+			<xs:documentation>
+                This feature type is linked to the parent ProductionFacilityReport feature type, and thus details data specific
+                to E-PRTR facilities.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalWasteQuantityTNE" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute which contains a double value representing the quantity of waste transferred,
+                        reported in metric tonnes per year.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteClassification" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteClassificationValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteTreatment" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/WasteTreatmentValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="method" type="MethodType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+                        Links to the MethodType data type, which in turns uses additional attributes to further
+                        characterise how the quantity reported has been determined.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transboundaryTransfer" type="TransboundaryMovementType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Links to the TransboundaryMovementType data type, which is used to provide further information
+                        about the waste transfer if it involves the movement of waste outside the boundary of the
+                        reporting country.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PollutantReleaseType">
+		<xs:annotation>
+			<xs:documentation>
+                This feature type is linked to the parent ProductionFacilityReport feature type, and thus details data specific to E-PRTR facilities.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="accidentalPollutantQuantityKg" type="DoubleOrNothing" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute containing a double value, detailing the pollutant quantity that is associated with accidental releases. This value will be some proportion of the total value supplied in the totalPollutantQuantityKg attribute.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mediumCode" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pollutant" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalPollutantQuantityKg" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        An attribute containing a double value which represents the total annual quantity,
+                        in kilograms, of the pollutant released.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="method" type="MethodType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+                        Links to the MethodType data type, which in turns uses additional attributes to further
+                        characterise how the quantity reported has been determined.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProductionFacilityReportType">
+		<xs:annotation>
+			<xs:documentation>
+                This marks the first feature type specific to the E-PRTR.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InspireId" type="IdentifierType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Unique identifier.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfEmployees" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Attribute designed to be populated with an integer detailing the number of employees directly
+                        associated with the facility.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfOperatingHours" type="DoubleOrNothing" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Attribute designed to be populated with a double value detailing the number of hours the facility
+                        operated in the reporting year.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remarks" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        This is an optional attribute (i.e. multiplicity of zero is permitted) since its provision is
+                        optional in the E-PRTR Regulation. It allows reporting countries to provide any additional information
+                        about the thematic data for a facility.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="representativeStackHeightM" type="DoubleOrNothing" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        This is an optional attribute (i.e. multiplicity of zero is permitted), to
+                        enable reporting countries to supply the stack height for the facility. Such data forms an important
+                        role in the accuracy of point source modelling. The height is intended to be supplied in metres above
+                        ground level, and should be the actual stack height when there is only a single stack, and should be
+                        representative of the average stack height where a facility has multiple stacks.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionVolume" type="ProductionVolumeType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+                        This attribute links to the ProductionVolumeType data type, which in turn contains more
+                        attributes detailing both the product and the volume produced in the reporting year.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="offsiteWasteTransfer" type="OffsiteWasteTransferType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="offsitePollutantTransfer" type="OffsitePollutantTransferType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="pollutantRelease" type="PollutantReleaseType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="stackHeightClass" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/StackHeightClassValue/
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProductionInstallationPartReportType">
+		<xs:annotation>
+			<xs:documentation>
+                This marks the first feature type specific to LCP reporting.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="confidentialityReason" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/ReasonValue/
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InspireId" type="IdentifierType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Unique identifier.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfOperatingHours" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Attribute designed to be populated with a double value detailing the number of hours the LCP operated
+                        in the reporting year.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="proportionOfUsefulHeatProductionForDistrictHeating" type="DoubleOrNothing" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Attribute to be populated with a double value reflecting the proportion of useful heat production
+                        of each plant which was delivered in the form of steam or hot water to a public network for
+                        district heating.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remarks" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        This is an optional attribute (i.e. multiplicity of zero is permitted). It allows reporting
+                        countries to provide any additional information about the thematic data for a LCP.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="withinRefinery" type="xs:boolean" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        Contains a Boolean attribute to indicate whether the LCP reported is situated within
+                        a refinery site.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="combustionPlantCategory" type="CombustionPlantCategoryType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+                        This attribute links to the data type CombustionPlantCategoryType.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desulphurisationInformation" type="DesulphurisationInformationType" minOccurs="0" maxOccurs="12">
+				<xs:annotation>
+					<xs:documentation>
+                        Attribute used to provide further data if the LCP is subject to Article 33(1) and Article 72 (4a)
+                        of the IED.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="emissionsToAir" type="EmissionsToAirType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="energyInput" type="EnergyInputType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="ReportData">
+		<xs:annotation>
+			<xs:documentation>
+                The ReportData feature type is designed to provide contextual information about both the reporting
+                country and the reporting year for which a submission is made.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="countryId" type="xs:string" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+                            http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/CountryCodeValue/
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="reportingYear" type="xs:gYear" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+                            Defines the year that the submission covers.
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ProductionInstallationPartReport" type="ProductionInstallationPartReportType" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="ProductionFacilityReport" type="ProductionFacilityReportType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
