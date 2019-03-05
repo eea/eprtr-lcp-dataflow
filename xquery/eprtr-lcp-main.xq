@@ -650,26 +650,21 @@ declare function xmlconv:RunQAs(
         let $concept := "MethodClassificationValue"
         let $valid := scripts:getValidConcepts($concept)
         for $elem in $seq
-        let $ok := ($valid = fn:data($elem/methodClassification))
-        return
-            if (
-                fn:not($ok)
-                and
-                functx:substring-after-last($elem/methodCode, "/") = ("M", "C")
-            )
-            then
+            where functx:substring-after-last($elem/methodCode, "/") = ("M", "C")
+            for $methodClass in $elem/methodClassification
+            let $ok := ($valid = fn:data($methodClass))
+            where fn:not($ok)
+            return
                 <tr>
                     <td class='warning' title="Details"> {$concept} has not been recognised</td>
                     <td title="inspireId">{$elem/ancestor::*[InspireId]/InspireId}</td>
-                    <td class="tdwarning" title="{fn:node-name($elem/methodClassification)}">
-                        {$elem/methodClassification/text()}
+                    <td class="tdwarning" title="{fn:node-name($methodClass)}">
+                        {$methodClass/text()}
                     </td>
                     <td title="methodCode">{functx:substring-after-last($elem/methodCode, "/")}</td>
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
                     <td title="Additional info">{$getAdditionalInformation($elem/parent::*)}</td>
                 </tr>
-            else
-                ()
     let $LCP_3_4 := xmlconv:RowBuilder("EPRTR-LCP 3.4","Comprehensive methodClassification reporting", $res)
 
     (:  C3.5 – Required furtherDetails for reporting methodClassification   :)
@@ -682,25 +677,25 @@ declare function xmlconv:RunQAs(
         )
         let $seq := $docRoot//method
         for $elem in $seq
-        return
-            if(
-                $elem/methodClassification = $methodClassifications
-                and
-                functx:if-empty($elem/furtherDetails, "") = ""
-            )
-            then
+            let $reportMethodClass := $elem/methodClassification/text()
+            where count(functx:value-intersect($reportMethodClass, $methodClassifications)) > 0
+                and functx:if-empty(string-join($elem/furtherDetails, ""), "") = ""
+
+            let $mClass :=
+                for $m in $reportMethodClass
+                    return <p>{$m}</p>
+            return
                 <tr>
                     <td class='warning' title="Details">
                         Not met reporting requirements for the method classification
                     </td>
                     <td title="inspireId">{$elem/ancestor::*[InspireId]/InspireId}</td>
                     <td class="tdwarning" title="furtherDetails"> {fn:data($elem/furtherDetails)} </td>
-                    <td title="methodClassifications">{$elem/methodClassification}</td>
+                    <td title="methodClassifications">{$mClass}</td>
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
                     <td title="Additional info">{$getAdditionalInformation($elem/parent::*)}</td>
                 </tr>
-            else
-                ()
+
     let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5",
             "Required furtherDetails for reporting methodClassification", $res)
 
