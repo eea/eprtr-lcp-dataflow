@@ -90,6 +90,7 @@ declare function xmlconv:RowBuilder (
 ) as element( ) *{
 
   let $RuleCode := fn:substring-after($RuleCode, ' ')
+  (:let $asd:= trace($RuleCode, ''):)
 
     let $errors := $ResDetails/td[@class = 'error']
     let $warnings := $ResDetails/td[@class = 'warning']
@@ -235,7 +236,7 @@ declare function xmlconv:InspireIdUniqueness(
         then
             <tr>
                 <td class='error' title="Details">InspireId is not unique</td>
-                <td class="tderror" title="InspireId"> {fn:data($elem)} </td>
+                <td class="tderror" title="Local ID"> {fn:data($elem/localId)} </td>
             </tr>
         else
             ()
@@ -257,10 +258,9 @@ declare function xmlconv:isInVocabulary(
             then
                 <tr>
                     <td class='error' title="Details"> {$concept} has not been recognised</td>
-                    <td title='inspireId'>{$elem/ancestor::*[InspireId]/InspireId}</td>
+                    <td title='Local ID'>{$elem/ancestor::*[InspireId]/InspireId/localId}</td>
                     <td title='Feature type'>{$elem/parent::*/local-name()}</td>
                     <td class="tderror" title="{fn:node-name($elem)}"> {fn:data($elem)} </td>
-
                 </tr>
             else
                 ()
@@ -480,8 +480,8 @@ declare function xmlconv:RunQAs(
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'Feature type': map {'pos': 2, 'text': $featureType/local-name()},
-                        'InspireId':
-                            map {'pos': 3, 'text': $featureType/InspireId, 'errorClass': 'td' || $errorType}
+                        'Local ID':
+                            map {'pos': 3, 'text': $featureType/InspireId/localId, 'errorClass': 'td' || $errorType}
                     }
                     return scripts:generateResultTableRow($dataMap)
                 else ()
@@ -507,7 +507,7 @@ declare function xmlconv:RunQAs(
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'Feature type': map {'pos': 2, 'text': $featureType},
-                        'InspireId': map {'pos': 3, 'text': $inspideId, 'errorClass': 'td' || $errorType}
+                        'Local ID': map {'pos': 3, 'text': $inspideId/localId, 'errorClass': 'td' || $errorType}
                     }
                     return scripts:generateResultTableRow($dataMap)
                 else ()
@@ -570,7 +570,7 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details"> Pollutant has not been reported</td>
                     <td class="tdwarning" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                     <td title="Feature type">emissionsToAir</td>
-                    <td title="inspireId">{$elem/InspireId}</td>
+                    <td title="Local ID">{$elem/InspireId/localId}</td>
                 </tr>
             else
                 ()
@@ -597,8 +597,7 @@ declare function xmlconv:RunQAs(
                 <tr>
                     <td class='warning' title="Details"> FuelInput has not been reported</td>
                     <td class="tdwarning" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
-                    <td title="localId">{$elem/descendant::*/localId}</td>
-                    <td title="namespace">{$elem/descendant::*/namespace}</td>
+                    <td title="Local ID">{$elem/descendant::*/localId}</td>
                 </tr>
             else
                 ()
@@ -637,8 +636,7 @@ declare function xmlconv:RunQAs(
                         }
                     </td>
                     <td class="tdwarning" title="furtherDetails">{$fuel/furtherDetails}</td>
-                    <td title="localId">{$elem/descendant::*/localId}</td>
-                    <td title="namespace">{$elem/descendant::*/namespace}</td>
+                    <td title="Local ID">{$elem/descendant::*/localId}</td>
                 </tr>
             else
                 ()
@@ -657,7 +655,7 @@ declare function xmlconv:RunQAs(
             return
                 <tr>
                     <td class='warning' title="Details"> {$concept} has not been recognised</td>
-                    <td title="inspireId">{$elem/ancestor::*[InspireId]/InspireId}</td>
+                    <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId}</td>
                     <td class="tdwarning" title="{fn:node-name($methodClass)}">
                         {$methodClass/text()}
                     </td>
@@ -689,7 +687,7 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">
                         Not met reporting requirements for the method classification
                     </td>
-                    <td title="inspireId">{$elem/ancestor::*[InspireId]/InspireId}</td>
+                    <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId}</td>
                     <td class="tdwarning" title="furtherDetails"> {fn:data($elem/furtherDetails)} </td>
                     <td title="methodClassifications">{$mClass}</td>
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
@@ -719,8 +717,8 @@ declare function xmlconv:RunQAs(
                 <tr>
                     <td class='info' title="Details"> Attribute should contain a character string</td>
                     <td class="tdinfo" title="Value"> {fn:data($el)} </td>
-                    <td title="InspireId">
-                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId}
+                    <td title="Local ID">
+                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
                     </td>
                     <td title="Parent feature type"> {$el/parent::*/local-name()} </td>
                     <td title="attribute"> {$attr} </td>
@@ -800,11 +798,8 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">accidentalPollutantQuantityKg attribute value is not valid</td>
                     <td class="tdwarning" title="accidentalPollutantQuantityKg"> {$accidentalPollutantQuantityKg} </td>
                     <td title="totalPollutantQuantityKg"> {$totalPollutantQuantityKg} </td>
-                    <td title="localId">
+                    <td title="Local ID">
                         {$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
-                    </td>
-                    <td title="namespace">
-                        {$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/namespace}
                     </td>
                 </tr>
             else
@@ -841,8 +836,7 @@ declare function xmlconv:RunQAs(
                     </td>
                     <td class="tdwarning" title="CO2 excluding biomass"> {fn:data($co2exclBiomass_amount)} </td>
                     <td title="CO2"> {fn:data($co2_amount)} </td>
-                    <td title="localId">{$elem/InspireId/localId}</td>
-                    <td title="namespace">{$elem/InspireId/namespace}</td>
+                    <td title="Local ID">{$elem/InspireId/localId}</td>
                 </tr>
                 else
                     ()
@@ -878,8 +872,7 @@ declare function xmlconv:RunQAs(
                 <tr>
                     <td class='error' title="Details">Fuel is duplicated within the EnergyInput feature type</td>
                     <td class="tderror" title="fuelInput"> {functx:substring-after-last($fuel, "/")} </td>
-                    <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
-                    <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
+                    <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
                 </tr>
             else
                 ()
@@ -956,8 +949,7 @@ declare function xmlconv:RunQAs(
                             Pollutant is duplicated within the EmissionsToAir feature type
                         </td>
                         <td class="tderror" title="pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
-                        <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
-                        <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
+                        <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
                     </tr>
                 else
                     ()
@@ -985,11 +977,8 @@ declare function xmlconv:RunQAs(
                         <td class="tderror" title="mediumCode / pollutant">
                             {$el}
                         </td>
-                        <td title="localId">
+                        <td title="Local ID">
                             {$elem/ancestor-or-self::*[local-name() = 'ProductionFacilityReport']/InspireId/localId}
-                        </td>
-                        <td title="namespace">
-                            {$elem/ancestor-or-self::*[local-name() = 'ProductionFacilityReport']/InspireId/namespace}
                         </td>
                     </tr>
                 else
@@ -1015,8 +1004,7 @@ declare function xmlconv:RunQAs(
                                 Pollutant is duplicated within the OffsitePollutantTransfer feature type
                             </td>
                             <td class="tderror" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
-                            <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
-                            <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
+                            <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
                         </tr>
                     else
                         ()
@@ -1050,8 +1038,7 @@ declare function xmlconv:RunQAs(
                                     {$errorMessages?($error)}
                                 </td>
                                 <td class="tdwarning" title="Month"> {functx:substring-after-last($month, "/")} </td>
-                                <td title="localId">{$elem/descendant-or-self::*/InspireId/localId}</td>
-                                <td title="namespace">{$elem/descendant-or-self::*/InspireId/namespace}</td>
+                                <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
                             </tr>
                         else
                             ()
@@ -1123,7 +1110,7 @@ declare function xmlconv:RunQAs(
                     then
                         let $dataMap := map {
                             'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                            'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                             'Pollutant': map {'pos': 3, 'text': $pol},
                             'Pollutant quantity (in Kg)':
                                 map {'pos': 4, 'text': $pollutantQuantityKg => xs:decimal()=> fn:round-half-to-even(1)
@@ -1190,7 +1177,7 @@ declare function xmlconv:RunQAs(
                     then
                         let $dataMap := map {
                             'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                            'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                             'Pollutant': map {'pos': 3, 'text': $pol},
                             'Parts pollutant quantity (in Kg)':
                                 map {'pos': 4, 'text': $totalPartsQuantityKg => xs:decimal()=> fn:round-half-to-even(1)
@@ -1265,7 +1252,7 @@ declare function xmlconv:RunQAs(
                     let $dataMap := map {
                         'Details':
                             map {'pos': 1, 'text': 'Calculated operating hours ' || $text?($errors), 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                        'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                         'Calculated operating hours':
                             map {'pos': 3, 'text': $calculatedOperatingHours => round-half-to-even(1), 'errorClass': 'td' || $errorType},
                         'Number of operating hours': map {'pos': 4, 'text': $nrOfOperatingHours},
@@ -1287,14 +1274,11 @@ declare function xmlconv:RunQAs(
                 then
                     <tr>
                         <td class='info' title="Details">Attribute is incorrectly populated with WEIGH</td>
-                        <td class="tdinfo" title="feature type"> {fn:node-name($elem/../..)} </td>
-                        <td class="tdinfo" title="methodClassification"> {$elem} </td>
-                        <td title="localId">{
+                        <td title="Local ID">{
                             $elem/ancestor-or-self::*[local-name() = 'ProductionFacilityReport']/InspireId/localId}
                         </td>
-                        <td title="namespace">
-                            {$elem/ancestor-or-self::*[local-name() = 'ProductionFacilityReport']/InspireId/namespace}
-                        </td>
+                        <td class="tdinfo" title="feature type"> {fn:node-name($elem/../..)} </td>
+                        <td class="tdinfo" title="methodClassification"> {$elem} </td>
                     </tr>
                 else
                     ()
@@ -1358,7 +1342,7 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                        'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                         'Additional info': map {'pos': 3, 'text': $errorMap?($error1), 'errorClass': 'td' || $errorType}
                     }
                     return scripts:generateResultTableRow($dataMap)
@@ -1370,7 +1354,7 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                        'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                         'Additional info': map {'pos': 3, 'text': $errorMap?($error2), 'errorClass': 'td' || $errorType}
                     }
                     return scripts:generateResultTableRow($dataMap)
@@ -1412,8 +1396,8 @@ declare function xmlconv:RunQAs(
                         then
                             let $dataMap := map {
                                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                                'InspireId': map {
-                                    'pos': 2, 'text': $part/InspireId, 'errorClass': 'td' || $errorType
+                                'Local ID': map {
+                                    'pos': 2, 'text': $part/InspireId/localId, 'errorClass': 'td' || $errorType
                                 },
                                 'desulphurisationInformation/Month' : map {
                                     'pos': 3, 'text': $desulphurisation/month =>functx:substring-after-last("/")
@@ -1446,7 +1430,7 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                        'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                         'Proportion of useful heat production for district heating':
                             map {'pos': 3, 'text': $proportion || '%', 'errorClass': 'td' || $errorType}
                     }
@@ -1504,10 +1488,10 @@ declare function xmlconv:RunQAs(
                 let $dataMap := map {
                     'Details': map {'pos': 1,'text': $errorMessage, 'errorClass': $errorType},
                     'confidentialityReason': map {
-                        'pos': 2, 'text': $confidentialityReason, 'errorClass': 'td' || $errorType
+                        'pos': 4, 'text': $confidentialityReason, 'errorClass': 'td' || $errorType
                     },
-                    'InspireId': map {'pos': 3, 'text': $confidentialityReason/ancestor::*[InspireId]/InspireId},
-                    'Path': map {'pos': 4, 'text': $confidentialityReason => functx:path-to-node()}
+                    'Local ID': map {'pos': 2, 'text': $confidentialityReason/ancestor::*[InspireId]/InspireId/localId},
+                    'Path': map {'pos': 3, 'text': $confidentialityReason => functx:path-to-node()}
                 }
                 return
                     scripts:generateResultTableRow($dataMap)
@@ -1556,7 +1540,7 @@ declare function xmlconv:RunQAs(
                     then
                         <tr>
                             <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
-                            <td title="inspireId">{$elem/InspireId}</td>
+                            <td title="Local ID">{$elem/InspireId/localId}</td>
                             <td title="fuelInput">{$emission => functx:substring-after-last("/")}</td>
                             <td class="tdinfo" title="total reported">{$emissionTotal => xs:long()}</td>
                             <td title="expected">{$expected => xs:long()}</td>
@@ -1639,7 +1623,7 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                        'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                         'Deviation percentage': map {
                             'pos': 3,
                             'text': $percentage => xs:decimal() => fn:round-half-to-even(1) || '%',
@@ -1787,7 +1771,7 @@ declare function xmlconv:RunQAs(
                                 'errorClass': $errorType,
                                 'sortValue': $priorityIndex?($priority)
                             },
-                            'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                             'Source pollutant': map {'pos': 3, 'text': $row/SourcePollutant/text()},
                             'Source pollutant amount': map {
                                 'pos': 4,
@@ -1846,11 +1830,8 @@ declare function xmlconv:RunQAs(
                     <td class='info' title="Details">
                         No releases/transfers of pollutants nor transfers of waste have been reported
                     </td>
-                    <td class="tdinfo" title="localId">
+                    <td class="tdinfo" title="Local ID">
                         {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]/InspireId/localId}
-                    </td>
-                    <td class="tdinfo" title="namespace">
-                        {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]/InspireId/namespace}
                     </td>
                 </tr>
             else
@@ -1947,7 +1928,7 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details' : map {'pos' : 1, 'text' : $text, 'errorClass' : $errorType},
-                        'InspireId' : map {'pos' : 2, 'text' : $pollutantNode/ancestor::*/InspireId/data()},
+                        'Local ID' : map {'pos' : 2, 'text' : $pollutantNode/ancestor::*/InspireId/localId/data()},
                         'Type' : map {'pos' : 3, 'text' : $pollutantType || $getCodes($pollutantNode)},
                         'Reported amount':
                             map {'pos' : 4, 'text' : $reportedAmount => xs:decimal(), 'errorClass': 'td' || $errorType},
@@ -1978,7 +1959,7 @@ declare function xmlconv:RunQAs(
 
                 let $dataMap := map {
                     'Details' : map {'pos' : 1, 'text' : $text, 'errorClass' : $errorType},
-                    'InspireId' : map {'pos' : 2, 'text' : $facility/InspireId/data()},
+                    'Local ID' : map {'pos' : 2, 'text' : $facility/InspireId/localId/data()},
                     'Type' : map {'pos' : 3, 'text' : 'offsiteWasteTransfer - ' || $wasteClass},
                     'Reported amount':
                         map {'pos' : 4, 'text' : $reportedAmount => xs:decimal(), 'errorClass': 'td' || $errorType},
@@ -2128,7 +2109,7 @@ declare function xmlconv:RunQAs(
                     then
                         let $dataMap := map {
                             'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                            'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                             'Annex I activity': map {'pos': 3, 'text': $EPRTRAnnexIActivity},
                             'Type': map {'pos': 4,
                                 'text': $pollutant || ' - ' || $code1 || (if($code2 = '') then '' else ' / ' || $code2)
@@ -2337,7 +2318,7 @@ declare function xmlconv:RunQAs(
                     then
                         let $dataMap := map {
                             'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                            'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                             'Type': map {'pos': 3, 'text': $pollutantType || $getCodes($pollutantNode)
                             },
                             'Reported value': map {'pos': 4,
@@ -2422,7 +2403,7 @@ declare function xmlconv:RunQAs(
                     then
                         let $dataMap := map {
                             'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                            'InspireId': map {'pos': 2, 'text': $facility/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                             'Type': map {'pos': 3, 'text': $pollutantType || $getCodes($pollutantNode)
                             },
                             'Reported value': map {'pos': 4,
@@ -2521,7 +2502,7 @@ declare function xmlconv:RunQAs(
                     then
                         let $dataMap := map {
                             'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                            'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                            'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                             'Type': map {'pos': 3, 'text': $emissionNode/pollutant => functx:substring-after-last("/")},
                             'Reported value': map {'pos': 4,
                                 'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
@@ -2607,11 +2588,11 @@ declare function xmlconv:RunQAs(
 
         for $pollutantRelease in $docRoot//ProductionFacilityReport[InspireId = $eligibleFacilitiesFinal]
                 /pollutantRelease
-            let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
-            let $minimumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId]
+            let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId
+            let $minimumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
                         /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
-            let $maximumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId]
+            let $maximumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
                         /totalPollutantQuantityKg => fn:max() => functx:if-empty(0) => xs:decimal()
             let $currentYearValue :=
@@ -2631,7 +2612,7 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $inspireId},
+                        'Local ID': map {'pos': 2, 'text': $inspireId/localId},
                         'PollutantRelease': map {'pos': 3,
                             'text': scripts:getPollutantCode($pollutantRelease/pollutant, $docPollutantLookup),
                             'errorClass': 'td' || $errorType
@@ -3342,7 +3323,7 @@ declare function xmlconv:RunQAs(
                             'Type': map {'pos': 2,
                                 'text': $pollutant || ' - ' || $code1 || (if($code2 = '') then '' else ' / ' || $code2)
                             },
-                            'InspireId': map {'pos': 3, 'text': $facility/InspireId},
+                            'Local ID': map {'pos': 3, 'text': $facility/InspireId/localId},
                             'Percentage': map {'pos': 4, 'text': $percentage || '%', 'errorClass': 'td' || $err},
                             'Reported total (in kg/year)': map {'pos': 5, 'text': $reportTotal => xs:decimal()},
                             'European total (in kg/year)': map {'pos': 6,
@@ -3549,9 +3530,9 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='warning' title="Details">Numerical format reporting requirements not met</td>
-                    <td title="inspideId">
+                    <td title="Local ID">
                         {$elem/ancestor-or-self::*[fn:local-name() =
-                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId}
+                                ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/localId}
                     </td>
                     <td title="Parent feature type">{fn:node-name($elem/parent::*)}</td>
                     <td title='Additional info'>{$getAdditionalInformation($elem/parent::*)}</td>
@@ -3584,9 +3565,9 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">
                         Attribute has been populated with a value representing a percentage greater than 100%
                     </td>
-                    <td title="inspireId">
+                    <td title="Local ID">
                         {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
-                                /InspireId}
+                                /InspireId/localId}
                     </td>
                     <td title="Feature type">{fn:node-name($elem/parent::*)}</td>
                     <td class="tdwarning" title="Attribute name"> {fn:node-name($elem)} </td>

@@ -90,7 +90,7 @@ declare function scripts:checkOtherFuelDuplicates(
         for $fuel in $fuelSeq
             let $dataMap := map {
                 'Details': map {'pos': 1, 'text': $text?($fuelType), 'errorClass': $errorType},
-                'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                 'Fuel input': map {'pos': 3, 'text': $fuelInput => functx:substring-after-last("/")},
                 'Fuel': map {'pos': 4, 'text': $fuel, 'errorClass': 'td' || $errorType}
             }
@@ -129,7 +129,7 @@ declare function scripts:checkOtherFuelDuplicates(
             for $furtherDetail in $similarFurtherDetails
                 let $dataMap := map {
                     'Details': map {'pos': 1, 'text': $text?('Other'), 'errorClass': $errorType},
-                    'InspireId': map {'pos': 2, 'text': $part/InspireId},
+                    'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                     'Fuel input': map {'pos': 3, 'text': $fuelInput => functx:substring-after-last("/")},
                     'Fuel': map {'pos': 4, 'text': $furtherDetail, 'errorClass': 'td' || $errorType}
                 }
