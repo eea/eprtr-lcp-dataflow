@@ -230,9 +230,10 @@ declare function xmlconv:InspireIdUniqueness(
 ) as element()*{
     let $seq := $docRoot//*[fn:local-name() = $featureType]
     let $allInspireIds := fn:data($seq/InspireId)
-    for $elem in fn:distinct-values($seq/InspireId)
+    for $elem in $seq/InspireId
     return
         if(fn:count(fn:index-of($allInspireIds, fn:data($elem))) > 1)
+        (:if(fn:true()):)
         then
             <tr>
                 <td class='error' title="Details">InspireId is not unique</td>
@@ -244,14 +245,19 @@ declare function xmlconv:InspireIdUniqueness(
 
 declare function xmlconv:isInVocabulary(
         $seq as element()*,
-        $concept as xs:string
+        $concept as xs:string,
+        $flagBlanks as xs:string
 ) as element()*{
     let $valid := scripts:getValidConcepts($concept)
         for $elem in $seq
         let $ok := (
             $valid = fn:data($elem)
             or
-            fn:string-length(fn:data($elem)) = 0
+            (
+            if($flagBlanks = 'true')
+            then false()
+            else fn:string-length(fn:data($elem)) = 0
+            )
         )
         return
             if (fn:not($ok))
@@ -260,10 +266,41 @@ declare function xmlconv:isInVocabulary(
                     <td class='error' title="Details"> {$concept} has not been recognised</td>
                     <td title='Local ID'>{$elem/ancestor::*[InspireId]/InspireId/localId}</td>
                     <td title='Feature type'>{$elem/parent::*/local-name()}</td>
-                    <td class="tderror" title="{fn:node-name($elem)}"> {fn:data($elem)} </td>
+                    <td class="tderror" title="{fn:node-name($elem)}">
+                        {fn:data($elem) => functx:substring-after-last("/")}
+                    </td>
                 </tr>
             else
                 ()
+};
+
+declare function xmlconv:checkBlankValues(
+        $seq as element()*,
+        $elementName as xs:string
+) as element()*{
+    let $errorType := 'error'
+    let $text := 'Blank value reported'
+
+    for $elem in $seq
+    let $elementValue := $elem/*[local-name() = $elementName] => functx:if-empty('')
+    let $ok := not($elementValue = '')
+
+    return
+        if (fn:not($ok))
+        then
+            let $dataMap := map {
+                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                'Local ID': map {'pos': 2, 'text': $elem/ancestor::*[InspireId]/InspireId/localId},
+                'Additional info': map {'pos': 3, 'text': scripts:getAdditionalInformation($elem)},
+                'Field name': map {
+                    'pos': 4,
+                    'text': concat($elem/local-name(), '/', $elementName),
+                    'errorClass': 'td' || $errorType
+                }
+            }
+            return scripts:generateResultTableRow($dataMap)
+        else
+            ()
 };
 
 declare function xmlconv:RunQAs(
@@ -294,7 +331,8 @@ declare function xmlconv:RunQAs(
     let $docProductionFacilities := fn:doc($xmlconv:PRODUCTION_FACILITY_LOOKUP)
     let $docProductionInstallationParts := fn:doc($xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP)
 
-    let $country_code := $docRoot//countryId/fn:data()=>functx:substring-after-last("/")
+    let $country_code := $docRoot//countryId/fn:data() => functx:substring-after-last("/")
+        => functx:if-empty(' ')
     let $look-up-year := $docRoot//reportingYear => fn:number() - 2
     let $previous-year := $docRoot//reportingYear => fn:number() - 1
     let $reporting-year := $docRoot//reportingYear => fn:number()
@@ -332,56 +370,65 @@ declare function xmlconv:RunQAs(
     (:  C1.1 – combustionPlantCategory consistency  :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/combustionPlantCategory/combustionPlantCategory
-        return xmlconv:isInVocabulary($seq, "CombustionPlantCategoryValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "CombustionPlantCategoryValue", $flagBlanks)
     let $LCP_1_1 := xmlconv:RowBuilder("EPRTR-LCP 1.1","combustionPlantCategory consistency", $res )
 
     (:  C1.2 – CountryCode consistency  :)
     let $res :=
-        let $seq := $docRoot//*[fn:local-name() = ("countryCode", "countryId") and text()=>fn:string-length() > 0]
-        return xmlconv:isInVocabulary($seq, "CountryCodeValue")
+        let $seq := $docRoot//*[fn:local-name() = ("countryCode", "countryId")]
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "CountryCodeValue", $flagBlanks)
     let $LCP_1_2 := xmlconv:RowBuilder("EPRTR-LCP 1.2","CountryCode consistency", $res )
 
     (:  C1.3 – EPRTRPollutant consistency   :)
     let $res :=
         let $seq := $docRoot//ProductionFacilityReport
                 /*[fn:local-name() = ("offsitePollutantTransfer", "pollutantRelease")]//pollutant
-        return xmlconv:isInVocabulary($seq, "EPRTRPollutantCodeValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "EPRTRPollutantCodeValue", $flagBlanks)
     let $LCP_1_3 := xmlconv:RowBuilder("EPRTR-LCP 1.3","EPRTRPollutantCodeValue consistency", $res )
 
     (:  C1.4 – fuelInput consistency    :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport//fuelInput/fuelInput
-        return xmlconv:isInVocabulary($seq, "FuelInputValue")
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "FuelInputValue", $flagBlanks)
     let $LCP_1_4 := xmlconv:RowBuilder("EPRTR-LCP 1.4","FuelInputValue consistency", $res )
 
     (:  C1.5 – LCPPollutant consistency :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir/pollutant
-        return xmlconv:isInVocabulary($seq, "LCPPollutantCodeValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "LCPPollutantCodeValue", $flagBlanks)
     let $LCP_1_5 := xmlconv:RowBuilder("EPRTR-LCP 1.5","LCPPollutantCodeValue consistency", $res )
 
     (:  C1.6 – mediumCode consistency   :)
     let $res :=
         let $seq := $docRoot//pollutantRelease/mediumCode
-        return xmlconv:isInVocabulary($seq, "MediumCodeValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "MediumCodeValue", $flagBlanks)
     let $LCP_1_6 := xmlconv:RowBuilder("EPRTR-LCP 1.6","MediumCodeValue consistency", $res )
 
     (:  C1.7 - methodClassification consistency :)
     let $res :=
         let $seq := $docRoot//methodClassification
-        return xmlconv:isInVocabulary($seq, "MethodClassificationValue")
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "MethodClassificationValue", $flagBlanks)
     let $LCP_1_7 := xmlconv:RowBuilder("EPRTR-LCP 1.7","MethodClassificationValue consistency", $res )
 
     (:  C1.8 - methodCode consistency   :)
     let $res :=
         let $seq := $docRoot//methodCode
-        return xmlconv:isInVocabulary($seq, "MethodCodeValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "MethodCodeValue", $flagBlanks)
     let $LCP_1_8 := xmlconv:RowBuilder("EPRTR-LCP 1.8","MethodCodeValue consistency", $res )
 
     (:  C1.9 – Month Consistency    :)
     let $res :=
         let $seq := $docRoot//desulphurisationInformation[fn:string-length(desulphurisationRate) != 0]/month
-        return xmlconv:isInVocabulary($seq, "MonthValue")
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "MonthValue", $flagBlanks)
     let $LCP_1_9 := xmlconv:RowBuilder("EPRTR-LCP 1.9","MonthValue consistency", $res )
 
     (:  C1.10 – OtherGaseousFuel consistency    :)
@@ -389,7 +436,8 @@ declare function xmlconv:RunQAs(
         let $otherGases := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases"
         let $seq :=
             $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherGases]/otherGaseousFuel
-        return xmlconv:isInVocabulary($seq, "OtherGaseousFuelValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "OtherGaseousFuelValue", $flagBlanks)
     let $LCP_1_10 := xmlconv:RowBuilder("EPRTR-LCP 1.10","OtherGaseousFuelValue consistency", $res )
 
     (:  C1.11 – OtherSolidFuel consistency  :)
@@ -397,37 +445,43 @@ declare function xmlconv:RunQAs(
         let $otherSolidFuel := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
         let $seq :=
             $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherSolidFuel]/otherSolidFuel
-        return xmlconv:isInVocabulary($seq, "OtherSolidFuelValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "OtherSolidFuelValue", $flagBlanks)
     let $LCP_1_11 := xmlconv:RowBuilder("EPRTR-LCP 1.11","OtherSolidFuelValue consistency", $res )
 
     (:  C1.12 - ReasonValue consistency :)
     let $res :=
         let $seq := $docRoot//confidentialityReason[text() => fn:string-length() > 0]
-        return xmlconv:isInVocabulary($seq, "ReasonValue")
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "ReasonValue", $flagBlanks)
     let $LCP_1_12 := xmlconv:RowBuilder("EPRTR-LCP 1.12","ReasonValue consistency", $res )
 
     (:  C1.13 – UnitCode consistency    :)
     let $res :=
         let $seq := $docRoot//productionVolumeUnits
-        return xmlconv:isInVocabulary($seq, "UnitCodeValue")
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "UnitCodeValue", $flagBlanks)
     let $LCP_1_13 := xmlconv:RowBuilder("EPRTR-LCP 1.13","UnitCodeValue consistency", $res )
 
     (:  C1.14 – wasteClassification consistency :)
     let $res :=
         let $seq := $docRoot//wasteClassification
-        return xmlconv:isInVocabulary($seq, "WasteClassificationValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "WasteClassificationValue", $flagBlanks)
     let $LCP_1_14 := xmlconv:RowBuilder("EPRTR-LCP 1.14","WasteClassificationValue consistency", $res )
 
     (:  C1.15 – wasteTreatment consistency  :)
     let $res :=
         let $seq := $docRoot//wasteTreatment
-        return xmlconv:isInVocabulary($seq, "WasteTreatmentValue")
+        let $flagBlanks := 'true'
+        return xmlconv:isInVocabulary($seq, "WasteTreatmentValue", $flagBlanks)
     let $LCP_1_15 := xmlconv:RowBuilder("EPRTR-LCP 1.15","WasteTreatmentValue consistency", $res )
 
     (:  C1.16 – stackHeightClass consistency  :)
     let $res :=
         let $seq := $docRoot//stackHeightClass
-        return xmlconv:isInVocabulary($seq, "StackHeightClassValue")
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "StackHeightClassValue", $flagBlanks)
     let $LCP_1_16 := xmlconv:RowBuilder("EPRTR-LCP 1.16","StackHeightClassValue consistency", $res )
 
     let $LCP_1 := xmlconv:RowAggregator(
@@ -457,10 +511,10 @@ declare function xmlconv:RunQAs(
         'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
     let $facilityInspireIds :=
         $docProductionFacilities/data/ProductionFacility[year = $reporting-year]
-                /InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
+                /InspireId[substring-before(namespace, '.') = $country_code]
     let $installationPartInspireIds :=
         $docProductionInstallationParts//ProductionInstallationPart[StatusType != $decommissioned
-            and year = $reporting-year]/InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
+            and year = $reporting-year]/InspireId[substring-before(namespace, '.') = $country_code]
 
     (:  C2.1 – inspireId consistency    :)
     let $res :=
@@ -500,9 +554,9 @@ declare function xmlconv:RunQAs(
             for $inspideId in $map?($featureType)
             let $ok := $inspideId = $reportInspireIds
             return
-                if(not($ok))
+                (:if(not($ok)):)
                 (:if(false()):)
-                (:if(true()):)
+                if(true())
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
@@ -532,33 +586,15 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $getAdditionalInformation := function (
-        $element as element()
-    ) as xs:string {
-        let $map := map {
-            'offsiteWasteTransfer': ('wasteClassification', 'wasteTreatment'),
-            'offsitePollutantTransfer': ('pollutant'),
-            'pollutantRelease': ('pollutant', 'mediumCode'),
-            'emissionsToAir': ('pollutant')
-        }
-        let $elementName := $element/local-name()
-        let $infoSequence :=
-            for $info in $map?($elementName)
-                return $element/*[local-name() = $info]/data() => functx:substring-after-last("/")
-        return $infoSequence => fn:string-join(' / ')
-    }
-
     (:  C3.1 – Pollutant reporting completeness     :)
     let $res :=
-(:
         let $pollutants := (
-            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOX",
             "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2",
-            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/Dust"
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/DUST"
         )
-:)
-        let $pollutants :=
-            $docRoot//ProductionInstallationPartReport/emissionsToAir/pollutant => fn:distinct-values()
+        (:let $pollutants :=:)
+            (:$docRoot//ProductionInstallationPartReport/emissionsToAir/pollutant => fn:distinct-values():)
 
         let $seq := $docRoot//ProductionInstallationPartReport
         for $elem in $seq
@@ -568,9 +604,9 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='warning' title="Details"> Pollutant has not been reported</td>
-                    <td class="tdwarning" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
-                    <td title="Feature type">emissionsToAir</td>
                     <td title="Local ID">{$elem/InspireId/localId}</td>
+                    <td title="Feature type">emissionsToAir</td>
+                    <td class="tdwarning" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                 </tr>
             else
                 ()
@@ -596,8 +632,8 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='warning' title="Details"> FuelInput has not been reported</td>
-                    <td class="tdwarning" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
                     <td title="Local ID">{$elem/descendant::*/localId}</td>
+                    <td class="tdwarning" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
                 </tr>
             else
                 ()
@@ -625,6 +661,7 @@ declare function xmlconv:RunQAs(
                     <td class='warning' title="Details">
                         Other fuel has not been expanded upon under the furtherDetails attribute
                     </td>
+                    <td title="Local ID">{$elem/descendant::*/localId}</td>
                     <td title="FuelInput"> {functx:substring-after-last($fuel/fuelInput, "/")} </td>
                     <td title="Other fuel">
                         {
@@ -635,8 +672,7 @@ declare function xmlconv:RunQAs(
                                 functx:substring-after-last($fuel/otherSolidFuel, "/")
                         }
                     </td>
-                    <td class="tdwarning" title="furtherDetails">{$fuel/furtherDetails}</td>
-                    <td title="Local ID">{$elem/descendant::*/localId}</td>
+                    <td class="tdwarning" title="Further details">{$fuel/furtherDetails}</td>
                 </tr>
             else
                 ()
@@ -651,17 +687,18 @@ declare function xmlconv:RunQAs(
             where functx:substring-after-last($elem/methodCode, "/") = ("M", "C")
             for $methodClass in $elem/methodClassification
             let $ok := ($valid = fn:data($methodClass))
+                and not(functx:if-empty($methodClass, '') = '')
             where fn:not($ok)
             return
                 <tr>
                     <td class='warning' title="Details"> {$concept} has not been recognised</td>
-                    <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId}</td>
-                    <td class="tdwarning" title="{fn:node-name($methodClass)}">
-                        {$methodClass/text()}
-                    </td>
-                    <td title="methodCode">{functx:substring-after-last($elem/methodCode, "/")}</td>
+                    <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId => fn:replace("\.", ". ")}</td>
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
-                    <td title="Additional info">{$getAdditionalInformation($elem/parent::*)}</td>
+                    <td title="Method Code">{functx:substring-after-last($elem/methodCode, "/")}</td>
+                    <td title="Additional info">{scripts:getAdditionalInformation($elem/parent::*)}</td>
+                    <td class="tdwarning" title="Method classification">
+                        {$methodClass/text() => functx:substring-after-last("/")}
+                    </td>
                 </tr>
     let $LCP_3_4 := xmlconv:RowBuilder("EPRTR-LCP 3.4","Comprehensive methodClassification reporting", $res)
 
@@ -681,17 +718,17 @@ declare function xmlconv:RunQAs(
 
             let $mClass :=
                 for $m in $reportMethodClass
-                    return <p>{$m}</p>
+                    return <p>{$m => functx:substring-after-last("/")}</p>
             return
                 <tr>
                     <td class='warning' title="Details">
                         Not met reporting requirements for the method classification
                     </td>
-                    <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId}</td>
-                    <td class="tdwarning" title="furtherDetails"> {fn:data($elem/furtherDetails)} </td>
-                    <td title="methodClassifications">{$mClass}</td>
+                    <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId => fn:replace("\.", ". ")}</td>
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
-                    <td title="Additional info">{$getAdditionalInformation($elem/parent::*)}</td>
+                    <td title="Method classifications">{$mClass}</td>
+                    <td title="Additional info">{scripts:getAdditionalInformation($elem/parent::*)}</td>
+                    <td class="tdwarning" title="Further details"> {fn:data($elem/furtherDetails)} </td>
                 </tr>
 
     let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5",
@@ -716,18 +753,20 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='info' title="Details"> Attribute should contain a character string</td>
-                    <td class="tdinfo" title="Value"> {fn:data($el)} </td>
-                    <td title="Local ID">
-                        {$el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
+                    <td title="Local ID">{
+                        $el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId
+                            => fn:replace("\.", ". ")
+                    }
                     </td>
                     <td title="Parent feature type"> {$el/parent::*/local-name()} </td>
                     <td title="attribute"> {$attr} </td>
-                    <td title="wasteClassification">
+                    <td title="Waste classification">
                         {$el/ancestor::offsiteWasteTransfer/wasteClassification/data() => functx:substring-after-last("/")}
                     </td>
-                    <td title="wasteTreatment">
+                    <td title="Waste treatment">
                         {$el/ancestor::offsiteWasteTransfer/wasteTreatment/data() => functx:substring-after-last("/")}
                     </td>
+                    <td class="tdinfo" title="Value"> {fn:data($el)} </td>
                 </tr>
             else
                 ()
@@ -793,14 +832,15 @@ declare function xmlconv:RunQAs(
         )
         return
             if(fn:not($ok))
+            (:if(fn:true()):)
             then
                 <tr>
                     <td class='warning' title="Details">accidentalPollutantQuantityKg attribute value is not valid</td>
-                    <td class="tdwarning" title="accidentalPollutantQuantityKg"> {$accidentalPollutantQuantityKg} </td>
-                    <td title="totalPollutantQuantityKg"> {$totalPollutantQuantityKg} </td>
                     <td title="Local ID">
                         {$elem/ancestor::*[fn:local-name()="ProductionFacilityReport"]/InspireId/localId}
                     </td>
+                    <td title="Total pollutant quantityKg"> {$totalPollutantQuantityKg} </td>
+                    <td class="tdwarning" title="Accidental pollutant quantityKg"> {$accidentalPollutantQuantityKg} </td>
                 </tr>
             else
                 ()
@@ -829,14 +869,15 @@ declare function xmlconv:RunQAs(
             )
         return
             if(fn:not($ok))
+            (:if(fn:true()):)
                 then
                 <tr>
                     <td class='warning' title="Details">
                         Reported CO2 excluding biomass exceeds reported CO2 emissions
                     </td>
-                    <td class="tdwarning" title="CO2 excluding biomass"> {fn:data($co2exclBiomass_amount)} </td>
-                    <td title="CO2"> {fn:data($co2_amount)} </td>
                     <td title="Local ID">{$elem/InspireId/localId}</td>
+                    <td title="CO2"> {fn:data($co2_amount)} </td>
+                    <td class="tdwarning" title="CO2 excluding biomass"> {fn:data($co2exclBiomass_amount)} </td>
                 </tr>
                 else
                     ()
@@ -871,8 +912,8 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='error' title="Details">Fuel is duplicated within the EnergyInput feature type</td>
-                    <td class="tderror" title="fuelInput"> {functx:substring-after-last($fuel, "/")} </td>
                     <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                    <td class="tderror" title="fuelInput"> {functx:substring-after-last($fuel, "/")} </td>
                 </tr>
             else
                 ()
@@ -930,8 +971,8 @@ declare function xmlconv:RunQAs(
     (:  C5.4 - Identification of EmissionsToAir duplicates  :)
     let $res :=
         (:let $pollutantValues := (
-            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/Dust",
-            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOx",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/DUST",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOX",
             "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2"
         ):)
         let $pollutantValues :=
@@ -948,8 +989,8 @@ declare function xmlconv:RunQAs(
                         <td class='error' title="Details">
                             Pollutant is duplicated within the EmissionsToAir feature type
                         </td>
-                        <td class="tderror" title="pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                         <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                        <td class="tderror" title="pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                     </tr>
                 else
                     ()
@@ -974,11 +1015,11 @@ declare function xmlconv:RunQAs(
                         <td class='error' title="Details">
                             Pollutant and medium pair is duplicated within the PollutantRelease feature type
                         </td>
-                        <td class="tderror" title="mediumCode / pollutant">
-                            {$el}
-                        </td>
                         <td title="Local ID">
                             {$elem/ancestor-or-self::*[local-name() = 'ProductionFacilityReport']/InspireId/localId}
+                        </td>
+                        <td class="tderror" title="mediumCode / pollutant">
+                            {$el}
                         </td>
                     </tr>
                 else
@@ -1003,8 +1044,8 @@ declare function xmlconv:RunQAs(
                             <td class='error' title="Details">
                                 Pollutant is duplicated within the OffsitePollutantTransfer feature type
                             </td>
-                            <td class="tderror" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
                             <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                            <td class="tderror" title="pollutant"> {functx:substring-after-last($el, "/")} </td>
                         </tr>
                     else
                         ()
@@ -1037,8 +1078,8 @@ declare function xmlconv:RunQAs(
                                 <td class='warning' title="Details">
                                     {$errorMessages?($error)}
                                 </td>
-                                <td class="tdwarning" title="Month"> {functx:substring-after-last($month, "/")} </td>
                                 <td title="Local ID">{$elem/descendant-or-self::*/InspireId/localId}</td>
+                                <td class="tdwarning" title="Month"> {functx:substring-after-last($month, "/")} </td>
                             </tr>
                         else
                             ()
@@ -1130,7 +1171,7 @@ declare function xmlconv:RunQAs(
             $pollutant as xs:string?
         ) as xs:double{
             $docRoot//ProductionInstallationPartReport[InspireId = $partsInspireIds]
-                    /emissionsToAir[pollutant=>functx:substring-after-last("/") = $pollutant]
+                    /emissionsToAir[functx:substring-after-last(pollutant, "/") = $pollutant]
                         /functx:if-empty(totalPollutantQuantityTNE, 0) => sum()
         }
 
@@ -1164,6 +1205,11 @@ declare function xmlconv:RunQAs(
                 let $totalPartsQuantityKg :=
                     $getTotalPartsQuantity($partsInspireIds, $pol) * 1000
 
+                (:let $asd:= trace($facility/InspireId/localId/data(), 'localid:'):)
+                (:let $asd:= trace($partsInspireIds, 'partsInspireIds:'):)
+                (:let $asd:= trace($pol, 'pol:'):)
+                (:let $asd:= trace($totalPartsQuantityKg, 'totalPartsQuantityKg:'):)
+                (:let $asd:= trace($facilityQuantityKg, 'facilityQuantityKg:'):)
 
                 let $ok :=
                     if($pol = 'DUST')
@@ -1220,9 +1266,9 @@ declare function xmlconv:RunQAs(
         let $seq := $docRoot//ProductionInstallationPartReport
         let $errorType := 'warning'
         let $text := map {
-            1: 'are above the reported numberOfOperatingHours by more than 10%',
-            2: 'exceed 8784 hours',
-            3: 'exceed the reported numberOfOperatingHours for the associated parent ProductionFacility'
+            1: 'Calculated operating hours are above the reported numberOfOperatingHours by more than 10%',
+            2: 'Calculated operating operating hours exceed 8784 hours',
+            3: 'Calculated operating operating hours exceed the reported numberOfOperatingHours for the associated parent ProductionFacility'
         }
         for $part in $seq
             let $aggregatedEnergyInputMW
@@ -1230,7 +1276,7 @@ declare function xmlconv:RunQAs(
             let $totalRatedThermalInput := $getTotalRatedThermalInput($part/InspireId/data())
             let $proportionOfFuelCapacityBurned := $aggregatedEnergyInputMW div $totalRatedThermalInput
             let $calculatedOperatingHours := $proportionOfFuelCapacityBurned * 8784
-            let $nrOfOperatingHours := $part/numberOfOperatingHours => functx:if-empty(-1) => fn:number()
+            let $nrOfOperatingHours := $part/numberOfOperatingHours => functx:if-empty(0) => fn:number()
             let $parentFacilityNrOfOperatingHours :=
                 $getParentFacilityNrOfOperatingHours($part/InspireId/data())
 
@@ -1251,12 +1297,13 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details':
-                            map {'pos': 1, 'text': 'Calculated operating hours ' || $text?($errors), 'errorClass': $errorType},
+                            map {'pos': 1, 'text': $text?($errors), 'errorClass': $errorType},
                         'Local ID': map {'pos': 2, 'text': $part/InspireId/localId},
                         'Calculated operating hours':
                             map {'pos': 3, 'text': $calculatedOperatingHours => round-half-to-even(1), 'errorClass': 'td' || $errorType},
-                        'Number of operating hours': map {'pos': 4, 'text': $nrOfOperatingHours},
-                        'Parent facility number of operating hours': map {'pos': 4, 'text': $parentFacilityNrOfOperatingHours}
+                        'Reported operating hours': map {'pos': 4, 'text': $nrOfOperatingHours},
+                        'Parent facility number of operating hours':
+                            map {'pos': 5, 'text': $parentFacilityNrOfOperatingHours}
                     }
                     return scripts:generateResultTableRow($dataMap)
                 else ()
@@ -1277,8 +1324,8 @@ declare function xmlconv:RunQAs(
                         <td title="Local ID">{
                             $elem/ancestor-or-self::*[local-name() = 'ProductionFacilityReport']/InspireId/localId}
                         </td>
-                        <td class="tdinfo" title="feature type"> {fn:node-name($elem/../..)} </td>
-                        <td class="tdinfo" title="methodClassification"> {$elem} </td>
+                        <td class="tdinfo" title="Feature type"> {fn:node-name($elem/../..)} </td>
+                        <td class="tdinfo" title="Method Classification"> {$elem => functx:substring-after-last("/")} </td>
                     </tr>
                 else
                     ()
@@ -1392,12 +1439,12 @@ declare function xmlconv:RunQAs(
 
                     return
                         if(not($ok))
-                        (:if(false()):)
+                        (:if(true()):)
                         then
                             let $dataMap := map {
                                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                                 'Local ID': map {
-                                    'pos': 2, 'text': $part/InspireId/localId, 'errorClass': 'td' || $errorType
+                                    'pos': 2, 'text': $part/InspireId/localId
                                 },
                                 'desulphurisationInformation/Month' : map {
                                     'pos': 3, 'text': $desulphurisation/month =>functx:substring-after-last("/")
@@ -1422,11 +1469,11 @@ declare function xmlconv:RunQAs(
         for $part in $seq
             let $proportion :=
                 $part/proportionOfUsefulHeatProductionForDistrictHeating => functx:if-empty(0) => fn:number()
-            let $ok := $proportion >= 50
+            let $ok := $proportion ge 50
 
             return
                 if(not($ok))
-                (:if(false()):)
+                (:if(true()):)
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
@@ -1483,15 +1530,17 @@ declare function xmlconv:RunQAs(
             else "all good"
         return
             if($ratio > 0.005)
+            (:if(fn:true()):)
             then
                 for $confidentialityReason in $docRoot//confidentialityReason[fn:string-length() > 0]
                 let $dataMap := map {
                     'Details': map {'pos': 1,'text': $errorMessage, 'errorClass': $errorType},
-                    'confidentialityReason': map {
-                        'pos': 4, 'text': $confidentialityReason, 'errorClass': 'td' || $errorType
-                    },
                     'Local ID': map {'pos': 2, 'text': $confidentialityReason/ancestor::*[InspireId]/InspireId/localId},
-                    'Path': map {'pos': 3, 'text': $confidentialityReason => functx:path-to-node()}
+                    'Path': map {'pos': 3, 'text': $confidentialityReason => functx:path-to-node()},
+                    'confidentialityReason': map {
+                        'pos': 4, 'text': $confidentialityReason => functx:substring-after-last('/'),
+                        'errorClass': 'td' || $errorType
+                    }
                 }
                 return
                     scripts:generateResultTableRow($dataMap)
@@ -1526,7 +1575,7 @@ declare function xmlconv:RunQAs(
                     let $emissionFactor :=
                         $docEmissions//row[$pollutant/fuelInput/fuelInput = fuelInput][1]
                                 /*[fn:local-name() = functx:substring-after-last($emission, "/")]
-                    return $pollutant/energyinputTJ * $emissionFactor
+                    return $pollutant/functx:if-empty(energyinputTJ, 0) * $emissionFactor
                 )
                 let $emissionConstant := if($emission = "NOX") then 1 div 10 else 1 div 100
                 where $expected > 0
@@ -1542,8 +1591,8 @@ declare function xmlconv:RunQAs(
                             <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
                             <td title="Local ID">{$elem/InspireId/localId}</td>
                             <td title="fuelInput">{$emission => functx:substring-after-last("/")}</td>
-                            <td class="tdinfo" title="total reported">{$emissionTotal => xs:long()}</td>
-                            <td title="expected">{$expected => xs:long()}</td>
+                            <td title="Expected">{$expected => xs:long()}</td>
+                            <td class="tdinfo" title="Total reported">{$emissionTotal => xs:long()}</td>
                         </tr>
                     else
                         ()
@@ -1601,10 +1650,12 @@ declare function xmlconv:RunQAs(
                 = $pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
                     /toAir
 
-            where $aggregatedPartsCO2 > $thresholdValue
-
             (:let $asd := trace($reportedCO2, "reportedCO2: "):)
             (:let $asd := trace($aggregatedPartsCO2, "aggregatedPartsCO2: "):)
+            (:let $asd:= trace($thresholdValue, 'thresholdValue: '):)
+
+            where $aggregatedPartsCO2 > $thresholdValue
+
             let $percentage := if($reportedCO2 = 0 or $aggregatedPartsCO2 = 0)
                 then 100
                 else (100 - (($reportedCO2 * 100) div $aggregatedPartsCO2)) => abs()
@@ -1624,17 +1675,17 @@ declare function xmlconv:RunQAs(
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
-                        'Deviation percentage': map {
-                            'pos': 3,
-                            'text': $percentage => xs:decimal() => fn:round-half-to-even(1) || '%',
-                            'errorClass': 'td' || $errorType
-                        },
                         'Facility reported CO2 amount': map {
-                            'pos': 4,
+                            'pos': 3,
                             'text': $reportedCO2 => xs:decimal() => fn:round-half-to-even(1)
                         },
                         'Calculated CO2 from associated installation part fuel input':
-                            map {'pos': 5, 'text': $aggregatedPartsCO2 => xs:decimal() => fn:round-half-to-even(1)}
+                            map {'pos': 4, 'text': $aggregatedPartsCO2 => xs:decimal() => fn:round-half-to-even(1)},
+                        'Deviation percentage': map {
+                            'pos': 5,
+                            'text': $percentage => xs:decimal() => fn:round-half-to-even(1) || '%',
+                            'errorClass': 'td' || $errorType
+                        }
                     }
                     return scripts:generateResultTableRow($dataMap)
                 else()
@@ -1680,14 +1731,20 @@ declare function xmlconv:RunQAs(
                 let $conditionPollutantValue := $getPollutantValue($facility, $conditionPollutant)
                 let $conditionSourcePollutantValue := $getPollutantValue($facility, $conditionSourcePollutant)
 
-                (:let $asd := trace(($conditionSourcePollutantValue * $conditionValue) div 100, 'calc cond val: '):)
-                (:let $asd := trace($conditionPollutantValue, 'cond val: '):)
-
                 let $cond := if($conditionValue > 0)
                     then $conditionPollutantValue < ($conditionSourcePollutantValue * $conditionValue) div 100
                     else fn:true()
 
                 where $cond
+
+                (:let $asd := trace(($conditionSourcePollutantValue * $conditionValue) div 100, 'calc cond val: '):)
+                (:let $asd := trace($conditionPollutantValue, 'cond val: '):)
+                (:let $asd := trace($row/SourcePollutant/text(), 'SourcePollutant: '):)
+                (:let $asd := trace($row/ResultingPollutant/text(), 'ResultingPollutant: '):)
+                (:let $asd := trace($sourcePollutantValue, 'sourcePollutantValue: '):)
+                (:let $asd := trace($resultingPollutantValue, 'resultingPollutantValue: '):)
+                (:let $asd := trace($conditionPollutant, 'conditionPollutant: '):)
+                (:let $asd := trace($conditionValue, 'conditionValue: '):)
 
                 let $minExpectedEmission :=
                     ($sourcePollutantValue * $row/MinFactor => functx:if-empty(0)) => fn:number()
@@ -1699,12 +1756,6 @@ declare function xmlconv:RunQAs(
                     else $resultingPollutantValue - $maxExpectedEmission
 
                 let $expectedEmissionFactor := $distance div $reportingThreshold
-                (:let $asd := trace($row/SourcePollutant/text(), 'SourcePollutant: '):)
-                (:let $asd := trace($row/ResultingPollutant/text(), 'ResultingPollutant: '):)
-                (:let $asd := trace($sourcePollutantValue, 'sourcePollutantValue: '):)
-                (:let $asd := trace($resultingPollutantValue, 'resultingPollutantValue: '):)
-                (:let $asd := trace($conditionPollutant, 'conditionPollutant: '):)
-                (:let $asd := trace($conditionValue, 'conditionValue: '):)
 
                 (:let $asd := trace($reportingThreshold, 'reportingThreshold: '):)
                 (:let $asd := trace($maxExpectedEmission, 'maxExpectedEmission: '):)
@@ -1758,6 +1809,9 @@ declare function xmlconv:RunQAs(
                     or
                     $maxExpectedEmission < $reportingThreshold
                 )
+                (:let $asd:= trace($ok, 'OK: '):)
+                (:let $asd:= trace(' '):)
+
                 return
                     if(fn:not($ok))
                     (:if(fn:true()):)
@@ -1771,7 +1825,7 @@ declare function xmlconv:RunQAs(
                                 'errorClass': $errorType,
                                 'sortValue': $priorityIndex?($priority)
                             },
-                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
+                            'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId => replace('\.', '. ')},
                             'Source pollutant': map {'pos': 3, 'text': $row/SourcePollutant/text()},
                             'Source pollutant amount': map {
                                 'pos': 4,
@@ -1783,13 +1837,13 @@ declare function xmlconv:RunQAs(
                                 'text': $resultingPollutantValue => xs:decimal() => fn:round-half-to-even(1),
                                 'errorClass': 'td' || $errorType
                             },
-                            'Minimum expected emission':
-                                map {'pos': 7, 'text': $minExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},
-                            'Maximum expected emission':
-                                map {'pos': 8, 'text': $maxExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},
-                            'Priority': map {'pos': 9, 'text': $additionalComment},
+                            (:'Minimum expected emission'::)
+                                (:map {'pos': 7, 'text': $minExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},:)
+                            (:'Maximum expected emission'::)
+                                (:map {'pos': 8, 'text': $maxExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},:)
+                            'Priority': map {'pos': 9, 'text': $additionalComment}
                             (:'expectedEmissionFactorMax': map {'pos': 10, 'text': $expectedEmissionFactor},:)
-                            'Annex II reporting threshold': map {'pos': 11, 'text': $reportingThreshold}
+                            (:'Annex II reporting threshold': map {'pos': 11, 'text': $reportingThreshold}:)
                         }
                         return scripts:generateResultTableRow($dataMap)
                     else()
@@ -1825,6 +1879,7 @@ declare function xmlconv:RunQAs(
         let $elems := $elem/*[fn:local-name() = $attributes]
         return
             if(fn:empty($elems))
+            (:if(fn:true()):)
             then
                 <tr>
                     <td class='info' title="Details">
@@ -1914,12 +1969,13 @@ declare function xmlconv:RunQAs(
             let $pollutantType := $pollutantNode/local-name()
             (:let $asd := trace($pollutantType, 'pollutantType: '):)
             let $reportedAmount := $pollutantNode/*[local-name() = $map?($pollutantType)?nodeNameQuantity]
+                /functx:if-empty(data(), 0) => fn:number()
             (:let $asd := trace($reportedAmount, 'reportedAmount: '):)
             let $thresholdValue := $map?($pollutantType)?getFunction($pollutantNode)
             (:let $asd := trace($thresholdValue, 'thresholdValue: '):)
 
             let $ok := (
-                $reportedAmount >= $thresholdValue
+                $reportedAmount ge $thresholdValue
                 or $thresholdValue = -1
             )
             return
@@ -1953,7 +2009,7 @@ declare function xmlconv:RunQAs(
                     else 2000
 
                 let $reportedAmount := $facility//offsiteWasteTransfer[wasteClassification = $waste]
-                        /totalWasteQuantityTNE => fn:sum()
+                        /fn:number(totalWasteQuantityTNE) => fn:sum()
 
                 where $reportedAmount > 0 and $reportedAmount < $threshold
 
@@ -2305,11 +2361,18 @@ declare function xmlconv:RunQAs(
                     $pollutantNode/totalPollutantQuantityKg => functx:if-empty($pollutantNode/totalWasteQuantityTNE)
                         => functx:if-empty(0) => fn:number()
                 let $thresholdValue := $getThresholdValue($pollutantNode)
+
+                (:let $asd:= trace($pollutantType, 'pollutantType: '):)
+                (:let $asd:= trace($thresholdValue, 'thresholdValue: '):)
+                (:let $asd:= trace($reportedValue, 'reportedValue: '):)
+                (:let $asd:= trace($nationalTotal, 'nationalTotal: '):)
+
                 let $notOk := (
-                    $reportedValue > $thresholdValue * 10000
+                    $reportedValue gt $thresholdValue * 10000
                     and
-                    $reportedValue > $nationalTotal div 10
+                    $reportedValue gt $nationalTotal div 10
                 )
+                (:let $asd:= trace($notOk, 'notOk: '):)
                 return
                     if($notOk)
                     (:if(fn:false()):)
@@ -2535,6 +2598,8 @@ declare function xmlconv:RunQAs(
         (:let $asd := trace($facilitiesNeeded, 'facilitiesNeeded: '):)
         let $disusedFacilities := $docProductionFacilities/data/ProductionFacility[year = $reporting-year
             and StatusType = $disused]/InspireId[substring-before(namespace, '.') = $country_code]/data()
+
+(:
         let $pollutantsFromReportXML := $docRoot//ProductionFacilityReport/pollutantRelease
             [mediumCode = $mediumCode and pollutant = $validPollutants]/pollutant => distinct-values()
 
@@ -2543,24 +2608,30 @@ declare function xmlconv:RunQAs(
                 let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
                     = $pollutant=>scripts:getCodelistvalueForOldCode($docPollutantLookup)]
                         /toAir => functx:if-empty(0) => xs:decimal()
-                (:let $asd := trace($pollutant, 'pollutant: '):)
-                (:let $asd := trace($thresholdValue, 'thresholdValue: '):)
+                let $asd := trace($pollutant, 'pollutant: ')
+                let $asd := trace($thresholdValue, 'thresholdValue: ')
                 for $pollutantRelease in $docRoot//ProductionFacilityReport[InspireId = $facilitiesNeeded]
-                        /pollutantRelease[pollutant = $pollutant]
+                        /pollutantRelease[pollutant = $pollutant and mediumCode = $mediumCode]
+                let $currentValue := $pollutantRelease/functx:if-empty(totalPollutantQuantityKg, 0)
+                        => fn:number()
                 let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
                 let $lowestValue := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
                         /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
 
-                (:let $asd := trace($inspireId, 'inspireId: '):)
-                (:let $asd := trace($lowestValue, 'lowestValue: '):)
+                let $lowestFinal := fn:min(($currentValue, $lowestValue))
+                let $asd := trace($inspireId, 'inspireId: ')
+                let $asd := trace($lowestFinal, 'lowestValue: ')
+                let $asd:= trace($lowestFinal > $thresholdValue * 20, 'eligible: ')
                 return
-                    if($lowestValue > $thresholdValue * 20)
+                    if($lowestFinal > $thresholdValue * 20)
                     then $inspireId
                     else ()
         ) => distinct-values()
+:)
         (:let $asd := trace($eligibleFacilities, 'eligibleFacilities: '):)
 
+(:
         let $notEligibleFacilities := (
             for $pollutant in $pollutantsFromReportXML
                 (:let $asd := trace($pollutant, 'pollutant: '):)
@@ -2581,23 +2652,35 @@ declare function xmlconv:RunQAs(
                     then $inspireId
                     else ()
         ) => distinct-values()
+:)
         (:let $asd := trace($notEligibleFacilities, 'notEligibleFacilities: '):)
 
-        let $eligibleFacilitiesFinal := functx:value-except($eligibleFacilities, $notEligibleFacilities)
+        (:let $eligibleFacilitiesFinal := functx:value-except($eligibleFacilities, $notEligibleFacilities):)
         (:let $asd := trace($eligibleFacilitiesFinal, 'eligibleFacilitiesFinal: '):)
 
-        for $pollutantRelease in $docRoot//ProductionFacilityReport[InspireId = $eligibleFacilitiesFinal]
-                /pollutantRelease
+        for $pollutantRelease in $docRoot//ProductionFacilityReport (:[InspireId = $eligibleFacilitiesFinal]:)
+                /pollutantRelease[mediumCode = $mediumCode]
+            let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
+                    = $pollutantRelease/pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
+                        /toAir => functx:if-empty(0) => xs:decimal()
             let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId
             let $minimumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
                         /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
-            let $maximumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
-                    /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
-                        /totalPollutantQuantityKg => fn:max() => functx:if-empty(0) => xs:decimal()
             let $currentYearValue :=
                 $pollutantRelease/totalPollutantQuantityKg => functx:if-empty(0) => xs:decimal()
             let $minimumValue := ($minimumValuePrev, $currentYearValue) => fn:min()
+
+            let $disusedFaciliy := if($minimumValue = 0 and $inspireId = $disusedFacilities)
+                then true()
+                else false()
+
+            where not($disusedFaciliy)
+            where $minimumValue > $thresholdValue * 20
+
+            let $maximumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
+                    /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
+                        /totalPollutantQuantityKg => fn:max() => functx:if-empty(0) => xs:decimal()
             let $maximumValue := ($maximumValuePrev, $currentYearValue) => fn:max()
             let $ok := (
                 $maximumValue + $minimumValue = 0
@@ -2626,61 +2709,6 @@ declare function xmlconv:RunQAs(
                 else
                     ()
 
-
-(:
-    let $res_old :=
-        let $getLowestPollutant := function (
-        ) as xs:string {
-            'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/CRANDCOMPOUNDS'
-        }
-        let $disused := (
-            'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/disused',
-            'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
-        )
-        let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
-        let $errorType := 'warning'
-        let $text := 'Pollutant release ratio threshold has been exceeded'
-
-        let $eligibleFacilities := $docProductionFacilities/data/ProductionFacility[year = 2008]
-                /InspireId/data()
-        let $disusedFacilities := $docProductionFacilities/data/ProductionFacility[year = $reporting-year
-            and StatusType = $disused]/InspireId/data()
-
-        for $facility in $docRoot//ProductionFacilityReport[InspireId = $eligibleFacilities]
-            let $lowestValuePrevYears := 1234
-            let $lowestValueActualYear := $facility/pollutantRelease/totalPollutantQuantityKg => fn:min()
-            let $lowestValue := fn:min($lowestValuePrevYears, $lowestValueActualYear)
-            let $lowestPollutant :=
-                if($lowestValuePrevYears < $lowestValueActualYear)
-                then $getLowestPollutant()
-                else $facility/pollutantRelease[totalPollutantQuantityKg = $lowestValueActualYear]/pollutant
-            let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
-                = $lowestPollutant=>scripts:getCodelistvalueForOldCode($docPollutantLookup)]
-                    /toAir => functx:if-empty(0) => fn:number()
-
-            let $eligible := $lowestValue > $thresholdValue * 20
-            return
-                (:if($eligible):)
-                if(fn:false())
-                (:if($reportValue > 0):)
-                then
-                    let $maxQuantity := 123
-                    let $minQuantity := 1
-                    let $ratio := $maxQuantity div $minQuantity
-
-                    let $dataMap := map {
-                        'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                        'InspireId': map {'pos': 2, 'text': $facility/InspireId},
-                        'PollutantRelease': map {'pos': 3,
-                            'text': '', 'errorClass': 'td' || $errorType
-                        },
-                        'Year': map {'pos': 4, 'text': ''}
-                    }
-                    return
-                        scripts:generateResultTableRow($dataMap)
-                else ()
-:)
-
     let $LCP_12_5 := xmlconv:RowBuilder(
             "EPRTR-LCP 12.5",
             "Time series consistency for ProductionFacility emissions",
@@ -2693,7 +2721,7 @@ declare function xmlconv:RunQAs(
         for $pollutant in $pollutants
             let $total := fn:sum(
                 $docRoot//emissionsToAir[pollutant => functx:substring-after-last("/") = $pollutant]
-                        /totalPollutantQuantityTNE/fn:data()
+                        /totalPollutantQuantityTNE/fn:number()
             )
             let $average3Year :=
                 $docAverage//row[MemberState = $country_code and ReferenceYear = $look-up-year][1]
@@ -3407,7 +3435,7 @@ declare function xmlconv:RunQAs(
                 (: calculate national total, summ all pollutants from the XML report file :)
                 let $nationalTotal :=
                     fn:sum($seqPollutants[functx:substring-after-last(pollutant, "/") = $pollutant]
-                        /*[fn:local-name() = $elemNameTotalQuantity]/fn:number(fn:data())
+                        /*[fn:local-name() = $elemNameTotalQuantity]/functx:if-empty(fn:data(), 0)
                     )
                 (: for emissionsToAir type, the measurement is in TNE = metric tonnes per year
                 multiply the value with 1000 to get equivalent in Kg :)
@@ -3535,7 +3563,7 @@ declare function xmlconv:RunQAs(
                                 ("ProductionInstallationPartReport", "ProductionFacilityReport")]/InspireId/localId}
                     </td>
                     <td title="Parent feature type">{fn:node-name($elem/parent::*)}</td>
-                    <td title='Additional info'>{$getAdditionalInformation($elem/parent::*)}</td>
+                    <td title='Additional info'>{scripts:getAdditionalInformation($elem/parent::*)}</td>
                     <td title='Attribute name'>{fn:node-name($elem)}</td>
                     <td class="tdwarning" title="value"> {$elemValue} </td>
                     <td title="Number of significant digits"> {$significantDigits} </td>
@@ -3543,6 +3571,7 @@ declare function xmlconv:RunQAs(
             else
                 ()
     let $LCP_16_1 := xmlconv:RowBuilder("EPRTR-LCP 16.1","Significant figure format compliance", $res)
+
     (:  C16.2 - Percentage format compliance    :)
     let $res :=
         let $attributes := (
@@ -3578,15 +3607,87 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_16_2 := xmlconv:RowBuilder("EPRTR-LCP 16.2","Percentage format compliance", $res)
 
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir
+        let $elementName := 'totalPollutantQuantityTNE'
+        return xmlconv:checkBlankValues($seq, $elementName)
+    let $LCP_16_3 := xmlconv:RowBuilder("EPRTR-LCP 16.3","totalPollutantQuantityTNE blank check", $res)
+
+    let $resA :=
+        let $seq := $docRoot//ProductionFacilityReport/offsiteWasteTransfer
+        let $elementName := 'totalWasteQuantityTNE'
+        return xmlconv:checkBlankValues($seq, $elementName)
+    let $resB :=
+        let $seq := $docRoot//ProductionFacilityReport/pollutantRelease
+        let $elementName := 'totalPollutantQuantityKg'
+        return xmlconv:checkBlankValues($seq, $elementName)
+    let $resC :=
+        let $seq := $docRoot//ProductionFacilityReport/offsitePollutantTransfer
+        let $elementName := 'totalPollutantQuantityKg'
+        return xmlconv:checkBlankValues($seq, $elementName)
+    let $LCP_16_4 := xmlconv:RowBuilder("EPRTR-LCP 16.4","totalWasteQuantityTNE, totalPollutantQuantityKg blank check", ($resA, $resB, $resC))
+
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport/numberOfOperatingHours
+        let $errorType := 'warning'
+        let $text := 'Blank or non numeric value reported'
+
+        for $elem in $seq
+        let $value := $elem/functx:if-empty(data(), '')
+
+        let $ok := not($value = '')
+            and $value castable as xs:double
+
+        return
+            if (fn:not($ok))
+            then
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'Local ID': map {'pos': 2, 'text': $elem/ancestor::*[InspireId]/InspireId/localId},
+                    'Value': map {'pos': 3, 'text': $value, 'errorClass': 'td' || $errorType}
+                }
+                return scripts:generateResultTableRow($dataMap)
+            else
+                ()
+    let $LCP_16_5 := xmlconv:RowBuilder("EPRTR-LCP 16.5","numberOfOperatingHours blank check", $res)
+
+    let $res :=
+        let $seq := $docRoot//ProductionInstallationPartReport/energyInput
+        let $errorType := 'error'
+        let $text := 'Blank value reported'
+
+        for $elem in $seq
+        let $value := $elem/energyinputTJ/functx:if-empty(data(), '')
+
+        let $ok := not($value = '')
+            (:and $value castable as xs:double:)
+
+        return
+            if (fn:not($ok))
+            then
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'Local ID': map {'pos': 2, 'text': $elem/ancestor::*[InspireId]/InspireId/localId},
+                    'Fuel input': map {'pos': 3, 'text': $elem/fuelInput/fuelInput => functx:substring-after-last("/")},
+                    'Value': map {'pos': 4, 'text': $value, 'errorClass': 'td' || $errorType}
+                }
+                return scripts:generateResultTableRow($dataMap)
+            else
+                ()
+    let $LCP_16_6 := xmlconv:RowBuilder("EPRTR-LCP 16.6","energyInput blank check", $res)
+
     let $LCP_16 := xmlconv:RowAggregator(
             "EPRTR-LCP 16",
             "Miscellaneous checks",
             (
                 $LCP_16_1,
-                $LCP_16_2
+                $LCP_16_2,
+                $LCP_16_3,
+                $LCP_16_4,
+                $LCP_16_5,
+                $LCP_16_6
             )
     )
-
 
     (: RETURN ALL ROWS IN A TABLE :)
     return

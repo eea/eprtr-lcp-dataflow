@@ -87,7 +87,7 @@ declare function functx:dynamic-path
 declare function functx:path-to-node
 ( $nodes as node()* )  as xs:string* {
 
-    $nodes/string-join(ancestor-or-self::*/name(.), '/')
+    $nodes/string-join(ancestor-or-self::*/name(.), ' / ')
 } ;
 
 declare function functx:escape-for-regex

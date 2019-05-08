@@ -153,7 +153,7 @@ declare function scripts:getCodelistvalue(
         /text() => functx:if-empty(functx:substring-after-last($pollutantCode, "/"))
 };
 declare function scripts:getPollutantCode(
-    $codeListValue as xs:string,
+    $codeListValue as xs:string?,
     $docPollutantLookup as document-node()
 ) as xs:string {
     $docPollutantLookup//row[Newcodelistvalue = $codeListValue]/PollutantCode
@@ -439,7 +439,7 @@ declare function scripts:compareNumberOfPollutants(
                             {$changePercentage =>fn:round-half-to-even(1)}%
                         </td>
                         <td title="National level">{$reportCountOfPollutantCode => xs:decimal()}</td>
-                        <td title="Previous year">{$CountOfPollutantCode =>xs:decimal()=>fn:round-half-to-even(1)}</td>
+                        <td title="Previous year">{$CountOfPollutantCode =>xs:decimal() => fn:round-half-to-even(1)}</td>
                     </tr>
                     else
                         ()
@@ -455,15 +455,18 @@ declare function scripts:getreportFacilityTotalsWasteTransfer(
 ) as xs:double{
     if($code1 = 'NONHW')
     then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW'
-            and wasteTreatment => functx:substring-after-last("/") = $code2]/totalWasteQuantityTNE => fn:sum()
+            and wasteTreatment => functx:substring-after-last("/") = $code2]
+                /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else if($code1 = 'HWIC')
     then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
             and wasteTreatment => functx:substring-after-last("/") = $code2
-            and transboundaryTransfer/fn:data() => fn:string-length() = 0]/totalWasteQuantityTNE => fn:sum()
+            and transboundaryTransfer/fn:data() => fn:string-length() = 0]
+                    /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else if($code1 = 'HWOC')
     then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
             and wasteTreatment => functx:substring-after-last("/") = $code2
-            and transboundaryTransfer/fn:data() => fn:string-length() > 0]/totalWasteQuantityTNE => fn:sum()
+            and transboundaryTransfer/fn:data() => fn:string-length() > 0]
+                        /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else -1
 };
 declare function scripts:getEuropeanTotals(
@@ -493,11 +496,11 @@ declare function scripts:getreportFacilityTotals (
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
     then $facility//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
-            /totalPollutantQuantityKg => fn:sum()
+            /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum()
     else if($pollutant = 'pollutantRelease')
         then $facility//pollutantRelease[mediumCode=>functx:substring-after-last("/") = $code2
                 and pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
-                /totalPollutantQuantityKg => fn:sum()
+                /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum()
     else
         scripts:getreportFacilityTotalsWasteTransfer($code1, $code2, $facility)
 };
@@ -532,13 +535,13 @@ declare function scripts:getreportTotalsOfPollutantWasteTransfer(
 ) as xs:double{
     if($code1 = 'NONHW')
     then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW']
-            /totalWasteQuantityTNE => fn:sum()
+            /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else if($code1 = 'HWIC')
     then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
-            and transboundaryTransfer/fn:data() => fn:string-length() = 0]/totalWasteQuantityTNE => fn:sum()
+            and transboundaryTransfer/fn:data() => fn:string-length() = 0]/functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else if($code1 = 'HWOC')
     then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
-            and transboundaryTransfer/fn:data() => fn:string-length() > 0]/totalWasteQuantityTNE => fn:sum()
+            and transboundaryTransfer/fn:data() => fn:string-length() > 0]/functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else -1
 };
 declare function scripts:getreportTotalsOfPollutant(
@@ -551,15 +554,30 @@ declare function scripts:getreportTotalsOfPollutant(
     if($pollutant = 'offsitePollutantTransfer')
     then
         $doc//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
-                /totalPollutantQuantityKg => fn:sum() => functx:if-empty(0)
+                /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum()
     else if($pollutant = 'pollutantRelease')
         then $doc//pollutantRelease[mediumCode=>functx:substring-after-last("/") = $code1
                 and pollutant = $code2=>scripts:getCodelistvalue($docPollutantLookup)]
-                    /totalPollutantQuantityKg => fn:sum() => functx:if-empty(0)
+                    /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum()
     else if($pollutant = 'offsiteWasteTransfer')
         then scripts:getreportTotalsOfPollutantWasteTransfer($code1, $code2, $doc)
     else
         $doc//emissionsToAir[pollutant=>functx:substring-after-last("/") = $code1]
-                /totalPollutantQuantityTNE => fn:sum() => functx:if-empty(0)
+                /functx:if-empty(totalPollutantQuantityTNE, 0) => fn:sum()
 };
 
+declare function scripts:getAdditionalInformation(
+        $element as element()
+) as xs:string {
+    let $map := map {
+        'offsiteWasteTransfer': ('wasteClassification', 'wasteTreatment'),
+        'offsitePollutantTransfer': ('pollutant'),
+        'pollutantRelease': ('pollutant', 'mediumCode'),
+        'emissionsToAir': ('pollutant')
+    }
+    let $elementName := $element/local-name()
+    let $infoSequence :=
+        for $info in $map?($elementName)
+            return $element/*[local-name() = $info]/data() => functx:substring-after-last("/")
+    return $infoSequence => fn:string-join(' / ')
+};
