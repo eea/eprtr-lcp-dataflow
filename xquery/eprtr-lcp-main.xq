@@ -1064,6 +1064,11 @@ declare function xmlconv:RunQAs(
             2: 'Month is missing from the DesulphurisationInformationType feature type'
         }
         for $elem in $seq
+            let $derogation := scripts:getDerogation(
+                $docProductionInstallationParts, $reporting-year, $elem/InspireId/data())
+
+            where $derogation = 'Article31'
+
             let $allMonths := $elem/desulphurisationInformation/month/data()
             for $month in $months
                 let $error := if(fn:count(index-of($allMonths, $month)) > 1)
@@ -1110,7 +1115,7 @@ declare function xmlconv:RunQAs(
         ) as xs:double {
         $docRoot//ProductionFacilityReport[InspireId/namespace = $namespace
             and InspireId/localId = $localId]/pollutantRelease[mediumCode = $mediumCode
-                    and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant]
+                    and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant][1]
                         /totalPollutantQuantityKg=> functx:if-empty(0) => fn:number()
         }
 
@@ -1213,7 +1218,7 @@ declare function xmlconv:RunQAs(
 
                 let $ok :=
                     if($pol = 'DUST')
-                    then $totalPartsQuantityKg <= $facilityQuantityKg div 2
+                    then $totalPartsQuantityKg <= $facilityQuantityKg * 2
                     else $totalPartsQuantityKg <= $facilityQuantityKg
 
                 return
@@ -1226,10 +1231,10 @@ declare function xmlconv:RunQAs(
                             'Local ID': map {'pos': 2, 'text': $facility/InspireId/localId},
                             'Pollutant': map {'pos': 3, 'text': $pol},
                             'Parts pollutant quantity (in Kg)':
-                                map {'pos': 4, 'text': $totalPartsQuantityKg => xs:decimal()=> fn:round-half-to-even(1)
-                                    , 'errorClass': 'td' || $errorType},
+                                map {'pos': 4, 'text': $totalPartsQuantityKg => xs:decimal()=> fn:round-half-to-even(1)},
                             'Facility pollutant quantity (in Kg)':
-                                map {'pos': 5, 'text': $facilityQuantityKg => xs:decimal() => fn:round-half-to-even(1)}
+                                map {'pos': 5, 'text': $facilityQuantityKg => xs:decimal() => fn:round-half-to-even(1),
+                                        'errorClass': 'td' || $errorType}
                         }
                         return scripts:generateResultTableRow($dataMap)
                     else ()
@@ -1339,14 +1344,6 @@ declare function xmlconv:RunQAs(
                 $LCP_7_2
             )
     )
-
-    let $getDerogation := function (
-        $inspireId as xs:string
-    ) as xs:string {
-        let $derogation := $docProductionInstallationParts//ProductionInstallationPart[year = $reporting-year
-            and InspireId = $inspireId]/derogations => functx:substring-after-last("/")
-        return $derogation
-    }
 
     let $inspireIdsNeeded := $docProductionInstallationParts//ProductionInstallationPart
         [year = $reporting-year and derogations => functx:substring-after-last("/") = 'Article31']

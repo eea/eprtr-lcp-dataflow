@@ -581,3 +581,13 @@ declare function scripts:getAdditionalInformation(
             return $element/*[local-name() = $info]/data() => functx:substring-after-last("/")
     return $infoSequence => fn:string-join(' / ')
 };
+
+declare function scripts:getDerogation(
+    $docProdInstallParts as document-node(),
+    $reporting-year as xs:double,
+    $inspireId as xs:string
+) as xs:string {
+    let $derogation := $docProdInstallParts//ProductionInstallationPart[year = $reporting-year
+        and InspireId = $inspireId]/derogations => functx:substring-after-last("/")
+    return $derogation
+};
