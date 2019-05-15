@@ -1588,8 +1588,8 @@ declare function xmlconv:RunQAs(
                             <td class="info" title="Details">Reported emissions deviate from expected quantities</td>
                             <td title="Local ID">{$elem/InspireId/localId}</td>
                             <td title="fuelInput">{$emission => functx:substring-after-last("/")}</td>
-                            <td title="Expected">{$expected => xs:long()}</td>
-                            <td class="tdinfo" title="Total reported">{$emissionTotal => xs:long()}</td>
+                            <td title="Expected">{$expected}</td>
+                            <td class="tdinfo" title="Total reported">{$emissionTotal}</td>
                         </tr>
                     else
                         ()
@@ -1728,8 +1728,8 @@ declare function xmlconv:RunQAs(
                 let $conditionPollutantValue := $getPollutantValue($facility, $conditionPollutant)
                 let $conditionSourcePollutantValue := $getPollutantValue($facility, $conditionSourcePollutant)
 
-                let $cond := if($conditionValue > 0)
-                    then $conditionPollutantValue < ($conditionSourcePollutantValue * $conditionValue) div 100
+                let $cond := if($conditionValue gt 0)
+                    then $conditionPollutantValue gt ($conditionSourcePollutantValue * $conditionValue) div 100
                     else fn:true()
 
                 where $cond
