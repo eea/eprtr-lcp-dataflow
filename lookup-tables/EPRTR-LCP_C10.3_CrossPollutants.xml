@@ -10,7 +10,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.6512651265126515e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>20</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006 (Chapter 2). Min factor for "gas oil", Max factor for "brown coal"</Reference>
@@ -26,7 +26,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -74,7 +74,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -90,7 +90,7 @@
     <MinFactor>3.609625668449198e-09</MinFactor>
     <MaxFactor>4.1322314049586775e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -106,7 +106,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -122,7 +122,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>6.754966887417218e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -154,7 +154,7 @@
     <MinFactor>5.481283422459893e-09</MinFactor>
     <MaxFactor>5.509641873278237e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -186,7 +186,7 @@
     <MinFactor>1.336898395721925e-05</MinFactor>
     <MaxFactor>0.0021141649048625794</MaxFactor>
     <ConditionPollutant>SOX</ConditionPollutant>
-    <ConditionValue>7.13e-06</ConditionValue>
+    <ConditionValue>0.000713</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "hard coal"</Reference>
@@ -202,7 +202,7 @@
     <MinFactor>0.0018527918781725888</MinFactor>
     <MaxFactor>0.05500550055005501</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>150000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "heavy fuel oil", Max factor for brown coal"</Reference>
@@ -218,7 +218,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.3311258278145693e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -234,7 +234,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.6512651265126515e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>20</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "brown coal"</Reference>
@@ -250,7 +250,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -298,7 +298,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -314,7 +314,7 @@
     <MinFactor>3.609625668449198e-09</MinFactor>
     <MaxFactor>4.1322314049586775e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -330,7 +330,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -346,7 +346,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>6.754966887417218e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -378,7 +378,7 @@
     <MinFactor>5.481283422459893e-09</MinFactor>
     <MaxFactor>5.509641873278237e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -410,7 +410,7 @@
     <MinFactor>1.336898395721925e-05</MinFactor>
     <MaxFactor>0.0021141649048625794</MaxFactor>
     <ConditionPollutant>SOX</ConditionPollutant>
-    <ConditionValue>7.13e-06</ConditionValue>
+    <ConditionValue>0.000713</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "hard coal"</Reference>
@@ -426,7 +426,7 @@
     <MinFactor>0.0018527918781725888</MinFactor>
     <MaxFactor>0.05500550055005501</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>150000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "heavy fuel oil", Max factor for brown coal"</Reference>
@@ -442,7 +442,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.3311258278145693e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -458,7 +458,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.6512651265126515e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>20</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "brown coal"</Reference>
@@ -474,7 +474,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -522,7 +522,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -538,7 +538,7 @@
     <MinFactor>3.609625668449198e-09</MinFactor>
     <MaxFactor>4.1322314049586775e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -554,7 +554,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -570,7 +570,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>6.754966887417218e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -602,7 +602,7 @@
     <MinFactor>5.481283422459893e-09</MinFactor>
     <MaxFactor>5.509641873278237e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -634,7 +634,7 @@
     <MinFactor>1.336898395721925e-05</MinFactor>
     <MaxFactor>0.0021141649048625794</MaxFactor>
     <ConditionPollutant>SOX</ConditionPollutant>
-    <ConditionValue>7.13e-06</ConditionValue>
+    <ConditionValue>0.000713</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "hard coal"</Reference>
@@ -650,7 +650,7 @@
     <MinFactor>0.0018527918781725888</MinFactor>
     <MaxFactor>0.05500550055005501</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>150000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "heavy fuel oil", Max factor for brown coal"</Reference>
@@ -666,7 +666,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.3311258278145693e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -682,7 +682,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.6512651265126515e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>20</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "brown coal"</Reference>
@@ -698,7 +698,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -746,7 +746,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -762,7 +762,7 @@
     <MinFactor>3.609625668449198e-09</MinFactor>
     <MaxFactor>4.1322314049586775e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -778,7 +778,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -794,7 +794,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>6.754966887417218e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -826,7 +826,7 @@
     <MinFactor>5.481283422459893e-09</MinFactor>
     <MaxFactor>5.509641873278237e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -858,7 +858,7 @@
     <MinFactor>1.336898395721925e-05</MinFactor>
     <MaxFactor>0.0021141649048625794</MaxFactor>
     <ConditionPollutant>SOX</ConditionPollutant>
-    <ConditionValue>7.13e-06</ConditionValue>
+    <ConditionValue>0.000713</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "hard coal"</Reference>
@@ -874,7 +874,7 @@
     <MinFactor>0.0018527918781725888</MinFactor>
     <MaxFactor>0.05500550055005501</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>150000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "heavy fuel oil", Max factor for brown coal"</Reference>
@@ -890,7 +890,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.3311258278145693e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -906,7 +906,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.6512651265126515e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>20</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "brown coal"</Reference>
@@ -922,7 +922,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -970,7 +970,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -986,7 +986,7 @@
     <MinFactor>3.609625668449198e-09</MinFactor>
     <MaxFactor>4.1322314049586775e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1002,7 +1002,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1018,7 +1018,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>6.754966887417218e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -1050,7 +1050,7 @@
     <MinFactor>5.481283422459893e-09</MinFactor>
     <MaxFactor>5.509641873278237e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1082,7 +1082,7 @@
     <MinFactor>1.336898395721925e-05</MinFactor>
     <MaxFactor>0.0021141649048625794</MaxFactor>
     <ConditionPollutant>SOX</ConditionPollutant>
-    <ConditionValue>7.13e-06</ConditionValue>
+    <ConditionValue>0.000713</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "hard coal"</Reference>
@@ -1098,7 +1098,7 @@
     <MinFactor>0.0018527918781725888</MinFactor>
     <MaxFactor>0.05500550055005501</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>150000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "heavy fuel oil", Max factor for brown coal"</Reference>
@@ -1114,7 +1114,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.3311258278145693e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -1130,7 +1130,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.6512651265126515e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>20</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "brown coal"</Reference>
@@ -1146,7 +1146,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1194,7 +1194,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1210,7 +1210,7 @@
     <MinFactor>3.609625668449198e-09</MinFactor>
     <MaxFactor>4.1322314049586775e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>100</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1226,7 +1226,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>2.0661157024793388e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>10</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1242,7 +1242,7 @@
     <MinFactor>1.871657754010695e-09</MinFactor>
     <MaxFactor>6.754966887417218e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>
@@ -1274,7 +1274,7 @@
     <MinFactor>5.481283422459893e-09</MinFactor>
     <MaxFactor>5.509641873278237e-07</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "gas oil"</Reference>
@@ -1306,7 +1306,7 @@
     <MinFactor>1.336898395721925e-05</MinFactor>
     <MaxFactor>0.0021141649048625794</MaxFactor>
     <ConditionPollutant>SOX</ConditionPollutant>
-    <ConditionValue>7.13e-06</ConditionValue>
+    <ConditionValue>0.000713</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>50000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "hard coal"</Reference>
@@ -1322,7 +1322,7 @@
     <MinFactor>0.0018527918781725888</MinFactor>
     <MaxFactor>0.05500550055005501</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>150000</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "heavy fuel oil", Max factor for brown coal"</Reference>
@@ -1338,7 +1338,7 @@
     <MinFactor>2.4064171122994655e-09</MinFactor>
     <MaxFactor>2.3311258278145693e-06</MaxFactor>
     <ConditionPollutant>PM10</ConditionPollutant>
-    <ConditionValue>6.25e-05</ConditionValue>
+    <ConditionValue>0.00625</ConditionValue>
     <ConditionSourcePollutant>CO2</ConditionSourcePollutant>
     <ReportingThreshold>200</ReportingThreshold>
     <Reference>EMEP/EEA Guidebook, 2016 (Chapter 1.A.1) and IPCC Guidelines 2006. Min factor for "gas oil", Max factor for "heavy fuel oil"</Reference>

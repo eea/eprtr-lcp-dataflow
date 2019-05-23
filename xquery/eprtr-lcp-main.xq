@@ -28,8 +28,8 @@ declare variable $source_url as xs:string external;
 \(\: (let \$asd \:\= trace\(fn\:current\-time\(\)\, \'started\s*[\d\.]+\sat\: \'\)) \:\)
 :)
 
-(:declare variable $xmlconv:REPOSITORY_URL as xs:string :=
-    "../lookup-tables/";:)
+(:declare variable $xmlconv:REPOSITORY_URL as xs:string :=:)
+    (:"../lookup-tables/";:)
 declare variable $xmlconv:REPOSITORY_URL as xs:string :=
     "https://svn.eionet.europa.eu/repositories/Reportnet/Dataflows/E-PRTR_and_LCP_integration/lookup-tables/";
 declare variable $xmlconv:PRODUCTION_FACILITY_LOOKUP as xs:string :=
@@ -1711,10 +1711,11 @@ declare function xmlconv:RunQAs(
 
         let $seq := $docRoot//ProductionFacilityReport
         let $errorType := 'warning'
-        let $text := map {
+        (:let $text := map {
             1: 'Resultant pollutant emissions to air is missing',
             2: 'Resultant pollutant is low/high based on comparison with expected ranges'
-        }
+        }:)
+        let $text := 'Resultant pollutant is low/high based on comparison with expected ranges'
 
         for $facility in $seq
             let $EPRTRAnnexIActivity := scripts:getEPRTRAnnexIActivity(
@@ -1795,14 +1796,12 @@ declare function xmlconv:RunQAs(
                     then 'MEDIUM'
                     else 'HIGH'
                 let $additionalComment :=
-                    (:if($maxExpectedEmission < $reportingThreshold):)
-                    (:then 'Maximum expected resulting emissions are below the Annex II threshold, case is ignored':)
                     'The priority of the failure of this check has been
                     classified as '|| $priority ||' based on the expected emissions factor.'
 
-                let $errorNR := if($resultingPollutantValue = 0)
+                (:let $errorNR := if($resultingPollutantValue = 0)
                     then 1
-                    else 2
+                    else 2:)
 
                 let $ok := (
                     $sourcePollutantValue = 0
@@ -1813,13 +1812,22 @@ declare function xmlconv:RunQAs(
                         $resultingPollutantValue <= $maxExpectedEmission
                     )
                     or
-                    $maxExpectedEmission < $reportingThreshold
+                    $minExpectedEmission < $reportingThreshold
                 )
+
+                (:let $notOK := (
+                    ($resultingPollutantValue = 0 and $minExpectedEmission gt $reportingThreshold)
+                    or
+                    $resultingPollutantValue < $minExpectedEmission
+                    or
+                    $resultingPollutantValue > $maxExpectedEmission
+                ):)
                 (:let $asd:= trace($ok, 'OK: '):)
                 (:let $asd:= trace(' '):)
 
                 return
                     if(fn:not($ok))
+                    (:if($notOK):)
                     (:if(fn:true()):)
                     (:if($resultingPollutantValue > 0):)
                     (:if($sourcePollutantValue > 0):)
@@ -1827,7 +1835,7 @@ declare function xmlconv:RunQAs(
                         let $dataMap := map {
                             'Details': map {
                                 'pos': 1,
-                                'text': $text?($errorNR),
+                                'text': $text,
                                 'errorClass': $errorType,
                                 'sortValue': $priorityIndex?($priority)
                             },
@@ -1844,9 +1852,9 @@ declare function xmlconv:RunQAs(
                                 'errorClass': 'td' || $errorType
                             },
                             (:'Minimum expected emission'::)
-                                (:map {'pos': 7, 'text': $minExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},:)
+                                (:map {'pos': 7, 'text': $minExpectedEmission => fn:number() :)(:=> fn:round-half-to-even(1):)(:},:)
                             (:'Maximum expected emission'::)
-                                (:map {'pos': 8, 'text': $maxExpectedEmission => xs:decimal() => fn:round-half-to-even(1)},:)
+                                (:map {'pos': 8, 'text': $maxExpectedEmission => fn:number() :)(:=> fn:round-half-to-even(1):)(:},:)
                             'Priority': map {'pos': 9, 'text': $additionalComment}
                             (:'expectedEmissionFactorMax': map {'pos': 10, 'text': $expectedEmissionFactor},:)
                             (:'Annex II reporting threshold': map {'pos': 11, 'text': $reportingThreshold}:)
