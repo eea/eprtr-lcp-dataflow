@@ -603,10 +603,10 @@ declare function xmlconv:RunQAs(
             if (fn:count(fn:index-of($elem/emissionsToAir/pollutant, $pollutant)) = 0)
             then
                 <tr>
-                    <td class='warning' title="Details"> Pollutant has not been reported</td>
+                    <td class='error' title="Details"> Pollutant has not been reported</td>
                     <td title="Local ID">{$elem/InspireId/localId}</td>
                     <td title="Feature type">emissionsToAir</td>
-                    <td class="tdwarning" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
+                    <td class="tderror" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                 </tr>
             else
                 ()
@@ -631,9 +631,9 @@ declare function xmlconv:RunQAs(
             if (fn:count(fn:index-of($elem/energyInput/fuelInput/fuelInput, $fuel)) = 0)
             then
                 <tr>
-                    <td class='warning' title="Details"> FuelInput has not been reported</td>
+                    <td class='error' title="Details"> FuelInput has not been reported</td>
                     <td title="Local ID">{$elem/descendant::*/localId}</td>
-                    <td class="tdwarning" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
+                    <td class="tderror" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
                 </tr>
             else
                 ()
@@ -1561,7 +1561,13 @@ declare function xmlconv:RunQAs(
     (:  C10.1 – EmissionsToAir outlier identification   :)
     let $res :=
         let $seq:= $docRoot//ProductionInstallationPartReport
-        let $emissions := fn:distinct-values($seq/emissionsToAir/pollutant)
+        (:let $emissions := fn:distinct-values($seq/emissionsToAir/pollutant):)
+        let $emissions := (
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/NOX",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/SO2",
+            "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/LCPPollutantCodeValue/DUST"
+        )
+
         for $elem in $seq
             for $emission in $emissions
                 let $emissionTotal :=
@@ -1719,7 +1725,7 @@ declare function xmlconv:RunQAs(
             (:let $asd := trace($EPRTRAnnexIActivity, 'EPRTRAnnexIActivity: '):)
             for $row in $docCrossPollutants//row[AnnexIActivityCode => replace('\.', '') = $EPRTRAnnexIActivity]
                 let $conditionPollutant := $row/ConditionPollutant/data()
-                let $conditionValue := $row/ConditionValue => fn:number()
+                let $conditionValue := $row/ConditionValue => functx:if-empty(0) => fn:number()
                 let $conditionSourcePollutant := $row/ConditionSourcePollutant/data()
 
                 let $reportingThreshold := $row/ReportingThreshold => fn:number()
@@ -1734,14 +1740,17 @@ declare function xmlconv:RunQAs(
 
                 where $cond
 
-                (:let $asd := trace(($conditionSourcePollutantValue * $conditionValue) div 100, 'calc cond val: '):)
-                (:let $asd := trace($conditionPollutantValue, 'cond val: '):)
-                (:let $asd := trace($row/SourcePollutant/text(), 'SourcePollutant: '):)
-                (:let $asd := trace($row/ResultingPollutant/text(), 'ResultingPollutant: '):)
-                (:let $asd := trace($sourcePollutantValue, 'sourcePollutantValue: '):)
-                (:let $asd := trace($resultingPollutantValue, 'resultingPollutantValue: '):)
+                (:let $asd := trace($facility/InspireId/localId/text(), "LocalID: "):)
+                (:let $asd := trace($row/SourcePollutant/text(), "Source pollutant: "):)
+                (:let $asd := trace($sourcePollutantValue => xs:decimal() => fn:round-half-to-even(1), "Source pollutant amount: "):)
+                (:let $asd := trace($row/ResultingPollutant/text(), "Resulting pollutant: "):)
+                (:let $asd := trace($resultingPollutantValue => xs:decimal() => fn:round-half-to-even(1), "Resulting pollutant amount: "):)
+                (:let $asd := trace((($conditionSourcePollutantValue * $conditionValue) div 100),:)
+                        (:'Calc cond val: '):)
+                (:let $asd := trace($conditionPollutantValue => xs:decimal(), 'Condition pollutant value: '):)
                 (:let $asd := trace($conditionPollutant, 'conditionPollutant: '):)
-                (:let $asd := trace($conditionValue, 'conditionValue: '):)
+                (:let $asd := trace($conditionValue, 'conditionValue(percent): '):)
+                (:let $asd := trace('-------------------'):)
 
                 let $minExpectedEmission :=
                     ($sourcePollutantValue * $row/MinFactor => functx:if-empty(0)) => fn:number()
