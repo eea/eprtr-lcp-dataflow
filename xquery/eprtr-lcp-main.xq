@@ -375,11 +375,15 @@ declare function xmlconv:RunQAs(
     let $LCP_1_1 := xmlconv:RowBuilder("EPRTR-LCP 1.1","combustionPlantCategory consistency", $res )
 
     (:  C1.2 – CountryCode consistency  :)
-    let $res :=
-        let $seq := $docRoot//*[fn:local-name() = ("countryCode", "countryId")]
+    let $resA :=
+        let $seq := $docRoot//*[fn:local-name() = ("countryId")]
         let $flagBlanks := 'true'
         return xmlconv:isInVocabulary($seq, "CountryCodeValue", $flagBlanks)
-    let $LCP_1_2 := xmlconv:RowBuilder("EPRTR-LCP 1.2","CountryCode consistency", $res )
+    let $resB :=
+        let $seq := $docRoot//*[fn:local-name() = ("countryCode")]
+        let $flagBlanks := 'false'
+        return xmlconv:isInVocabulary($seq, "CountryCodeValue", $flagBlanks)
+    let $LCP_1_2 := xmlconv:RowBuilder("EPRTR-LCP 1.2","CountryCode consistency", ($resA, $resB) )
 
     (:  C1.3 – EPRTRPollutant consistency   :)
     let $res :=
@@ -685,7 +689,11 @@ declare function xmlconv:RunQAs(
         let $valid := scripts:getValidConcepts($concept)
         for $elem in $seq
             where functx:substring-after-last($elem/methodCode, "/") = ("M", "C")
-            for $methodClass in $elem/methodClassification
+            let $methodClasses := if(count($elem/methodClassification) gt 0)
+                then $elem/methodClassification
+                else <methodClassification></methodClassification>
+
+            for $methodClass in $methodClasses
             let $ok := ($valid = fn:data($methodClass))
                 and not(functx:if-empty($methodClass, '') = '')
             where fn:not($ok)
