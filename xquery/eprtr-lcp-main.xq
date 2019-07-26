@@ -722,7 +722,8 @@ declare function xmlconv:RunQAs(
         for $elem in $seq
             let $reportMethodClass := $elem/methodClassification/text()
             where count(functx:value-intersect($reportMethodClass, $methodClassifications)) > 0
-                and functx:if-empty(string-join($elem/furtherDetails, ""), "") = ""
+                and count($elem/furtherDetails[functx:if-empty(text(), "") = ""])
+                (:and functx:if-empty(string-join($elem/furtherDetails, ""), "") = "":)
 
             let $mClass :=
                 for $m in $reportMethodClass
@@ -736,7 +737,7 @@ declare function xmlconv:RunQAs(
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
                     <td title="Method classifications">{$mClass}</td>
                     <td title="Additional info">{scripts:getAdditionalInformation($elem/parent::*)}</td>
-                    <td class="tdwarning" title="Further details"> {fn:data($elem/furtherDetails)} </td>
+                    <td class="tdwarning" title="Further details"> </td>
                 </tr>
 
     let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5",
