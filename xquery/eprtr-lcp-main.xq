@@ -801,6 +801,14 @@ declare function xmlconv:RunQAs(
         return
             if(fn:not($envelope-available))
             then
+                if(fn:contains($envelope-url, 'converters'))
+                then
+                <tr>
+                    <td class="info" title="Details">
+                        Could not verify envelope year because envelope XML is not available.
+                    </td>
+                </tr>
+                else
                 <tr>
                     <td class="error" title="Details">
                         Could not verify envelope year because envelope XML is not available.
