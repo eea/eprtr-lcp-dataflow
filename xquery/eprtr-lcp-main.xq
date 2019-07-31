@@ -3707,6 +3707,32 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_16_6 := xmlconv:RowBuilder("EPRTR-LCP 16.6","energyInput blank check", $res)
 
+    let $res :=
+        let $seq := $docRoot//*[not(*)]
+        let $errorType := 'warning'
+        let $text := 'Blank value reported'
+
+        for $elem in $seq
+        let $value := $elem/functx:if-empty(data(), '')
+
+        let $ok := not($value = '')
+            (:and $value castable as xs:double:)
+
+        return
+            if (fn:not($ok))
+            then
+                let $dataMap := map {
+                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                    'Local ID': map {'pos': 2, 'text': $elem/ancestor::*[InspireId]/InspireId/localId},
+                    'path': map {'pos': 3, 'text': functx:path-to-node($elem)},
+                    'Element name': map {'pos': 4, 'text': $elem/local-name()},
+                    'Value': map {'pos': 5, 'text': $value, 'errorClass': 'td' || $errorType}
+                }
+                return scripts:generateResultTableRow($dataMap)
+            else
+                ()
+    let $LCP_16_7 := xmlconv:RowBuilder("EPRTR-LCP 16.7", "All fields blank check", $res)
+
     let $LCP_16 := xmlconv:RowAggregator(
             "EPRTR-LCP 16",
             "Miscellaneous checks",
@@ -3716,7 +3742,8 @@ declare function xmlconv:RunQAs(
                 $LCP_16_3,
                 $LCP_16_4,
                 $LCP_16_5,
-                $LCP_16_6
+                $LCP_16_6,
+                $LCP_16_7
             )
     )
 
