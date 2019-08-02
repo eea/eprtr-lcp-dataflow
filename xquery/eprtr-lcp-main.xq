@@ -275,15 +275,16 @@ declare function xmlconv:isInVocabulary(
 };
 
 declare function xmlconv:checkBlankValues(
-        $seq as element()*,
-        $elementName as xs:string
+        $seq as element()*
 ) as element()*{
-    let $errorType := 'error'
+    let $errorType := 'warning'
     let $text := 'Blank value reported'
+    let $regex := '[0-9a-zA-Z]'
 
     for $elem in $seq
-    let $elementValue := $elem/*[local-name() = $elementName] => functx:if-empty('')
-    let $ok := not($elementValue = '')
+    let $value := $elem/functx:if-empty(data(), '')
+
+    let $ok := fn:matches($value, $regex)
 
     return
         if (fn:not($ok))
@@ -291,12 +292,9 @@ declare function xmlconv:checkBlankValues(
             let $dataMap := map {
                 'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                 'Local ID': map {'pos': 2, 'text': $elem/ancestor::*[InspireId]/InspireId/localId},
-                'Additional info': map {'pos': 3, 'text': scripts:getAdditionalInformation($elem)},
-                'Field name': map {
-                    'pos': 4,
-                    'text': concat($elem/local-name(), '/', $elementName),
-                    'errorClass': 'td' || $errorType
-                }
+                'path': map {'pos': 3, 'text': functx:path-to-node($elem)},
+                'Element name': map {'pos': 4, 'text': $elem/local-name()},
+                'Value': map {'pos': 5, 'text': $value, 'errorClass': 'td' || $errorType}
             }
             return scripts:generateResultTableRow($dataMap)
         else
@@ -3638,26 +3636,29 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_16_2 := xmlconv:RowBuilder("EPRTR-LCP 16.2","Percentage format compliance", $res)
 
-    let $res :=
-        let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir
-        let $elementName := 'totalPollutantQuantityTNE'
-        return xmlconv:checkBlankValues($seq, $elementName)
-    let $LCP_16_3 := xmlconv:RowBuilder("EPRTR-LCP 16.3","totalPollutantQuantityTNE blank check", $res)
+    (: TODO replaced by All fields blank check, remove this :)
+    (:let $res :=:)
+        (:let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir:)
+        (:let $elementName := 'totalPollutantQuantityTNE':)
+        (:return xmlconv:checkBlankValues($seq, $elementName):)
+    (:let $LCP_16_3 := xmlconv:RowBuilder("EPRTR-LCP 16.3","totalPollutantQuantityTNE blank check", $res):)
 
-    let $resA :=
-        let $seq := $docRoot//ProductionFacilityReport/offsiteWasteTransfer
-        let $elementName := 'totalWasteQuantityTNE'
-        return xmlconv:checkBlankValues($seq, $elementName)
-    let $resB :=
-        let $seq := $docRoot//ProductionFacilityReport/pollutantRelease
-        let $elementName := 'totalPollutantQuantityKg'
-        return xmlconv:checkBlankValues($seq, $elementName)
-    let $resC :=
-        let $seq := $docRoot//ProductionFacilityReport/offsitePollutantTransfer
-        let $elementName := 'totalPollutantQuantityKg'
-        return xmlconv:checkBlankValues($seq, $elementName)
-    let $LCP_16_4 := xmlconv:RowBuilder("EPRTR-LCP 16.4","totalWasteQuantityTNE, totalPollutantQuantityKg blank check", ($resA, $resB, $resC))
+    (: TODO replaced by All fields blank check, remove this :)
+    (:let $resA :=:)
+        (:let $seq := $docRoot//ProductionFacilityReport/offsiteWasteTransfer:)
+        (:let $elementName := 'totalWasteQuantityTNE':)
+        (:return xmlconv:checkBlankValues($seq, $elementName):)
+    (:let $resB :=:)
+        (:let $seq := $docRoot//ProductionFacilityReport/pollutantRelease:)
+        (:let $elementName := 'totalPollutantQuantityKg':)
+        (:return xmlconv:checkBlankValues($seq, $elementName):)
+    (:let $resC :=:)
+        (:let $seq := $docRoot//ProductionFacilityReport/offsitePollutantTransfer:)
+        (:let $elementName := 'totalPollutantQuantityKg':)
+        (:return xmlconv:checkBlankValues($seq, $elementName):)
+    (:let $LCP_16_4 := xmlconv:RowBuilder("EPRTR-LCP 16.4","totalWasteQuantityTNE, totalPollutantQuantityKg blank check", ($resA, $resB, $resC)):)
 
+    (: TODO replaced by All fields blank check, remove this :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/numberOfOperatingHours
         let $errorType := 'warning'
@@ -3680,8 +3681,9 @@ declare function xmlconv:RunQAs(
                 return scripts:generateResultTableRow($dataMap)
             else
                 ()
-    let $LCP_16_5 := xmlconv:RowBuilder("EPRTR-LCP 16.5","numberOfOperatingHours blank check", $res)
+    (:let $LCP_16_5 := xmlconv:RowBuilder("EPRTR-LCP 16.5","numberOfOperatingHours blank check", $res):)
 
+    (: TODO replaced by All fields blank check, remove this :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/energyInput
         let $errorType := 'error'
@@ -3705,33 +3707,13 @@ declare function xmlconv:RunQAs(
                 return scripts:generateResultTableRow($dataMap)
             else
                 ()
-    let $LCP_16_6 := xmlconv:RowBuilder("EPRTR-LCP 16.6","energyInput blank check", $res)
+    (:let $LCP_16_6 := xmlconv:RowBuilder("EPRTR-LCP 16.6","energyInput blank check", $res):)
 
     let $res :=
         let $seq := $docRoot//*[not(*)]
-        let $errorType := 'warning'
-        let $text := 'Blank value reported'
+        return xmlconv:checkBlankValues($seq)
 
-        for $elem in $seq
-        let $value := $elem/functx:if-empty(data(), '')
-
-        let $ok := not($value = '')
-            (:and $value castable as xs:double:)
-
-        return
-            if (fn:not($ok))
-            then
-                let $dataMap := map {
-                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                    'Local ID': map {'pos': 2, 'text': $elem/ancestor::*[InspireId]/InspireId/localId},
-                    'path': map {'pos': 3, 'text': functx:path-to-node($elem)},
-                    'Element name': map {'pos': 4, 'text': $elem/local-name()},
-                    'Value': map {'pos': 5, 'text': $value, 'errorClass': 'td' || $errorType}
-                }
-                return scripts:generateResultTableRow($dataMap)
-            else
-                ()
-    let $LCP_16_7 := xmlconv:RowBuilder("EPRTR-LCP 16.7", "All fields blank check", $res)
+    let $LCP_16_3 := xmlconv:RowBuilder("EPRTR-LCP 16.3", "All fields blank check", $res)
 
     let $LCP_16 := xmlconv:RowAggregator(
             "EPRTR-LCP 16",
@@ -3739,11 +3721,11 @@ declare function xmlconv:RunQAs(
             (
                 $LCP_16_1,
                 $LCP_16_2,
-                $LCP_16_3,
-                $LCP_16_4,
-                $LCP_16_5,
-                $LCP_16_6,
-                $LCP_16_7
+                $LCP_16_3
+                (:$LCP_16_4,:)
+                (:$LCP_16_5,:)
+                (:$LCP_16_6,:)
+                (:$LCP_16_7:)
             )
     )
 
