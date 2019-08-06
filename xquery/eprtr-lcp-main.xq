@@ -3665,14 +3665,12 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_16_2 := xmlconv:RowBuilder("EPRTR-LCP 16.2","Percentage format compliance", $res)
 
-    (: TODO replaced by All fields blank check, remove this :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/emissionsToAir
         let $elementName := 'totalPollutantQuantityTNE'
         return xmlconv:checkBlankValues($seq, $elementName)
     let $LCP_16_3 := xmlconv:RowBuilder("EPRTR-LCP 16.3","totalPollutantQuantityTNE blank check", $res)
 
-    (: TODO replaced by All fields blank check, remove this :)
     let $resA :=
         let $seq := $docRoot//ProductionFacilityReport/offsiteWasteTransfer
         let $elementName := 'totalWasteQuantityTNE'
@@ -3687,7 +3685,6 @@ declare function xmlconv:RunQAs(
         return xmlconv:checkBlankValues($seq, $elementName)
     let $LCP_16_4 := xmlconv:RowBuilder("EPRTR-LCP 16.4","totalWasteQuantityTNE, totalPollutantQuantityKg blank check", ($resA, $resB, $resC))
 
-    (: TODO replaced by All fields blank check, remove this :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/numberOfOperatingHours
         let $errorType := 'warning'
@@ -3712,7 +3709,6 @@ declare function xmlconv:RunQAs(
                 ()
     let $LCP_16_5 := xmlconv:RowBuilder("EPRTR-LCP 16.5","numberOfOperatingHours blank check", $res)
 
-    (: TODO replaced by All fields blank check, remove this :)
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport/energyInput
         let $errorType := 'error'
@@ -3739,7 +3735,9 @@ declare function xmlconv:RunQAs(
     let $LCP_16_6 := xmlconv:RowBuilder("EPRTR-LCP 16.6","energyInput blank check", $res)
 
     let $res :=
-        let $seq := $docRoot//*[not(*)]
+        let $exclude := ('totalPollutantQuantityTNE', 'totalWasteQuantityTNE',
+            'totalPollutantQuantityKg', 'numberOfOperatingHours', 'energyInput')
+        let $seq := $docRoot//*[not(local-name() = $exclude) and not(*)]
         return xmlconv:checkAllBlankValues($seq)
 
     let $LCP_16_7 := xmlconv:RowBuilder("EPRTR-LCP 16.7", "All fields blank check", $res)
