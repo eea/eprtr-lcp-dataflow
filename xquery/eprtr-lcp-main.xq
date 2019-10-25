@@ -758,7 +758,7 @@ declare function xmlconv:RunQAs(
             return
                 <tr>
                     <td class='warning' title="Details">
-                        Not met reporting requirements for the method classification
+                        Further details should be provided on the method classification
                     </td>
                     <td title="Local ID">{$elem/ancestor::*[InspireId]/InspireId/localId => fn:replace("\.", ". ")}</td>
                     <td title="Feature type">{$elem/parent::*/local-name()}</td>
@@ -768,7 +768,7 @@ declare function xmlconv:RunQAs(
                 </tr>
 
     let $LCP_3_5 := xmlconv:RowBuilder("EPRTR-LCP 3.5",
-            "Required furtherDetails for reporting methodClassification", $res)
+            "Provision of additional details for reporting of method classification", $res)
 
     (:  C3.6 – transboundaryTransfer completeness   :)
     let $res :=
