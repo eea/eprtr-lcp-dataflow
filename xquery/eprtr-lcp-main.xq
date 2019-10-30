@@ -1455,46 +1455,49 @@ declare function xmlconv:RunQAs(
 
     (:  C8.2 – Article 31 derogation justification  :)
     let $res :=
-        let $isDerogationFirstYear := function (
-            $inspireId as xs:string
-        ) as xs:boolean {
-            let $historicSubmissionsCount := $docProductionInstallationParts//ProductionInstallationPart
-                [year != $reporting-year and derogations=>functx:substring-after-last("/") = 'Article31'
-                and InspireId = $inspireId]
-                    => fn:count()
-            return
-                if($historicSubmissionsCount > 0)
-                then false()
-                else true()
-        }
+        if($reporting-year le 2018)
+        then ()
+        else
+            let $isDerogationFirstYear := function (
+                $inspireId as xs:string
+            ) as xs:boolean {
+                let $historicSubmissionsCount := $docProductionInstallationParts//ProductionInstallationPart
+                    [year != $reporting-year and derogations=>functx:substring-after-last("/") = 'Article31'
+                    and InspireId = $inspireId]
+                        => fn:count()
+                return
+                    if($historicSubmissionsCount > 0)
+                    then false()
+                    else true()
+            }
 
-        let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $inspireIdsNeeded]
-        let $errorType := 'warning'
-        let $text := 'Technical justification has been omitted for the Installation part'
-        for $part in $seq
-            let $result :=
-                if($isDerogationFirstYear($part/InspireId/data()))
-                then
-                    for $desulphurisation in $part/desulphurisationInformation
-                    let $ok := $desulphurisation/technicalJustification => fn:string-length() > 0
+            let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $inspireIdsNeeded]
+            let $errorType := 'warning'
+            let $text := 'Technical justification has been omitted for the Installation part'
+            for $part in $seq
+                let $result :=
+                    if($isDerogationFirstYear($part/InspireId/data()))
+                    then
+                        for $desulphurisation in $part/desulphurisationInformation
+                        let $ok := $desulphurisation/technicalJustification => fn:string-length() > 0
 
-                    return
-                        if(not($ok))
-                        (:if(true()):)
-                        then
-                            let $dataMap := map {
-                                'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
-                                'Local ID': map {
-                                    'pos': 2, 'text': $part/InspireId/localId
-                                },
-                                'desulphurisationInformation/Month' : map {
-                                    'pos': 3, 'text': $desulphurisation/month =>functx:substring-after-last("/")
+                        return
+                            if(not($ok))
+                            (:if(true()):)
+                            then
+                                let $dataMap := map {
+                                    'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+                                    'Local ID': map {
+                                        'pos': 2, 'text': $part/InspireId/localId
+                                    },
+                                    'desulphurisationInformation/Month' : map {
+                                        'pos': 3, 'text': $desulphurisation/month =>functx:substring-after-last("/")
+                                    }
                                 }
-                            }
-                            return scripts:generateResultTableRow($dataMap)
-                        else ()
-                else ()
-            return $result
+                                return scripts:generateResultTableRow($dataMap)
+                            else ()
+                    else ()
+                return $result
 
 
     let $LCP_8_2 := xmlconv:RowBuilder("EPRTR-LCP 8.2","Article 31 derogation justification", $res)
@@ -2101,6 +2104,10 @@ declare function xmlconv:RunQAs(
     (: C12.1 - Identification of ProductionFacility release/transfer outliers
         against previous year data at the national level :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $getCode1 := function (
                 $pollutantNode as element(),
                 $nodeName as xs:string
@@ -2465,6 +2472,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 12.3 at: ') :)
     (: C12.3 - Identification of ProductionFacility release/transfer outliers against previous year data :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $getLastYearValue := function (
             $pollutantNode as element(),
             $inspireId as xs:string
@@ -2589,6 +2600,10 @@ declare function xmlconv:RunQAs(
     (: C12.4 - Identification of ProductionInstallationPart emission outliers
         against previous year data at the ProductionInstallationPart level. :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $getLastYearValue := function (
             $emissionNode as element(),
             $inspireId as xs:string
@@ -2644,6 +2659,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 12.5 at: ') :)
     (: C12.5 – Time series consistency for ProductionInstallationPart emissions :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $disused := (
             'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/disused',
             'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
@@ -2775,6 +2794,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 12.6 at: ') :)
     (: C12.6 - Time series consistency for ProductionInstallationPart emissions :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $pollutants := ('SO2', 'NOX', 'DUST')
         for $pollutant in $pollutants
             let $total := fn:sum(
@@ -2845,6 +2868,10 @@ declare function xmlconv:RunQAs(
     (: TODO long running time :)
     (: C13.1 - Number of ProductionFacilities reporting releases and transfers consistency :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $errorText := 'Number of reporting production facilities changes by more than'
         let $map1 := map {
             "pollutantRelease": map {
@@ -2892,6 +2919,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 13.2 at: ') :)
     (: C13.2 - Reported number of releases and transfers per medium consistency :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $errorText := 'Number of releases/transfers per medium changes by more than'
         let $map1 := map {
             "pollutantRelease": map {
@@ -2943,6 +2974,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 13.3 at: ') :)
     (: C13.3 - Reported number of pollutants per medium consistency :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $errorText := 'Total pollutant release changes by more than'
         (: map with options for pollutant types :)
         let $map1 := map {
@@ -3028,6 +3063,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 13.4 at: ') :)
     (: C13.4 - Quantity of releases and transfers consistency :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $pollutantReleaseCodesLastYear :=
             $docQUANTITY_OF_PollutantRelease//row[CountryCode = $country_code and Year = $look-up-year]
                     /PollutantCode
@@ -3329,6 +3368,10 @@ declare function xmlconv:RunQAs(
     (:let $asd := trace(fn:current-time(), 'started 14.2 at: '):)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
     let $res :=
+        if($reporting-year le 2018)
+        then ()
+        else
+
         let $reportedPollutantCodes := $docRoot//pollutant => fn:distinct-values()
         let $pollutantCodesNeeded :=
             $docPollutantLookup//row[Newcodelistvalue = $reportedPollutantCodes]/PollutantCode/text()
