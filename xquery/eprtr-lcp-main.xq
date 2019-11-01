@@ -466,7 +466,8 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $otherGases := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherGases"
         let $seq :=
-            $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherGases]/otherGaseousFuel
+            $docRoot//ProductionInstallationPartReport/energyInput
+                    /fuelInput[fuelInput = $otherGases and ancestor::energyInput/energyinputTJ > 0]/otherGaseousFuel
         let $flagBlanks := 'true'
         return xmlconv:isInVocabulary($seq, "OtherGaseousFuelValue", $flagBlanks)
     let $LCP_1_10 := xmlconv:RowBuilder("EPRTR-LCP 1.10","OtherGaseousFuelValue consistency", $res )
@@ -475,7 +476,8 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $otherSolidFuel := "http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/FuelInputValue/OtherSolidFuels"
         let $seq :=
-            $docRoot//ProductionInstallationPartReport/energyInput/fuelInput[fuelInput = $otherSolidFuel]/otherSolidFuel
+            $docRoot//ProductionInstallationPartReport/energyInput
+                    /fuelInput[fuelInput = $otherSolidFuel and ancestor::energyInput/energyinputTJ > 0]/otherSolidFuel
         let $flagBlanks := 'true'
         return xmlconv:isInVocabulary($seq, "OtherSolidFuelValue", $flagBlanks)
     let $LCP_1_11 := xmlconv:RowBuilder("EPRTR-LCP 1.11","OtherSolidFuelValue consistency", $res )
