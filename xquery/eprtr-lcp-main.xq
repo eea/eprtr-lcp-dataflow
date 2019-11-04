@@ -2050,8 +2050,8 @@ declare function xmlconv:RunQAs(
                         'Local ID' : map {'pos' : 2, 'text' : $pollutantNode/ancestor::*/InspireId/localId/data()},
                         'Type' : map {'pos' : 3, 'text' : $pollutantType || $getCodes($pollutantNode)},
                         'Reported amount':
-                            map {'pos' : 4, 'text' : $reportedAmount => xs:decimal(), 'errorClass': 'td' || $errorType},
-                        'Threshold value': map {'pos' : 5, 'text' : $thresholdValue => xs:decimal()}
+                            map {'pos' : 4, 'text' : $reportedAmount, 'errorClass': 'td' || $errorType},
+                        'Threshold value': map {'pos' : 5, 'text' : $thresholdValue}
                     }
                     return scripts:generateResultTableRow($dataMap)
                 else ()
@@ -2870,10 +2870,6 @@ declare function xmlconv:RunQAs(
     (: TODO long running time :)
     (: C13.1 - Number of ProductionFacilities reporting releases and transfers consistency :)
     let $res :=
-        if($reporting-year le 2018)
-        then ()
-        else
-
         let $errorText := 'Number of reporting production facilities changes by more than'
         let $map1 := map {
             "pollutantRelease": map {
@@ -2921,10 +2917,6 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 13.2 at: ') :)
     (: C13.2 - Reported number of releases and transfers per medium consistency :)
     let $res :=
-        if($reporting-year le 2018)
-        then ()
-        else
-
         let $errorText := 'Number of releases/transfers per medium changes by more than'
         let $map1 := map {
             "pollutantRelease": map {
@@ -2976,10 +2968,6 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 13.3 at: ') :)
     (: C13.3 - Reported number of pollutants per medium consistency :)
     let $res :=
-        if($reporting-year le 2018)
-        then ()
-        else
-
         let $errorText := 'Total pollutant release changes by more than'
         (: map with options for pollutant types :)
         let $map1 := map {
@@ -3065,10 +3053,6 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 13.4 at: ') :)
     (: C13.4 - Quantity of releases and transfers consistency :)
     let $res :=
-        if($reporting-year le 2018)
-        then ()
-        else
-
         let $pollutantReleaseCodesLastYear :=
             $docQUANTITY_OF_PollutantRelease//row[CountryCode = $country_code and Year = $look-up-year]
                     /PollutantCode
@@ -3370,10 +3354,6 @@ declare function xmlconv:RunQAs(
     (:let $asd := trace(fn:current-time(), 'started 14.2 at: '):)
     (: C14.2 – Identification of ProductionFacility release/transfer outliers against European level data :)
     let $res :=
-        if($reporting-year le 2018)
-        then ()
-        else
-
         let $reportedPollutantCodes := $docRoot//pollutant => fn:distinct-values()
         let $pollutantCodesNeeded :=
             $docPollutantLookup//row[Newcodelistvalue = $reportedPollutantCodes]/PollutantCode/text()
