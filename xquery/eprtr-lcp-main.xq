@@ -28,10 +28,90 @@ declare variable $source_url as xs:string external;
 \(\: (let \$asd \:\= trace\(fn\:current\-time\(\)\, \'started\s*[\d\.]+\sat\: \'\)) \:\)
 :)
 
-(:declare variable $xmlconv:REPOSITORY_URL as xs:string :=:)
-    (:"../lookup-tables/";:)
-declare variable $xmlconv:REPOSITORY_URL as xs:string :=
-    "https://svn.eionet.europa.eu/repositories/Reportnet/Dataflows/E-PRTR_and_LCP_integration/lookup-tables/";
+declare function xmlconv:getLookupTable(
+    $fileName as xs:string
+) as element() {
+    let $obligation := '720'
+    let $location := 'https://databridge.eionet.europa.eu/remote.php/dav/files/'
+    let $userEnv := 'XQueryUser'
+    let $passwordEnv := 'XQueryPassword'
+
+    let $user := environment-variable($userEnv)
+    let $password := environment-variable($passwordEnv)
+    let $url := concat($location, $user, '/', $obligation, '/', $fileName)
+
+    let $response := http:send-request(
+            <http:request method='get'
+                auth-method='Basic'
+                send-authorization='true'
+                username='{$user}'
+                password='{$password}'
+                override-media-type='text/xml'/>,
+            $url
+    )
+
+    let $status_code := $response/@status
+
+    return if($status_code = 200)
+        then $response[2]/dataroot
+        else <dataroot></dataroot>
+};
+
+declare function xmlconv:getLookupTableCountry(
+    $countryCode as xs:string,
+    $fileName as xs:string
+) as element() {
+    let $obligation := '720'
+    let $location := 'https://databridge.eionet.europa.eu/remote.php/dav/files/'
+    let $userEnv := 'XQueryUser'
+    let $passwordEnv := 'XQueryPassword'
+
+    let $user := environment-variable($userEnv)
+    let $password := environment-variable($passwordEnv)
+    let $fileName := concat($countryCode, '_', $fileName)
+    let $url := concat($location, $user, '/', $obligation, '/', $fileName)
+
+    let $response := http:send-request(
+            <http:request method='get'
+                auth-method='Basic'
+                send-authorization='true'
+                username='{$user}'
+                password='{$password}'
+                override-media-type='text/xml'/>,
+            $url
+    )
+
+    let $status_code := $response/@status
+
+    return if($status_code = 200)
+        then $response[2]/data
+        else <data></data>
+};
+
+declare function xmlconv:getLookupTableSVN(
+    $fileName as xs:string
+) as element() {
+    let $location := '../lookup-tables/'
+    (:let $location := 'https://svn.eionet.europa.eu/repositories/Reportnet/Dataflows/E-PRTR_and_LCP_integration/lookup-tables/':)
+    let $url := concat($location, $fileName)
+
+    return fn:doc($url)/dataroot
+};
+
+declare function xmlconv:getLookupTableSVNCountry(
+    $countryCode as xs:string,
+    $fileName as xs:string
+) as element()? {
+    let $fileName := concat($countryCode, '_', $fileName)
+
+    let $location := '../lookup-tables/'
+    (:let $location := 'https://svn.eionet.europa.eu/repositories/Reportnet/Dataflows/E-PRTR_and_LCP_integration/lookup-tables/':)
+    let $url := concat($location, $fileName)
+
+    return fn:doc($url)/data
+};
+
+declare variable $xmlconv:REPOSITORY_URL as xs:string := "";
 declare variable $xmlconv:PRODUCTION_FACILITY_LOOKUP as xs:string :=
     fn:concat($xmlconv:REPOSITORY_URL,"ProductionFacility.xml");
 declare variable $xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP as xs:string :=
@@ -334,32 +414,37 @@ declare function xmlconv:RunQAs(
         $source_url
 ) as element()* {
     let $skip_countries := ('SE')
-
     let $docRoot := fn:doc($source_url)
-    let $docPollutantLookup := fn:doc ($xmlconv:POLLUTANT_LOOKUP)
-    let $docAverage := fn:doc($xmlconv:AVERAGE_3_YEARS)
-    let $docEmissions := fn:doc($xmlconv:AVG_EMISSIONS_PATH)
-    let $docCrossPollutants := fn:doc($xmlconv:CrossPollutants)
-    let $docANNEXII := fn:doc($xmlconv:ANNEX_II_THRESHOLD)
-    let $docEUROPEAN_TOTAL_PollutantRelease := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantRelease)
-    let $docEUROPEAN_TOTAL_PollutantTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_PollutantTransfer)
-    let $docEUROPEAN_TOTAL_OffsiteWasteTransfer := fn:doc($xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer)
-    let $docNATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer)
-    let $docNATIONAL_TOTAL_ANNEXI_PollutantTransfer := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer)
-    let $docNATIONAL_TOTAL_ANNEXI_PollutantRelease := fn:doc($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease)
-    let $docQUANTITY_OF_OffsiteWasteTransfer := fn:doc($xmlconv:QUANTITY_OF_OffsiteWasteTransfer)
-    let $docQUANTITY_OF_PollutantRelease := fn:doc($xmlconv:QUANTITY_OF_PollutantRelease)
-    let $docQUANTITY_OF_PollutantTransfer := fn:doc($xmlconv:QUANTITY_OF_PollutantTransfer)
-    let $docRootCOUNT_OF_PollutantRelease := fn:doc($xmlconv:COUNT_OF_PollutantRelease)
-    let $docRootCOUNT_OF_PollutantTransfer := fn:doc($xmlconv:COUNT_OF_PollutantTransfer)
-    let $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER)
-    let $docRootCOUNT_OF_OffsiteWasteTransfer := fn:doc($xmlconv:COUNT_OF_OffsiteWasteTransfer)
-
-    let $docProductionFacilities := fn:doc($xmlconv:PRODUCTION_FACILITY_LOOKUP)
-    let $docProductionInstallationParts := fn:doc($xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP)
-
     let $country_code := $docRoot//countryId/fn:data() => functx:substring-after-last("/")
         => functx:if-empty(' ')
+
+    let $docPollutantLookup := xmlconv:getLookupTable($xmlconv:POLLUTANT_LOOKUP)
+    let $docAverage := xmlconv:getLookupTable($xmlconv:AVERAGE_3_YEARS)
+    let $docEmissions := xmlconv:getLookupTable($xmlconv:AVG_EMISSIONS_PATH)
+    let $docCrossPollutants := xmlconv:getLookupTable($xmlconv:CrossPollutants)
+    let $docANNEXII := xmlconv:getLookupTable($xmlconv:ANNEX_II_THRESHOLD)
+    let $docEUROPEAN_TOTAL_PollutantRelease := xmlconv:getLookupTable($xmlconv:EUROPEAN_TOTAL_PollutantRelease)
+    let $docEUROPEAN_TOTAL_PollutantTransfer := xmlconv:getLookupTable($xmlconv:EUROPEAN_TOTAL_PollutantTransfer)
+    let $docEUROPEAN_TOTAL_OffsiteWasteTransfer := xmlconv:getLookupTable($xmlconv:EUROPEAN_TOTAL_OffsiteWasteTransfer)
+    let $docNATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer := xmlconv:getLookupTable($xmlconv:NATIONAL_TOTAL_ANNEXI_OffsiteWasteTransfer)
+    let $docNATIONAL_TOTAL_ANNEXI_PollutantTransfer := xmlconv:getLookupTable($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantTransfer)
+    let $docNATIONAL_TOTAL_ANNEXI_PollutantRelease := xmlconv:getLookupTable($xmlconv:NATIONAL_TOTAL_ANNEXI_PollutantRelease)
+    let $docQUANTITY_OF_OffsiteWasteTransfer := xmlconv:getLookupTable($xmlconv:QUANTITY_OF_OffsiteWasteTransfer)
+    let $docQUANTITY_OF_PollutantRelease := xmlconv:getLookupTable($xmlconv:QUANTITY_OF_PollutantRelease)
+    let $docQUANTITY_OF_PollutantTransfer := xmlconv:getLookupTable($xmlconv:QUANTITY_OF_PollutantTransfer)
+    let $docRootCOUNT_OF_PollutantRelease := xmlconv:getLookupTable($xmlconv:COUNT_OF_PollutantRelease)
+    let $docRootCOUNT_OF_PollutantTransfer := xmlconv:getLookupTable($xmlconv:COUNT_OF_PollutantTransfer)
+    let $docRootCOUNT_OF_ProdFacilityOffsiteWasteTransfer := xmlconv:getLookupTable($xmlconv:COUNT_OF_PROD_FACILITY_WASTE_TRANSFER)
+    let $docRootCOUNT_OF_OffsiteWasteTransfer := xmlconv:getLookupTable($xmlconv:COUNT_OF_OffsiteWasteTransfer)
+
+    let $docCLRTAPdata := xmlconv:getLookupTable($xmlconv:CLRTAP_DATA)
+    let $docCLRTAPpollutantLookup := xmlconv:getLookupTable($xmlconv:CLRTAP_POLLUTANT_LOOKUP)
+    let $docUNFCCdata := xmlconv:getLookupTable($xmlconv:UNFCC_DATA)
+    let $docUNFCCpollutantLookup := xmlconv:getLookupTable($xmlconv:UNFCC_POLLUTANT_LOOKUP)
+
+    let $docProductionFacilities := xmlconv:getLookupTableCountry($country_code, $xmlconv:PRODUCTION_FACILITY_LOOKUP)
+    let $docProductionInstallationParts := xmlconv:getLookupTableCountry($country_code, $xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP)
+
     let $look-up-year := $docRoot//reportingYear => fn:number() - 2
     let $previous-year := $docRoot//reportingYear => fn:number() - 1
     let $reporting-year := $docRoot//reportingYear => fn:number()
@@ -543,11 +628,12 @@ declare function xmlconv:RunQAs(
     let $decommissioned :=
         'http://dd.eionet.europa.eu/vocabulary/euregistryonindustrialsites/ConditionOfFacilityValue/decommissioned'
     let $facilityInspireIds :=
-        $docProductionFacilities/data/ProductionFacility[year = $reporting-year]
-                /InspireId[substring-before(namespace, '.') = $country_code]
+        $docProductionFacilities/ProductionFacility[year = $reporting-year
+            and countryCode = $country_code]/concat(localId, namespace)
     let $installationPartInspireIds :=
         $docProductionInstallationParts//ProductionInstallationPart[StatusType != $decommissioned
-            and year = $reporting-year]/InspireId[substring-before(namespace, '.') = $country_code]
+            and year = $reporting-year and countryCode = $country_code]
+                /concat(localId, namespace)
 
     (:  C2.1 – inspireId consistency    :)
     let $res :=
@@ -594,7 +680,7 @@ declare function xmlconv:RunQAs(
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'Feature type': map {'pos': 2, 'text': $featureType},
-                        'Local ID': map {'pos': 3, 'text': $inspideId/localId, 'errorClass': 'td' || $errorType}
+                        'Inspire ID': map {'pos': 3, 'text': $inspideId, 'errorClass': 'td' || $errorType}
                     }
                     return scripts:generateResultTableRow($dataMap)
                 else ()
@@ -1172,7 +1258,7 @@ declare function xmlconv:RunQAs(
             reported to air for the parent ProductionFacility'
         for $part in $seq
             let $parentFacilityInspireId := $docProductionInstallationParts//ProductionInstallationPart
-                [year = $reporting-year and InspireId/data() = $part/InspireId/data()]
+                [year = $reporting-year and concat(localId, namespace) = $part/InspireId/data()]
                     /parentFacilityInspireId
             let $namespace := $parentFacilityInspireId/namespace => functx:if-empty('Not found')
             let $localId := $parentFacilityInspireId/localId => functx:if-empty('Not found')
@@ -1246,7 +1332,7 @@ declare function xmlconv:RunQAs(
 
         for $facility in $seq
             let $partsInspireIds := $docProductionInstallationParts//ProductionInstallationPart
-                [parentFacilityInspireId = $facility/InspireId]/InspireId => distinct-values()
+                [concat(parentFacility_localId, parentFacility_namespace) = $facility/InspireId]/concat(localId, namespace) => distinct-values()
 
             for $pollutantRelease in $facility/pollutantRelease[pollutant = $pollutantsNeeded]
                 let $pol := $map?($pollutantRelease/pollutant => functx:substring-after-last("/") => lower-case())
@@ -1302,13 +1388,13 @@ declare function xmlconv:RunQAs(
             $inspireId as xs:string
         ) as xs:double {
             $docProductionInstallationParts//ProductionInstallationPart[year = $reporting-year
-                and InspireId = $inspireId]/totalRatedThermalInput => functx:if-empty(0) => fn:number()
+                and concat(localId, namespace) = $inspireId]/totalRatedThermalInput => functx:if-empty(0) => fn:number()
         }
         let $getParentFacilityNrOfOperatingHours := function(
             $partInspireId as xs:string
         ) as xs:double {
             let $parentInspireId := $docProductionInstallationParts//ProductionInstallationPart
-                [year = $reporting-year and InspireId = $partInspireId]/parentFacilityInspireId/data()
+                [year = $reporting-year and concat(localId, namespace) = $partInspireId]/concat(parentFacility_localId, parentFacility_namespace)
             let $numberOfOperatingHours := $docRoot//ProductionFacilityReport[InspireId = $parentInspireId][1]
                 //numberOfOperatingHours => functx:if-empty(0) => fn:number()
             return $numberOfOperatingHours
@@ -1392,8 +1478,8 @@ declare function xmlconv:RunQAs(
     )
 
     let $inspireIdsNeeded := $docProductionInstallationParts//ProductionInstallationPart
-        [year = $reporting-year and derogations => functx:substring-after-last("/") = 'Article31']
-            /InspireId[substring-before(namespace, '.') = $country_code]/data()
+        [year = $reporting-year and derogations => functx:substring-after-last("/") = 'Article31'
+            and countryCode = $country_code]/concat(localId, namespace)
 
     (: let $asd := trace(fn:current-time(), 'started 8 at: ') :)
     (:   C8.1 – Article 31 derogation compliance   :)
@@ -1465,7 +1551,7 @@ declare function xmlconv:RunQAs(
             ) as xs:boolean {
                 let $historicSubmissionsCount := $docProductionInstallationParts//ProductionInstallationPart
                     [year != $reporting-year and derogations=>functx:substring-after-last("/") = 'Article31'
-                    and InspireId = $inspireId]
+                    and concat(localId, namespace) = $inspireId]
                         => fn:count()
                 return
                     if($historicSubmissionsCount > 0)
@@ -1507,8 +1593,8 @@ declare function xmlconv:RunQAs(
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
     let $res :=
         let $inspireIdsNedded := $docProductionInstallationParts//ProductionInstallationPart
-            [year = $reporting-year and derogations=>functx:substring-after-last("/") = 'Article35']
-                /InspireId[substring-before(namespace, '.') = $country_code]/data()
+            [year = $reporting-year and derogations=>functx:substring-after-last("/") = 'Article35'
+                and countryCode = $country_code]/concat(localId, namespace)
         let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $inspireIdsNedded]
         let $errorType := 'info'
         let $text := 'Proportion of useful heat production for district heating has been omitted or reported below 50%'
@@ -1661,7 +1747,8 @@ declare function xmlconv:RunQAs(
             138286.5
             :)
             let $partsInspireIds := $docProductionInstallationParts//ProductionInstallationPart
-                    [parentFacilityInspireId = $inspireId/data()]/InspireId => distinct-values()
+                    [concat(parentFacility_localId, parentFacility_namespace) = $inspireId/data()]
+                        /concat(localId, namespace) => distinct-values()
             (:let $asd := trace($inspireId/data(), "inspireId: "):)
             (:let $asd := trace($partsInspireIds, "partsInspireIds: "):)
             let $result :=
@@ -1698,7 +1785,7 @@ declare function xmlconv:RunQAs(
                 /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             let $aggregatedPartsCO2 := $getAggregatedPartsCO2($facility/InspireId)
 
-            let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
+            let $thresholdValue := $docANNEXII/row[Codelistvalue
                 = $pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
                     /toAir
 
@@ -1980,7 +2067,7 @@ declare function xmlconv:RunQAs(
             'WATER': 'toWater',
             'LAND': 'toLand'
         }
-        let $threshold := $docANNEXII/dataroot/row[Codelistvalue
+        let $threshold := $docANNEXII/row[Codelistvalue
                 = $pollutantNode/pollutant=>scripts:getCodelistvalueForOldCode($docPollutantLookup)]
                     /*[local-name() = $mediumMap?($mediumCode)]
         return if($threshold = 'NA')
@@ -1991,7 +2078,7 @@ declare function xmlconv:RunQAs(
     let $getThresholdOffsitePollutantTransfer := function (
         $pollutantNode as element()
     ) as xs:double {
-        let $threshold := $docANNEXII/dataroot/row[Codelistvalue
+        let $threshold := $docANNEXII/row[Codelistvalue
                 = $pollutantNode/pollutant=>scripts:getCodelistvalueForOldCode($docPollutantLookup)]/toWater
         return if($threshold = 'NA')
             then -1
@@ -2126,7 +2213,8 @@ declare function xmlconv:RunQAs(
                             else $code1 || 'IC'
 
                 else
-                    scripts:getPollutantCode($pollutantNode/*[local-name() = $nodeName]/text(), $docPollutantLookup)
+                    $pollutantNode/*[local-name() = $nodeName]/text()
+                    (:scripts:getPollutantCode($pollutantNode/*[local-name() = $nodeName]/text(), $docPollutantLookup):)
             }
         let $getCode2 := function (
                 $pollutantNode as element(),
@@ -2145,18 +2233,20 @@ declare function xmlconv:RunQAs(
             ) as xs:double {
             let $value :=
                 if($pollutant = 'pollutantRelease')
-                then $map?doc/dataroot/row[ReportingYear = $look-up-year and CountryCode = $country_code
-                    and MainIAActivityCode => replace('\.', '') = $activity and PollutantCode = $code1
-                        and ReleaseMediumCode = $code2]
+                then $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
+                    and MainIAActivityCode => replace('\.', '') = $activity
+                        and Codelistvalue  = $code1
+                        and fn:upper-case(ReleaseMediumName) = $code2]
                             /SumOfTotalQuantity
                 else if($pollutant = 'offsitePollutantTransfer')
-                then $map?doc/dataroot/row[ReportingYear = $look-up-year and CountryCode = $country_code
-                    and MainIAActivityCode => replace('\.', '') = $activity and PollutantCode = $code1]
+                then $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
+                    and MainIAActivityCode => replace('\.', '') = $activity
+                        and Codelistvalue = $code1]
                         /SumOfQuantity
-                else $map?doc/dataroot/row[ReportingYear = $look-up-year and CountryCode = $country_code
+                else $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
                     and MainIAActivityCode => replace('\.', '') = $activity and WasteTypeCode = $code1
                         and WasteTreatmentCode = $code2]
-                            /SumOfQuantity
+                            /TotalQuantity
             return $value => functx:if-empty(0) => fn:number() * 4
             }
         let $map := map {
@@ -2184,7 +2274,7 @@ declare function xmlconv:RunQAs(
                     'code1': 'wasteClassification', (: wasteClassification :)
                     'code2': 'wasteTreatment' (: wasteTreatment :)
                 },
-                'lookupNodeName': 'SumOfQuantity',
+                'lookupNodeName': 'TotalQuantity',
                 'reportNodeName': 'totalWasteQuantityTNE'
             }
         }
@@ -2483,13 +2573,13 @@ declare function xmlconv:RunQAs(
             $inspireId as xs:string
         ) as xs:double {
             if($pollutantNode/local-name() = 'pollutantRelease')
-            then $docProductionFacilities/data/ProductionFacility[year = $previous-year
-                and InspireId = $inspireId]/pollutantRelease[mediumCode = $pollutantNode/mediumCode
+            then $docProductionFacilities/ProductionFacility[year = $previous-year
+                and concat(localId, namespace) = $inspireId]/pollutantRelease[mediumCode = $pollutantNode/mediumCode
                     and pollutant = $pollutantNode/pollutant]
                         /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             else if($pollutantNode/local-name() = 'offsitePollutantTransfer')
-            then $docProductionFacilities/data/ProductionFacility[year = $previous-year
-                and InspireId = $inspireId]/offsitePollutantTransfer[pollutant = $pollutantNode/pollutant]
+            then $docProductionFacilities/ProductionFacility[year = $previous-year
+                and concat(localId, namespace) = $inspireId]/offsitePollutantTransfer[pollutant = $pollutantNode/pollutant]
                     /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             else -1
         }
@@ -2497,15 +2587,15 @@ declare function xmlconv:RunQAs(
             $wasteClassification as xs:string,
             $inspireId as xs:string
         ) as xs:double {
-            $docProductionFacilities/data/ProductionFacility[year = $previous-year
-                and InspireId = $inspireId]/offsiteWasteTransfer
+            $docProductionFacilities/ProductionFacility[year = $previous-year
+                and concat(localId, namespace) = $inspireId]/offsiteWasteTransfer
                     [wasteClassification => functx:substring-after-last("/") = $wasteClassification]
                         /totalWasteQuantityTNE => fn:sum()
 
         }
         let $facilityInspireIdsNeeded :=
-            $docProductionFacilities/data/ProductionFacility[year != $reporting-year]
-                    /InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
+            $docProductionFacilities/ProductionFacility[year != $reporting-year
+                and countryCode = $country_code]/concat(localId, namespace) => distinct-values()
         let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer', 'offsiteWasteTransfer')
         let $seq := $docRoot//ProductionFacilityReport[InspireId = $facilityInspireIdsNeeded]
         let $errorType := 'warning'
@@ -2611,14 +2701,14 @@ declare function xmlconv:RunQAs(
             $inspireId as xs:string
         ) as xs:double {
             $docProductionInstallationParts//ProductionInstallationPart[year = $previous-year
-                and InspireId = $inspireId]/emissionsToAir
+                and concat(localId, namespace) = $inspireId]/emissionsToAir
                     [pollutant = $emissionNode/pollutant]
                         /totalPollutantQuantityTNE => functx:if-empty(0) => fn:number()
 
         }
         let $installationPartInspireIdsNeeded :=
-            $docProductionInstallationParts//ProductionInstallationPart[year != $reporting-year]
-                /InspireId[substring-before(namespace, '.') = $country_code] => distinct-values()
+            $docProductionInstallationParts//ProductionInstallationPart[year != $reporting-year
+                and countryCode = $country_code]/concat(localId, namespace) => distinct-values()
         let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $installationPartInspireIdsNeeded]
         let $errorType := 'warning'
         let $text := 'Reported data exceeds threshold of deviation from previous year data'
@@ -2672,11 +2762,12 @@ declare function xmlconv:RunQAs(
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
         let $errorType := 'warning'
         let $text := 'Pollutant release ratio threshold has been exceeded'
-        let $facilitiesNeeded := $docProductionFacilities/data/ProductionFacility(:[year = 2008]:)
-                /InspireId[substring-before(namespace, '.') = $country_code]
+        let $facilitiesNeeded := $docProductionFacilities/ProductionFacility[countryCode = $country_code]
+                /concat(localId, namespace)
         (:let $asd := trace($facilitiesNeeded, 'facilitiesNeeded: '):)
-        let $disusedFacilities := $docProductionFacilities/data/ProductionFacility[year = $reporting-year
-            and StatusType = $disused]/InspireId[substring-before(namespace, '.') = $country_code]/data()
+        let $disusedFacilities := $docProductionFacilities/ProductionFacility[year = $reporting-year
+            and StatusType = $disused and countryCode = $country_code]
+                /concat(localId, namespace)
 
 (:
         let $pollutantsFromReportXML := $docRoot//ProductionFacilityReport/pollutantRelease
@@ -2684,7 +2775,7 @@ declare function xmlconv:RunQAs(
 
         let $eligibleFacilities :=(
             for $pollutant in $pollutantsFromReportXML
-                let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
+                let $thresholdValue := $docANNEXII/row[Codelistvalue
                     = $pollutant=>scripts:getCodelistvalueForOldCode($docPollutantLookup)]
                         /toAir => functx:if-empty(0) => xs:decimal()
                 let $asd := trace($pollutant, 'pollutant: ')
@@ -2694,7 +2785,7 @@ declare function xmlconv:RunQAs(
                 let $currentValue := $pollutantRelease/functx:if-empty(totalPollutantQuantityKg, 0)
                         => fn:number()
                 let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
-                let $lowestValue := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId]
+                let $lowestValue := $docProductionFacilities/ProductionFacility[InspireId = $inspireId]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
                         /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
 
@@ -2719,7 +2810,7 @@ declare function xmlconv:RunQAs(
                     and InspireId = $disusedFacilities]
                         /pollutantRelease[pollutant = $pollutant]
                 let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId/data()
-                let $lowestValue := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId
+                let $lowestValue := $docProductionFacilities/ProductionFacility[InspireId = $inspireId
                     and year = $previous-year]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
                         /totalPollutantQuantityKg => fn:min() => functx:if-empty(-1) => xs:decimal()
@@ -2739,11 +2830,11 @@ declare function xmlconv:RunQAs(
 
         for $pollutantRelease in $docRoot//ProductionFacilityReport (:[InspireId = $eligibleFacilitiesFinal]:)
                 /pollutantRelease[mediumCode = $mediumCode]
-            let $thresholdValue := $docANNEXII/dataroot/row[Codelistvalue
+            let $thresholdValue := $docANNEXII/row[Codelistvalue
                     = $pollutantRelease/pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
                         /toAir => functx:if-empty(0) => xs:decimal()
             let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId
-            let $minimumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
+            let $minimumValuePrev := $docProductionFacilities/ProductionFacility[concat(localId, namespace) = $inspireId/data()]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
                         /totalPollutantQuantityKg => fn:min() => functx:if-empty(0) => xs:decimal()
             let $currentYearValue :=
@@ -2757,7 +2848,7 @@ declare function xmlconv:RunQAs(
             where not($disusedFaciliy)
             where $minimumValue > $thresholdValue * 20
 
-            let $maximumValuePrev := $docProductionFacilities/data/ProductionFacility[InspireId = $inspireId/data()]
+            let $maximumValuePrev := $docProductionFacilities/ProductionFacility[/concat(localId, namespace) = $inspireId/data()]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
                         /totalPollutantQuantityKg => fn:max() => functx:if-empty(0) => xs:decimal()
             let $maximumValue := ($maximumValuePrev, $currentYearValue) => fn:max()
@@ -2878,7 +2969,7 @@ declare function xmlconv:RunQAs(
                     'code1': ('AIR', 'WATER', 'LAND'), (: mediumCode :)
                     'code2': ('') (: empty code, pollutant type has only 1 code :)
                 },
-                'countNodeName': 'CountOfFacilityID',
+                'countNodeName': 'CountFacilityOfID',
                 'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfFacilities#5
                 } ,
@@ -2888,7 +2979,7 @@ declare function xmlconv:RunQAs(
                     'code1': (''), (: empty codes, pollutant type does not have :)
                     'code2': ('')
                 },
-                'countNodeName': 'CountOfFacilityID',
+                'countNodeName': 'CountFacilityOfID',
                 'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfFacilities#5
             },
@@ -2898,7 +2989,7 @@ declare function xmlconv:RunQAs(
                     'code1': (''), (: wasteClassification :)
                     'code2': ('') (: wasteTreatment :)
                 },
-                'countNodeName': 'CountOfFacilityID',
+                'countNodeName': 'CountFacilityOfID',
                 'countFunction': scripts:getCountOfPollutant#6,
                 'reportCountFunction': scripts:getreportCountOfFacilities#5
             }
@@ -3008,7 +3099,7 @@ declare function xmlconv:RunQAs(
                 let $CountOfPollutantCode :=
                     if($mediumCode = 'NA')
                     then $map1?($pollutant)?doc//row[CountryCode = $country_code]/CountOfPollutantCode => fn:number()
-                    else $map1?($pollutant)?doc//row[CountryCode = $country_code and ReleaseMediumCode = $mediumCode]
+                    else $map1?($pollutant)?doc//row[CountryCode = $country_code and ReleaseMediumName = $mediumCode]
                             /CountOfPollutantCode => fn:number()
                 let $reportCountOfPollutantCode :=
                     if($mediumCode = 'NA')
@@ -3087,7 +3178,7 @@ declare function xmlconv:RunQAs(
                     'code1': ('NONHW', 'HWIC', 'HWOC'), (: wasteClassification :)
                     'code2': ('') (: wasteTreatment :)
                 },
-                'countNodeName': 'SumOfQuantity',
+                'countNodeName': 'TotalQuantity',
                 'countFunction': scripts:getTotalsOfPollutant#6,
                 'reportCountFunction': scripts:getreportTotalsOfPollutant#5
             },
@@ -3128,21 +3219,21 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 14.1 at: ') :)
     (: C14.1 – Identification of top 10 ProductionFacility releases/transfers across Europe :)
     (:   let $res :=
-        let $seqActivities := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
+        let $seqActivities := $docProductionFacilities/ProductionFacility[year = $previous-year]
                 /EPRTRAnnexIActivity => distinct-values()
-        let $seqPollutants := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
+        let $seqPollutants := $docProductionFacilities/ProductionFacility[year = $previous-year]
                 //pollutant => distinct-values()
 
         let $xmlPollutantRelease :=
         <data>
         {
-            let $seqMediumCodes := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
+            let $seqMediumCodes := $docProductionFacilities/ProductionFacility[year = $previous-year]
                 /pollutantRelease/mediumCode => distinct-values()
             for $activity in $seqActivities,
                 $pollutant in $seqPollutants,
                 $mediumCode in $seqMediumCodes
                 let $values :=
-                    for $pol in $docProductionFacilities/data/ProductionFacility
+                    for $pol in $docProductionFacilities/ProductionFacility
                         [year = $previous-year and EPRTRAnnexIActivity = $activity]
                         /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutant]
                     order by $pol/totalPollutantQuantityKg/data() descending
@@ -3164,15 +3255,15 @@ declare function xmlconv:RunQAs(
         let $xmlOffsiteWasteTransfer :=
         <data>
         {
-            let $seqWasteClassification := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
+            let $seqWasteClassification := $docProductionFacilities/ProductionFacility[year = $previous-year]
                 /offsiteWasteTransfer/wasteClassification => distinct-values()
-            let $seqWasteTreatment := $docProductionFacilities/data/ProductionFacility[year = $previous-year]
+            let $seqWasteTreatment := $docProductionFacilities/ProductionFacility[year = $previous-year]
                 /offsiteWasteTransfer/wasteTreatment => distinct-values()
             for $activity in $seqActivities,
                 $wasteClassification in $seqWasteClassification,
                 $wasteTreatment in $seqWasteTreatment
                 let $values :=
-                    for $pol in $docProductionFacilities/data/ProductionFacility
+                    for $pol in $docProductionFacilities/ProductionFacility
                         [year = $previous-year and EPRTRAnnexIActivity = $activity]
                         /offsiteWasteTransfer[wasteClassification = $wasteClassification
                                     and wasteTreatment = $wasteTreatment]
@@ -3199,7 +3290,7 @@ declare function xmlconv:RunQAs(
             for $activity in $seqActivities,
                 $pollutant in $seqPollutants
                 let $values :=
-                    for $pol in $docProductionFacilities/data/ProductionFacility
+                    for $pol in $docProductionFacilities/ProductionFacility
                         [year = $previous-year and EPRTRAnnexIActivity = $activity]
                         /offsitePollutantTransfer[pollutant = $pollutant]
                     order by $pol/totalPollutantQuantityKg/data() descending
@@ -3387,7 +3478,7 @@ declare function xmlconv:RunQAs(
                     'code1': ('NONHW', 'HWIC', 'HWOC'),  (:wasteClassification:)
                     'code2': ('D','R')  (:wasteTreatment :)
                 },
-                'countNodeName': 'SumOfQuantity',
+                'countNodeName': 'TotalQuantity',
                 'countFunction': scripts:getEuropeanTotals#5,
                 'reportCountFunction': scripts:getreportFacilityTotals#5
             }
@@ -3489,11 +3580,6 @@ declare function xmlconv:RunQAs(
     (:  C15.1 – Comparison of PollutantReleases and EmissionsToAir to CLRTAP/NECD
         and UNFCCC/EU-MMR National Inventories    :)
     let $res :=
-        (: init lookup tables with data :)
-        let $docCLRTAPdata := fn:doc($xmlconv:CLRTAP_DATA)
-        let $docCLRTAPpollutantLookup := fn:doc($xmlconv:CLRTAP_POLLUTANT_LOOKUP)
-        let $docUNFCCdata := fn:doc($xmlconv:UNFCC_DATA)
-        let $docUNFCCpollutantLookup := fn:doc($xmlconv:UNFCC_POLLUTANT_LOOKUP)
         (: two pollutant types that we need to check :)
         let $pollutantTypes := ('pollutantRelease', 'emissionsToAir')
         for $pollutantType in $pollutantTypes

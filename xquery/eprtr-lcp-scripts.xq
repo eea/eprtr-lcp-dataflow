@@ -49,10 +49,10 @@ declare function scripts:generateResultTableRow(
 declare function scripts:getEPRTRAnnexIActivity (
     $inspireId as xs:string,
     $reporting-year as xs:double,
-    $docProductionFacility as document-node()
+    $docProductionFacility as element()
 ) as xs:string {
-    $docProductionFacility/data/ProductionFacility[year = $reporting-year
-        and InspireId = $inspireId]/EPRTRAnnexIActivity => functx:substring-after-last("/")
+    $docProductionFacility/ProductionFacility[year = $reporting-year
+        and concat(localId, namespace) = $inspireId]/EPRTRAnnexIActivity => functx:substring-after-last("/")
 };
 
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
@@ -140,21 +140,21 @@ declare function scripts:checkOtherFuelDuplicates(
 
 declare function scripts:getCodelistvalueForOldCode(
     $pollutantCode as xs:string,
-    $docPollutantLookup as document-node()
+    $docPollutantLookup as element()
 ) as xs:string {
     $docPollutantLookup//row[Newcodelistvalue = $pollutantCode]
             /Previouscodelistvalue/text() => functx:if-empty('')
 };
 declare function scripts:getCodelistvalue(
     $pollutantCode as xs:string,
-    $docPollutantLookup as document-node()
+    $docPollutantLookup as element()
 ) as xs:string {
     $docPollutantLookup//row[PollutantCode = $pollutantCode]/Newcodelistvalue
         /text() => functx:if-empty(functx:substring-after-last($pollutantCode, "/"))
 };
 declare function scripts:getPollutantCode(
     $codeListValue as xs:string?,
-    $docPollutantLookup as document-node()
+    $docPollutantLookup as element()
 ) as xs:string {
     $docPollutantLookup//row[Newcodelistvalue = $codeListValue]/PollutantCode
         /text() => functx:if-empty(functx:substring-after-last($codeListValue, "/"))
@@ -207,8 +207,8 @@ declare function scripts:getGWLconvertedValue(
 };
 
 declare function scripts:getCLRTAPtotals(
-        $docCLRTAPdata as document-node(),
-        $docCLRTAPpollutantLookup as document-node(),
+        $docCLRTAPdata as element(),
+        $docCLRTAPpollutantLookup as element(),
         $pollutantCode as xs:string,
         $elem as xs:string,
         $country_code as xs:string,
@@ -237,8 +237,8 @@ declare function scripts:getCLRTAPtotals(
 };
 
 declare function scripts:getUNFCCtotals(
-        $docUNFCCdata as document-node(),
-        $docUNFCCpollutantLookup as document-node(),
+        $docUNFCCdata as element(),
+        $docUNFCCpollutantLookup as element(),
         $pollutantCode as xs:string,
         $country_code as xs:string,
         $look-up-year as xs:double
@@ -310,7 +310,7 @@ declare function scripts:getCountOfPollutant(
     then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year]
             /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'pollutantRelease')
-        then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year and ReleaseMediumCode = $code1]
+        then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year and fn:upper-case(ReleaseMediumName) = $code1]
                 /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else
         $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year
@@ -321,7 +321,7 @@ declare function scripts:getreportCountOfPollutantDistinct(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
-    $docPollutantLookup as document-node(),
+    $docPollutantLookup as element(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -336,7 +336,7 @@ declare function scripts:getreportCountOfPollutant(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
-    $docPollutantLookup as document-node(),
+    $docPollutantLookup as element(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -351,7 +351,7 @@ declare function scripts:getreportCountOfFacilities(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
-    $docPollutantLookup as document-node(),
+    $docPollutantLookup as element(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -370,7 +370,7 @@ declare function scripts:compareNumberOfPollutants(
     $map1 as map(xs:string, map(*)),
     $country_code as xs:string,
     $docRoot as document-node(),
-    $docPollutantLookup as document-node(),
+    $docPollutantLookup as element(),
     $errorText as xs:string
 ) as element()* {
     let $look-up-year := $docRoot//reportingYear => fn:number() - 2
@@ -477,7 +477,7 @@ declare function scripts:getEuropeanTotals(
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'pollutantRelease')
-    then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1 and ReleaseMediumCode = $code2]
+    then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1 and fn:upper-case(ReleaseMediumName) = $code2]
         /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'offsitePollutantTransfer')
     then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1]
@@ -491,7 +491,7 @@ declare function scripts:getreportFacilityTotals (
     $code1 as xs:string,
     $code2 as xs:string,
     $facility as element(),
-    $docPollutantLookup as document-node(),
+    $docPollutantLookup as element(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -518,7 +518,7 @@ declare function scripts:getTotalsOfPollutant(
     then $map?doc//row[CountryCode = $country_code and Year = $look-up-year
             and PollutantCode = $code1]/*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'pollutantRelease')
-        then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and ReleaseMediumCode = $code1
+        then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and fn:upper-case(ReleaseMediumName) = $code1
             and PollutantCode = $code2]/*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'offsiteWasteTransfer')
         then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and WasteTypeCode = $code1]
@@ -548,7 +548,7 @@ declare function scripts:getreportTotalsOfPollutant(
     $code1 as xs:string,
     $code2 as xs:string,
     $doc as document-node(),
-    $docPollutantLookup as document-node(),
+    $docPollutantLookup as element(),
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
@@ -583,11 +583,11 @@ declare function scripts:getAdditionalInformation(
 };
 
 declare function scripts:getDerogation(
-    $docProdInstallParts as document-node(),
+    $docProdInstallParts as element(),
     $reporting-year as xs:double,
     $inspireId as xs:string
 ) as xs:string {
     let $derogation := $docProdInstallParts//ProductionInstallationPart[year = $reporting-year
-        and InspireId = $inspireId]/derogations => functx:substring-after-last("/")
+        and concat(localId, namespace) = $inspireId]/derogations => functx:substring-after-last("/")
     return $derogation
 };
