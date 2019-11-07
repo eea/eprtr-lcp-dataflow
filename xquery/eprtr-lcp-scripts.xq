@@ -28,6 +28,12 @@ declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace strings = "http://basex.org/modules/strings";
 
 
+declare function scripts:prettyFormatInspireId(
+    $inspireId as element()?
+) as xs:string {
+    $inspireId//*:namespace || "/" || $inspireId//*:localId
+};
+
 declare function scripts:generateResultTableRow(
     $dataMap as map(xs:string, map(*))
     (:$dataMap as map(*):)
@@ -306,11 +312,13 @@ declare function scripts:getCountOfPollutant(
     $pollutant as xs:string,
     $look-up-year as xs:double
 ) as xs:double {
-    if($pollutant = 'offsitePollutantTransfer' or ($pollutant = 'offsiteWasteTransfer' and $code1 = ''))
+    if($pollutant = 'offsitePollutantTransfer'
+            or ($pollutant = 'offsiteWasteTransfer' and $code1 = ''))
     then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year]
             /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'pollutantRelease')
-        then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year and fn:upper-case(ReleaseMediumName) = $code1]
+        then $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year
+                and fn:upper-case(ReleaseMediumName) = $code1]
                 /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else
         $map?doc//row[CountryCode = $country_code and ReportingYear = $look-up-year
@@ -373,7 +381,7 @@ declare function scripts:compareNumberOfPollutants(
     $docPollutantLookup as element(),
     $errorText as xs:string
 ) as element()* {
-    let $look-up-year := $docRoot//reportingYear => fn:number() - 2
+    let $look-up-year := $docRoot//reportingYear => fn:number() - 1
     (:let $asd := trace(map:keys($map1),'keys: '):)
     (:let $asd := trace(map:keys($map1?('pollutantRelease')?filters),'keys: '):)
     for $pollutant in map:keys($map1)
@@ -436,10 +444,10 @@ declare function scripts:compareNumberOfPollutants(
                             {if($code2 = '') then '' else ' / '|| $code2}
                         </td>
                         <td class="td{$errorType}" title="Change percentage">
-                            {$changePercentage =>fn:round-half-to-even(1)}%
+                            {$changePercentage => fn:round-half-to-even(1)}%
                         </td>
-                        <td title="National level">{$reportCountOfPollutantCode => xs:decimal()}</td>
-                        <td title="Previous year">{$CountOfPollutantCode =>xs:decimal() => fn:round-half-to-even(1)}</td>
+                        <td title="National level">{$reportCountOfPollutantCode => xs:decimal() => fn:round-half-to-even(1)}</td>
+                        <td title="Previous year">{$CountOfPollutantCode => xs:decimal() => fn:round-half-to-even(1)}</td>
                     </tr>
                     else
                         ()
