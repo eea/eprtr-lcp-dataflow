@@ -32,6 +32,7 @@ declare function xmlconv:getLookupTable(
     $fileName as xs:string
 ) as element() {
     let $obligation := '720'
+    (:let $location := 'http://10.50.4.41:5000/remote.php/dav/files/':)
     let $location := 'https://databridge.eionet.europa.eu/remote.php/dav/files/'
     let $userEnv := 'XQueryUser'
     let $passwordEnv := 'XQueryPassword'
@@ -40,6 +41,7 @@ declare function xmlconv:getLookupTable(
     let $password := environment-variable($passwordEnv)
     let $url := concat($location, $user, '/', $obligation, '/', $fileName)
 
+    (:let $asd:= trace($url, 'Getting file: '):)
     let $response := http:send-request(
             <http:request method='get'
                 auth-method='Basic'
@@ -49,7 +51,7 @@ declare function xmlconv:getLookupTable(
                 override-media-type='text/xml'/>,
             $url
     )
-
+    (:let $asd:= trace($url, 'Finished: '):)
     let $status_code := $response/@status
 
     return if($status_code = 200)
@@ -634,6 +636,10 @@ declare function xmlconv:RunQAs(
         $docProductionInstallationParts//ProductionInstallationPart[not(StatusType = $decommissioned)
             and year = $reporting-year and countryCode = $country_code]
                 /concat(localId, namespace)
+    let $installationPartInspireIdsLCP :=
+        $docProductionInstallationParts//ProductionInstallationPart[not(StatusType = $decommissioned)
+            and year = $reporting-year and countryCode = $country_code
+            and PlantType = 'LCP']/concat(localId, namespace)
 
     (:  C2.1 – inspireId consistency    :)
     let $res :=
@@ -665,7 +671,7 @@ declare function xmlconv:RunQAs(
         let $errorType := 'error'
         let $text := 'InspireId could not be found within the E-PRTR and LCP integrated reporting XML'
         let $map := map {
-            'ProductionInstallationPartReport': $installationPartInspireIds
+            'ProductionInstallationPartReport': $installationPartInspireIdsLCP
             (:'ProductionFacilityReport': $facilityInspireIds:)
         }
         for $featureType in map:keys($map)
