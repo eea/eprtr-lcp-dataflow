@@ -639,7 +639,7 @@ declare function xmlconv:RunQAs(
     let $installationPartInspireIdsLCP :=
         $docProductionInstallationParts//ProductionInstallationPart[not(StatusType = $decommissioned)
             and year = $reporting-year and countryCode = $country_code
-            and PlantType = 'LCP']/concat(localId, namespace)
+            and PlantType = 'LCP']/concat(namespace, '/', localId)
 
     (:  C2.1 – inspireId consistency    :)
     let $res :=
@@ -675,13 +675,15 @@ declare function xmlconv:RunQAs(
             (:'ProductionFacilityReport': $facilityInspireIds:)
         }
         for $featureType in map:keys($map)
-            let $reportInspireIds := $docRoot//*[local-name() = $featureType]/InspireId/data()
+            let $reportInspireIds := $docRoot//*[local-name() = $featureType]
+                    /scripts:prettyFormatInspireId(InspireId)
+            (:let $asd:= trace($reportInspireIds[1], 'reportInspireIds:'):)
             for $inspideId in $map?($featureType)
             let $ok := $inspideId = $reportInspireIds
             return
-                (:if(not($ok)):)
+                if(not($ok))
                 (:if(false()):)
-                if(true())
+                (:if(true()):)
                 then
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
