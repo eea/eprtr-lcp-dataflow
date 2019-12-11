@@ -627,8 +627,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $decommissioned :=
-        'decommissioned'
+    let $decommissioned := ('decommissioned', 'disused')
     let $facilityInspireIds :=
         $docProductionFacilities/ProductionFacility[year = $reporting-year
             and countryCode = $country_code]/concat(localId, namespace)
@@ -995,10 +994,10 @@ declare function xmlconv:RunQAs(
         let $seq := $docRoot//ProductionFacilityReport
         for $elem in $seq
             let $co2_amount :=
-                functx:if-empty($elem//pollutantRelease[pollutant = $co2]
+                functx:if-empty($elem//pollutantRelease[pollutant = $co2][1]
                         /totalPollutantQuantityKg/data(), 0) => fn:number()
             let $co2exclBiomass_amount :=
-                functx:if-empty($elem//pollutantRelease[pollutant = $co2exclBiomass]
+                functx:if-empty($elem//pollutantRelease[pollutant = $co2exclBiomass][1]
                         /totalPollutantQuantityKg/data(), 0) => fn:number()
             let $ok := (
                 $co2_amount >= $co2exclBiomass_amount
@@ -1791,7 +1790,7 @@ declare function xmlconv:RunQAs(
         let $text := 'CO2 emissions deviate from expected emissions given the fuel inputs
             reported for associated LCP InstallationParts'
         for $facility in $seq
-            let $reportedCO2 := $facility/pollutantRelease[pollutant = $pollutant and mediumCode = $mediumCode]
+            let $reportedCO2 := $facility/pollutantRelease[pollutant = $pollutant and mediumCode = $mediumCode][1]
                 /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
             let $aggregatedPartsCO2 := $getAggregatedPartsCO2($facility/InspireId)
 
