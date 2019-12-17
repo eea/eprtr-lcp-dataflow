@@ -51,8 +51,9 @@ declare function xmlconv:getLookupTable(
                 override-media-type='text/xml'/>,
             $url
     )
-    (:let $asd:= trace($url, 'Finished: '):)
     let $status_code := $response/@status
+    (:let $asd:= trace($url, 'Finished: '):)
+    (:let $asd:= trace($status_code, ''):)
 
     return if($status_code = 200)
         then $response[2]/dataroot
@@ -163,6 +164,8 @@ declare variable $xmlconv:COUNT_OF_PollutantTransfer as xs:string :=
 declare variable $xmlconv:COUNT_OF_OffsiteWasteTransfer as xs:string :=
     fn:concat($xmlconv:REPOSITORY_URL,"EPRTR-LCP_C13.2_OffsiteWasteTransfer.xml");
 
+declare variable $xmlconv:resultsLimit as xs:integer := 1000;
+
 (:declare variable $eworx:SchemaModel := eworx:getSchemaModel($source_url);:)
 
 declare function xmlconv:RowBuilder (
@@ -170,9 +173,9 @@ declare function xmlconv:RowBuilder (
         $RuleName as xs:string,
         $ResDetails as element()*
 ) as element( ) *{
-
-  let $RuleCode := fn:substring-after($RuleCode, ' ')
-  (:let $asd:= trace($RuleCode, ''):)
+    let $RuleCode := fn:substring-after($RuleCode, ' ')
+    (:let $asd:= trace($RuleCode, ''):)
+    let $ResDetails := fn:subsequence($ResDetails, 1, $xmlconv:resultsLimit)
 
     let $errors := $ResDetails/td[@class = 'error']
     let $warnings := $ResDetails/td[@class = 'warning']
@@ -231,9 +234,7 @@ declare function xmlconv:RowBuilder (
     else ()
 
     return ( $step1 , $step2 )
-
-
-    };
+};
 
 declare function xmlconv:RowAggregator (
         $RuleCode as xs:string,
