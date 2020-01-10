@@ -116,9 +116,9 @@ declare function xmlconv:getLookupTableSVNCountry(
 
 declare variable $xmlconv:REPOSITORY_URL as xs:string := "";
 declare variable $xmlconv:PRODUCTION_FACILITY_LOOKUP as xs:string :=
-    fn:concat($xmlconv:REPOSITORY_URL,"ProductionFacility.xml");
+    fn:concat($xmlconv:REPOSITORY_URL,"EPRTR_LCP_ProductionFacility.xml");
 declare variable $xmlconv:PRODUCTION_INSTALLATIONPART_LOOKUP as xs:string :=
-    fn:concat($xmlconv:REPOSITORY_URL,"ProductionInstallationPart.xml");
+    fn:concat($xmlconv:REPOSITORY_URL,"EPRTR_LCP_ProductionInstallationPart.xml");
 declare variable $xmlconv:POLLUTANT_LOOKUP as xs:string :=
     fn:concat($xmlconv:REPOSITORY_URL,"EPRTR-LCP_PollutantLookup.xml");
 declare variable $xmlconv:CrossPollutants as xs:string :=
