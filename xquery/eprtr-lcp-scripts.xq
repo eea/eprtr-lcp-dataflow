@@ -599,3 +599,16 @@ declare function scripts:getDerogation(
         and concat(localId, namespace) = $inspireId]/derogations => functx:substring-after-last("/")
     return $derogation
 };
+
+declare function scripts:isNotRegulatedInstallPart(
+    $docProdInstallParts as element(),
+    $inspireIdPretty as xs:string
+) as xs:boolean {
+    let $parts := $docProdInstallParts//ProductionInstallationPart[
+        fn:concat(namespace, "/", localId) = $inspireIdPretty]
+
+    let $latestYear := fn:max($parts/year)
+    let $status := $parts[year = $latestYear]/StatusType
+
+    return $status = 'notRegulated'
+};

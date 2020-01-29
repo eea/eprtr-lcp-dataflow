@@ -725,13 +725,15 @@ declare function xmlconv:RunQAs(
 
         let $seq := $docRoot//ProductionInstallationPartReport
         for $elem in $seq
+        let $inspireId := $elem/scripts:prettyFormatInspireId(InspireId)
         for $pollutant in $pollutants
         return
-            if (fn:count(fn:index-of($elem/emissionsToAir/pollutant, $pollutant)) = 0)
+            if (fn:count(fn:index-of($elem/emissionsToAir/pollutant, $pollutant)) = 0
+                and not(scripts:isNotRegulatedInstallPart($docProductionInstallationParts, $inspireId)))
             then
                 <tr>
                     <td class='error' title="Details"> Pollutant has not been reported</td>
-                    <td title="Inspire Id">{$elem/scripts:prettyFormatInspireId(InspireId)}</td>
+                    <td title="Inspire Id">{$inspireId}</td>
                     <td title="Feature type">emissionsToAir</td>
                     <td class="tderror" title="Pollutant"> {functx:substring-after-last($pollutant, "/")} </td>
                 </tr>
@@ -753,13 +755,15 @@ declare function xmlconv:RunQAs(
         )
         let $seq := $docRoot//ProductionInstallationPartReport
         for $elem in $seq
+        let $inspireId := $elem/scripts:prettyFormatInspireId(InspireId)
         for $fuel in $fuelInputs
         return
-            if (fn:count(fn:index-of($elem/energyInput/fuelInput/fuelInput, $fuel)) = 0)
+            if (fn:count(fn:index-of($elem/energyInput/fuelInput/fuelInput, $fuel)) = 0
+                and not(scripts:isNotRegulatedInstallPart($docProductionInstallationParts, $inspireId)))
             then
                 <tr>
                     <td class='error' title="Details"> FuelInput has not been reported</td>
-                    <td title="Inspire Id">{$elem/scripts:prettyFormatInspireId(InspireId)}</td>
+                    <td title="Inspire Id">{$inspireId}</td>
                     <td class="tderror" title="FuelInput"> {functx:substring-after-last($fuel, "/")} </td>
                 </tr>
             else
@@ -770,13 +774,16 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $seq := $docRoot//ProductionInstallationPartReport
         for $elem in $seq
+        let $inspireId := $elem/scripts:prettyFormatInspireId(InspireId)
         for $fuel in $elem/energyInput/fuelInput
         let $ok :=
-            if (functx:substring-after-last($fuel/otherGaseousFuel, "/") = "Other")
+            if (functx:substring-after-last($fuel/otherGaseousFuel, "/") = "Other"
+                and not(scripts:isNotRegulatedInstallPart($docProductionInstallationParts, $inspireId)))
             then
                 functx:if-empty($fuel/furtherDetails, "") != ""
             else
-                if (functx:substring-after-last($fuel/otherSolidFuel, "/") = "Other")
+                if (functx:substring-after-last($fuel/otherSolidFuel, "/") = "Other"
+                    and not(scripts:isNotRegulatedInstallPart($docProductionInstallationParts, $inspireId)))
                 then
                 functx:if-empty($fuel/furtherDetails, "") != ""
                 else
