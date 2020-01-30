@@ -2115,7 +2115,10 @@ declare function xmlconv:RunQAs(
     (: let $asd := trace(fn:current-time(), 'started 11.2 at: ') :)
     (: TODO long running time :)
     (:  C11.2 - ProductionFacility releases and transfers reported below the thresholds :)
+
+    (: result for pollutantRelease and offsitePollutantTransfer types:)
     let $res :=
+        let $BTEXthreshold := 200
         let $map := map {
             "pollutantRelease": map {
                 'getFunction': $getThresholdPollutantRelease,
@@ -2130,36 +2133,35 @@ declare function xmlconv:RunQAs(
         let $seq := $docRoot/ReportData/ProductionFacilityReport/*[local-name() = map:keys($map)]
         let $errorType := 'info'
         let $text := 'Amount reported is below the threshold value'
-        (:let $asd := trace($seq => count(), 'count: '):)
 
         for $pollutantNode in $seq
             let $pollutantType := $pollutantNode/local-name()
-            (:let $asd := trace($pollutantType, 'pollutantType: '):)
             let $reportedAmount := $pollutantNode/*[local-name() = $map?($pollutantType)?nodeNameQuantity]
                 /functx:if-empty(data(), 0) => fn:number()
-            (:let $asd := trace($reportedAmount, 'reportedAmount: '):)
             let $thresholdValue := $map?($pollutantType)?getFunction($pollutantNode)
-            (:let $asd := trace($thresholdValue, 'thresholdValue: '):)
 
             let $ok := (
                 $reportedAmount ge $thresholdValue
                 or $thresholdValue = -1
             )
-            return
-                if(not($ok))
-                (:if(true()):)
-                then
-                    let $dataMap := map {
-                        'Details' : map {'pos' : 1, 'text' : $text, 'errorClass' : $errorType},
-                        'Inspire Id' : map {'pos' : 2, 'text' : $pollutantNode/ancestor::*[InspireId]/scripts:prettyFormatInspireId(InspireId)},
-                        'Type' : map {'pos' : 3, 'text' : $pollutantType || $getCodes($pollutantNode)},
-                        'Reported amount':
-                            map {'pos' : 4, 'text' : $reportedAmount, 'errorClass': 'td' || $errorType},
-                        'Threshold value': map {'pos' : 5, 'text' : $thresholdValue}
-                    }
-                    return scripts:generateResultTableRow($dataMap)
-                else ()
+            where not($ok)
+            let $facility := $pollutantNode/ancestor::ProductionFacilityReport
 
+            (: Only flag benzene, toluene, ethyl benzene, xylenes
+                if the sum of these is below threshold :)
+            where scripts:isBTEXbelowThreshold($pollutantNode, $facility, $BTEXthreshold, $map)
+
+            let $dataMap := map {
+                'Details' : map {'pos' : 1, 'text' : $text, 'errorClass' : $errorType},
+                'Inspire Id' : map {'pos' : 2, 'text' : $pollutantNode/ancestor::*[InspireId]/scripts:prettyFormatInspireId(InspireId)},
+                'Type' : map {'pos' : 3, 'text' : $pollutantType || $getCodes($pollutantNode)},
+                'Reported amount':
+                    map {'pos' : 4, 'text' : $reportedAmount, 'errorClass': 'td' || $errorType},
+                'Threshold value': map {'pos' : 5, 'text' : $thresholdValue}
+            }
+            return scripts:generateResultTableRow($dataMap)
+
+    (: result for offsiteWasteTransfer type:)
     let $res2 :=
         let $seq := $docRoot/ReportData/ProductionFacilityReport
         let $errorType := 'info'

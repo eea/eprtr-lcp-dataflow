@@ -612,3 +612,44 @@ declare function scripts:isNotRegulatedInstallPart(
 
     return $status = 'notRegulated'
 };
+
+declare function scripts:calculateBTEXsum(
+    $facility as element(),
+    $BTEX as xs:string+,
+    $pollutantType as xs:string,
+    $map
+) as xs:double {
+    let $BTEXsum :=
+        for $btex in $BTEX
+        let $reportedAmount := $facility/*[local-name() = $pollutantType and pollutant = $btex]
+            /*[local-name() = $map?($pollutantType)?nodeNameQuantity]
+                /functx:if-empty(data(), 0) => fn:number()
+        return $reportedAmount
+
+    return fn:sum($BTEXsum)
+};
+
+declare function scripts:isBTEXbelowThreshold(
+    $pollutantNode as element(),
+    $facility as element(),
+    $BTEXthreshold as xs:double,
+    $map
+) as xs:boolean {
+    let $BTEX := (
+        'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/BENZENE',
+        'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/TOLUENE',
+        'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/ETHYLBENZENE',
+        'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue/XYLENES'
+    )
+    let $pollutant := $pollutantNode/pollutant/data()
+
+    return
+    if (fn:not($pollutant = $BTEX))
+        then fn:true()
+        else
+            let $sumBTEX := scripts:calculateBTEXsum($facility, $BTEX, $pollutantNode/local-name(), $map)
+            return
+            if ($sumBTEX < $BTEXthreshold)
+                then fn:true()
+                else fn:false()
+};
