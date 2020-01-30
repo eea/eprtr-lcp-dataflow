@@ -891,7 +891,7 @@ declare function xmlconv:RunQAs(
             if(functx:if-empty($el, "") = "")
             then
                 <tr>
-                    <td class='info' title="Details"> Attribute should contain a character string</td>
+                    <td class='error' title="Details"> Attribute should contain a character string</td>
                     <td title="Inspire Id">{
                         $el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/scripts:prettyFormatInspireId(InspireId)
                             => fn:replace("/", "/ ")
@@ -905,7 +905,7 @@ declare function xmlconv:RunQAs(
                     <td title="Waste treatment">
                         {$el/ancestor::offsiteWasteTransfer/wasteTreatment/data() => functx:substring-after-last("/")}
                     </td>
-                    <td class="tdinfo" title="Value"> {fn:data($el)} </td>
+                    <td class="tderror" title="Value"> {fn:data($el)} </td>
                 </tr>
             else
                 ()
