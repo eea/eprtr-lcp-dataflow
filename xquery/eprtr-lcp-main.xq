@@ -3872,6 +3872,28 @@ declare function xmlconv:RunQAs(
 
     let $LCP_16_7 := xmlconv:RowBuilder("EPRTR-LCP 16.7", "All fields blank check", $res)
 
+    let $res :=
+        let $namespaces := $docRoot//InspireId/namespace
+        let $errorType := 'info'
+        let $text := 'Namespace and number of uses'
+
+        for $namespace in fn:distinct-values($namespaces)
+        let $countNamespace := count($namespaces[. = $namespace])
+        let $dataMap := map {
+            'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
+            'Namespace': map {'pos': 2, 'text': $namespace},
+            'Number of uses': map {
+                'pos': 3,
+                'text': $countNamespace,
+                'errorClass': 'td' || $errorType
+            }
+        }
+        order by $countNamespace descending
+
+        return scripts:generateResultTableRow($dataMap)
+
+    let $LCP_16_8 := xmlconv:RowBuilder("EPRTR-LCP 16.8", "Namespaces check", $res)
+
     let $LCP_16 := xmlconv:RowAggregator(
             "EPRTR-LCP 16",
             "Miscellaneous checks",
@@ -3882,7 +3904,8 @@ declare function xmlconv:RunQAs(
                 $LCP_16_4,
                 $LCP_16_5,
                 $LCP_16_6,
-                $LCP_16_7
+                $LCP_16_7,
+                $LCP_16_8
             )
     )
 
