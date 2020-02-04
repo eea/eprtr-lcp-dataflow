@@ -174,7 +174,7 @@ declare function xmlconv:RowBuilder (
         $ResDetails as element()*
 ) as element( ) *{
     let $RuleCode := fn:substring-after($RuleCode, ' ')
-    (:let $asd:= trace($RuleCode, ''):)
+    let $asd:= trace($RuleCode, '')
     let $ResDetails := fn:subsequence($ResDetails, 1, $xmlconv:resultsLimit)
 
     let $errors := $ResDetails/td[@class = 'error']
@@ -636,6 +636,10 @@ declare function xmlconv:RunQAs(
         $docProductionInstallationParts//ProductionInstallationPart[not(StatusType = $decommissioned)
             and year = $reporting-year and countryCode = $country_code]
                 /concat(localId, namespace)
+    let $disusedInstallationPartInspireIds :=
+        $docProductionInstallationParts//ProductionInstallationPart[StatusType = $decommissioned
+            and year = $reporting-year and countryCode = $country_code]
+                /concat(localId, namespace)
     let $installationPartInspireIdsLCP :=
         $docProductionInstallationParts//ProductionInstallationPart[not(StatusType = $decommissioned)
             and year = $reporting-year and countryCode = $country_code
@@ -644,18 +648,29 @@ declare function xmlconv:RunQAs(
     (:  C2.1 – inspireId consistency    :)
     let $res :=
         let $errorType := 'error'
-        let $text := 'InspireId could not be found within the EU Registry'
         let $map := map {
             'ProductionInstallationPartReport': $installationPartInspireIds,
             'ProductionFacilityReport': $facilityInspireIds
         }
         for $featureType in $docRoot//*[local-name() = map:keys($map)]
-            let $ok := $featureType/InspireId/data() = $map?($featureType/local-name())
+            let $inspireId := $featureType/InspireId/data()
+            let $errorNumber :=
+                if($inspireId = $disusedInstallationPartInspireIds)
+                then 3
+                else if(not($inspireId = $map?($featureType/local-name())))
+                then 2
+                else 1
+            (:let $ok := $featureType/InspireId/data() = $map?($featureType/local-name()):)
             return
-                if(not($ok))
+                if($errorNumber = (2, 3))
+                (:if(not($ok)):)
                 (:if(false()):)
                 (:if(true()):)
                 then
+                    let $text :=
+                        if ($errorNumber = 2)
+                        then 'InspireId could not be found within the EU Registry'
+                        else 'Status is disused or decommissioned in the EU Registry'
                     let $dataMap := map {
                         'Details': map {'pos': 1, 'text': $text, 'errorClass': $errorType},
                         'Feature type': map {'pos': 2, 'text': $featureType/local-name()},
