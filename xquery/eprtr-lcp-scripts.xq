@@ -623,7 +623,7 @@ declare function scripts:calculateBTEXsum(
         for $btex in $BTEX
         let $reportedAmount := $facility/*[local-name() = $pollutantType and pollutant = $btex]
             /*[local-name() = $map?($pollutantType)?nodeNameQuantity]
-                /functx:if-empty(data(), 0) => fn:number()
+                /functx:if-empty(data(), 0) => fn:sum() => fn:number()
         return $reportedAmount
 
     return fn:sum($BTEXsum)
