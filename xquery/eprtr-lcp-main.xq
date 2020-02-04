@@ -174,7 +174,7 @@ declare function xmlconv:RowBuilder (
         $ResDetails as element()*
 ) as element( ) *{
     let $RuleCode := fn:substring-after($RuleCode, ' ')
-    let $asd:= trace($RuleCode, '')
+    (:let $asd:= trace($RuleCode, ''):)
     let $ResDetails := fn:subsequence($ResDetails, 1, $xmlconv:resultsLimit)
 
     let $errors := $ResDetails/td[@class = 'error']
