@@ -900,8 +900,9 @@ declare function xmlconv:RunQAs(
         )
         let $seq := $docRoot//offsiteWasteTransfer[wasteClassification => functx:substring-after-last("/") = 'HW']
         for $elem in $seq
+        where not($elem/transboundaryTransfer/data() = '')
         for $attr in $attributesToVerify
-        for $el in $elem//*[fn:local-name() = $attr]
+        for $el in $elem/*:transboundaryTransfer//*[fn:local-name() = $attr]
         return
             if(functx:if-empty($el, "") = "")
             then
@@ -909,7 +910,7 @@ declare function xmlconv:RunQAs(
                     <td class='error' title="Details"> Attribute should contain a character string</td>
                     <td title="Inspire Id">{
                         $el/ancestor::*[fn:local-name()="ProductionFacilityReport"]/scripts:prettyFormatInspireId(InspireId)
-                            => fn:replace("/", "/ ")
+                            => fn:replace("/", " / ")
                     }
                     </td>
                     <td title="Parent feature type"> {$el/parent::*/local-name()} </td>
