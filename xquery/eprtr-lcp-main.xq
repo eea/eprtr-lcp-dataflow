@@ -662,7 +662,7 @@ declare function xmlconv:RunQAs(
                 else 1
             (:let $ok := $featureType/InspireId/data() = $map?($featureType/local-name()):)
             return
-                if($errorNumber = (2, 3))
+                if($errorNumber = (2))
                 (:if(not($ok)):)
                 (:if(false()):)
                 (:if(true()):)
