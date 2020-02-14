@@ -594,9 +594,13 @@ declare function scripts:getDerogation(
     $docProdInstallParts as element(),
     $reporting-year as xs:double,
     $inspireId as xs:string
-) as xs:string {
-    let $derogation := $docProdInstallParts//ProductionInstallationPart[year = $reporting-year
-        and concat(localId, namespace) = $inspireId]/derogations => functx:substring-after-last("/")
+) as xs:string* {
+    let $derogation :=
+        for $part in $docProdInstallParts//ProductionInstallationPart
+        where $part/year = $reporting-year
+        where $part/concat(localId, namespace) = $inspireId
+        return $part/derogations/functx:substring-after-last(., "/")
+
     return $derogation
 };
 

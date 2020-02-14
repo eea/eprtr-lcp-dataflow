@@ -1230,7 +1230,7 @@ declare function xmlconv:RunQAs(
             let $derogation := scripts:getDerogation(
                 $docProductionInstallationParts, $reporting-year, $elem/InspireId/data())
 
-            where $derogation = 'Article31'
+            where 'Article31' = $derogation
 
             let $allMonths := $elem/desulphurisationInformation/month/data()
             for $month in $months
@@ -1246,7 +1246,7 @@ declare function xmlconv:RunQAs(
                                 <td class='warning' title="Details">
                                     {$errorMessages?($error)}
                                 </td>
-                                <td title="Inspire Id">{$elem/descendant-or-self::*/scripts:prettyFormatInspireId(InspireId)}</td>
+                                <td title="Inspire Id">{$elem/scripts:prettyFormatInspireId(InspireId)}</td>
                                 <td class="tdwarning" title="Month"> {functx:substring-after-last($month, "/")} </td>
                             </tr>
                         else
@@ -1508,9 +1508,12 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $inspireIdsNeeded := $docProductionInstallationParts//ProductionInstallationPart
-        [year = $reporting-year and derogations => functx:substring-after-last("/") = 'Article31'
-            and countryCode = $country_code]/concat(localId, namespace)
+    let $inspireIdsNeeded :=
+        for $part in $docProductionInstallationParts//ProductionInstallationPart
+        where $part/year = $reporting-year
+        where $part/countryCode = $country_code
+        where 'Article31' = $part/derogations/functx:substring-after-last(., "/")
+        return $part/concat(localId, namespace)
 
     (: let $asd := trace(fn:current-time(), 'started 8 at: ') :)
     (:   C8.1 – Article 31 derogation compliance   :)
@@ -1580,10 +1583,15 @@ declare function xmlconv:RunQAs(
             let $isDerogationFirstYear := function (
                 $inspireId as xs:string
             ) as xs:boolean {
-                let $historicSubmissionsCount := $docProductionInstallationParts//ProductionInstallationPart
-                    [year != $reporting-year and derogations=>functx:substring-after-last("/") = 'Article31'
-                    and concat(localId, namespace) = $inspireId]
-                        => fn:count()
+                let $historicSubmissions :=
+                    for $part in $docProductionInstallationParts//ProductionInstallationPart
+                    where not($part/year = $reporting-year)
+                    where 'Article31' = $part/derogations/functx:substring-after-last(., "/")
+                    where $part/concat(localId, namespace) = $inspireId
+                    return $part/concat(localId, namespace)
+
+                let $historicSubmissionsCount := fn:count($historicSubmissions)
+
                 return
                     if($historicSubmissionsCount > 0)
                     then false()
@@ -1623,9 +1631,13 @@ declare function xmlconv:RunQAs(
 
     (:  C8.3 – Article 35 derogation and proportionOfUsefulHeatProductionForDistrictHeating comparison  :)
     let $res :=
-        let $inspireIdsNedded := $docProductionInstallationParts//ProductionInstallationPart
-            [year = $reporting-year and derogations=>functx:substring-after-last("/") = 'Article35'
-                and countryCode = $country_code]/concat(localId, namespace)
+        let $inspireIdsNedded :=
+            for $part in $docProductionInstallationParts//ProductionInstallationPart
+            where $part/year = $reporting-year
+            where 'Article35' = $part/derogations/functx:substring-after-last(., "/")
+            where $part/countryCode = $country_code
+            return $part/concat(localId, namespace)
+
         let $seq := $docRoot//ProductionInstallationPartReport[InspireId = $inspireIdsNedded]
         let $errorType := 'info'
         let $text := 'Proportion of useful heat production for district heating has been omitted or reported below 50%'
