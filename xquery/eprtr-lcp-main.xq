@@ -892,7 +892,6 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $attributesToVerify := (
             "nameOfReceiver",
-            "buildingNumber",
             "city",
             "countryCode",
             "postalCode",
