@@ -1281,8 +1281,8 @@ declare function xmlconv:RunQAs(
         ) as xs:double {
         $docRoot//ProductionFacilityReport[InspireId/namespace = $namespace
             and InspireId/localId = $localId]/pollutantRelease[mediumCode = $mediumCode
-                    and pollutant=>fn:lower-case()=>functx:substring-after-last("/") = $pollutant][1]
-                        /totalPollutantQuantityKg=> functx:if-empty(0) => fn:number()
+                    and pollutant => fn:lower-case() => functx:substring-after-last("/") = $pollutant][1]
+                        /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
         }
 
         let $seq := $docRoot//ProductionInstallationPartReport
@@ -1306,6 +1306,14 @@ declare function xmlconv:RunQAs(
                     else 'nox'
                 let $pollutantQuantityKg :=
                     $emission/totalPollutantQuantityTNE => functx:if-empty(0) => fn:number() * 1000
+
+                let $thresholdValue := scripts:getThresholdValueForPollutant(
+                    $pollutant,
+                    $docPollutantLookup,
+                    $docANNEXII
+                )
+
+                where $pollutantQuantityKg ge $thresholdValue
 
                 let $parentFacilityQuantityKg :=
                     $getParentFacilityQuantity($namespace, $localId, $mediumCode, $pollutant)

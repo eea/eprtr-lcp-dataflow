@@ -144,6 +144,19 @@ declare function scripts:checkOtherFuelDuplicates(
     return ($part1, $part2)
 };
 
+declare function scripts:getThresholdValueForPollutant(
+    $pollutant as xs:string,
+    $docPollutantLookup,
+    $docANNEXII
+) as xs:decimal {
+    let $baseCodeListUrl := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/EPRTRPollutantCodeValue'
+    let $pollutant := fn:concat($baseCodeListUrl, '/', $pollutant => fn:upper-case())
+    let $thresholdVal := $docANNEXII/row[Codelistvalue = $pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
+        /toAir => functx:if-empty(0) => xs:decimal()
+
+    return $thresholdVal
+};
+
 declare function scripts:getCodelistvalueForOldCode(
     $pollutantCode as xs:string,
     $docPollutantLookup as element()
