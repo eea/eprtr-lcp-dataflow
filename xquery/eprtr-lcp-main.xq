@@ -2291,17 +2291,17 @@ declare function xmlconv:RunQAs(
             ) as xs:double {
             let $value :=
                 if($pollutant = 'pollutantRelease')
-                then $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
+                then $map?doc/row[CountryCode = $country_code
                     and MainIAActivityCode => replace('\.', '') = $activity
                         and Codelistvalue  = $code1
                         and fn:upper-case(ReleaseMediumName) = $code2]
                             /SumOfTotalQuantity
                 else if($pollutant = 'offsitePollutantTransfer')
-                then $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
+                then $map?doc/row[CountryCode = $country_code
                     and MainIAActivityCode => replace('\.', '') = $activity
                         and Codelistvalue = $code1]
                         /SumOfTotalQuantity
-                else $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
+                else $map?doc/row[CountryCode = $country_code
                     and MainIAActivityCode => replace('\.', '') = $activity and WasteTypeCode = $code1
                         and WasteTreatmentCode = $code2]
                             /TotalQuantity
@@ -2323,7 +2323,7 @@ declare function xmlconv:RunQAs(
                     'code1': 'pollutant', (: pollutantCode :)
                     'code2': ''
                 },
-                'lookupNodeName': 'SumOfQuantity',
+                'lookupNodeName': 'SumOfTotalQuantity',
                 'reportNodeName': 'totalPollutantQuantityKg'
             },
             "offsiteWasteTransfer": map {
@@ -2368,8 +2368,12 @@ declare function xmlconv:RunQAs(
                         $code1,
                         $code2
                     )
+                (:where $pollutant = 'offsitePollutantTransfer':)
+                (:let $asd:= trace($facility/InspireId/data(), 'inspideid'):)
                 (:let $asd:= trace($pollutant, 'pollutant:'):)
                 (:let $asd:= trace($code1, 'code1:'):)
+                (:let $asd:= trace($code2, 'code2:'):)
+                (:let $asd:= trace($EPRTRAnnexIActivity, 'EPRTRAnnexIActivity:'):)
                 (:let $asd:= trace($lookupHighestValue, 'lookupHighestValue:'):)
                 let $ok := (
                     $reportValue < $lookupHighestValue
