@@ -632,7 +632,7 @@ declare function xmlconv:RunQAs(
             )
     )
 
-    let $decommissioned := ('decommissioned', 'disused')
+    let $decommissioned := ('decommissioned', 'disused', 'notRegulated')
     let $facilityInspireIds :=
         $docProductionFacilities/ProductionFacility[year = $reporting-year
             and countryCode = $country_code]/concat(localId, namespace)
@@ -2300,7 +2300,7 @@ declare function xmlconv:RunQAs(
                 then $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
                     and MainIAActivityCode => replace('\.', '') = $activity
                         and Codelistvalue = $code1]
-                        /SumOfQuantity
+                        /SumOfTotalQuantity
                 else $map?doc/row[ReportingYear = $look-up-year and CountryCode = $country_code
                     and MainIAActivityCode => replace('\.', '') = $activity and WasteTypeCode = $code1
                         and WasteTreatmentCode = $code2]
@@ -2357,6 +2357,7 @@ declare function xmlconv:RunQAs(
                             $pollutantNode,
                             $map?($pollutant)?filters?code2
                     )
+                (:let $asd:= trace($code1, '$code1'):)
                 let $reportValue := $pollutantNode/*[local-name() = $map?($pollutant)?reportNodeName]
                         /data() => functx:if-empty(0) => fn:number()
                 let $lookupHighestValue :=
@@ -2367,7 +2368,9 @@ declare function xmlconv:RunQAs(
                         $code1,
                         $code2
                     )
-
+                (:let $asd:= trace($pollutant, 'pollutant:'):)
+                (:let $asd:= trace($code1, 'code1:'):)
+                (:let $asd:= trace($lookupHighestValue, 'lookupHighestValue:'):)
                 let $ok := (
                     $reportValue < $lookupHighestValue
                     or
