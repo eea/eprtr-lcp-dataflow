@@ -1655,7 +1655,7 @@ declare function xmlconv:RunQAs(
         for $part in $seq
             let $proportion :=
                 $part/proportionOfUsefulHeatProductionForDistrictHeating => functx:if-empty(0) => fn:number()
-            let $ok := $proportion ge 50
+            let $ok := $proportion ge 0.5
 
             return
                 if(not($ok))
