@@ -3825,7 +3825,7 @@ declare function xmlconv:RunQAs(
             if(fn:not($ok))
             then
                 <tr>
-                    <td class='warning' title="Details">
+                    <td class='error' title="Details">
                         Attribute has been populated with a value representing a percentage greater than 100%
                     </td>
                     <td title="Inspire Id">
@@ -3833,8 +3833,8 @@ declare function xmlconv:RunQAs(
                                 /scripts:prettyFormatInspireId(InspireId)}
                     </td>
                     <td title="Feature type">{fn:node-name($elem/parent::*)}</td>
-                    <td class="tdwarning" title="Attribute name"> {fn:node-name($elem)} </td>
-                    <td class="tdwarning" title="value"> {$elemValue} </td>
+                    <td class="tderror" title="Attribute name"> {fn:node-name($elem)} </td>
+                    <td class="tderror" title="value"> {$elemValue} </td>
                 </tr>
 
             else
