@@ -3243,7 +3243,7 @@ declare function xmlconv:RunQAs(
                     'code1': ('NONHW', 'HWIC', 'HWOC'), (: wasteClassification :)
                     'code2': ('') (: wasteTreatment :)
                 },
-                'countNodeName': 'TotalQuantity',
+                'countNodeName': 'SumOfQuantity',
                 'countFunction': scripts:getTotalsOfPollutant#6,
                 'reportCountFunction': scripts:getreportTotalsOfPollutant#5
             },
