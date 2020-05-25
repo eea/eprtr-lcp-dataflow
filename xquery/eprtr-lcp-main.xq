@@ -1293,7 +1293,6 @@ declare function xmlconv:RunQAs(
         for $part in $seq
             let $parentFacility := $docProductionInstallationParts//ProductionInstallationPart
                 [year = $reporting-year and concat(localId, namespace) = $part/InspireId/data()][1]
-            let $asd:= trace($parentFacility, 'parentFacility:')
             let $namespace := $parentFacility/parentFacility_namespace => functx:if-empty('Not found')
             let $localId := $parentFacility/parentFacility_localId => functx:if-empty('Not found')
 
