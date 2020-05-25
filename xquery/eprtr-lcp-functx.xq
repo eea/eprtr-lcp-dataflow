@@ -18,10 +18,10 @@ declare function functx:non-distinct-values
     return $val[count($seq[. = $val]) > 1]
 } ;
 
-declare function functx:if-empty
-( $arg as item()? ,
-        $value as item()* )  as item()* {
-
+declare function functx:if-empty (
+        $arg as item()? ,
+        $value as item()*
+)  as item()* {
     if (string($arg) != '')
     then data($arg)
     else $value

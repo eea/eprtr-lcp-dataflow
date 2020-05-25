@@ -58,7 +58,7 @@ declare function scripts:getEPRTRAnnexIActivity (
     $docProductionFacility as element()
 ) as xs:string {
     $docProductionFacility/ProductionFacility[year = $reporting-year
-        and concat(localId, namespace) = $inspireId]/EPRTRAnnexIActivity => functx:substring-after-last("/")
+        and concat(localId, namespace) = $inspireId][1]/EPRTRAnnexIActivity => functx:substring-after-last("/")
 };
 
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {

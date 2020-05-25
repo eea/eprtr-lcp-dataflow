@@ -1292,7 +1292,8 @@ declare function xmlconv:RunQAs(
             reported to air for the parent ProductionFacility'
         for $part in $seq
             let $parentFacility := $docProductionInstallationParts//ProductionInstallationPart
-                [year = $reporting-year and concat(localId, namespace) = $part/InspireId/data()]
+                [year = $reporting-year and concat(localId, namespace) = $part/InspireId/data()][1]
+            let $asd:= trace($parentFacility, 'parentFacility:')
             let $namespace := $parentFacility/parentFacility_namespace => functx:if-empty('Not found')
             let $localId := $parentFacility/parentFacility_localId => functx:if-empty('Not found')
 
@@ -1429,13 +1430,13 @@ declare function xmlconv:RunQAs(
             $inspireId as xs:string
         ) as xs:double {
             $docProductionInstallationParts//ProductionInstallationPart[year = $reporting-year
-                and concat(localId, namespace) = $inspireId]/totalRatedThermalInput => functx:if-empty(0) => fn:number()
+                and concat(localId, namespace) = $inspireId][1]/totalRatedThermalInput => functx:if-empty(0) => fn:number()
         }
         let $getParentFacilityNrOfOperatingHours := function(
             $partInspireId as xs:string
         ) as xs:double {
             let $parentInspireId := $docProductionInstallationParts//ProductionInstallationPart
-                [year = $reporting-year and concat(localId, namespace) = $partInspireId]
+                [year = $reporting-year and concat(localId, namespace) = $partInspireId][1]
                     /concat(parentFacility_localId, parentFacility_namespace)
             let $numberOfOperatingHours := $docRoot//ProductionFacilityReport[InspireId = $parentInspireId][1]
                 //numberOfOperatingHours => functx:if-empty(0) => fn:number()
