@@ -19,11 +19,11 @@ declare function functx:non-distinct-values
 } ;
 
 declare function functx:if-empty (
-        $arg as item()? ,
+        $arg as item()* ,
         $value as item()*
 )  as item()* {
-    if (string($arg) != '')
-    then data($arg)
+    if (string($arg[1]) != '')
+    then data($arg[1])
     else $value
 } ;
 
