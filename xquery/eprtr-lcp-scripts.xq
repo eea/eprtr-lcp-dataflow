@@ -291,6 +291,9 @@ declare function scripts:getreportCountOfPollutantWasteTransfer(
         if($code1 = 'NONHW')
         then $doc//*[fn:local-name() = $pollutant and functx:substring-after-last(wasteClassification, "/") = 'NONHW'
                 and fn:string-length(confidentialityReason) > 0] => fn:count()
+        else if($code1 = 'HW')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
+                and confidentialityReason => fn:string-length() > 0] => fn:count()
         else if($code1 = 'HWIC')
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
                 and confidentialityReason => fn:string-length() > 0
@@ -305,6 +308,10 @@ declare function scripts:getreportCountOfPollutantWasteTransfer(
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'NONHW'
                 (:and confidentialityReason => fn:string-length() = 0:)
                 and wasteTreatment => functx:substring-after-last("/") = $code2] => fn:count()
+        else if($code1 = 'HW')
+        then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
+                and wasteTreatment => functx:substring-after-last("/") = $code2
+                (:and confidentialityReason => fn:string-length() = 0:)] => fn:count()
         else if($code1 = 'HWIC')
         then $doc//*[fn:local-name() = $pollutant and wasteClassification=>functx:substring-after-last("/") = 'HW'
                 and wasteTreatment => functx:substring-after-last("/") = $code2
@@ -478,6 +485,10 @@ declare function scripts:getreportFacilityTotalsWasteTransfer(
     then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW'
             and wasteTreatment => functx:substring-after-last("/") = $code2]
                 /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
+    else if($code1 = 'HW')
+    then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
+            and wasteTreatment => functx:substring-after-last("/") = $code2]
+                    /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else if($code1 = 'HWIC')
     then $facility//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'
             and wasteTreatment => functx:substring-after-last("/") = $code2
@@ -556,6 +567,9 @@ declare function scripts:getreportTotalsOfPollutantWasteTransfer(
 ) as xs:double{
     if($code1 = 'NONHW')
     then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'NONHW']
+            /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
+    else if($code1 = 'HW')
+    then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW']
             /functx:if-empty(totalWasteQuantityTNE, 0) => fn:sum()
     else if($code1 = 'HWIC')
     then $doc//offsiteWasteTransfer[wasteClassification=>functx:substring-after-last("/") = 'HW'

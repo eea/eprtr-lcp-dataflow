@@ -174,7 +174,7 @@ declare function xmlconv:RowBuilder (
         $ResDetails as element()*
 ) as element( ) *{
     let $RuleCode := fn:substring-after($RuleCode, ' ')
-    (:let $asd:= trace($RuleCode, ''):)
+    let $asd:= trace($RuleCode, '')
     let $ResDetails := fn:subsequence($ResDetails, 1, $xmlconv:resultsLimit)
 
     let $errors := $ResDetails/td[@class = 'error']
@@ -2267,8 +2267,8 @@ declare function xmlconv:RunQAs(
                         if($code1 = 'NONHW')
                         then 'NONHW'
                         else if (fn:string-length($transboundaryTransfer) > 0)
-                            then $code1 || 'OC'
-                            else $code1 || 'IC'
+                            then $code1 (:|| 'OC':)
+                            else $code1 (:|| 'IC':)
 
                 else
                     $pollutantNode/*[local-name() = $nodeName]/text()
@@ -3098,7 +3098,7 @@ declare function xmlconv:RunQAs(
             "offsiteWasteTransfer": map {
                 'doc': $docRootCOUNT_OF_OffsiteWasteTransfer,
                 'filters': map {
-                    'code1': ('NONHW', 'HWIC', 'HWOC'), (: wasteClassification :)
+                    'code1': ('NONHW', 'HW'), (: wasteClassification :)
                     'code2': ('D', 'R') (: wasteTreatment :)
                 },
                 'countNodeName': 'CountOfWasteTransferID',
@@ -3240,7 +3240,7 @@ declare function xmlconv:RunQAs(
             "offsiteWasteTransfer": map {
                 'doc': $docQUANTITY_OF_OffsiteWasteTransfer,
                 'filters': map {
-                    'code1': ('NONHW', 'HWIC', 'HWOC'), (: wasteClassification :)
+                    'code1': ('NONHW', 'HW'), (: wasteClassification :)
                     'code2': ('') (: wasteTreatment :)
                 },
                 'countNodeName': 'SumOfQuantity',
@@ -3540,7 +3540,7 @@ declare function xmlconv:RunQAs(
             "offsiteWasteTransfer": map {
                 'doc': $docEUROPEAN_TOTAL_OffsiteWasteTransfer,
                 'filters': map {
-                    'code1': ('NONHW', 'HWIC', 'HWOC'),  (:wasteClassification:)
+                    'code1': ('NONHW', 'HW'),  (:wasteClassification:)
                     'code2': ('D','R')  (:wasteTreatment :)
                 },
                 'countNodeName': 'TotalQuantity',
