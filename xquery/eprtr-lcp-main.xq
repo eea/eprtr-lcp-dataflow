@@ -2897,7 +2897,12 @@ declare function xmlconv:RunQAs(
                 /pollutantRelease[mediumCode = $mediumCode]
             let $thresholdValue := $docANNEXII/row[Codelistvalue
                     = $pollutantRelease/pollutant => scripts:getCodelistvalueForOldCode($docPollutantLookup)]
-                        /toAir => functx:if-empty(0) => xs:decimal()
+                        /toAir => functx:if-empty(0)
+
+            where not($thresholdValue => xs:string() = 'NA')
+
+            let $thresholdValue := $thresholdValue => xs:decimal()
+
             let $inspireId := $pollutantRelease/ancestor::ProductionFacilityReport/InspireId
             let $minimumValuePrev := $docProductionFacilities/ProductionFacility[concat(localId, namespace) = $inspireId/data()]
                     /pollutantRelease[mediumCode = $mediumCode and pollutant = $pollutantRelease/pollutant]
