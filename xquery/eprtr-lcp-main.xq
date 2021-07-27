@@ -1442,27 +1442,38 @@ declare function xmlconv:RunQAs(
             return $numberOfOperatingHours
         }
 
+        let $hours := if(functx:is-leap-year($reporting-year))
+            then 8784
+            else 8760
         let $seq := $docRoot//ProductionInstallationPartReport
-        let $errorType := 'warning'
+        let $errorTypes := map {
+            1: 'warning',
+            2: 'warning',
+            3: 'warning',
+            4: 'error'
+        }
         let $text := map {
             1: 'Calculated operating hours are above the reported numberOfOperatingHours by more than 10%',
-            2: 'Calculated operating operating hours exceed 8784 hours',
-            3: 'Calculated operating operating hours exceed the reported numberOfOperatingHours for the associated parent ProductionFacility'
+            2: 'Calculated operating operating hours exceed the number of hour of ' || $reporting-year,
+            3: 'Calculated operating operating hours exceed the reported numberOfOperatingHours for the associated parent ProductionFacility',
+            4: 'The number of numberOfOperatingHours reported exceed the number of hour of ' || $reporting-year
         }
         for $part in $seq
             let $aggregatedEnergyInputMW
                 := $part/energyInput/energyinputTJ/functx:if-empty(text(), 0) => sum() * 0.0317
             let $totalRatedThermalInput := $getTotalRatedThermalInput($part/InspireId/data())
             let $proportionOfFuelCapacityBurned := $aggregatedEnergyInputMW div $totalRatedThermalInput
-            let $calculatedOperatingHours := $proportionOfFuelCapacityBurned * 8784
+            let $calculatedOperatingHours := $proportionOfFuelCapacityBurned * $hours
             let $nrOfOperatingHours := $part/numberOfOperatingHours => functx:if-empty(0) => fn:number()
             let $parentFacilityNrOfOperatingHours :=
                 $getParentFacilityNrOfOperatingHours($part/InspireId/data())
 
             let $errors :=
-                if($calculatedOperatingHours gt ($nrOfOperatingHours * 110) div 100)
+                if($nrOfOperatingHours gt $hours)
+                then 4
+                else if($calculatedOperatingHours gt ($nrOfOperatingHours * 110) div 100)
                 then 1
-                else if($calculatedOperatingHours > 8784)
+                else if($calculatedOperatingHours > $hours)
                 then 2
                 else if($calculatedOperatingHours > $parentFacilityNrOfOperatingHours
                     and $parentFacilityNrOfOperatingHours >= 0)
@@ -1476,10 +1487,10 @@ declare function xmlconv:RunQAs(
                 then
                     let $dataMap := map {
                         'Details':
-                            map {'pos': 1, 'text': $text?($errors), 'errorClass': $errorType},
+                            map {'pos': 1, 'text': $text?($errors), 'errorClass': $errorTypes($errors)},
                         'Inspire Id': map {'pos': 2, 'text': $part/scripts:prettyFormatInspireId(InspireId)},
                         'Calculated operating hours':
-                            map {'pos': 3, 'text': $calculatedOperatingHours => round-half-to-even(1), 'errorClass': 'td' || $errorType},
+                            map {'pos': 3, 'text': $calculatedOperatingHours => round-half-to-even(1), 'errorClass': 'td' || $errorTypes($errors)},
                         'Reported operating hours': map {'pos': 4, 'text': $nrOfOperatingHours},
                         'Parent facility number of operating hours':
                             map {'pos': 5, 'text': $parentFacilityNrOfOperatingHours}

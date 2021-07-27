@@ -133,4 +133,12 @@ declare function functx:value-except
 
   distinct-values($arg1[not(.=$arg2)])
  } ;
+declare function functx:is-leap-year
+  ( $date as xs:anyAtomicType? )  as xs:boolean {
+
+    for $year in xs:integer(substring(string($date),1,4))
+    return ($year mod 4 = 0 and
+            $year mod 100 != 0) or
+            $year mod 400 = 0
+ } ;
 (: HELPER FUNCTIONS END :)
