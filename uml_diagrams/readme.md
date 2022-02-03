@@ -1,0 +1,1 @@
+* Here we stored the *.xmi files exported from Sparx Enterprise Architect Software (used to create the UML diagrams).
