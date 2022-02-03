@@ -26,7 +26,7 @@ LOG = true
 LOGMSGMAXLEN = 1000
 
 # HTTP Services
-WEBPATH = /home/laszlo/work/basex/webapp
+WEBPATH = /home/claudia/work/sources/dataflows/eprtr-lcp-dataflow/xquery/basex
 RESTPATH = 
 RESTXQPATH = 
 PARSERESTXQ = 3
