@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.3">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
 	<xs:annotation>
 		<xs:appinfo>
@@ -86,7 +86,7 @@
             </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="desulphurisationRate" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="desulphurisationRate" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute to be populated with a double value representing the rate of desulphurisation
@@ -99,7 +99,7 @@
 					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MonthValue/</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="sulphurContent" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="sulphurContent" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute to be populated with a double value representing the sulphur content of the
@@ -196,7 +196,7 @@
             </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="productionVolume" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="productionVolume" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute designed to be populated with a double value representing the volume of the product
@@ -308,7 +308,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="totalPollutantQuantityTNE" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="totalPollutantQuantityTNE" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute containing a double value representing the quantity of the pollutant emitted to air,
@@ -335,7 +335,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="energyinputTJ" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="energyinputTJ" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute used to provide a double value detailing the energy input (the net calorific
@@ -377,7 +377,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="totalPollutantQuantityKg" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="totalPollutantQuantityKg" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute containing a double value which details the total annual quantity, in kilograms,
@@ -411,7 +411,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="totalWasteQuantityTNE" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="totalWasteQuantityTNE" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute which contains a double value representing the quantity of waste transferred,
@@ -488,7 +488,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="totalPollutantQuantityKg" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="totalPollutantQuantityKg" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         An attribute containing a double value which represents the total annual quantity,
@@ -606,7 +606,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="numberOfOperatingHours" type="DoubleOrNothing" minOccurs="1" maxOccurs="1">
+			<xs:element name="numberOfOperatingHours" type="xs:double" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
                         Attribute designed to be populated with a double value detailing the number of hours the LCP operated
