@@ -16,6 +16,11 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace array = "http://www.w3.org/2005/xpath-functions/array";
 
+declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
+
+declare option output:method "html";
+declare option output:media-type "text/html";
+
 declare variable $source_url as xs:string external;
 (: xml files paths:)
 
@@ -218,10 +223,46 @@ declare function xmlconv:RowBuilder (
                 }
             </tr>
 
+        (:let $exportButton:=if (fn:count($ResDetails) > 0 ) then
+            <tr>
+                <button class="exportButton" onclick="saveFile('{$RuleCode}','{count ($ResDetails)}')" type="button">Export to XLS</button>
+            </tr>
+            else ():)
+
+           
+        let $headerTitles:=               
+             for $x at $y in (1 to count($ResDetails[1]//td/@title))                
+                return
+                if ($y = count($ResDetails[1]//td/@title)) then $ResDetails[1]//td[$y]/@title 
+                else $ResDetails[1]//td[$y]/@title || ","
+            
+
+        let $stepExportHeader:= <input id="{$RuleCode}-errorsHeader" type="hidden" value='{$headerTitles}'></input>                                
+                
+        let $fullRows:=   
+            for $d at $i in $ResDetails                            
+                where ($i <= $xmlconv:resultsLimit) 
+                    
+                    let $rowData:=                           
+                        for $j at $y in $ResDetails
+                            where ($y<=count ($ResDetails[1]//td/@title))
+                        return                                    
+                            if ($y=count ($ResDetails[1]//td/@title)) then $d//td[$y]
+                           else $d//td[$y]||","                                      
+            
+            return <input id="{$RuleCode}-errorsTable_{$i}" type="hidden" value='{$rowData }'> </input>
+        
+            
+                       
+
+    
     let $step2 := if (fn:count($ResDetails) > 0 ) then
+
         <tr style="display:none;" id="feedbackRow-{$RuleCode}">
+
             <td colspan="4">
                 <table class="showdatatable table table-bordered" >
+                <button class="exportButton" onclick="saveFile('{$RuleCode}','{count ($ResDetails)}')" type="button">Export to XLS</button>
                     <tr>{
                         for $th in $ResDetails[1]//td return <th>{ fn:data($th/@title) }</th>
                     }</tr>
@@ -233,8 +274,9 @@ declare function xmlconv:RowBuilder (
         </tr>
     else ()
 
-    return ( $step1 , $step2 )
+    return ( $step1,$stepExportHeader, $fullRows, $step2 )
 };
+
 
 declare function xmlconv:RowAggregator (
         $RuleCode as xs:string,
@@ -1288,8 +1330,7 @@ declare function xmlconv:RunQAs(
         let $seq := $docRoot//ProductionInstallationPartReport
         let $errorType := 'warning'
         let $mediumCode := 'http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/MediumCodeValue/AIR'
-        let $text := 'Reported EmissionsToAir is inconsistent with the PollutantRelease
-            reported to air for the parent ProductionFacility'
+        let $text := 'Reported EmissionsToAir is inconsistent with the PollutantRelease reported to air for the parent ProductionFacility'
         for $part in $seq
             let $parentFacility := $docProductionInstallationParts//ProductionInstallationPart
                 [year = $reporting-year and concat(localId, namespace) = $part/InspireId/data()][1]
@@ -3211,8 +3252,7 @@ declare function xmlconv:RunQAs(
                             {$pollutant} {if($mediumCode = 'NA') then '' else ', mediumCode - '||$mediumCode}
                         </td>
                         <td class="td{$errorType}" title="Change percentage">
-                            {$changePercentage=>fn:round-half-to-even(1)}%
-                        </td>
+                            {$changePercentage=>fn:round-half-to-even(1)}%</td>
                         <td title="National level count">{$reportCountOfPollutantCode}</td>
                         <td title="Previous year count">{$CountOfPollutantCode}</td>
                     </tr>
@@ -3842,8 +3882,7 @@ declare function xmlconv:RunQAs(
             then
                 <tr>
                     <td class='error' title="Details">
-                        Attribute has been populated with a value representing a percentage greater than 100%
-                    </td>
+                        Attribute has been populated with a value representing a percentage greater than 100%</td>
                     <td title="Inspire Id">
                         {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionInstallationPartReport")]
                                 /scripts:prettyFormatInspireId(InspireId)}
@@ -4109,6 +4148,109 @@ declare function xmlconv:getLegend() as element()*{
         (<br></br>,$legend,<br></br>, <br></br>)
 };
 
+declare function xmlconv:getExportJS() as element()*{
+
+
+    let $js :=
+        <script type="text/javascript">
+            <![CDATA[
+    function saveFile(refCode,numRecords) {
+
+var headers ="";
+var excelLine="{\"";
+var lista = [];
+var lista2 = [];
+
+
+  if ((document.getElementById(refCode+"-errorsHeader") != null) && document.getElementById(refCode+"-errorsHeader").value != "") 
+    {
+        headers=document.getElementById(refCode+"-errorsHeader").value;
+        var arrayHeaders = headers.split(',');
+    }
+
+  for (let i = 1; i <= numRecords; i++) {
+       if ((document.getElementById(refCode+"-errorsTable_"+i) != null) && document.getElementById(refCode+"-errorsTable_"+i).value != "")
+       {
+
+        var row= document.getElementById(refCode+"-errorsTable_"+i).value;
+        var arrayRow = row.split(',');
+        
+
+        for (let j=0 ; j < arrayHeaders.length; j++){
+            
+                if (j+1==arrayHeaders.length){
+
+                    excelLine+=arrayHeaders[j]+"\":\""+arrayRow[j]+"\"}";
+                }
+                else{
+                
+                    excelLine+=arrayHeaders[j]+"\":\""+arrayRow[j]+"\",\"";
+                }
+           
+            }
+
+        if (i < numRecords){
+
+            excelLine+=",{\"";
+            }
+        }
+    }
+
+ JSONvalue = "["+ excelLine + "]";
+        data1 = JSON.parse(JSONvalue);
+        data2 = {sheetid:refCode,
+            headers:true, 
+              column: {
+                  style:{
+                      Font:{
+                          Bold:"1",
+                          Color:"#3C3741",
+                      },
+                      Alignment:{
+                          Horizontal:"Center"
+                      },
+                      Interior:{
+                          Color:"#7CEECE",
+                          Pattern:"Solid"
+                      }
+                  }
+              }
+        };
+        
+        lista.push(data1);
+        lista2.push(data2); 
+   
+   
+   var opts = lista2;
+   
+   var res = alasql('SELECT * INTO XLSX("'+refCode+'_detailed_ERRORS.xlsx",?) FROM ?',[opts,lista]);
+
+
+
+
+
+}
+                ]]>
+        </script>
+    return
+        <script type="text/javascript">{fn:normalize-space($js)}</script>
+};
+
+      
+
+
+declare function xmlconv:getAlasql() as element()*{
+<script src="https://cdn.jsdelivr.net/alasql/0.3/alasql.min.js">
+    var wsdf;
+</script>
+};
+declare function xmlconv:getXls() as element()*{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.12/xlsx.core.min.js">
+    var wsdf;
+</script>
+};
+
+
 (:~
 : CSS
 :)
@@ -4243,6 +4385,9 @@ declare function xmlconv:main($source_url as xs:string) {
       <h2>Reporting obligation for: E-PRTR data reporting and summary of emission inventory
           for large combustion plants (LCP), Art 4.(4) and 15.(3) plants
       </h2>
+            {xmlconv:getAlasql()}
+            {xmlconv:getXls()}            
+            {xmlconv:getExportJS()}
             { ( $css, $js, $errors, $warnings, $infos, $legend,  $ResultTable )}
       </div>
 };

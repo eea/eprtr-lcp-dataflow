@@ -464,8 +464,7 @@ declare function scripts:compareNumberOfPollutants(
                             {if($code2 = '') then '' else ' / '|| $code2}
                         </td>
                         <td class="td{$errorType}" title="Change percentage">
-                            {$changePercentage => fn:round-half-to-even(1)}%
-                        </td>
+                            {$changePercentage => fn:round-half-to-even(1)}%</td>
                         <td title="National level">{$reportCountOfPollutantCode => xs:decimal() => fn:round-half-to-even(1)}</td>
                         <td title="Previous year">{$CountOfPollutantCode => xs:decimal() => fn:round-half-to-even(1)}</td>
                     </tr>
