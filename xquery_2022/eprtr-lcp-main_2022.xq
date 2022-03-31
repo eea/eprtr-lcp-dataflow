@@ -4096,7 +4096,7 @@ declare function xmlconv:RunQAs(
           let $MaxNumProdVol := (
             if( $docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and InspireId/localId = $localId and InspireId/namespace = $namespace]/MaxNumProdVol != '' ) then 
               distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and InspireId/localId = $localId and InspireId/namespace = $namespace]/MaxNumProdVol)
-            else 0
+            else 1
           )
             
           return
@@ -4164,7 +4164,7 @@ declare function xmlconv:RunQAs(
           let $otherActivityLookUp := tokenize($otherActivityLookUpTable, ', ')[3]
           let $yearLookUp := tokenize($otherActivityLookUpTable, ', ')[4]
         return 
-        if( functx:is-value-in-sequence($otherActivityLookUpTable, $dataOtherActivityXML) = false() ) then
+        if( $otherActivityLookUp != "" and functx:is-value-in-sequence($otherActivityLookUpTable, $dataOtherActivityXML) = false() ) then
         <tr>
             <td class='info' title="Details">{data("List of ProductionVolume Unicode that might have been reported from otherActivity")}</td>
             <td title="Inspire Id">{$namespaceLookUp || "/" || $localIdLookUp}</td>
