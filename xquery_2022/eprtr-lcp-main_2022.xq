@@ -4090,11 +4090,7 @@ declare function xmlconv:RunQAs(
         for $prodFacRep in $docRoot//ProductionFacilityReport
           let $localId := $prodFacRep/InspireId/localId
           let $namespace := $prodFacRep/InspireId/namespace
-          let $productionVolumeQuantity := (
-            for $prodVol in $prodFacRep/productionVolume//productionVolume
-            return $prodVol
-          )
-          let $productionVolumeTotalQuantity := sum($productionVolumeQuantity)
+          let $countProductionVolumeElements := count($prodFacRep/productionVolume)
           
           (: Looking for MaxNumProdVol in the LookUpTable :)
           let $MaxNumProdVol := (
@@ -4104,11 +4100,11 @@ declare function xmlconv:RunQAs(
           )
             
           return
-          if($productionVolumeTotalQuantity > $MaxNumProdVol) then
+          if($countProductionVolumeElements > $MaxNumProdVol) then
             <tr>
                 <td class='error' title="Details">{data("Number of ProductionVolume entries is higher than number of activities reported in EURegt")}</td>
                 <td title="Inspire Id">{$namespace || "/" || $localId}</td>
-                <td title="Total productionVolume">{$productionVolumeTotalQuantity}</td>
+                <td title="Number of productionVolume elements">{$countProductionVolumeElements}</td>
                 <td title="MaxNumProdVol">{$MaxNumProdVol}</td>
             </tr>
           
