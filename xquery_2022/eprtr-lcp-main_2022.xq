@@ -3992,7 +3992,7 @@ declare function xmlconv:RunQAs(
         then
           <tr>
               <td class='error' title='Details'>
-                  Production volume unit is empty
+                  The ProductionVolume UnitCode is not reported
               </td>
               <td title='Inspire Id'>
                   {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]
@@ -4002,13 +4002,13 @@ declare function xmlconv:RunQAs(
          else
           ()
          
-    let $LCP_17_1 := xmlconv:RowBuilder("EPRTR-LCP 17.1", "ProductionVolume Unicode is not reported", $res)
+    let $LCP_17_1 := xmlconv:RowBuilder("EPRTR-LCP 17.1", "The ProductionVolume UnitCode is not reported", $res)
     
     
     (: C17.2 - If ProductionVolume Unicode does not match with EPRTRAnnexIMainActivity = Blocker :)
     let $res :=
         let $errorType := 'error'
-        let $text := 'ProductionVolume Unicode does not match with EPRTRAnnexIMainActivity'
+        let $text := "The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity"
         
         for $prodFacRep in $docRoot//ProductionFacilityReport
           let $localId := $prodFacRep/InspireId/localId
@@ -4016,20 +4016,21 @@ declare function xmlconv:RunQAs(
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
             let $productionVolumeUnitsLookUpTable := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
             return
-            if( functx:is-value-in-sequence($prodVolUnits, $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' ) then 
+            if( functx:is-value-in-sequence(functx:substring-after-if-contains($prodVolUnits,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' ) then
               <tr>
-                  <td class='error' title="Details">{data("ProductionVolume Unicode does not match with EPRTRAnnexIMainActivity")}</td>
+                  <td class='error' title="Details">{data("The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity")}</td>
                   <td title="Inspire Id">{$namespace || "/" || $localId}</td>
                   <td title="productionVolumeUnits">{$prodVolUnits}</td>
+                  <td title="AnnexMainActivity">{$productionVolumeUnitsLookUpTable[1]}</td>
               </tr>
           
-    let $LCP_17_2 := xmlconv:RowBuilder("EPRTR-LCP 17.2", "ProductionVolume Unicode does not match with EPRTRAnnexIMainActivity ", $res)
+    let $LCP_17_2 := xmlconv:RowBuilder("EPRTR-LCP 17.2", "The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity", $res)
     
     
     (: C17.3 - ProductionVolume Unicode doesn’t match any other activity reported :)
     let $res :=
         let $errorType := 'error'
-        let $text := 'ProductionVolume Unicode does not match any other activity reported'
+        let $text := "The ProductionVolume UnitCode doesn't match any other activity reported"
     
         let $dataProductionVolumeUnitsXML := (
           for $pfr in $docRoot//ProductionFacilityReport
@@ -4068,23 +4069,37 @@ declare function xmlconv:RunQAs(
           let $localIdXML := tokenize($otherActivityXML, ', ')[1]
           let $namespaceXML := tokenize($otherActivityXML, ', ')[2]
           let $productionVolumeUnitsXML := tokenize($otherActivityXML, ', ')[3]
+          let $productionVolumeUnitsXMLaux := functx:substring-after-if-contains($productionVolumeUnitsXML, '_')
+          let $yearXML := tokenize($otherActivityXML, ', ')[4]
+          let $otherActivityXMLaux := $localIdXML || ", " || $namespaceXML || ", " || $productionVolumeUnitsXMLaux || ", " || $yearXML
+          
+          let $filteredDataOtherActivityLookUpTable := (
+            for $data in distinct-values($dataOtherActivityLookUpTable)  
+              let $localIdLookUp := tokenize($data, ', ')[1]
+              let $namespaceLookUp := tokenize($data, ', ')[2]
+              let $otherActivityLookUp := tokenize($data, ', ')[3]
+              let $yearLookUp := tokenize($data, ', ')[4]
+              where ($localIdXML = $localIdLookUp and $namespaceXML = $namespaceLookUp and string($reporting-year) = $yearLookUp )
+              return $otherActivityLookUp
+          ) 
        
         return
-        if( functx:is-value-in-sequence($otherActivityXML, $dataMainActivityLookUpTable) = false() and functx:is-value-in-sequence($otherActivityXML, $dataOtherActivityLookUpTable) = false()) then
+        if( functx:is-value-in-sequence($otherActivityXMLaux, $dataMainActivityLookUpTable) = false() and functx:is-value-in-sequence($otherActivityXMLaux, $dataOtherActivityLookUpTable) = false()) then 
         <tr>
-            <td class='error' title="Details">{data("Production volume Unicode does not match any other activity reported")}</td>
+            <td class='error' title="Details">{data("The ProductionVolume UnitCode doesn't match any other activity reported")}</td>
             <td title="Inspire Id">{$localIdXML || "/" || $namespaceXML}</td>
-            <td title="production volume units">{$productionVolumeUnitsXML}</td>
+            <td title="productionVolumeUnits">{$productionVolumeUnitsXML}</td>
             <td title="Activity from XML">{$otherActivityXML}</td>
+            <td title="OtherActivity">{$filteredDataOtherActivityLookUpTable[1]}</td>
         </tr>
          
-    let $LCP_17_3 := xmlconv:RowBuilder("EPRTR-LCP 17.3", "ProductionVolume Unicode does not match any other activity reported", $res)
+    let $LCP_17_3 := xmlconv:RowBuilder("EPRTR-LCP 17.3", "The ProductionVolume UnitCode doesn't match any other activity reported", $res)
     
     
     (: C17.4 - Number of ProductionVolume entries is higher than number of activities reported in EUReg = Blocker :)
     let $res :=
         let $errorType := 'error'
-        let $text := 'Number of ProductionVolume entries is higher than number of activities reported in EUReg'
+        let $text := "The number of Production Volume entries exceed the number of EPRTR Activity reported in EU Registry"
 
         (: Getting the productionVolume Total Quantity from the XML file :)
         for $prodFacRep in $docRoot//ProductionFacilityReport
@@ -4102,19 +4117,19 @@ declare function xmlconv:RunQAs(
           return
           if($countProductionVolumeElements > $MaxNumProdVol) then
             <tr>
-                <td class='error' title="Details">{data("Number of ProductionVolume entries is higher than number of activities reported in EURegt")}</td>
+                <td class='error' title="Details">{data("The number of Production Volume entries exceed the number of EPRTR Activity reported in EU Registry")}</td>
                 <td title="Inspire Id">{$namespace || "/" || $localId}</td>
                 <td title="Number of productionVolume elements">{$countProductionVolumeElements}</td>
                 <td title="MaxNumProdVol">{$MaxNumProdVol}</td>
             </tr>
           
-    let $LCP_17_4 := xmlconv:RowBuilder("EPRTR-LCP 17.4", "Number of ProductionVolume entries is higher than number of activities reported in EURegt", $res)
+    let $LCP_17_4 := xmlconv:RowBuilder("EPRTR-LCP 17.4", "The number of Production Volume entries exceed the number of EPRTR Activity reported in EU Registry", $res)
     
     
     (: C17.5 - If ProductionVolume Unicode should be unique at ProductionFacilityReport = Blocker :)
     let $res :=
         let $errorType := 'error'
-        let $text := 'ProductionVolume Unicode should be unique at ProductionFacilityReport'
+        let $text := "The ProductionVolume UnitCode should be unique at ProductionFacilityReport"
 
         for $prodFacRep in $docRoot//ProductionFacilityReport
           let $localId := $prodFacRep/InspireId/localId
@@ -4125,19 +4140,19 @@ declare function xmlconv:RunQAs(
             return
             if($countProductionVolumeUnits > 1) then
               <tr>
-                  <td class='error' title="Details">{data("ProductionVolume Unicode is duplicated")}</td>
+                  <td class='error' title="Details">{data("The ProductionVolume UnitCode should be unique at ProductionFacilityReport")}</td>
                   <td title="Inspire Id">{$namespace || "/" || $localId}</td>
                   <td title="productionVolumeUnits">{$prodVolUnits}</td>
                   <td title="count">{$countProductionVolumeUnits}</td>
               </tr>
           
-    let $LCP_17_5 := xmlconv:RowBuilder("EPRTR-LCP 17.5", "ProductionVolume Unicode should be unique at ProductionFacilityReport", $res)
+    let $LCP_17_5 := xmlconv:RowBuilder("EPRTR-LCP 17.5", "The ProductionVolume UnitCode should be unique at ProductionFacilityReport", $res)
     
     
     (: C17.6 - Provide list of ProductionVolume Unicode that might have been reported from otherActivity = Info :)
     let $res :=
         let $errorType := 'info'
-        let $text := 'List of ProductionVolume Unicode that might have been reported from otherActivity'
+        let $text := "ProductionVolume unit reported to an otherActivity connected to the ProductionFacility"
     
         let $dataOtherActivityXML := (
           for $pfr in $docRoot//ProductionFacilityReport
@@ -4145,7 +4160,7 @@ declare function xmlconv:RunQAs(
             let $localId := $pfr/InspireId/localId
             let $namespace := $pfr/InspireId/namespace
             for $pvu in $pfr/productionVolume//productionVolumeUnits
-              let $productionVolumeUnits := $pvu
+              let $productionVolumeUnits := functx:substring-after-if-contains($pvu, "_")
             return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
         )
         
@@ -4166,12 +4181,12 @@ declare function xmlconv:RunQAs(
         return 
         if( $otherActivityLookUp != "" and functx:is-value-in-sequence($otherActivityLookUpTable, $dataOtherActivityXML) = false() ) then
         <tr>
-            <td class='info' title="Details">{data("List of ProductionVolume Unicode that might have been reported from otherActivity")}</td>
+            <td class='info' title="Details">{data("ProductionVolume unit reported to an otherActivity connected to the ProductionFacility")}</td>
             <td title="Inspire Id">{$namespaceLookUp || "/" || $localIdLookUp}</td>
             <td title="otherActivity from LookUpTable">{$otherActivityLookUp}</td>
         </tr> 
                         
-    let $LCP_17_6 := xmlconv:RowBuilder("EPRTR-LCP 17.6", "List of ProductionVolume Unicode that might have been reported from otherActivity", $res)
+    let $LCP_17_6 := xmlconv:RowBuilder("EPRTR-LCP 17.6", "ProductionVolume unit reported to an otherActivity connected to the ProductionFacility", $res)
     
     
     (: C17 row :)
