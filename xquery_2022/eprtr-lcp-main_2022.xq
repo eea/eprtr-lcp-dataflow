@@ -4010,19 +4010,68 @@ declare function xmlconv:RunQAs(
         let $errorType := 'error'
         let $text := "The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity"
         
+        let $dataProductionVolumeUnitsXML := (
+          for $pfr in $docRoot//ProductionFacilityReport
+          return
+            if(fn:count($pfr/productionVolume//productionVolumeUnits) > 1)
+            then
+            let $year := $pfr/../reportingYear
+            let $localId := $pfr/InspireId/localId
+            let $namespace := $pfr/InspireId/namespace
+            for $pvu in $pfr/productionVolume//productionVolumeUnits
+              let $productionVolumeUnits := functx:substring-after-if-contains($pvu,'_')
+            return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
+        )
+       
+        let $dataAnnexMainActivityLookUpTable := (
+          for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
+            let $yearLookUp := $pf/year
+            let $localIdLookUp := $pf/InspireId/localId
+            let $namespaceLookUp := $pf/InspireId/namespace
+            let $mainActivityLookUp := $pf/EPRTRAnnexIMainActivity
+            return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
+        )
+        
+        let $elementsFromXMLFound := (
+          for $pfr in $docRoot//ProductionFacilityReport
+            let $year := $pfr/../reportingYear
+            let $localId := $pfr/InspireId/localId
+            let $namespace := $pfr/InspireId/namespace
+            for $pvu in $pfr/productionVolume//productionVolumeUnits
+              let $productionVolumeUnits := functx:substring-after-if-contains($pvu,'_')
+              let $dataFromXML := $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
+            return if(functx:is-value-in-sequence($dataFromXML, $dataAnnexMainActivityLookUpTable) = true()) then $dataFromXML
+        )
+        
+        let $elementsMissing := functx:value-except($dataProductionVolumeUnitsXML, $elementsFromXMLFound)
+        let $elementsMissingIdNamespaceYear := (
+          for $element in $elementsMissing
+            let $elemId := tokenize($element, ", ")[1]
+            let $elemNamespace := tokenize($element, ", ")[2]
+            let $elemYear := tokenize($element, ", ")[4]
+            return $elemId || ", " || $elemNamespace || ", " || $elemYear
+        )
+        
         for $prodFacRep in $docRoot//ProductionFacilityReport
           let $localId := $prodFacRep/InspireId/localId
           let $namespace := $prodFacRep/InspireId/namespace
+          let $value := $localId || ", " || $namespace || ", " || $reporting-year
+          let $countingValue := count(index-of($elementsMissingIdNamespaceYear, $value))
+          let $numOfProductionVolumeChilds := count($prodFacRep/productionVolume) (: counting the number of productionVolume elements inside each $prodFacRep:)
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
             let $productionVolumeUnitsLookUpTable := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
+            
             return
-            if( functx:is-value-in-sequence(functx:substring-after-if-contains($prodVolUnits,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' ) then
+            if( 
+                (functx:is-value-in-sequence(functx:substring-after-if-contains($prodVolUnits,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = false()) or 
+                (functx:is-value-in-sequence(functx:substring-after-if-contains($prodVolUnits,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = true() and $numOfProductionVolumeChilds = $countingValue)
+            ) then
               <tr>
                   <td class='error' title="Details">{data("The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity")}</td>
                   <td title="Inspire Id">{$namespace || "/" || $localId}</td>
                   <td title="productionVolumeUnits">{$prodVolUnits}</td>
                   <td title="AnnexMainActivity">{$productionVolumeUnitsLookUpTable[1]}</td>
-              </tr>
+              </tr>      
           
     let $LCP_17_2 := xmlconv:RowBuilder("EPRTR-LCP 17.2", "The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity", $res)
     
