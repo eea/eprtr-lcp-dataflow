@@ -4052,7 +4052,7 @@ declare function xmlconv:RunQAs(
             return if(functx:is-value-in-sequence($dataFromXML, $dataAnnexMainActivityLookUpTable) = true()) then $dataFromXML
         )
         
-        let $elementsMissing := functx:value-except($dataProductionVolumeUnitsXML, $elementsFromXMLFound)
+        let $elementsMissing := $dataProductionVolumeUnitsXML[not(.=$elementsFromXMLFound)]
         let $elementsMissingIdNamespaceYear := (
           for $element in $elementsMissing
             let $elemId := tokenize($element, ", ")[1]
