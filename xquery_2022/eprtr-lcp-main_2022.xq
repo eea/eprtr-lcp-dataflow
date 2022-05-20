@@ -4023,7 +4023,7 @@ declare function xmlconv:RunQAs(
             return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
         )
        
-        let $dataAnnexMainActivityLookUpTable := (
+        let $dataAnnexMainActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/InspireId/localId
@@ -4031,6 +4031,15 @@ declare function xmlconv:RunQAs(
             let $mainActivityLookUp := $pf/EPRTRAnnexIMainActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
         )
+        let $dataAnnexMainActivityLookUpTable2 := (
+          for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
+            let $yearLookUp := $pf/year
+            let $localIdLookUp := $pf/InspireId/localId
+            let $namespaceLookUp := $pf/InspireId/namespace
+            let $mainActivityLookUp := functx:substring-before-if-contains($pf/EPRTRAnnexIMainActivity, '(i')
+            return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
+        )
+        let $dataAnnexMainActivityLookUpTable := distinct-values(($dataAnnexMainActivityLookUpTable1, $dataAnnexMainActivityLookUpTable2))
         
         let $elementsFromXMLFound := (
           for $pfr in $docRoot//ProductionFacilityReport
@@ -4059,7 +4068,9 @@ declare function xmlconv:RunQAs(
           let $countingValue := count(index-of($elementsMissingIdNamespaceYear, $value))
           let $numOfProductionVolumeChilds := count($prodFacRep/productionVolume) (: counting the number of productionVolume elements inside each $prodFacRep:)
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
-            let $productionVolumeUnitsLookUpTable := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
+            let $productionVolumeUnitsLookUpTable1 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
+            let $productionVolumeUnitsLookUpTable2 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/functx:substring-before-if-contains(EPRTRAnnexIMainActivity, '(i'))
+            let $productionVolumeUnitsLookUpTable := distinct-values(($productionVolumeUnitsLookUpTable1, $productionVolumeUnitsLookUpTable2))
             
             return
             if( 
@@ -4094,25 +4105,41 @@ declare function xmlconv:RunQAs(
             return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
         )
        
-        let $dataMainActivityLookUpTable := (
+        let $dataMainActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/InspireId/localId
             let $namespaceLookUp := $pf/InspireId/namespace
-            let $otherActivityLookUp := $pf/OtherActivity
             let $mainActivityLookUp := $pf/EPRTRAnnexIMainActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
         )
+        let $dataMainActivityLookUpTable2 := (
+          for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
+            let $yearLookUp := $pf/year
+            let $localIdLookUp := $pf/InspireId/localId
+            let $namespaceLookUp := $pf/InspireId/namespace
+            let $mainActivityLookUpFormatted := functx:substring-before-if-contains($pf/EPRTRAnnexIMainActivity, '(i')
+            return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUpFormatted || ", " || $yearLookUp
+        )
+        let $dataMainActivityLookUpTable := distinct-values(($dataMainActivityLookUpTable1, $dataMainActivityLookUpTable2))
        
-        let $dataOtherActivityLookUpTable := (
+        let $dataOtherActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/InspireId/localId
             let $namespaceLookUp := $pf/InspireId/namespace
             let $otherActivityLookUp := $pf/OtherActivity
-            let $mainActivityLookUp := $pf/EPRTRAnnexIMainActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
+        let $dataOtherActivityLookUpTable2 := (
+          for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
+            let $yearLookUp := $pf/year
+            let $localIdLookUp := $pf/InspireId/localId
+            let $namespaceLookUp := $pf/InspireId/namespace
+            let $otherActivityLookUpFormatted := functx:substring-before-if-contains($pf/OtherActivity, '(i')
+            return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUpFormatted || ", " || $yearLookUp
+        )
+        let $dataOtherActivityLookUpTable := distinct-values(($dataOtherActivityLookUpTable1, $dataOtherActivityLookUpTable2))
        
         for $otherActivityXML in distinct-values($dataProductionVolumeUnitsXML)
           let $localIdXML := tokenize($otherActivityXML, ', ')[1]
@@ -4133,10 +4160,10 @@ declare function xmlconv:RunQAs(
           ) 
        
         return
-        if( functx:is-value-in-sequence($otherActivityXMLaux, $dataMainActivityLookUpTable) = false() and functx:is-value-in-sequence($otherActivityXMLaux, $dataOtherActivityLookUpTable) = false()) then 
+        if( (functx:is-value-in-sequence($otherActivityXMLaux, $dataMainActivityLookUpTable) = false() and functx:is-value-in-sequence($otherActivityXMLaux, $dataOtherActivityLookUpTable) = false()) ) then
         <tr>
             <td class='error' title="Details">{data("The ProductionVolume UnitCode doesn't match any other activity reported")}</td>
-            <td title="Inspire Id">{$localIdXML || "/" || $namespaceXML}</td>
+            <td title="Inspire Id">{$namespaceXML || "/" || $localIdXML}</td>
             <td title="productionVolumeUnits">{$productionVolumeUnitsXML}</td>
             <td title="Activity from XML">{$otherActivityXML}</td>
             <td title="OtherActivity">{$filteredDataOtherActivityLookUpTable[1]}</td>
@@ -4213,7 +4240,7 @@ declare function xmlconv:RunQAs(
             return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
         )
         
-        let $dataOtherActivityLookUpTable := (
+        let $dataOtherActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/InspireId/localId
@@ -4221,6 +4248,15 @@ declare function xmlconv:RunQAs(
             let $otherActivityLookUp := $pf/OtherActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
+        let $dataOtherActivityLookUpTable2 := (
+          for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
+            let $yearLookUp := $pf/year
+            let $localIdLookUp := $pf/InspireId/localId
+            let $namespaceLookUp := $pf/InspireId/namespace
+            let $otherActivityLookUp :=functx:substring-before-if-contains($pf/OtherActivity, '(i')
+            return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
+        )
+        let $dataOtherActivityLookUpTable := distinct-values(($dataOtherActivityLookUpTable1, $dataOtherActivityLookUpTable2))
         
         for $otherActivityLookUpTable in distinct-values($dataOtherActivityLookUpTable)
           let $localIdLookUp := tokenize($otherActivityLookUpTable, ', ')[1]
