@@ -4210,16 +4210,23 @@ declare function xmlconv:RunQAs(
         for $prodFacRep in $docRoot//ProductionFacilityReport
           let $localId := $prodFacRep/InspireId/localId
           let $namespace := $prodFacRep/InspireId/namespace
-          let $globalProductionVolumeUnits := $prodFacRep//productionVolume/productionVolumeUnits
+          let $globalProductionVolumeUnits := $prodFacRep//productionVolume/functx:substring-after-if-contains(productionVolumeUnits, '_')
+          let $globalProductionVolumeUnitsParents := $prodFacRep//productionVolume[contains(productionVolumeUnits, '(i') = false()]/functx:substring-after-if-contains(productionVolumeUnits, '_')
+          let $globalProductionVolumeUnitsChildren := $prodFacRep//productionVolume[contains(productionVolumeUnits, '(i') = true()]/functx:substring-after-if-contains(productionVolumeUnits, '_')
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
-            let $countProductionVolumeUnits := count(index-of($globalProductionVolumeUnits, $prodVolUnits))
+            let $prodVolUnitsCode := functx:substring-after-if-contains($prodVolUnits, '_')
+            let $countProductionVolumeUnits := count(index-of($globalProductionVolumeUnits, $prodVolUnitsCode))
+            let $countProductionVolumeUnitsParentsChildren := (
+              if( functx:is-value-in-sequence($prodVolUnitsCode, $globalProductionVolumeUnitsChildren) = true() and count(index-of($globalProductionVolumeUnitsParents, functx:substring-before-if-contains($prodVolUnitsCode, '(i'))) >= 1 ) then 
+                count(index-of($globalProductionVolumeUnitsParents, functx:substring-before-if-contains($prodVolUnitsCode, '(i')))
+              else 0          
+            )
             return
-            if($countProductionVolumeUnits > 1) then
+            if($countProductionVolumeUnits > 1 or $countProductionVolumeUnitsParentsChildren > 0) then
               <tr>
                   <td class='error' title="Details">{data("The ProductionVolume UnitCode should be unique at ProductionFacilityReport")}</td>
                   <td title="Inspire Id">{$namespace || "/" || $localId}</td>
                   <td title="productionVolumeUnits">{$prodVolUnits}</td>
-                  <td title="count">{$countProductionVolumeUnits}</td>
               </tr>
           
     let $LCP_17_5 := xmlconv:RowBuilder("EPRTR-LCP 17.5", "The ProductionVolume UnitCode should be unique at ProductionFacilityReport", $res)
