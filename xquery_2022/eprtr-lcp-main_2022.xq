@@ -4247,7 +4247,12 @@ declare function xmlconv:RunQAs(
             return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
         )
         
-        let $dataOtherActivityLookUpTable1 := (
+        let $localIdsXML := (
+          for $pfr in $docRoot//ProductionFacilityReport
+            return $pfr/InspireId/localId || ", " || $pfr/InspireId/namespace || ", " || $reporting-year
+        )
+        
+        let $dataOtherActivityLookUpTable := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/InspireId/localId
@@ -4255,23 +4260,15 @@ declare function xmlconv:RunQAs(
             let $otherActivityLookUp := $pf/OtherActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
-        let $dataOtherActivityLookUpTable2 := (
-          for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
-            let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
-            let $otherActivityLookUp :=functx:substring-before-if-contains($pf/OtherActivity, '(i')
-            return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
-        )
-        let $dataOtherActivityLookUpTable := distinct-values(($dataOtherActivityLookUpTable1, $dataOtherActivityLookUpTable2))
         
         for $otherActivityLookUpTable in distinct-values($dataOtherActivityLookUpTable)
           let $localIdLookUp := tokenize($otherActivityLookUpTable, ', ')[1]
           let $namespaceLookUp := tokenize($otherActivityLookUpTable, ', ')[2]
           let $otherActivityLookUp := tokenize($otherActivityLookUpTable, ', ')[3]
           let $yearLookUp := tokenize($otherActivityLookUpTable, ', ')[4]
+          let $idNamespaceYearLookUp := $localIdLookUp || ", " || $namespaceLookUp || ", " || $yearLookUp
         return 
-        if( $otherActivityLookUp != "" and functx:is-value-in-sequence($otherActivityLookUpTable, $dataOtherActivityXML) = false() ) then
+        if( functx:is-value-in-sequence($idNamespaceYearLookUp, $localIdsXML) = true() and $otherActivityLookUp != "" and functx:is-value-in-sequence($otherActivityLookUpTable, $dataOtherActivityXML) = false() ) then
         <tr>
             <td class='info' title="Details">{data("ProductionVolume unit reported to an otherActivity connected to the ProductionFacility")}</td>
             <td title="Inspire Id">{$namespaceLookUp || "/" || $localIdLookUp}</td>
