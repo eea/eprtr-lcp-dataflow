@@ -62,11 +62,11 @@ declare function scripts:getEPRTRAnnexIActivity (
 };
 
 declare function scripts:getValidConcepts($value as xs:string) as xs:string* {
-    let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
+    let $valid := "valid"
     let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
     let $url := $vocabulary || $value || "/rdf"
     return
-        fn:data(fn:doc($url)//skos:Concept[adms:status/@rdf:resource = $valid]/@rdf:about)
+        fn:data(fn:doc($url)//skos:Concept[adms:status = $valid]/@rdf:about)
 };
 
 declare function scripts:checkOtherFuelDuplicates(
@@ -183,13 +183,13 @@ declare function scripts:getCodeNotation (
     $codeUri as xs:string,
     $value as xs:string
 ) as xs:string {
-    let $valid := "http://dd.eionet.europa.eu/vocabulary/datadictionary/status/valid"
+    let $valid := "valid"
     let $vocabulary := "https://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/"
     let $url := $vocabulary || $value || "/rdf"
     (:let $asd := trace($value, 'value: '):)
     (:let $asd := trace($codeUri, 'codeUri: '):)
     let $notation :=
-        fn:doc($url)//skos:Concept[@rdf:about = $codeUri and adms:status/@rdf:resource = $valid]/skos:notation/text()
+        fn:doc($url)//skos:Concept[@rdf:about = $codeUri and adms:status = $valid]/skos:notation/text()
     (:let $asd := trace($notation, 'notation: '):)
     return
         if($notation=>fn:empty())
