@@ -7,6 +7,8 @@ xquery version "3.1" encoding "UTF-8";
 import module namespace functx = "http://www.functx.com" at "eprtr-lcp-functx_2022.xq";
 import module namespace eworx = "http://www.eworx.gr" at "eprtr-lcp-eworx_2022.xq";
 import module namespace scripts = "eprtr-lcp-scripts" at "eprtr-lcp-scripts_2022.xq";
+import module namespace sparqlx = "eprtr-lcp-sparql_2022" at "eprtr-lcp-sparql_2022.xq";
+import module namespace query = "eprtr-lcp-query_2022" at "eprtr-lcp-query_2022.xq";
 
 declare namespace xmlconv = "http://converters.eionet.europa.eu";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
@@ -15,6 +17,7 @@ declare namespace gml = "http://www.opengis.net/gml/3.2";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace array = "http://www.w3.org/2005/xpath-functions/array";
+declare namespace sparql = "http://www.w3.org/2005/sparql-results#";
 
 declare variable $source_url as xs:string external;
 (: xml files paths:)
@@ -488,6 +491,82 @@ declare function xmlconv:RunQAs(
                 and $node/wasteTreatment = $validWasteTreatments
             )
     }
+    
+    
+    (: C0 :)
+    
+    (: C0.1 - Prevent re-submission of certain reporting year.
+            From 2023 it will be possible to re-submit old data having reporting year = (current reporting year) minus 2. 
+            This means that in 2023 countries have to report data having reporting year = 2022 and they can re-submit data for 2021 and 2020 only.
+    :)    
+    let $res :=
+      let $url := scripts:getCleanUrl($source_url)
+      let $xmlName := tokenize($url , "/")[last()]
+      let $currentEnvelope := substring-before($url, $xmlName)
+      
+      let $envelopexml := substring-before($url, $xmlName) || "xml"
+      let $envelopeUrlHttps := replace($url, 'http://', 'https://')
+      let $envelopexmlHttps := substring-before($envelopeUrlHttps, $xmlName) || "xml"
+      let $docEnvelopexml := (
+        if(fn:doc-available($envelopexml)) then
+          doc($envelopexml)
+        else
+          doc($envelopexmlHttps)
+      )
+      
+      let $envelopeCountry := $docEnvelopexml//countrycode
+      let $envelopeYear := $docEnvelopexml//year
+      let $envelopeLink := $docEnvelopexml//link
+      
+      let $xmlYear := $docRoot//reportingYear
+      let $xmlCountryCode := functx:substring-after-last(data($docRoot//countryId/@xlink:href), '/')
+      
+      let $status := (
+        if($xmlYear = $envelopeYear) then 'Equal'
+        else 'Not equal'
+      )
+      
+      let $cdrUrlPath := functx:substring-before-last-match($envelopeLink, '/')
+      let $cdrUrl := replace($cdrUrlPath, 'cdrtest.', 'cdr.')
+      let $previousEnvelope := query:getLatestEnvelopePerYearOrFilenotfound($cdrUrl, $xmlYear)
+      let $countEnvelopesFound := if( $previousEnvelope = "FILENOTFOUND" ) then 0 else count($previousEnvelope)
+      
+      let $currentDate := current-date()
+      let $currentYear := year-from-date($currentDate)
+      
+      let $ok := (
+        if($countEnvelopesFound = 0 and xs:integer($xmlYear) <= ($currentYear - 1)) then true() (: First submission :)
+        else if( $countEnvelopesFound > 0 and ( xs:integer($xmlYear) = ($currentYear - 2) or xs:integer($xmlYear) = ($currentYear - 3) ) ) then true() (: Allowed re-submission :)
+        else false()
+      )
+              
+      let $submissionType := (if($countEnvelopesFound > 0) then "Re-submission" else "First submission")
+      
+      return
+        if(fn:not($ok) or xs:integer($xmlYear) < 2018) (:reporting of E-PRTR/LCP started with Reporting Year = 2018:)
+        then
+          <tr>
+              <td class='error' title='Details'>Submission / Re-submission not allowed</td>
+              <td title='XML year'>{$xmlYear}</td>
+              <td title='Envelope year'>{$envelopeYear}</td>
+              <td title='Status (XML year = Envelope year)'>{$status}</td>
+              <td title='Submission type'>{$submissionType}</td>
+              <td title='Previous envelope'>{$previousEnvelope}</td>
+          </tr>
+         else
+          ()
+         
+    let $LCP_0_1 := xmlconv:RowBuilder("EPRTR-LCP 0.1", "From 2023 it will be possible to re-submit old data having reporting year = (current reporting year) minus 2. This means that in 2023 countries have to report data having reporting year = 2022 and they can re-submit data for 2021 and 2020 only.", $res)
+    
+    (: C0 row :)
+    let $LCP_0 := xmlconv:RowAggregator(
+            "EPRTR-LCP 0",
+            "Prevent re-submission of certain reporting year",
+            (
+                $LCP_0_1
+            )
+    )
+    
 
     (:  C1.1 – combustionPlantCategory consistency  :)
     let $res :=
@@ -4296,6 +4375,7 @@ declare function xmlconv:RunQAs(
     (: RETURN ALL ROWS IN A TABLE :)
     return
         (
+            $LCP_0,
             $LCP_1,
             $LCP_2,
             $LCP_3,

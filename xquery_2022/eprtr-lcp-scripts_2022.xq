@@ -28,6 +28,21 @@ declare namespace map = "http://www.w3.org/2005/xpath-functions/map";
 declare namespace strings = "http://basex.org/modules/strings";
 
 
+declare variable $scripts:SOURCE_URL_PARAM := "source_url=";
+
+
+(:~
+ : Get the cleaned URL without authorisation info
+ : @param $url URL of the source XML file
+ : @return String
+ :)
+declare function scripts:getCleanUrl($url) as xs:string {
+    if (contains($url, $scripts:SOURCE_URL_PARAM)) then
+        fn:substring-after($url, $scripts:SOURCE_URL_PARAM)
+    else
+        $url
+};
+
 declare function scripts:prettyFormatInspireId(
     $inspireId as element()?
 ) as xs:string {
@@ -459,7 +474,7 @@ declare function scripts:compareNumberOfPollutants(
                             then '50%' else '25%'
                         }
                         </td>
-                        <td title="Polutant">
+                        <td title="Pollutant">
                             {$pollutant} {if($code1 = '') then '' else ' - '||$code1}
                             {if($code2 = '') then '' else ' / '|| $code2}
                         </td>
