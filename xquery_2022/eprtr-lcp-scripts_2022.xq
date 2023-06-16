@@ -524,13 +524,13 @@ declare function scripts:getEuropeanTotals(
     $pollutant as xs:string
 ) as xs:double {
     if($pollutant = 'pollutantRelease')
-    then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1 and fn:upper-case(ReleaseMediumName) = $code2]
+    then $map1?doc//row[functx:if-empty(Year, 0) = $look-up-year and PollutantCode = $code1 and fn:upper-case(ReleaseMediumName) = $code2]
         /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'offsitePollutantTransfer')
-    then $map1?doc//row[Year = $look-up-year and PollutantCode = $code1]
+    then $map1?doc//row[functx:if-empty(Year, 0) = $look-up-year and PollutantCode = $code1]
         /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'offsiteWasteTransfer')
-    then $map1?doc//row[Year = $look-up-year and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
+    then $map1?doc//row[functx:if-empty(Year, 0) = $look-up-year and WasteTypeCode = $code1 and WasteTreatmentCode = $code2]
         /*[fn:local-name() = $map1?countNodeName] => functx:if-empty(0) => fn:number()
     else -1
 };
