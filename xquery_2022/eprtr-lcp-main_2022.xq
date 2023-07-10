@@ -4098,7 +4098,8 @@ declare function xmlconv:RunQAs(
             let $localId := $pfr/InspireId/localId
             let $namespace := $pfr/InspireId/namespace
             for $pvu in $pfr/productionVolume//productionVolumeUnits
-              let $productionVolumeUnits := functx:substring-after-if-contains($pvu,'_')
+              let $unitCode := tokenize($pvu, '/')[last()]
+              let $productionVolumeUnits := functx:substring-after-if-contains($unitCode,'_')
             return $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
         )
        
@@ -4126,7 +4127,8 @@ declare function xmlconv:RunQAs(
             let $localId := $pfr/InspireId/localId
             let $namespace := $pfr/InspireId/namespace
             for $pvu in $pfr/productionVolume//productionVolumeUnits
-              let $productionVolumeUnits := functx:substring-after-if-contains($pvu,'_')
+              let $unitCode := tokenize($pvu, '/')[last()]
+              let $productionVolumeUnits := functx:substring-after-if-contains($unitCode,'_')
               let $dataFromXML := $localId || ", " || $namespace || ", " || $productionVolumeUnits || ", " || $year
             return if(functx:is-value-in-sequence($dataFromXML, $dataAnnexMainActivityLookUpTable) = true()) then $dataFromXML
         )
@@ -4145,16 +4147,17 @@ declare function xmlconv:RunQAs(
           let $namespace := $prodFacRep/InspireId/namespace
           let $value := $localId || ", " || $namespace || ", " || $reporting-year
           let $countingValue := count(index-of($elementsMissingIdNamespaceYear, $value))
-          let $numOfProductionVolumeChilds := count($prodFacRep/productionVolume) (: counting the number of productionVolume elements inside each $prodFacRep:)
+          let $numOfProductionVolumeChildren := count($prodFacRep/productionVolume) (: counting the number of productionVolume elements inside each $prodFacRep:)
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
+            let $unitCode := tokenize($prodVolUnits, '/')[last()]
             let $productionVolumeUnitsLookUpTable1 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
             let $productionVolumeUnitsLookUpTable2 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/functx:substring-before-if-contains(EPRTRAnnexIMainActivity, '(i'))
             let $productionVolumeUnitsLookUpTable := distinct-values(($productionVolumeUnitsLookUpTable1, $productionVolumeUnitsLookUpTable2))
             
             return
             if( 
-                (functx:is-value-in-sequence(functx:substring-after-if-contains($prodVolUnits,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = false()) or 
-                (functx:is-value-in-sequence(functx:substring-after-if-contains($prodVolUnits,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = true() and $numOfProductionVolumeChilds = $countingValue)
+                (functx:is-value-in-sequence(functx:substring-after-if-contains($unitCode,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = false()) or 
+                (functx:is-value-in-sequence(functx:substring-after-if-contains($unitCode,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = true() and $numOfProductionVolumeChildren = $countingValue)
             ) then
               <tr>
                   <td class='error' title="Details">{data("The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity")}</td>
