@@ -4106,16 +4106,16 @@ declare function xmlconv:RunQAs(
         let $dataAnnexMainActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $mainActivityLookUp := $pf/EPRTRAnnexIMainActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
         )
         let $dataAnnexMainActivityLookUpTable2 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $mainActivityLookUp := functx:substring-before-if-contains($pf/EPRTRAnnexIMainActivity, '(i')
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
         )
@@ -4150,8 +4150,8 @@ declare function xmlconv:RunQAs(
           let $numOfProductionVolumeChildren := count($prodFacRep/productionVolume) (: counting the number of productionVolume elements inside each $prodFacRep:)
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
             let $unitCode := tokenize($prodVolUnits, '/')[last()]
-            let $productionVolumeUnitsLookUpTable1 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
-            let $productionVolumeUnitsLookUpTable2 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[InspireId/localId = $localId and InspireId/namespace = $namespace and year = $reporting-year]/functx:substring-before-if-contains(EPRTRAnnexIMainActivity, '(i'))
+            let $productionVolumeUnitsLookUpTable1 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[localId = $localId and namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
+            let $productionVolumeUnitsLookUpTable2 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[localId = $localId and namespace = $namespace and year = $reporting-year]/functx:substring-before-if-contains(EPRTRAnnexIMainActivity, '(i'))
             let $productionVolumeUnitsLookUpTable := distinct-values(($productionVolumeUnitsLookUpTable1, $productionVolumeUnitsLookUpTable2))
             
             return
@@ -4190,16 +4190,16 @@ declare function xmlconv:RunQAs(
         let $dataMainActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $mainActivityLookUp := $pf/EPRTRAnnexIMainActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
         )
         let $dataMainActivityLookUpTable2 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $mainActivityLookUpFormatted := functx:substring-before-if-contains($pf/EPRTRAnnexIMainActivity, '(i')
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUpFormatted || ", " || $yearLookUp
         )
@@ -4208,16 +4208,16 @@ declare function xmlconv:RunQAs(
         let $dataOtherActivityLookUpTable1 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $otherActivityLookUp := $pf/OtherActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
         let $dataOtherActivityLookUpTable2 := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $otherActivityLookUpFormatted := functx:substring-before-if-contains($pf/OtherActivity, '(i')
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUpFormatted || ", " || $yearLookUp
         )
@@ -4267,8 +4267,8 @@ declare function xmlconv:RunQAs(
           
           (: Looking for MaxNumProdVol in the LookUpTable :)
           let $MaxNumProdVol := (
-            if( $docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and InspireId/localId = $localId and InspireId/namespace = $namespace]/MaxNumProdVol != '' ) then 
-              distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and InspireId/localId = $localId and InspireId/namespace = $namespace]/MaxNumProdVol)
+            if( $docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and localId = $localId and namespace = $namespace]/MaxNumProdVol != '' ) then 
+              distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and localId = $localId and namespace = $namespace]/MaxNumProdVol)
             else 1
           )
             
@@ -4337,8 +4337,8 @@ declare function xmlconv:RunQAs(
         let $dataOtherActivityLookUpTable := (
           for $pf in $docProductionVolumeUnitsLookup//ProductionFacility
             let $yearLookUp := $pf/year
-            let $localIdLookUp := $pf/InspireId/localId
-            let $namespaceLookUp := $pf/InspireId/namespace
+            let $localIdLookUp := $pf/localId
+            let $namespaceLookUp := $pf/namespace
             let $otherActivityLookUp := $pf/OtherActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
