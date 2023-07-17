@@ -4116,7 +4116,10 @@ declare function xmlconv:RunQAs(
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/localId
             let $namespaceLookUp := $pf/namespace
-            let $mainActivityLookUp := functx:substring-before-if-contains($pf/EPRTRAnnexIMainActivity, '(i')
+            let $mainActivityLookUp := (
+              if(contains($pf/EPRTRAnnexIMainActivity, ')(')) then fn:substring-before($pf/EPRTRAnnexIMainActivity, ')(') || ')'
+              else $pf/EPRTRAnnexIMainActivity
+            )
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUp || ", " || $yearLookUp
         )
         let $dataAnnexMainActivityLookUpTable := distinct-values(($dataAnnexMainActivityLookUpTable1, $dataAnnexMainActivityLookUpTable2))
@@ -4151,7 +4154,12 @@ declare function xmlconv:RunQAs(
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
             let $unitCode := tokenize($prodVolUnits, '/')[last()]
             let $productionVolumeUnitsLookUpTable1 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[localId = $localId and namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
-            let $productionVolumeUnitsLookUpTable2 := distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[localId = $localId and namespace = $namespace and year = $reporting-year]/functx:substring-before-if-contains(EPRTRAnnexIMainActivity, '(i'))
+            let $productionVolumeUnitsLookUpTable2 := (
+              for $mainActivity in distinct-values($docProductionVolumeUnitsLookup//ProductionFacility[localId = $localId and namespace = $namespace and year = $reporting-year]/EPRTRAnnexIMainActivity)
+                return 
+                if(contains($mainActivity, ')(')) then fn:substring-before($mainActivity, ')(') || ')'
+                else $mainActivity
+            )
             let $productionVolumeUnitsLookUpTable := distinct-values(($productionVolumeUnitsLookUpTable1, $productionVolumeUnitsLookUpTable2))
             
             return
@@ -4200,7 +4208,10 @@ declare function xmlconv:RunQAs(
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/localId
             let $namespaceLookUp := $pf/namespace
-            let $mainActivityLookUpFormatted := functx:substring-before-if-contains($pf/EPRTRAnnexIMainActivity, '(i')
+            let $mainActivityLookUpFormatted := (
+              if(contains($pf/EPRTRAnnexIMainActivity, ')(')) then fn:substring-before($pf/EPRTRAnnexIMainActivity, ')(') || ')'
+              else $pf/EPRTRAnnexIMainActivity
+            )
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $mainActivityLookUpFormatted || ", " || $yearLookUp
         )
         let $dataMainActivityLookUpTable := distinct-values(($dataMainActivityLookUpTable1, $dataMainActivityLookUpTable2))
@@ -4218,7 +4229,10 @@ declare function xmlconv:RunQAs(
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/localId
             let $namespaceLookUp := $pf/namespace
-            let $otherActivityLookUpFormatted := functx:substring-before-if-contains($pf/OtherActivity, '(i')
+            let $otherActivityLookUpFormatted := (
+              if(contains($pf/OtherActivity, ')(')) then fn:substring-before($pf/OtherActivity, ')(') || ')'
+              else $pf/OtherActivity
+            )
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUpFormatted || ", " || $yearLookUp
         )
         let $dataOtherActivityLookUpTable := distinct-values(($dataOtherActivityLookUpTable1, $dataOtherActivityLookUpTable2))
@@ -4293,14 +4307,18 @@ declare function xmlconv:RunQAs(
           let $localId := $prodFacRep/InspireId/localId
           let $namespace := $prodFacRep/InspireId/namespace
           let $globalProductionVolumeUnits := $prodFacRep//productionVolume/functx:substring-after-if-contains(productionVolumeUnits, '_')
-          let $globalProductionVolumeUnitsParents := $prodFacRep//productionVolume[contains(productionVolumeUnits, '(i') = false()]/functx:substring-after-if-contains(productionVolumeUnits, '_')
-          let $globalProductionVolumeUnitsChildren := $prodFacRep//productionVolume[contains(productionVolumeUnits, '(i') = true()]/functx:substring-after-if-contains(productionVolumeUnits, '_')
+          let $globalProductionVolumeUnitsParents := $prodFacRep//productionVolume[contains(productionVolumeUnits, ')(') = false()]/functx:substring-after-if-contains(productionVolumeUnits, '_')
+          let $globalProductionVolumeUnitsChildren := $prodFacRep//productionVolume[contains(productionVolumeUnits, ')(') = true()]/functx:substring-after-if-contains(productionVolumeUnits, '_')
           for $prodVolUnits in distinct-values($prodFacRep/productionVolume/productionVolumeUnits)
             let $prodVolUnitsCode := functx:substring-after-if-contains($prodVolUnits, '_')
+            let $prodVolUnitsCodeToCompare := (
+              if(contains($prodVolUnitsCode, ')(')) then fn:substring-before($prodVolUnitsCode, ')(') || ')'
+              else $prodVolUnitsCode
+            )
             let $countProductionVolumeUnits := count(index-of($globalProductionVolumeUnits, $prodVolUnitsCode))
             let $countProductionVolumeUnitsParentsChildren := (
-              if( functx:is-value-in-sequence($prodVolUnitsCode, $globalProductionVolumeUnitsChildren) = true() and count(index-of($globalProductionVolumeUnitsParents, functx:substring-before-if-contains($prodVolUnitsCode, '(i'))) >= 1 ) then 
-                count(index-of($globalProductionVolumeUnitsParents, functx:substring-before-if-contains($prodVolUnitsCode, '(i')))
+              if( functx:is-value-in-sequence($prodVolUnitsCode, $globalProductionVolumeUnitsChildren) = true() and count(index-of($globalProductionVolumeUnitsParents, $prodVolUnitsCodeToCompare )) >= 1 ) then 
+                count(index-of($globalProductionVolumeUnitsParents, $prodVolUnitsCodeToCompare ))
               else 0          
             )
             return
