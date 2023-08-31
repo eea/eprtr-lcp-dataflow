@@ -3312,10 +3312,10 @@ declare function xmlconv:RunQAs(
     (: C13.4 - Quantity of releases and transfers consistency :)
     let $res :=
         let $pollutantReleaseCodesLastYear :=
-            $docQUANTITY_OF_PollutantRelease//row[CountryCode = $country_code and Year = $look-up-year]
+            $docQUANTITY_OF_PollutantRelease//row[CountryCode = $country_code and Year = $previous-year]
                     /PollutantCode
         let $pollutantTransferCodesLastYear :=
-            $docQUANTITY_OF_PollutantTransfer//row[CountryCode = $country_code and Year = $look-up-year]
+            $docQUANTITY_OF_PollutantTransfer//row[CountryCode = $country_code and Year = $previous-year]
                     /PollutantCode
         let $errorText := 'Quantity of releases and transfers changes by more than'
         let $map1 := map {

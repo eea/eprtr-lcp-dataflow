@@ -559,19 +559,19 @@ declare function scripts:getTotalsOfPollutant(
     $map as map(*),
     $country_code as xs:string,
     $pollutant as xs:string,
-    $look-up-year as xs:double
+    $previous-year as xs:double
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
-    then $map?doc//row[CountryCode = $country_code and Year = $look-up-year
+    then $map?doc//row[CountryCode = $country_code and Year = $previous-year
             and PollutantCode = $code1]/*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'pollutantRelease')
-        then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and fn:upper-case(ReleaseMediumName) = $code1
+        then $map?doc//row[CountryCode = $country_code and Year = $previous-year and fn:upper-case(ReleaseMediumCode) = $code1
             and PollutantCode = $code2]/*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else if($pollutant = 'offsiteWasteTransfer')
-        then $map?doc//row[CountryCode = $country_code and Year = $look-up-year and WasteTypeCode = $code1]
+        then $map?doc//row[CountryCode = $country_code and Year = $previous-year and fn:upper-case(WasteTypeCode) = fn:upper-case($code1)]
             /*[fn:local-name() = $map?countNodeName] => functx:if-empty(0) => fn:number()
     else
-        $map?doc//row[MemberState = $country_code and ReferenceYear = $look-up-year]
+        $map?doc//row[MemberState = $country_code and ReferenceYear = $previous-year]
             /*[fn:local-name() = 'SumOf' || $code1] => functx:if-empty(0) => fn:number()
 };
 
@@ -603,8 +603,10 @@ declare function scripts:getreportTotalsOfPollutant(
 ) as xs:double {
     if($pollutant = 'offsitePollutantTransfer')
     then
-        $doc//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
-                /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum()
+        (:$doc//offsitePollutantTransfer[pollutant = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
+                /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum():) (: original :)
+        $doc//offsitePollutantTransfer[functx:substring-after-last(pollutant, "/") = $code1=>scripts:getCodelistvalue($docPollutantLookup)]
+                /functx:if-empty(totalPollutantQuantityKg, 0) => fn:sum() (:20230814:)
     else if($pollutant = 'pollutantRelease')
         then $doc//pollutantRelease[mediumCode=>functx:substring-after-last("/") = $code1
                 and pollutant = $code2=>scripts:getCodelistvalue($docPollutantLookup)]
