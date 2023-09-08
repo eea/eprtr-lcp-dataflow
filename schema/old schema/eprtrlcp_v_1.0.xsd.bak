@@ -209,14 +209,14 @@
 					<xs:documentation>http://dd.eionet.europa.eu/vocabulary/EPRTRandLCP/UnitCodeValue/</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Comments" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="productName" type="xs:string" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>
-						A character string enabling the reporting country to enter the name of the product referred
-						to in the attributes below.
-					</xs:documentation>
+                        A character string enabling the reporting country to enter the name of the product referred
+                        to in the attributes below.
+                    </xs:documentation>
 				</xs:annotation>
-			</xs:element>		
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
@@ -564,7 +564,7 @@
                     </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="productionVolume" type="ProductionVolumeType" maxOccurs="unbounded">
+			<xs:element name="productionVolume" type="ProductionVolumeType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>
                         This attribute links to the ProductionVolumeType data type, which in turn contains more
