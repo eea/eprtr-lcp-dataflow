@@ -541,7 +541,7 @@ declare function xmlconv:RunQAs(
       
       let $ok := (
         if($countEnvelopesFound = 0 and xs:integer($xmlYear) <= ($currentYear - 1)) then true() (: First submission :)
-        else if( $countEnvelopesFound > 0 and ( (:xs:integer($xmlYear) = ($currentYear - 1) or:) xs:integer($xmlYear) = ($currentYear - 2) or xs:integer($xmlYear) = ($currentYear - 3) ) ) then true() (: Allowed re-submission :)
+        else if( $countEnvelopesFound > 0 and ( xs:integer($xmlYear) = ($currentYear - 1) or xs:integer($xmlYear) = ($currentYear - 2) or xs:integer($xmlYear) = ($currentYear - 3) ) ) then true() (: Allowed re-submission :)
         else false()
       )
               
