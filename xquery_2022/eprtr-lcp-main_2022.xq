@@ -170,6 +170,12 @@ declare variable $xmlconv:PRODUCTION_VOLUME_UNITS as xs:string :=
     fn:concat($xmlconv:REPOSITORY_URL,"EPRTR-LCP_C17_ProductionVolumeUnits.xml");  (: SVN :)
 declare variable $xmlconv:PRODUCTION_VOLUME_LOOKUP as xs:string :=
     fn:concat($xmlconv:REPOSITORY_URL,"EPRTR_LCP_ProductionVolume.xml");      
+declare variable $xmlconv:PollutantReleases_BY_LOCALID_C12_3_LOOKUP as xs:string :=
+    fn:concat($xmlconv:REPOSITORY_URL,"EPRTR-LCP_C12_3_PollutantReleases.xml"); (: C12.3 :)
+declare variable $xmlconv:PollutantTransfer_BY_LOCALID_C12_3_LOOKUP as xs:string :=
+    fn:concat($xmlconv:REPOSITORY_URL,"EPRTR-LCP_C12_3_PollutantTransfer.xml"); (: C12.3 :)
+declare variable $xmlconv:OffsiteWasteTransfer_BY_LOCALID_C12_3_LOOKUP as xs:string :=
+    fn:concat($xmlconv:REPOSITORY_URL,"EPRTR-LCP_C12_3_OffsiteWasteTransfer.xml"); (: C12.3 :)    
 
 declare variable $xmlconv:resultsLimit as xs:integer := 1000;
 
@@ -457,6 +463,10 @@ declare function xmlconv:RunQAs(
     
     (:let $docProductionVolumeUnitsLookup := xmlconv:getLookupTableSVN($xmlconv:PRODUCTION_VOLUME_UNITS):) (: C17 SVN :)
     let $docProductionVolumeUnitsLookup := xmlconv:getLookupTableCountry($country_code, $xmlconv:PRODUCTION_VOLUME_LOOKUP) (: C17 CDR :)
+    
+    let $docPollutantReleases_C12_3 := xmlconv:getLookupTable($xmlconv:PollutantReleases_BY_LOCALID_C12_3_LOOKUP) (: C12.3 :)
+    let $docPollutantTransfer_C12_3 := xmlconv:getLookupTable($xmlconv:PollutantTransfer_BY_LOCALID_C12_3_LOOKUP) (: C12.3 :)
+    let $docOffsiteWasteTransfer_C12_3 := xmlconv:getLookupTable($xmlconv:OffsiteWasteTransfer_BY_LOCALID_C12_3_LOOKUP) (: c12.3 :)
 
     let $look-up-year := $docRoot//reportingYear => fn:number() - 2
     let $previous-year := $docRoot//reportingYear => fn:number() - 1
@@ -2740,28 +2750,27 @@ declare function xmlconv:RunQAs(
             $inspireId as xs:string
         ) as xs:double {
             if($pollutantNode/local-name() = 'pollutantRelease')
-            then $docProductionFacilities/ProductionFacility[year = $previous-year
-                and concat(localId, namespace) = $inspireId]/pollutantRelease[mediumCode = $pollutantNode/mediumCode
-                    and pollutant = $pollutantNode/pollutant]
-                        /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+            then $docPollutantReleases_C12_3/row[Year = $previous-year and CountryCode = $country_code
+                and concat(localId, namespace) = $inspireId and ReleaseMediumCode = functx:substring-after-last($pollutantNode/mediumCode, "/")
+                    and PollutantCode = functx:substring-after-last($pollutantNode/pollutant, "/")]
+                        /SumOfTotalQuantity => functx:if-empty(0) => fn:number()
             else if($pollutantNode/local-name() = 'offsitePollutantTransfer')
-            then $docProductionFacilities/ProductionFacility[year = $previous-year
-                and concat(localId, namespace) = $inspireId]/offsitePollutantTransfer[pollutant = $pollutantNode/pollutant]
-                    /totalPollutantQuantityKg => functx:if-empty(0) => fn:number()
+            then $docPollutantTransfer_C12_3/row[Year = $previous-year and CountryCode = $country_code
+                and concat(localId, namespace) = $inspireId and PollutantCode = functx:substring-after-last($pollutantNode/pollutant, "/")]
+                    /SumOfTotalQuantity => functx:if-empty(0) => fn:number()
             else -1
         }
         let $getLastYearValueOffsiteWasteTransfer := function (
             $wasteClassification as xs:string,
             $inspireId as xs:string
         ) as xs:double {
-            $docProductionFacilities/ProductionFacility[year = $previous-year
-                and concat(localId, namespace) = $inspireId]/offsiteWasteTransfer
-                    [wasteClassification => functx:substring-after-last("/") = $wasteClassification]
-                        /totalWasteQuantityTNE => fn:sum()
+            $docOffsiteWasteTransfer_C12_3/row[Year = $previous-year and CountryCode = $country_code
+                and concat(localId, namespace) = $inspireId and wasteClassification = functx:substring-after-last($wasteClassification, "/")]
+                        /SumOfQuantity => fn:sum()
 
         }
         let $facilityInspireIdsNeeded :=
-            $docProductionFacilities/ProductionFacility[year != $reporting-year
+            $docProductionFacilities/ProductionFacility[year = $previous-year
                 and countryCode = $country_code]/concat(localId, namespace) => distinct-values()
         let $pollutantTypes := ('pollutantRelease', 'offsitePollutantTransfer', 'offsiteWasteTransfer')
         let $seq := $docRoot//ProductionFacilityReport[InspireId = $facilityInspireIdsNeeded]
@@ -2798,10 +2807,10 @@ declare function xmlconv:RunQAs(
                             'Type': map {'pos': 3, 'text': $pollutantType || $getCodes($pollutantNode)
                             },
                             'Reported value': map {'pos': 4,
-                                'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                                'text': $reportedValue => xs:decimal() => fn:round-half-to-even(3), 'errorClass': 'td' || $errorType
                             },
                             'Last year value': map {'pos': 5,
-                                'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(1)
+                                'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(3)
                             }
                         }
                         return scripts:generateResultTableRow($dataMap)
@@ -2838,10 +2847,10 @@ declare function xmlconv:RunQAs(
                             'Type': map {'pos': 3, 'text': $pollutantType || ' - ' || $wasteClassification
                             },
                             'Reported value': map {'pos': 4,
-                                'text': $reportedValue => xs:decimal(), 'errorClass': 'td' || $errorType
+                                'text': $reportedValue => xs:decimal() => fn:round-half-to-even(3), 'errorClass': 'td' || $errorType
                             },
                             'Last year value': map {'pos': 5,
-                                'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(1)
+                                'text': $lastYearValue => xs:decimal() => fn:round-half-to-even(3)
                             }
                         }
                         return scripts:generateResultTableRow($dataMap)
