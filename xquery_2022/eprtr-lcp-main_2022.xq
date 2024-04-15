@@ -4235,7 +4235,7 @@ declare function xmlconv:RunQAs(
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/localId
             let $namespaceLookUp := $pf/namespace
-            let $otherActivityLookUp := $pf/OtherActivity
+            for $otherActivityLookUp in $pf/OtherActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
         let $dataOtherActivityLookUpTable2 := (
@@ -4243,10 +4243,11 @@ declare function xmlconv:RunQAs(
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/localId
             let $namespaceLookUp := $pf/namespace
-            let $otherActivityLookUpFormatted := (
-              if(contains($pf/OtherActivity, ')(')) then fn:substring-before($pf/OtherActivity, ')(') || ')'
-              else $pf/OtherActivity
-            )
+            for $otherActivityLookUp in $pf/OtherActivity
+              let $otherActivityLookUpFormatted := (
+                if(contains($otherActivityLookUp, ')(')) then fn:substring-before($otherActivityLookUp, ')(') || ')'
+                else $otherActivityLookUp
+              )
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUpFormatted || ", " || $yearLookUp
         )
         let $dataOtherActivityLookUpTable := distinct-values(($dataOtherActivityLookUpTable1, $dataOtherActivityLookUpTable2))
@@ -4371,7 +4372,7 @@ declare function xmlconv:RunQAs(
             let $yearLookUp := $pf/year
             let $localIdLookUp := $pf/localId
             let $namespaceLookUp := $pf/namespace
-            let $otherActivityLookUp := $pf/OtherActivity
+            for $otherActivityLookUp in $pf/OtherActivity
             return $localIdLookUp || ", " || $namespaceLookUp || ", " || $otherActivityLookUp || ", " || $yearLookUp
         )
         
