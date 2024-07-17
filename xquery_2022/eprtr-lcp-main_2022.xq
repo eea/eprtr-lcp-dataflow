@@ -4395,7 +4395,7 @@ declare function xmlconv:RunQAs(
     
     (: C17 row :)
     let $LCP_17 := 
-      if($reporting-year < 2020) then ()
+      if($reporting-year < 2023) then ()
       else xmlconv:RowAggregator(
             "EPRTR-LCP 17",
             "Production Volume 2022",
