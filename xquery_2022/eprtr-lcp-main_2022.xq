@@ -4073,6 +4073,35 @@ declare function xmlconv:RunQAs(
     
     
     (: C17 :)
+    (: C17.0 - If ProductionVolume tag has no value and RP equal or greater 2023 = BLocker  :)  
+    
+     let $res :=      
+        let $seq:= $docRoot//ProductionFacilityReport   (://*[fn:local-name() = $attributes]:)
+        for $elem in $seq
+          let $elemMain :=fn:empty($elem/productionVolume)
+          let $elemValue :=fn:empty($elem/productionVolume/productionVolume) (:/functx:if-empty(data(),'')   :)
+          let $elemValueNil :=$elem/productionVolume/productionVolume/@xsi:nil='true'
+          
+          let $elemUnits :=fn:empty($elem/productionVolume/productionVolumeUnits)
+          let $ok := not($elemValue)and not($elemUnits)and not($elemMain)and not($elemValueNil)
+         return
+          if(fn:not($ok))
+          then
+         
+              <tr>
+                <td class='error' title='Details'>
+                   The ProductionVolume and ProductionVolumeUnits are mandatory 
+                </td>
+                <td title='Inspire Id'>
+                    {$elem/ancestor-or-self::*[fn:local-name() = ("ProductionFacilityReport")]
+                          /scripts:prettyFormatInspireId(InspireId)}
+                </td>
+            </tr>
+             (: fn:string($elemValue):)
+           else ()
+            
+       (:{$elemMain} {$elemValue} {$elemUnits} {$elemValueNil} {$ok}:)  
+    let $LCP_17_0 := xmlconv:RowBuilder("EPRTR-LCP 17.0", "The ProductionVolume or the productionVolumeUnits value is not reported", $res)
     
     (: C17.1 - If ProductionVolume Unicode is not reported = Blocker :)    
     let $res :=
@@ -4400,6 +4429,7 @@ declare function xmlconv:RunQAs(
             "EPRTR-LCP 17",
             "Production Volume 2022",
             (
+                $LCP_17_0,
                 $LCP_17_1,
                 $LCP_17_2,
                 $LCP_17_3,
