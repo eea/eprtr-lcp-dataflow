@@ -510,7 +510,7 @@ declare function xmlconv:RunQAs(
             This means that in 2023 countries have to report data having reporting year = 2022 and they can re-submit data for 2021 and 2020 only.
     :)    
     let $res :=
-     if ($country_code = ('AT', 'FR', 'RO', 'RS', 'SK')) then
+     if ($country_code = ('AT', 'BE', 'FR', 'RO', 'RS', 'SK')) then
        <tr>
           <td class="info" title="Details">Not applicable. This check is not applicable to your country.</td>
        </tr>
