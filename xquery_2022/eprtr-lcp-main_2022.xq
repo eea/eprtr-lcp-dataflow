@@ -4132,6 +4132,12 @@ declare function xmlconv:RunQAs(
         let $errorType := 'error'
         let $text := "The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity"
         
+        (: Filter for NONEPRTR and exception facilities: look up table with "EPRTRAnnexIMainActivity" = empty and "MaxNumProdVol" = 0 :)
+        let $nonEprtrFacilitiesList := (
+          for $facility in $docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and EPRTRAnnexIMainActivity = '' and MaxNumProdVol = 0 ]
+            return $facility/localId
+        )
+        
         let $dataProductionVolumeUnitsXML := (
           for $pfr in $docRoot//ProductionFacilityReport
           return
@@ -4207,8 +4213,8 @@ declare function xmlconv:RunQAs(
             
             return
             if( 
-                (functx:is-value-in-sequence(functx:substring-after-if-contains($unitCode,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = false()) or 
-                (functx:is-value-in-sequence(functx:substring-after-if-contains($unitCode,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = true() and $numOfProductionVolumeChildren = $countingValue)
+                ( (functx:is-value-in-sequence(functx:substring-after-if-contains($unitCode,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = false()) or 
+                (functx:is-value-in-sequence(functx:substring-after-if-contains($unitCode,'_'), $productionVolumeUnitsLookUpTable) = false() and $prodVolUnits != '' and functx:is-value-in-sequence($value, $elementsMissingIdNamespaceYear) = true() and $numOfProductionVolumeChildren = $countingValue) ) and $localId != $nonEprtrFacilitiesList
             ) then
               <tr>
                   <td class='error' title="Details">{data("The ProductionVolume UnitCode doesn't match with EPRTRAnnexIMainActivity")}</td>
@@ -4316,6 +4322,12 @@ declare function xmlconv:RunQAs(
     let $res :=
         let $errorType := 'error'
         let $text := "The number of Production Volume entries exceed the number of EPRTR Activity reported in EU Registry"
+        
+        (: Filter for NONEPRTR and exception facilities: look up table with "EPRTRAnnexIMainActivity" = empty and "MaxNumProdVol" = 0 :)
+        let $nonEprtrFacilitiesList := (
+          for $facility in $docProductionVolumeUnitsLookup//ProductionFacility[year = $reporting-year and EPRTRAnnexIMainActivity = '' and MaxNumProdVol = 0 ]
+            return $facility/localId
+        )
 
         (: Getting the productionVolume Total Quantity from the XML file :)
         for $prodFacRep in $docRoot//ProductionFacilityReport
@@ -4331,7 +4343,7 @@ declare function xmlconv:RunQAs(
           )
             
           return
-          if($countProductionVolumeElements > $MaxNumProdVol) then
+          if($countProductionVolumeElements > $MaxNumProdVol and $localId != $nonEprtrFacilitiesList) then
             <tr>
                 <td class='error' title="Details">{data("The number of Production Volume entries exceed the number of EPRTR Activity reported in EU Registry")}</td>
                 <td title="Inspire Id">{$namespace || "/" || $localId}</td>
